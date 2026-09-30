@@ -1,0 +1,11 @@
+--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py
++++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py
+@@ -312,7 +312,7 @@
+ 
+     def __init__(self, limit=None):
+         super(LocalCache, self).__init__()
+-        self.limit = limit
++        self.limit = float('inf') if limit is None else limit
+ 
+     def __setitem__(self, key, value):
+         while len(self) >= self.limit:

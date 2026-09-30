@@ -1,0 +1,7 @@
+{
+  "run_id": "run_015",
+  "status": "error",
+  "started_at": "2026-06-27T13:44:47.948880+00:00",
+  "finished_at": "2026-06-27T13:44:49.450419+00:00",
+  "error": "ConfigurationError: Metric 'ochiai' was not emitted by FauxPy. Available metrics: none. If you requested Jaccard or SBI, make sure the prepared checkout uses the framework's patched FauxPy installation."
+}

@@ -1,0 +1,7 @@
+{
+  "run_id": "run_102",
+  "status": "error",
+  "started_at": "2026-06-30T08:38:11.862164+00:00",
+  "finished_at": "2026-06-30T08:38:11.862839+00:00",
+  "error": "ConfigurationError: No prepared virtual environment found at /workspace/.workspace/bugsinpy/black_1/black/env/bin/python. Run `python -m apr_framework bugsinpy compile black 1` first."
+}

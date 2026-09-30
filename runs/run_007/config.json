@@ -1,0 +1,18 @@
+{
+  "runner": "fauxpy-localizer",
+  "backend": "fauxpy",
+  "project": "black",
+  "bug_id": 1,
+  "family": "sbfl",
+  "granularity": "statement",
+  "metric": null,
+  "sbfl_metric": null,
+  "mbfl_metric": null,
+  "sbfl_weight": null,
+  "mbfl_weight": null,
+  "top_n": null,
+  "mutation_strategy": null,
+  "mutation_budget": null,
+  "mutation_seed": 0,
+  "started_at": "2026-06-23T15:47:43.205339+00:00"
+}

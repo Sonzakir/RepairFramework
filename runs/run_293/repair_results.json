@@ -1,0 +1,82 @@
+{
+  "run_id": "run_293",
+  "project": "black",
+  "bug_id": 3,
+  "fl_mode": "auto",
+  "fl_backend": "sbfl",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 1/1 candidates (budget: 5, elapsed: 11.7s).",
+  "started_at": "2026-07-12T18:21:48.257522+00:00",
+  "finished_at": "2026-07-12T18:21:59.948363+00:00",
+  "elapsed_seconds": 11.689284797000028,
+  "config": {
+    "project": "black",
+    "bug_id": 3,
+    "technique": "llm",
+    "budget": 5,
+    "top_n_locations": 1,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "auto",
+    "fl_backend": "sbfl",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-12T18:21:36.371578+00:00",
+    "runner": "llm-repair",
+    "model": "gpt-4.1-2025-04-14",
+    "temperature": 0.0,
+    "max_candidates": 1,
+    "llm_provider": "openai-compatible",
+    "system_prompt": "prompt1",
+    "context_enrichment": true,
+    "few_shot_count": 0,
+    "iterative": false,
+    "max_iterations": 5,
+    "retrieval_budget": 3,
+    "timeout_seconds": 120,
+    "ranker": "none",
+    "similarity_score": false
+  },
+  "candidates_validated": 1,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 1,
+    "candidates_validated": 1,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 11.689284797000028,
+    "rank_of_first_correct": null,
+    "llm_query_count": 2
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3863 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3860,6 +3860,8 @@\n             f.write(lines)\n             if lines and lines[-1] != \"\\n\":\n                 f.write(\"\\n\")\n+        f.flush()\n+        os.fsync(f.fileno())\n     return f.name\n \n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n        f.flush()\n        os.fsync(f.fileno())\n    return f.name\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3863
+      },
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    }
+  ]
+}

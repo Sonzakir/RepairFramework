@@ -1,0 +1,19 @@
+--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py
++++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py
+@@ -60,9 +60,14 @@
+ ) -> Any:
+     if field:
+         errors = []
+-        if exclude_unset and isinstance(response_content, BaseModel):
++        if isinstance(response_content, BaseModel):
+             if PYDANTIC_1:
+-                response_content = response_content.dict(exclude_unset=exclude_unset)
++                response_content = response_content.dict(
++                    exclude_unset=exclude_unset,
++                    by_alias=by_alias,
++                    include=include,
++                    exclude=exclude,
++                )
+             else:
+                 response_content = response_content.dict(
+                     skip_defaults=exclude_unset

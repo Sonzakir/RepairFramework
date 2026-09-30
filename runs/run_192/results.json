@@ -1,0 +1,823 @@
+{
+  "run_id": "run_192",
+  "status": "completed",
+  "started_at": "2026-07-06T17:53:23.920449+00:00",
+  "finished_at": "2026-07-06T17:53:25.993174+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "fastapi",
+    "bug_id": 3
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:98",
+      "score": 0.9877,
+      "line": 98,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   98 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:81",
+      "score": 0.9877,
+      "line": 81,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   81 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:80",
+      "score": 0.9877,
+      "line": 80,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   80 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:76",
+      "score": 0.9877,
+      "line": 76,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   76 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:74",
+      "score": 0.9877,
+      "line": 74,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   74 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 6,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:73",
+      "score": 0.9877,
+      "line": 73,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   73 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 7,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:70",
+      "score": 0.9877,
+      "line": 70,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   70 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 8,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:63",
+      "score": 0.9877,
+      "line": 63,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   63 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 9,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:62",
+      "score": 0.9877,
+      "line": 62,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   62 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 10,
+      "file_path": "fastapi/routing.py",
+      "location": "fastapi/routing.py:61",
+      "score": 0.9877,
+      "line": 61,
+      "end_line": null,
+      "function": null,
+      "raw_location": "fastapi/routing.py |   61 | 0.9877",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "fastapi",
+    "test_targets": [
+      "tests/test_serialize_response_model.py::test_valid",
+      "tests/test_serialize_response_model.py::test_coerce",
+      "tests/test_serialize_response_model.py::test_validlist",
+      "tests/test_serialize_response_model.py::test_validdict",
+      "tests/test_serialize_response_model.py::test_valid_exclude_unset",
+      "tests/test_serialize_response_model.py::test_coerce_exclude_unset",
+      "tests/test_serialize_response_model.py::test_validlist_exclude_unset",
+      "tests/test_serialize_response_model.py::test_validdict_exclude_unset"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:98",
+          "score": 1.1,
+          "line": 98,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   98 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:81",
+          "score": 1.1,
+          "line": 81,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   81 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:80",
+          "score": 1.1,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   80 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:79",
+          "score": 1.1,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   79 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:78",
+          "score": 1.1,
+          "line": 78,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   78 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:77",
+          "score": 1.1,
+          "line": 77,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   77 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:76",
+          "score": 1.1,
+          "line": 76,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   76 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:74",
+          "score": 1.1,
+          "line": 74,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   74 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:73",
+          "score": 1.1,
+          "line": 73,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   73 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:70",
+          "score": 1.1,
+          "line": 70,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   70 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:98",
+          "score": 0.9877,
+          "line": 98,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   98 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:81",
+          "score": 0.9877,
+          "line": 81,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   81 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:80",
+          "score": 0.9877,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   80 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:76",
+          "score": 0.9877,
+          "line": 76,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   76 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:74",
+          "score": 0.9877,
+          "line": 74,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   74 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:73",
+          "score": 0.9877,
+          "line": 73,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   73 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:70",
+          "score": 0.9877,
+          "line": 70,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   70 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:63",
+          "score": 0.9877,
+          "line": 63,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   63 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:62",
+          "score": 0.9877,
+          "line": 62,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   62 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:61",
+          "score": 0.9877,
+          "line": 61,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   61 | 0.9877",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:98",
+          "score": 640.0,
+          "line": 98,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   98 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:81",
+          "score": 640.0,
+          "line": 81,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   81 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:80",
+          "score": 640.0,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   80 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:76",
+          "score": 640.0,
+          "line": 76,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   76 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:74",
+          "score": 640.0,
+          "line": 74,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   74 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:73",
+          "score": 640.0,
+          "line": 73,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   73 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:70",
+          "score": 640.0,
+          "line": 70,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   70 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:63",
+          "score": 640.0,
+          "line": 63,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   63 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:62",
+          "score": 640.0,
+          "line": 62,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   62 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:61",
+          "score": 640.0,
+          "line": 61,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   61 | 640.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:98",
+          "score": 0.9877,
+          "line": 98,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   98 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:81",
+          "score": 0.9877,
+          "line": 81,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   81 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:80",
+          "score": 0.9877,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   80 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:76",
+          "score": 0.9877,
+          "line": 76,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   76 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:74",
+          "score": 0.9877,
+          "line": 74,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   74 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:73",
+          "score": 0.9877,
+          "line": 73,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   73 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:70",
+          "score": 0.9877,
+          "line": 70,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   70 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:63",
+          "score": 0.9877,
+          "line": 63,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   63 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:62",
+          "score": 0.9877,
+          "line": 62,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   62 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:61",
+          "score": 0.9877,
+          "line": 61,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   61 | 0.9877",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "WSBI": [
+        {
+          "rank": 1,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:98",
+          "score": 1.0,
+          "line": 98,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   98 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:81",
+          "score": 1.0,
+          "line": 81,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   81 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:80",
+          "score": 1.0,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   80 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:79",
+          "score": 1.0,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   79 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:78",
+          "score": 1.0,
+          "line": 78,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   78 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:77",
+          "score": 1.0,
+          "line": 77,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   77 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:76",
+          "score": 1.0,
+          "line": 76,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   76 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:74",
+          "score": 1.0,
+          "line": 74,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   74 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:73",
+          "score": 1.0,
+          "line": 73,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   73 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "fastapi/routing.py",
+          "location": "fastapi/routing.py:70",
+          "score": 1.0,
+          "line": 70,
+          "end_line": null,
+          "function": null,
+          "raw_location": "fastapi/routing.py |   70 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-5.4.3, py-1.8.1, pluggy-0.13.1\nrootdir: /home/workspace/fastapi_3/fastapi\nplugins: cov-2.9.0, timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 8 items\n\ntests/test_serialize_response_model.py FFFFFFFF                          [100%]\n\n=================================== FAILURES ===================================\n__________________________________ test_valid __________________________________\n\n    def test_valid():\n>       response = client.get(\"/items/valid\")\n\ntests/test_serialize_response_model.py:90: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 1 validation error for Item\nE               response -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n------------------------------ Captured log call -------------------------------\nDEBUG    asyncio:selector_events.py:59 Using selector: EpollSelector\n_________________________________ test_coerce __________________________________\n\n    def test_coerce():\n>       response = client.get(\"/items/coerce\")\n\ntests/test_serialize_response_model.py:96: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 1 validation error for Item\nE               response -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n________________________________ test_validlist ________________________________\n\n    def test_validlist():\n>       response = client.get(\"/items/validlist\")\n\ntests/test_serialize_response_model.py:106: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 3 validation errors for Item\nE               response -> 0 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> 1 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> 2 -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n________________________________ test_validdict ________________________________\n\n    def test_validdict():\n>       response = client.get(\"/items/validdict\")\n\ntests/test_serialize_response_model.py:116: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 3 validation errors for Item\nE               response -> k1 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> k2 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> k3 -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n___________________________ test_valid_exclude_unset ___________________________\n\n    def test_valid_exclude_unset():\n>       response = client.get(\"/items/valid-exclude-unset\")\n\ntests/test_serialize_response_model.py:126: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 1 validation error for Item\nE               response -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n__________________________ test_coerce_exclude_unset ___________________________\n\n    def test_coerce_exclude_unset():\n>       response = client.get(\"/items/coerce-exclude-unset\")\n\ntests/test_serialize_response_model.py:132: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 1 validation error for Item\nE               response -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n_________________________ test_validlist_exclude_unset _________________________\n\n    def test_validlist_exclude_unset():\n>       response = client.get(\"/items/validlist-exclude-unset\")\n\ntests/test_serialize_response_model.py:138: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 3 validation errors for Item\nE               response -> 0 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> 1 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> 2 -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n_________________________ test_validdict_exclude_unset _________________________\n\n    def test_validdict_exclude_unset():\n>       response = client.get(\"/items/validdict-exclude-unset\")\n\ntests/test_serialize_response_model.py:148: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/requests/sessions.py:543: in get\n    return self.request('GET', url, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:413: in request\n    return super().request(\nenv/lib/python3.8/site-packages/requests/sessions.py:530: in request\n    resp = self.send(prep, **send_kwargs)\nenv/lib/python3.8/site-packages/requests/sessions.py:643: in send\n    r = adapter.send(request, **kwargs)\nenv/lib/python3.8/site-packages/starlette/testclient.py:243: in send\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/testclient.py:240: in send\n    loop.run_until_complete(self.app(scope, receive, send))\n/root/.pyenv/versions/3.8.3/lib/python3.8/asyncio/base_events.py:616: in run_until_complete\n    return future.result()\nfastapi/applications.py:149: in __call__\n    await super().__call__(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/applications.py:102: in __call__\n    await self.middleware_stack(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:181: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/middleware/errors.py:159: in __call__\n    await self.app(scope, receive, _send)\nenv/lib/python3.8/site-packages/starlette/exceptions.py:82: in __call__\n    raise exc from None\nenv/lib/python3.8/site-packages/starlette/exceptions.py:71: in __call__\n    await self.app(scope, receive, sender)\nenv/lib/python3.8/site-packages/starlette/routing.py:550: in __call__\n    await route.handle(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:227: in handle\n    await self.app(scope, receive, send)\nenv/lib/python3.8/site-packages/starlette/routing.py:41: in app\n    response = await func(request)\nfastapi/routing.py:155: in app\n    response_data = await serialize_response(\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\n    async def serialize_response(\n        *,\n        field: ModelField = None,\n        response_content: Any,\n        include: Union[SetIntStr, DictIntStrAny] = None,\n        exclude: Union[SetIntStr, DictIntStrAny] = set(),\n        by_alias: bool = True,\n        exclude_unset: bool = False,\n        is_coroutine: bool = True,\n    ) -> Any:\n        if field:\n            errors = []\n            if exclude_unset and isinstance(response_content, BaseModel):\n                if PYDANTIC_1:\n                    response_content = response_content.dict(exclude_unset=exclude_unset)\n                else:\n                    response_content = response_content.dict(\n                        skip_defaults=exclude_unset\n                    )  # pragma: nocover\n            if is_coroutine:\n                value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n            else:\n                value, errors_ = await run_in_threadpool(\n                    field.validate, response_content, {}, loc=(\"response\",)\n                )\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            if errors:\n>               raise ValidationError(errors, field.type_)\nE               pydantic.error_wrappers.ValidationError: 3 validation errors for Item\nE               response -> k1 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> k2 -> aliased_name\nE                 field required (type=value_error.missing)\nE               response -> k3 -> aliased_name\nE                 field required (type=value_error.missing)\n\nfastapi/routing.py:81: ValidationError\n=============================== warnings summary ===============================\nenv/lib/python3.8/site-packages/aiofiles/os.py:10\nenv/lib/python3.8/site-packages/aiofiles/os.py:10\nenv/lib/python3.8/site-packages/aiofiles/os.py:10\nenv/lib/python3.8/site-packages/aiofiles/os.py:10\nenv/lib/python3.8/site-packages/aiofiles/os.py:10\nenv/lib/python3.8/site-packages/aiofiles/os.py:10\n  /home/workspace/fastapi_3/fastapi/env/lib/python3.8/site-packages/aiofiles/os.py:10: DeprecationWarning: \"@coroutine\" decorator is deprecated since Python 3.8, use \"async def\" instead\n    def run(*args, loop=None, executor=None, **kwargs):\n\n-- Docs: https://docs.pytest.org/en/latest/warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_serialize_response_model.py::test_valid\nFauxPy: --->   2. tests/test_serialize_response_model.py::test_coerce\nFauxPy: --->   3. tests/test_serialize_response_model.py::test_validlist\nFauxPy: --->   4. tests/test_serialize_response_model.py::test_validdict\nFauxPy: --->   5. tests/test_serialize_response_model.py::test_valid_exclude_unset\nFauxPy: --->   6. tests/test_serialize_response_model.py::test_coerce_exclude_unset\nFauxPy: --->   7. tests/test_serialize_response_model.py::test_validlist_exclude_unset\nFauxPy: --->   8. tests/test_serialize_response_model.py::test_validdict_exclude_unset\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 0.7331\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile               | Line | Score \n----------------------------------\nfastapi/routing.py |   98 | 1.1000\nfastapi/routing.py |   81 | 1.1000\nfastapi/routing.py |   80 | 1.1000\nfastapi/routing.py |   79 | 1.1000\nfastapi/routing.py |   78 | 1.1000\nfastapi/routing.py |   77 | 1.1000\nfastapi/routing.py |   76 | 1.1000\nfastapi/routing.py |   74 | 1.1000\nfastapi/routing.py |   73 | 1.1000\nfastapi/routing.py |   70 | 1.1000\n----------------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile               | Line | Score \n----------------------------------\nfastapi/routing.py |   98 | 0.9877\nfastapi/routing.py |   81 | 0.9877\nfastapi/routing.py |   80 | 0.9877\nfastapi/routing.py |   76 | 0.9877\nfastapi/routing.py |   74 | 0.9877\nfastapi/routing.py |   73 | 0.9877\nfastapi/routing.py |   70 | 0.9877\nfastapi/routing.py |   63 | 0.9877\nfastapi/routing.py |   62 | 0.9877\nfastapi/routing.py |   61 | 0.9877\n----------------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile               | Line | Score   \n------------------------------------\nfastapi/routing.py |   98 | 640.0000\nfastapi/routing.py |   81 | 640.0000\nfastapi/routing.py |   80 | 640.0000\nfastapi/routing.py |   76 | 640.0000\nfastapi/routing.py |   74 | 640.0000\nfastapi/routing.py |   73 | 640.0000\nfastapi/routing.py |   70 | 640.0000\nfastapi/routing.py |   63 | 640.0000\nfastapi/routing.py |   62 | 640.0000\nfastapi/routing.py |   61 | 640.0000\n------------------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile               | Line | Score \n----------------------------------\nfastapi/routing.py |   98 | 0.9877\nfastapi/routing.py |   81 | 0.9877\nfastapi/routing.py |   80 | 0.9877\nfastapi/routing.py |   76 | 0.9877\nfastapi/routing.py |   74 | 0.9877\nfastapi/routing.py |   73 | 0.9877\nfastapi/routing.py |   70 | 0.9877\nfastapi/routing.py |   63 | 0.9877\nfastapi/routing.py |   62 | 0.9877\nfastapi/routing.py |   61 | 0.9877\n----------------------------------\n\n-----------------------\n|   Scores for WSBI   |\n-----------------------\nFile               | Line | Score \n----------------------------------\nfastapi/routing.py |   98 | 1.0000\nfastapi/routing.py |   81 | 1.0000\nfastapi/routing.py |   80 | 1.0000\nfastapi/routing.py |   79 | 1.0000\nfastapi/routing.py |   78 | 1.0000\nfastapi/routing.py |   77 | 1.0000\nfastapi/routing.py |   76 | 1.0000\nfastapi/routing.py |   74 | 1.0000\nfastapi/routing.py |   73 | 1.0000\nfastapi/routing.py |   70 | 1.0000\n----------------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_serialize_response_model.py::test_valid - pydantic.error_wr...\nFAILED tests/test_serialize_response_model.py::test_coerce - pydantic.error_w...\nFAILED tests/test_serialize_response_model.py::test_validlist - pydantic.erro...\nFAILED tests/test_serialize_response_model.py::test_validdict - pydantic.erro...\nFAILED tests/test_serialize_response_model.py::test_valid_exclude_unset - pyd...\nFAILED tests/test_serialize_response_model.py::test_coerce_exclude_unset - py...\nFAILED tests/test_serialize_response_model.py::test_validlist_exclude_unset\nFAILED tests/test_serialize_response_model.py::test_validdict_exclude_unset\n======================== 8 failed, 6 warnings in 0.79s =========================",
+    "returncode": 1
+  }
+}

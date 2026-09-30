@@ -1,0 +1,131 @@
+[1m[7m%[27m[1m[0m                                                                                                                                           [0m[27m[24m[Jfazlisonerkiraz@Soners-MacBook-Pro Repair-Framework % [K[?2004heecho ""P"e"r"f"e"c"t" "F"L"[1C[?2004l
+Perfect FL
+[1m[7m%[27m[1m[0m                                                                                                                                           [0m[27m[24m[Jfazlisonerkiraz@Soners-MacBook-Pro Repair-Framework % [K[?2004h[7mpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perf[7me[7mct[27m[K
+[K[A[A[54C[27mp[27my[27mt[27mh[27mo[27mn[27m [27m-[27mm[27m [27ma[27mp[27mr[27m_[27mf[27mr[27ma[27mm[27me[27mw[27mo[27mr[27mk[27m [27mr[27me[27mp[27ma[27mi[27mr[27m [27m-[27m-[27mp[27mr[27mo[27mj[27me[27mc[27mt[27m [27mb[27ml[27ma[27mc[27mk[27m [27m-[27m-[27mb[27mu[27mg[27m [27m1[27m [27m-[27m-[27mt[27me[27mc[27mh[27mn[27mi[27mq[27mu[27me[27m [27ml[27ml[27mm[27m [27m-[27m-[27mf[27ml[27m-[27mm[27mo[27md[27me[27m [27mp[27me[27mr[27mfe[27mc[27mt[1B[K[A[A[54C[K[1B[K[1B[K[A[A[54Cddocker compose run --rm apr-framework[?2004l[1B[33mWARN[0m[0000] Found orphan containers ([repair-framework-apr-framework-run-41ac656ca1ea repair-framework-apr-framework-run-a30fc4b836f7 repair-framework-apr-framework-run-940f2b0a3c23 repair-framework-apr-framework-run-601a29359eb6]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up. 
+Container repair-framework-apr-framework-run-fe2c7fa991dd [32mCreating[0m 
+Container repair-framework-apr-framework-run-fe2c7fa991dd [32mCreated[0m 
+[?2004hroot@89561905c52e:/workspace# [7mpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C
+[?2004lLLM response for black.py contains invalid Python syntax: closing parenthesis ']' does not match opening parenthesis '(' on line 612 (<unknown>, line 613)
+No valid diff extracted from LLM response for black.py:636 attempt 1
+
+Run directory: /workspace/runs/run_167
+Project:       black
+Bug ID:        1
+Status:        plausible
+Generated:     14 candidate(s)
+Validated:     14 candidate(s)
+Plausible:     2 patch(es)
+Correct:       0 patch(es)
+1st plausible: 52.4s
+Total time:    80.9s
+[?2004hroot@89561905c52e:/workspace# echo ""S"B"F"L"/"O"c"h"i"a"i" "F"L"[C
+[?2004lSBFL/Ochiai FL
+[?2004hroot@89561905c52e:/workspace# [7mpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect[27m
+[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[K[7mpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode auto --fl-family sbfl[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode auto --fl-family sbfl
+[?2004l
+Run directory: /workspace/runs/run_168
+Project:       black
+Bug ID:        1
+Status:        failed
+Generated:     25 candidate(s)
+Validated:     25 candidate(s)
+Plausible:     0 patch(es)
+Correct:       0 patch(es)
+1st plausible: n/a
+Total time:    49.9s
+[?2004hroot@89561905c52e:/workspace# echo ""T"r"a"i"n"[1P"[1P"[1P"y"i"n"g" "b"o"t"h" "F"L" "m"e"t"h"o"d"s" "w"i"t"h" "d"i"f"f"e"r"n"e"t"[1P"[1P"[1P"e"n"t" "b"u"g" ":" "[Co[Kyoutube-dl 12"
+[?2004l[?2004h> "
+[?2004lTrying both FL methods with different bug : youtube-dl 12
+
+[?2004hroot@89561905c52e:/workspace# echo "Trying both FL methods with different bug : "youtube-dl 12"
+"[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode auto --fl-family sbfl
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "SBFL/Ochiai FL"[Kpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "SBFL/Ochiai FL"[K[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"[1P FL"y FL"o FL"u FL"t FL"u FL"b FL"e FL"- FL"d FL"l FL"[C FL"p FL"e FL"r FL"f FL"d FL"e FL"[1P FL"[1P FL"e FL"c FL"t FL"
+[?2004lyoutube-dl perfect FL
+[?2004hroot@89561905c52e:/workspace# echo "youtube-dl perfect FL"Trying both FL methods with different bug : "youtube-dl 12"
+"[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode auto --fl-family sbfl
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "SBFL/Ochiai FL"[Kpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect[C[1@2[1P[1P[C[1P[1P[1P[1P[C[1@ [1@<[1@o[1@u[1P[1P[1P[1@y[1@o[1@u[1@r[1@u[1P[1P[1@t[1@u[1@b[1@e[1@-[1@d[1@l[C[C
+[?2004lError: No checkout found at /workspace/.workspace/bugsinpy/youtube-dl_12/youtube-dl. Run `python -m apr_framework bugsinpy checkout youtube-dl 12` first.
+[?2004hroot@89561905c52e:/workspace# [7mpython -m apr_framework bugsinpy checkout youtube-dl 12`[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework bugsinpy checkout youtube-dl 12`[K
+[?2004lProject: youtube-dl
+Bug ID: 12
+Checkout success: True
+Worktree: /workspace/.workspace/bugsinpy/youtube-dl_12/youtube-dl
+Message: PROJECT_NAME: youtube-dl
+BUG_ID: 12
+VERSION_ID: 0
+WORK_DIR: /home/workspace/youtube-dl_12
+https://github.com/ytdl-org/youtube-dl
+github_url="https://github.com/ytdl-org/youtube-dl"
+status="OK" 
+cause="N.A."
+HEAD is now at e118a8794 [YoutubeDL] Fix typo in string negation implementation and add more tests (closes #18961)
+'/home/workspace/youtube-dl_12/youtube-dl/test/test_YoutubeDL.py' -> '/home/bugsinpy/projects/youtube-dl/bugs/12/test/test_YoutubeDL.py'
+HEAD is now at 435e38242 release 2019.01.23
+Cloning into '/home/workspace/youtube-dl_12/youtube-dl'...
+[?2004hroot@89561905c52e:/workspace# python -m apr_framework bugsinpy checkout youtube-dl 12repair --project youtube-dl --bug 12 --technique llm --fl-mode perfect
+[?2004lNo traceback found in trigger-test output for youtube-dl#12 — skipping traceback
+LLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 1
+LLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 4
+Regression check disabled: baseline suite produced no usable results (rc=0). Falling back to trigger-test plausibility only.
+
+Run directory: /workspace/runs/run_169
+Project:       youtube-dl
+Bug ID:        12
+Status:        failed
+Generated:     3 candidate(s)
+Validated:     3 candidate(s)
+Plausible:     0 patch(es)
+Correct:       0 patch(es)
+1st plausible: n/a
+Total time:    15.8s
+[?2004hroot@89561905c52e:/workspace# python -m apr_framework repair --project youtube-dl --bug 12 --technique llm --fl-mode perfect[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[39Pbugsinpy checkout youtube-dl 12repair --project youtube-dl --bug 12 --technique llm --fl-mode perfect[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "youtube-dl perfect FL"[KTrying both FL methods with different bug : "youtube-dl 12"
+"[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode auto --fl-family sbfl
+[K[A[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "SBFL/Ochiai FL"[Kpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode perfect[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cecho "SBFL/Ochiai FL"[Kpython -m apr_framework repair --project black --bug 1 --technique llm --fl-mode auto --fl-family sbfl[C[1P[1P[1P[1P[1P[1@y[1@o[1@t[1@u[1P[1P[1@u[1@t[1@h[1P[1@u[1@b[1@e[1@-[1@d[1@l[C[C[C[C[C[C[C[C[1@2
+[?2004lError: No prepared virtual environment found at /workspace/.workspace/bugsinpy/youtube-dl_12/youtube-dl/env/bin/python. Run `python -m apr_framework bugsinpy compile youtube-dl 12` first.
+[?2004hroot@89561905c52e:/workspace# [7mpython -m apr_framework bugsinpy compile youtube-dl 12[27m[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[Cpython -m apr_framework bugsinpy compile youtube-dl 12
+[?2004lProject: youtube-dl
+Bug ID: 12
+Prepared: True
+Worktree: /workspace/.workspace/bugsinpy/youtube-dl_12/youtube-dl
+[?2004hroot@89561905c52e:/workspace# python -m apr_framework bugsinpy compile youtube-dl 12repair --project youtube-dl --bug 12 --technique llm --fl-mode auto --fl-family sbfl[14Pperfect
+[?2004lLLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 0
+LLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 1
+LLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 2
+LLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 3
+LLM response for YoutubeDL.py contains invalid Python syntax: invalid syntax (<unknown>, line 1032)
+No valid diff extracted from LLM response for YoutubeDL.py:1081 attempt 4
+
+Run directory: /workspace/runs/run_171
+Project:       youtube-dl
+Bug ID:        12
+Status:        no_patch
+Generated:     0 candidate(s)
+Validated:     0 candidate(s)
+Plausible:     0 patch(es)
+Correct:       0 patch(es)
+1st plausible: n/a
+Total time:    18.7s
+[?2004hroot@89561905c52e:/workspace# python -m apr_framework repair --project youtube-dl --bug 12 --technique llm --fl-mode perfect[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[C[40Pbugsinpy compile youtube-dl 12repair --project youtube-dl --bug 12 --technique llm --fl-mode auto --fl-family sbfl
+[?2004l
+Run directory: /workspace/runs/run_172
+Project:       youtube-dl
+Bug ID:        12
+Status:        failed
+Generated:     25 candidate(s)
+Validated:     25 candidate(s)
+Plausible:     0 patch(es)
+Correct:       0 patch(es)
+1st plausible: n/a
+Total time:    42.7s
+[?2004hroot@89561905c52e:/workspace# exit
+[?2004lexit
+[1m[7m%[27m[1m[0m                                                                                                                                           [0m[27m[24m[Jfazlisonerkiraz@Soners-MacBook-Pro Repair-Framework % [K[?2004heexit[?2004l

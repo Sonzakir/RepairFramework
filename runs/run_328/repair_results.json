@@ -1,0 +1,171 @@
+{
+  "run_id": "run_328",
+  "project": "fastapi",
+  "bug_id": 3,
+  "fl_mode": "perfect",
+  "fl_backend": "perfect-fl",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 6/6 candidates (budget: 200, elapsed: 55.0s).",
+  "started_at": "2026-07-12T19:50:47.435424+00:00",
+  "finished_at": "2026-07-12T19:51:42.440701+00:00",
+  "elapsed_seconds": 55.00416881699948,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "fastapi",
+    "bug_id": 3,
+    "approach": "a4-single-shot",
+    "technique": "llm",
+    "fl_mode": "perfect",
+    "fl_backend": "perfect-fl",
+    "context_enrichment": false,
+    "iterative": false,
+    "retrieval_budget": 0,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 6,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 6,
+    "candidates_validated": 6,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 55.00416881699948,
+    "rank_of_first_correct": null,
+    "llm_query_count": 9,
+    "assessment_query_count": 0
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/routing.py:51 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n+++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n@@ -53,7 +53,7 @@\n     field: ModelField = None,\n     response_content: Any,\n     include: Union[SetIntStr, DictIntStrAny] = None,\n-    exclude: Union[SetIntStr, DictIntStrAny] = set(),\n+    exclude: Union[SetIntStr, DictIntStrAny] = None,\n     by_alias: bool = True,\n     exclude_unset: bool = False,\n     is_coroutine: bool = True,\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\nasync def serialize_response(\n    *,\n    field: ModelField = None,\n    response_content: Any,\n    include: Union[SetIntStr, DictIntStrAny] = None,\n    exclude: Union[SetIntStr, DictIntStrAny] = None,\n    by_alias: bool = True,\n    exclude_unset: bool = False,\n    is_coroutine: bool = True,\n) -> Any:\n    if field:\n        errors = []\n        if exclude_unset and isinstance(response_content, BaseModel):\n            if PYDANTIC_1:\n                response_content = response_content.dict(exclude_unset=exclude_unset)\n            else:\n                response_content = response_content.dict(\n                    skip_defaults=exclude_unset\n                )  # pragma: nocover\n        if is_coroutine:\n            value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n        else:\n            value, errors_ = await run_in_threadpool(\n                field.validate, response_content, {}, loc=(\"response\",)\n            )\n        if isinstance(errors_, ErrorWrapper):\n            errors.append(errors_)\n        elif isinstance(errors_, list):\n            errors.extend(errors_)\n        if errors:\n            raise ValidationError(errors, field.type_)\n        return jsonable_encoder(\n            value,\n            include=include,\n            exclude=exclude,\n            by_alias=by_alias,\n            exclude_unset=exclude_unset,\n        )\n    else:\n        return jsonable_encoder(response_content)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py",
+        "target_line": 51
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/routing.py:51 (attempt 2)",
+      "validation_summary": "Patch llm-1-1 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n+++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n@@ -53,7 +53,7 @@\n     field: ModelField = None,\n     response_content: Any,\n     include: Union[SetIntStr, DictIntStrAny] = None,\n-    exclude: Union[SetIntStr, DictIntStrAny] = set(),\n+    exclude: Union[SetIntStr, DictIntStrAny] = None,\n     by_alias: bool = True,\n     exclude_unset: bool = False,\n     is_coroutine: bool = True,\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\nasync def serialize_response(\n    *,\n    field: ModelField = None,\n    response_content: Any,\n    include: Union[SetIntStr, DictIntStrAny] = None,\n    exclude: Union[SetIntStr, DictIntStrAny] = None,\n    by_alias: bool = True,\n    exclude_unset: bool = False,\n    is_coroutine: bool = True,\n) -> Any:\n    if field:\n        errors = []\n        if exclude_unset and isinstance(response_content, BaseModel):\n            if PYDANTIC_1:\n                response_content = response_content.dict(exclude_unset=exclude_unset)\n            else:\n                response_content = response_content.dict(\n                    skip_defaults=exclude_unset\n                )  # pragma: nocover\n        if is_coroutine:\n            value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n        else:\n            value, errors_ = await run_in_threadpool(\n                field.validate, response_content, {}, loc=(\"response\",)\n            )\n        if isinstance(errors_, ErrorWrapper):\n            errors.append(errors_)\n        elif isinstance(errors_, list):\n            errors.extend(errors_)\n        if errors:\n            raise ValidationError(errors, field.type_)\n        return jsonable_encoder(\n            value,\n            include=include,\n            exclude=exclude,\n            by_alias=by_alias,\n            exclude_unset=exclude_unset,\n        )\n    else:\n        return jsonable_encoder(response_content)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py",
+        "target_line": 51
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/routing.py:51 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n+++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n@@ -53,7 +53,7 @@\n     field: ModelField = None,\n     response_content: Any,\n     include: Union[SetIntStr, DictIntStrAny] = None,\n-    exclude: Union[SetIntStr, DictIntStrAny] = set(),\n+    exclude: Union[SetIntStr, DictIntStrAny] = None,\n     by_alias: bool = True,\n     exclude_unset: bool = False,\n     is_coroutine: bool = True,\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\nasync def serialize_response(\n    *,\n    field: ModelField = None,\n    response_content: Any,\n    include: Union[SetIntStr, DictIntStrAny] = None,\n    exclude: Union[SetIntStr, DictIntStrAny] = None,\n    by_alias: bool = True,\n    exclude_unset: bool = False,\n    is_coroutine: bool = True,\n) -> Any:\n    if field:\n        errors = []\n        if exclude_unset and isinstance(response_content, BaseModel):\n            if PYDANTIC_1:\n                response_content = response_content.dict(exclude_unset=exclude_unset)\n            else:\n                response_content = response_content.dict(\n                    skip_defaults=exclude_unset\n                )  # pragma: nocover\n        if is_coroutine:\n            value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n        else:\n            value, errors_ = await run_in_threadpool(\n                field.validate, response_content, {}, loc=(\"response\",)\n            )\n        if isinstance(errors_, ErrorWrapper):\n            errors.append(errors_)\n        elif isinstance(errors_, list):\n            errors.extend(errors_)\n        if errors:\n            raise ValidationError(errors, field.type_)\n        return jsonable_encoder(\n            value,\n            include=include,\n            exclude=exclude,\n            by_alias=by_alias,\n            exclude_unset=exclude_unset,\n        )\n    else:\n        return jsonable_encoder(response_content)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py",
+        "target_line": 51
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/routing.py:63 (attempt 1)",
+      "validation_summary": "Patch llm-2-0 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n+++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n@@ -62,10 +62,18 @@\n         errors = []\n         if exclude_unset and isinstance(response_content, BaseModel):\n             if PYDANTIC_1:\n-                response_content = response_content.dict(exclude_unset=exclude_unset)\n+                response_content = response_content.dict(\n+                    include=include,\n+                    exclude=exclude,\n+                    by_alias=by_alias,\n+                    exclude_unset=exclude_unset,\n+                )\n             else:\n                 response_content = response_content.dict(\n-                    skip_defaults=exclude_unset\n+                    include=include,\n+                    exclude=exclude,\n+                    by_alias=by_alias,\n+                    skip_defaults=exclude_unset,\n                 )  # pragma: nocover\n         if is_coroutine:\n             value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\nasync def serialize_response(\n    *,\n    field: ModelField = None,\n    response_content: Any,\n    include: Union[SetIntStr, DictIntStrAny] = None,\n    exclude: Union[SetIntStr, DictIntStrAny] = set(),\n    by_alias: bool = True,\n    exclude_unset: bool = False,\n    is_coroutine: bool = True,\n) -> Any:\n    if field:\n        errors = []\n        if exclude_unset and isinstance(response_content, BaseModel):\n            if PYDANTIC_1:\n                response_content = response_content.dict(\n                    include=include,\n                    exclude=exclude,\n                    by_alias=by_alias,\n                    exclude_unset=exclude_unset,\n                )\n            else:\n                response_content = response_content.dict(\n                    include=include,\n                    exclude=exclude,\n                    by_alias=by_alias,\n                    skip_defaults=exclude_unset,\n                )  # pragma: nocover\n        if is_coroutine:\n            value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n        else:\n            value, errors_ = await run_in_threadpool(\n                field.validate, response_content, {}, loc=(\"response\",)\n            )\n        if isinstance(errors_, ErrorWrapper):\n            errors.append(errors_)\n        elif isinstance(errors_, list):\n            errors.extend(errors_)\n        if errors:\n            raise ValidationError(errors, field.type_)\n        return jsonable_encoder(\n            value,\n            include=include,\n            exclude=exclude,\n            by_alias=by_alias,\n            exclude_unset=exclude_unset,\n        )\n    else:\n        return jsonable_encoder(response_content)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py",
+        "target_line": 63
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/routing.py:63 (attempt 2)",
+      "validation_summary": "Patch llm-2-1 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n+++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n@@ -60,7 +60,7 @@\n ) -> Any:\n     if field:\n         errors = []\n-        if exclude_unset and isinstance(response_content, BaseModel):\n+        if isinstance(response_content, BaseModel):\n             if PYDANTIC_1:\n                 response_content = response_content.dict(exclude_unset=exclude_unset)\n             else:\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\nasync def serialize_response(\n    *,\n    field: ModelField = None,\n    response_content: Any,\n    include: Union[SetIntStr, DictIntStrAny] = None,\n    exclude: Union[SetIntStr, DictIntStrAny] = set(),\n    by_alias: bool = True,\n    exclude_unset: bool = False,\n    is_coroutine: bool = True,\n) -> Any:\n    if field:\n        errors = []\n        if isinstance(response_content, BaseModel):\n            if PYDANTIC_1:\n                response_content = response_content.dict(exclude_unset=exclude_unset)\n            else:\n                response_content = response_content.dict(\n                    skip_defaults=exclude_unset\n                )  # pragma: nocover\n        if is_coroutine:\n            value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n        else:\n            value, errors_ = await run_in_threadpool(\n                field.validate, response_content, {}, loc=(\"response\",)\n            )\n        if isinstance(errors_, ErrorWrapper):\n            errors.append(errors_)\n        elif isinstance(errors_, list):\n            errors.extend(errors_)\n        if errors:\n            raise ValidationError(errors, field.type_)\n        return jsonable_encoder(\n            value,\n            include=include,\n            exclude=exclude,\n            by_alias=by_alias,\n            exclude_unset=exclude_unset,\n        )\n    else:\n        return jsonable_encoder(response_content)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py",
+        "target_line": 63
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/routing.py:63 (attempt 3)",
+      "validation_summary": "Patch llm-2-2 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n+++ /workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py\n@@ -60,10 +60,10 @@\n ) -> Any:\n     if field:\n         errors = []\n-        if exclude_unset and isinstance(response_content, BaseModel):\n+        if isinstance(response_content, BaseModel):\n             if PYDANTIC_1:\n                 response_content = response_content.dict(exclude_unset=exclude_unset)\n-            else:\n+            elif exclude_unset:\n                 response_content = response_content.dict(\n                     skip_defaults=exclude_unset\n                 )  # pragma: nocover\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\nasync def serialize_response(\n    *,\n    field: ModelField = None,\n    response_content: Any,\n    include: Union[SetIntStr, DictIntStrAny] = None,\n    exclude: Union[SetIntStr, DictIntStrAny] = set(),\n    by_alias: bool = True,\n    exclude_unset: bool = False,\n    is_coroutine: bool = True,\n) -> Any:\n    if field:\n        errors = []\n        if isinstance(response_content, BaseModel):\n            if PYDANTIC_1:\n                response_content = response_content.dict(exclude_unset=exclude_unset)\n            elif exclude_unset:\n                response_content = response_content.dict(\n                    skip_defaults=exclude_unset\n                )  # pragma: nocover\n        if is_coroutine:\n            value, errors_ = field.validate(response_content, {}, loc=(\"response\",))\n        else:\n            value, errors_ = await run_in_threadpool(\n                field.validate, response_content, {}, loc=(\"response\",)\n            )\n        if isinstance(errors_, ErrorWrapper):\n            errors.append(errors_)\n        elif isinstance(errors_, list):\n            errors.extend(errors_)\n        if errors:\n            raise ValidationError(errors, field.type_)\n        return jsonable_encoder(\n            value,\n            include=include,\n            exclude=exclude,\n            by_alias=by_alias,\n            exclude_unset=exclude_unset,\n        )\n    else:\n        return jsonable_encoder(response_content)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_3/fastapi/fastapi/routing.py",
+        "target_line": 63
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    }
+  ],
+  "assessed_plausible_patches": []
+}

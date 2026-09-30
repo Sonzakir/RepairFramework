@@ -1,0 +1,24 @@
+{
+  "runner": "dummy-evaluation-runner",
+  "repair": "dummy-repair",
+  "benchmark": "bugsinpy",
+  "seed": 123,
+  "started_at": "2026-06-21T14:44:47.315003+00:00",
+  "bugs": [
+    {
+      "benchmark": "bugsinpy",
+      "project": "black",
+      "bug_id": 1
+    },
+    {
+      "benchmark": "bugsinpy",
+      "project": "black",
+      "bug_id": 3
+    },
+    {
+      "benchmark": "bugsinpy",
+      "project": "black",
+      "bug_id": 23
+    }
+  ]
+}

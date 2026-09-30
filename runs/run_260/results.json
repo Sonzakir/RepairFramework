@@ -1,0 +1,94 @@
+{
+  "run_id": "run_260",
+  "status": "completed",
+  "started_at": "2026-07-07T15:30:21.793871+00:00",
+  "finished_at": "2026-07-07T15:30:26.952303+00:00",
+  "backend": "llm-fl",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:621",
+      "score": 1.0,
+      "line": 621,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "unconditionally creates ProcessPoolExecutor; test expects fallback when executor creation raises OSError"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:612",
+      "score": 0.99,
+      "line": 612,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "multi-file path always goes through parallel formatter with no mono-process recovery"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:623",
+      "score": 0.98,
+      "line": 623,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "execution assumes executor was created successfully, contributing to CLI failure instead of fallback"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:634",
+      "score": 0.97,
+      "line": 634,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "finally block implies executor path is mandatory; no exception handling around executor startup"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "black.py",
+      "location": "black.py:636",
+      "score": 0.96,
+      "line": 636,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "uses executor in cleanup without guarding failed construction, consistent with missing fallback handling"
+      }
+    }
+  ],
+  "metadata": {
+    "fl_backend": "llm",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "system_prompt": "fl_prompt1",
+    "score_formula": "llm-rank: descending synthetic score by model order",
+    "files_shown": [
+      "black.py",
+      "blackd.py",
+      "tests/test_black.py"
+    ],
+    "had_traceback": true,
+    "location_count": 5,
+    "raw_llm_response": "[\n  {\"file\": \"black.py\", \"line\": 621, \"reason\": \"unconditionally creates ProcessPoolExecutor; test expects fallback when executor creation raises OSError\"},\n  {\"file\": \"black.py\", \"line\": 612, \"reason\": \"multi-file path always goes through parallel formatter with no mono-process recovery\"},\n  {\"file\": \"black.py\", \"line\": 623, \"reason\": \"execution assumes executor was created successfully, contributing to CLI failure instead of fallback\"},\n  {\"file\": \"black.py\", \"line\": 634, \"reason\": \"finally block implies executor path is mandatory; no exception handling around executor startup\"},\n  {\"file\": \"black.py\", \"line\": 636, \"reason\": \"uses executor in cleanup without guarding failed construction, consistent with missing fallback handling\"}\n]"
+  }
+}

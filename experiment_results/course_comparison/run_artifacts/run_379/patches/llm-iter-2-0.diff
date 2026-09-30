@@ -1,0 +1,14 @@
+--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py
++++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py
+@@ -315,8 +315,9 @@
+         self.limit = limit
+ 
+     def __setitem__(self, key, value):
+-        while len(self) >= self.limit:
+-            self.popitem(last=False)
++        if self.limit is not None:
++            while len(self) >= self.limit:
++                self.popitem(last=False)
+         super(LocalCache, self).__setitem__(key, value)
+ 
+ 

@@ -1,0 +1,44 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name="repair-framework-Sonzakir"
+version="0.0.1"
+authors = [
+    {name = "Fazli Soner Kiraz" , email="fazli.kiraz@ruhr-uni-bochum.de"}
+]
+readme="README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+classifiers = [
+    "Development Status :: 3 - Alpha" ,
+    "Programming Language :: Python"
+]
+dependencies = [
+    "openai>=1.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.urls]
+Repository = "https://github.com/rub-sq-teaching-repair-2026/repair-framework-Sonzakir.git"
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.15.0",
+]
+
+[tool.setuptools.packages.find]
+where=["src"]
+
+[tool.setuptools.package-data]
+"apr_framework.localization" = ["prompts/*.txt"]
+"apr_framework.repair.llm" = ["prompts/*.txt"]
+"apr_framework.repair.assessment" = ["prompts/*.txt"]
+
+[project.scripts]
+apr-framework = "apr_framework.__main__:app"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

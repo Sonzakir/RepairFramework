@@ -1,0 +1,14 @@
+{
+  "runner": "fauxpy-localizer",
+  "backend": "fauxpy",
+  "project": "scrapy",
+  "bug_id": 2,
+  "family": "sbfl",
+  "granularity": "statement",
+  "top_n": null,
+  "mutation_strategy": null,
+  "mutation_budget": null,
+  "mutation_seed": 0,
+  "started_at": "2026-07-05T15:47:27.518059+00:00",
+  "metric": "ochiai"
+}

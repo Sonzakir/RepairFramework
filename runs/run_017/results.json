@@ -1,0 +1,3939 @@
+{
+  "run_id": "run_017",
+  "status": "completed",
+  "started_at": "2026-06-27T13:48:37.963909+00:00",
+  "finished_at": "2026-06-27T13:48:40.132727+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "luigi",
+    "bug_id": 33
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:99",
+      "score": 0.9756,
+      "line": 99,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   99 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:97",
+      "score": 0.9756,
+      "line": 97,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   97 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:94",
+      "score": 0.9756,
+      "line": 94,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   94 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:85",
+      "score": 0.9756,
+      "line": 85,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   85 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:83",
+      "score": 0.9756,
+      "line": 83,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   83 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 6,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:82",
+      "score": 0.9756,
+      "line": 82,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   82 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 7,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:80",
+      "score": 0.9756,
+      "line": 80,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   80 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 8,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:79",
+      "score": 0.9756,
+      "line": 79,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |   79 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 9,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:336",
+      "score": 0.9756,
+      "line": 336,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  336 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 10,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:335",
+      "score": 0.9756,
+      "line": 335,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  335 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 11,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:334",
+      "score": 0.9756,
+      "line": 334,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  334 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 12,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:331",
+      "score": 0.9756,
+      "line": 331,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  331 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 13,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:327",
+      "score": 0.9756,
+      "line": 327,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  327 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 14,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:325",
+      "score": 0.9756,
+      "line": 325,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  325 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 15,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:323",
+      "score": 0.9756,
+      "line": 323,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  323 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 16,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:311",
+      "score": 0.9756,
+      "line": 311,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  311 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 17,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:310",
+      "score": 0.9756,
+      "line": 310,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  310 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 18,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:307",
+      "score": 0.9756,
+      "line": 307,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  307 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 19,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:305",
+      "score": 0.9756,
+      "line": 305,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  305 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 20,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:304",
+      "score": 0.9756,
+      "line": 304,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  304 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 21,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:303",
+      "score": 0.9756,
+      "line": 303,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  303 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 22,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:302",
+      "score": 0.9756,
+      "line": 302,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  302 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 23,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:301",
+      "score": 0.9756,
+      "line": 301,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  301 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 24,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:141",
+      "score": 0.9756,
+      "line": 141,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  141 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 25,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:140",
+      "score": 0.9756,
+      "line": 140,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  140 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 26,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:103",
+      "score": 0.9756,
+      "line": 103,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  103 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 27,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:102",
+      "score": 0.9756,
+      "line": 102,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  102 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 28,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:154",
+      "score": 0.9756,
+      "line": 154,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  154 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 29,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:153",
+      "score": 0.9756,
+      "line": 153,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  153 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 30,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:151",
+      "score": 0.9756,
+      "line": 151,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  151 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 31,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:149",
+      "score": 0.9756,
+      "line": 149,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  149 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 32,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:147",
+      "score": 0.9756,
+      "line": 147,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  147 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 33,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:144",
+      "score": 0.9756,
+      "line": 144,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  144 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 34,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:136",
+      "score": 0.9756,
+      "line": 136,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  136 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 35,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:134",
+      "score": 0.9756,
+      "line": 134,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  134 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 36,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:133",
+      "score": 0.9756,
+      "line": 133,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  133 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 37,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:132",
+      "score": 0.9756,
+      "line": 132,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  132 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 38,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:131",
+      "score": 0.9756,
+      "line": 131,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  131 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 39,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:129",
+      "score": 0.9756,
+      "line": 129,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  129 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 40,
+      "file_path": "luigi/parameter.py",
+      "location": "luigi/parameter.py:128",
+      "score": 0.9756,
+      "line": 128,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/parameter.py       |  128 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 41,
+      "file_path": "luigi/deprecate_kwarg.py",
+      "location": "luigi/deprecate_kwarg.py:52",
+      "score": 0.9756,
+      "line": 52,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/deprecate_kwarg.py |   52 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 42,
+      "file_path": "luigi/deprecate_kwarg.py",
+      "location": "luigi/deprecate_kwarg.py:51",
+      "score": 0.9756,
+      "line": 51,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/deprecate_kwarg.py |   51 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 43,
+      "file_path": "luigi/deprecate_kwarg.py",
+      "location": "luigi/deprecate_kwarg.py:48",
+      "score": 0.9756,
+      "line": 48,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/deprecate_kwarg.py |   48 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 44,
+      "file_path": "luigi/deprecate_kwarg.py",
+      "location": "luigi/deprecate_kwarg.py:44",
+      "score": 0.9756,
+      "line": 44,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/deprecate_kwarg.py |   44 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 45,
+      "file_path": "luigi/deprecate_kwarg.py",
+      "location": "luigi/deprecate_kwarg.py:43",
+      "score": 0.9756,
+      "line": 43,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/deprecate_kwarg.py |   43 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 46,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:351",
+      "score": 0.8417,
+      "line": 351,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  351 | 0.8417",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 47,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:350",
+      "score": 0.8417,
+      "line": 350,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  350 | 0.8417",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 48,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:342",
+      "score": 0.8417,
+      "line": 342,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  342 | 0.8417",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 49,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:339",
+      "score": 0.8417,
+      "line": 339,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  339 | 0.8417",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 50,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:338",
+      "score": 0.8417,
+      "line": 338,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py            |  338 | 0.8417",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "luigi",
+    "test_targets": [
+      "test/parameter_test.py::ParameterTest::test_local_insignificant_param",
+      "test/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param",
+      "test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params",
+      "test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:740",
+          "score": 1.1,
+          "line": 740,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  740 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:736",
+          "score": 1.1,
+          "line": 736,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  736 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:723",
+          "score": 1.1,
+          "line": 723,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  723 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:722",
+          "score": 1.1,
+          "line": 722,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  722 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:721",
+          "score": 1.1,
+          "line": 721,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  721 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:720",
+          "score": 1.1,
+          "line": 720,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  720 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:718",
+          "score": 1.1,
+          "line": 718,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  718 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:714",
+          "score": 1.1,
+          "line": 714,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  714 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:711",
+          "score": 1.1,
+          "line": 711,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  711 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:709",
+          "score": 1.1,
+          "line": 709,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  709 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 11,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:708",
+          "score": 1.1,
+          "line": 708,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  708 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 12,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:706",
+          "score": 1.1,
+          "line": 706,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  706 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 13,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:699",
+          "score": 1.1,
+          "line": 699,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  699 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 14,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:574",
+          "score": 1.1,
+          "line": 574,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  574 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 15,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:573",
+          "score": 1.1,
+          "line": 573,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  573 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 16,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:571",
+          "score": 1.1,
+          "line": 571,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  571 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 17,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:570",
+          "score": 1.1,
+          "line": 570,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  570 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 18,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:569",
+          "score": 1.1,
+          "line": 569,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  569 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 19,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:564",
+          "score": 1.1,
+          "line": 564,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  564 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 20,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:562",
+          "score": 1.1,
+          "line": 562,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  562 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 21,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:561",
+          "score": 1.1,
+          "line": 561,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  561 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 22,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:555",
+          "score": 1.1,
+          "line": 555,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  555 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 23,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:552",
+          "score": 1.1,
+          "line": 552,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  552 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 24,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:551",
+          "score": 1.1,
+          "line": 551,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  551 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 25,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:550",
+          "score": 1.1,
+          "line": 550,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  550 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 26,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:545",
+          "score": 1.1,
+          "line": 545,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  545 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 27,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:544",
+          "score": 1.1,
+          "line": 544,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  544 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 28,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:543",
+          "score": 1.1,
+          "line": 543,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  543 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 29,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:537",
+          "score": 1.1,
+          "line": 537,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  537 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 30,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:506",
+          "score": 1.1,
+          "line": 506,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  506 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 31,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:497",
+          "score": 1.1,
+          "line": 497,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  497 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 32,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:491",
+          "score": 1.1,
+          "line": 491,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  491 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 33,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:480",
+          "score": 1.1,
+          "line": 480,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  480 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 34,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:472",
+          "score": 1.1,
+          "line": 472,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  472 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 35,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:471",
+          "score": 1.1,
+          "line": 471,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  471 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 36,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:470",
+          "score": 1.1,
+          "line": 470,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  470 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 37,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:467",
+          "score": 1.1,
+          "line": 467,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  467 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 38,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:466",
+          "score": 1.1,
+          "line": 466,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  466 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 39,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:465",
+          "score": 1.1,
+          "line": 465,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  465 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 40,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:464",
+          "score": 1.1,
+          "line": 464,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  464 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 41,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:463",
+          "score": 1.1,
+          "line": 463,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  463 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 42,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:462",
+          "score": 1.1,
+          "line": 462,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  462 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 43,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:461",
+          "score": 1.1,
+          "line": 461,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  461 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 44,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:459",
+          "score": 1.1,
+          "line": 459,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  459 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 45,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:453",
+          "score": 1.1,
+          "line": 453,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  453 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 46,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:452",
+          "score": 1.1,
+          "line": 452,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  452 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 47,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:451",
+          "score": 1.1,
+          "line": 451,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  451 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 48,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:450",
+          "score": 1.1,
+          "line": 450,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  450 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 49,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:449",
+          "score": 1.1,
+          "line": 449,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  449 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 50,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:448",
+          "score": 1.1,
+          "line": 448,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  448 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:99",
+          "score": 0.9756,
+          "line": 99,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   99 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:97",
+          "score": 0.9756,
+          "line": 97,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   97 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:94",
+          "score": 0.9756,
+          "line": 94,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   94 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:85",
+          "score": 0.9756,
+          "line": 85,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   85 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:83",
+          "score": 0.9756,
+          "line": 83,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   83 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:82",
+          "score": 0.9756,
+          "line": 82,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   82 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:80",
+          "score": 0.9756,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   80 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:79",
+          "score": 0.9756,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   79 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:336",
+          "score": 0.9756,
+          "line": 336,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  336 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:335",
+          "score": 0.9756,
+          "line": 335,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  335 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 11,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:334",
+          "score": 0.9756,
+          "line": 334,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  334 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 12,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:331",
+          "score": 0.9756,
+          "line": 331,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  331 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 13,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:327",
+          "score": 0.9756,
+          "line": 327,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  327 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 14,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:325",
+          "score": 0.9756,
+          "line": 325,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  325 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 15,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:323",
+          "score": 0.9756,
+          "line": 323,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  323 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 16,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:311",
+          "score": 0.9756,
+          "line": 311,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  311 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 17,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:310",
+          "score": 0.9756,
+          "line": 310,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  310 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 18,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:307",
+          "score": 0.9756,
+          "line": 307,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  307 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 19,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:305",
+          "score": 0.9756,
+          "line": 305,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  305 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 20,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:304",
+          "score": 0.9756,
+          "line": 304,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  304 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 21,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:303",
+          "score": 0.9756,
+          "line": 303,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  303 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 22,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:302",
+          "score": 0.9756,
+          "line": 302,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  302 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 23,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:301",
+          "score": 0.9756,
+          "line": 301,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  301 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 24,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:141",
+          "score": 0.9756,
+          "line": 141,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  141 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 25,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:140",
+          "score": 0.9756,
+          "line": 140,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  140 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 26,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:103",
+          "score": 0.9756,
+          "line": 103,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  103 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 27,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:102",
+          "score": 0.9756,
+          "line": 102,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  102 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 28,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:154",
+          "score": 0.9756,
+          "line": 154,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  154 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 29,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:153",
+          "score": 0.9756,
+          "line": 153,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  153 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 30,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:151",
+          "score": 0.9756,
+          "line": 151,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  151 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 31,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:149",
+          "score": 0.9756,
+          "line": 149,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  149 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 32,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:147",
+          "score": 0.9756,
+          "line": 147,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  147 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 33,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:144",
+          "score": 0.9756,
+          "line": 144,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  144 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 34,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:136",
+          "score": 0.9756,
+          "line": 136,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  136 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 35,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:134",
+          "score": 0.9756,
+          "line": 134,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  134 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 36,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:133",
+          "score": 0.9756,
+          "line": 133,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  133 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 37,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:132",
+          "score": 0.9756,
+          "line": 132,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  132 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 38,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:131",
+          "score": 0.9756,
+          "line": 131,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  131 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 39,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:129",
+          "score": 0.9756,
+          "line": 129,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  129 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 40,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:128",
+          "score": 0.9756,
+          "line": 128,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  128 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 41,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:52",
+          "score": 0.9756,
+          "line": 52,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   52 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 42,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:51",
+          "score": 0.9756,
+          "line": 51,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   51 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 43,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:48",
+          "score": 0.9756,
+          "line": 48,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   48 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 44,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:44",
+          "score": 0.9756,
+          "line": 44,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   44 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 45,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:43",
+          "score": 0.9756,
+          "line": 43,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   43 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 46,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:351",
+          "score": 0.8417,
+          "line": 351,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  351 | 0.8417",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 47,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:350",
+          "score": 0.8417,
+          "line": 350,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  350 | 0.8417",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 48,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:342",
+          "score": 0.8417,
+          "line": 342,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  342 | 0.8417",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 49,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:339",
+          "score": 0.8417,
+          "line": 339,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  339 | 0.8417",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 50,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:338",
+          "score": 0.8417,
+          "line": 338,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  338 | 0.8417",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:99",
+          "score": 160.0,
+          "line": 99,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   99 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:97",
+          "score": 160.0,
+          "line": 97,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   97 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:94",
+          "score": 160.0,
+          "line": 94,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   94 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:85",
+          "score": 160.0,
+          "line": 85,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   85 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:83",
+          "score": 160.0,
+          "line": 83,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   83 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:82",
+          "score": 160.0,
+          "line": 82,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   82 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:80",
+          "score": 160.0,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   80 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:79",
+          "score": 160.0,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   79 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:336",
+          "score": 160.0,
+          "line": 336,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  336 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:335",
+          "score": 160.0,
+          "line": 335,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  335 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 11,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:334",
+          "score": 160.0,
+          "line": 334,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  334 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 12,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:331",
+          "score": 160.0,
+          "line": 331,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  331 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 13,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:327",
+          "score": 160.0,
+          "line": 327,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  327 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 14,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:325",
+          "score": 160.0,
+          "line": 325,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  325 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 15,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:323",
+          "score": 160.0,
+          "line": 323,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  323 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 16,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:311",
+          "score": 160.0,
+          "line": 311,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  311 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 17,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:310",
+          "score": 160.0,
+          "line": 310,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  310 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 18,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:307",
+          "score": 160.0,
+          "line": 307,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  307 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 19,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:305",
+          "score": 160.0,
+          "line": 305,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  305 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 20,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:304",
+          "score": 160.0,
+          "line": 304,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  304 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 21,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:303",
+          "score": 160.0,
+          "line": 303,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  303 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 22,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:302",
+          "score": 160.0,
+          "line": 302,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  302 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 23,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:301",
+          "score": 160.0,
+          "line": 301,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  301 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 24,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:141",
+          "score": 160.0,
+          "line": 141,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  141 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 25,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:140",
+          "score": 160.0,
+          "line": 140,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  140 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 26,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:103",
+          "score": 160.0,
+          "line": 103,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  103 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 27,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:102",
+          "score": 160.0,
+          "line": 102,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  102 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 28,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:154",
+          "score": 160.0,
+          "line": 154,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  154 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 29,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:153",
+          "score": 160.0,
+          "line": 153,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  153 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 30,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:151",
+          "score": 160.0,
+          "line": 151,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  151 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 31,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:149",
+          "score": 160.0,
+          "line": 149,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  149 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 32,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:147",
+          "score": 160.0,
+          "line": 147,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  147 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 33,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:144",
+          "score": 160.0,
+          "line": 144,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  144 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 34,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:136",
+          "score": 160.0,
+          "line": 136,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  136 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 35,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:134",
+          "score": 160.0,
+          "line": 134,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  134 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 36,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:133",
+          "score": 160.0,
+          "line": 133,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  133 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 37,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:132",
+          "score": 160.0,
+          "line": 132,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  132 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 38,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:131",
+          "score": 160.0,
+          "line": 131,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  131 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 39,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:129",
+          "score": 160.0,
+          "line": 129,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  129 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 40,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:128",
+          "score": 160.0,
+          "line": 128,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  128 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 41,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:52",
+          "score": 160.0,
+          "line": 52,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   52 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 42,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:51",
+          "score": 160.0,
+          "line": 51,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   51 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 43,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:48",
+          "score": 160.0,
+          "line": 48,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   48 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 44,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:44",
+          "score": 160.0,
+          "line": 44,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   44 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 45,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:43",
+          "score": 160.0,
+          "line": 43,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   43 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 46,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:351",
+          "score": 8.1818,
+          "line": 351,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  351 |   8.1818",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 47,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:350",
+          "score": 8.1818,
+          "line": 350,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  350 |   8.1818",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 48,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:342",
+          "score": 8.1818,
+          "line": 342,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  342 |   8.1818",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 49,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:339",
+          "score": 8.1818,
+          "line": 339,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  339 |   8.1818",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 50,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:338",
+          "score": 8.1818,
+          "line": 338,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  338 |   8.1818",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:99",
+          "score": 0.9756,
+          "line": 99,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   99 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:97",
+          "score": 0.9756,
+          "line": 97,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   97 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:94",
+          "score": 0.9756,
+          "line": 94,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   94 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:85",
+          "score": 0.9756,
+          "line": 85,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   85 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:83",
+          "score": 0.9756,
+          "line": 83,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   83 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:82",
+          "score": 0.9756,
+          "line": 82,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   82 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:80",
+          "score": 0.9756,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   80 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:79",
+          "score": 0.9756,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |   79 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:336",
+          "score": 0.9756,
+          "line": 336,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  336 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:335",
+          "score": 0.9756,
+          "line": 335,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  335 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 11,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:334",
+          "score": 0.9756,
+          "line": 334,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  334 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 12,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:331",
+          "score": 0.9756,
+          "line": 331,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  331 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 13,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:327",
+          "score": 0.9756,
+          "line": 327,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  327 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 14,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:325",
+          "score": 0.9756,
+          "line": 325,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  325 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 15,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:323",
+          "score": 0.9756,
+          "line": 323,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  323 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 16,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:311",
+          "score": 0.9756,
+          "line": 311,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  311 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 17,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:310",
+          "score": 0.9756,
+          "line": 310,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  310 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 18,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:307",
+          "score": 0.9756,
+          "line": 307,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  307 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 19,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:305",
+          "score": 0.9756,
+          "line": 305,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  305 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 20,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:304",
+          "score": 0.9756,
+          "line": 304,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  304 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 21,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:303",
+          "score": 0.9756,
+          "line": 303,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  303 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 22,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:302",
+          "score": 0.9756,
+          "line": 302,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  302 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 23,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:301",
+          "score": 0.9756,
+          "line": 301,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  301 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 24,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:141",
+          "score": 0.9756,
+          "line": 141,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  141 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 25,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:140",
+          "score": 0.9756,
+          "line": 140,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  140 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 26,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:103",
+          "score": 0.9756,
+          "line": 103,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  103 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 27,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:102",
+          "score": 0.9756,
+          "line": 102,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  102 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 28,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:154",
+          "score": 0.9756,
+          "line": 154,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  154 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 29,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:153",
+          "score": 0.9756,
+          "line": 153,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  153 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 30,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:151",
+          "score": 0.9756,
+          "line": 151,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  151 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 31,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:149",
+          "score": 0.9756,
+          "line": 149,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  149 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 32,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:147",
+          "score": 0.9756,
+          "line": 147,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  147 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 33,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:144",
+          "score": 0.9756,
+          "line": 144,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  144 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 34,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:136",
+          "score": 0.9756,
+          "line": 136,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  136 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 35,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:134",
+          "score": 0.9756,
+          "line": 134,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  134 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 36,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:133",
+          "score": 0.9756,
+          "line": 133,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  133 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 37,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:132",
+          "score": 0.9756,
+          "line": 132,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  132 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 38,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:131",
+          "score": 0.9756,
+          "line": 131,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  131 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 39,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:129",
+          "score": 0.9756,
+          "line": 129,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  129 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 40,
+          "file_path": "luigi/parameter.py",
+          "location": "luigi/parameter.py:128",
+          "score": 0.9756,
+          "line": 128,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/parameter.py       |  128 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 41,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:52",
+          "score": 0.9756,
+          "line": 52,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   52 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 42,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:51",
+          "score": 0.9756,
+          "line": 51,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   51 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 43,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:48",
+          "score": 0.9756,
+          "line": 48,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   48 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 44,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:44",
+          "score": 0.9756,
+          "line": 44,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   44 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 45,
+          "file_path": "luigi/deprecate_kwarg.py",
+          "location": "luigi/deprecate_kwarg.py:43",
+          "score": 0.9756,
+          "line": 43,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/deprecate_kwarg.py |   43 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 46,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:351",
+          "score": 0.7317,
+          "line": 351,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  351 | 0.7317",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 47,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:350",
+          "score": 0.7317,
+          "line": 350,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  350 | 0.7317",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 48,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:342",
+          "score": 0.7317,
+          "line": 342,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  342 | 0.7317",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 49,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:339",
+          "score": 0.7317,
+          "line": 339,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  339 | 0.7317",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 50,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:338",
+          "score": 0.7317,
+          "line": 338,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py            |  338 | 0.7317",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "SBI": [
+        {
+          "rank": 1,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:740",
+          "score": 1.0,
+          "line": 740,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  740 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:736",
+          "score": 1.0,
+          "line": 736,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  736 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:723",
+          "score": 1.0,
+          "line": 723,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  723 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:722",
+          "score": 1.0,
+          "line": 722,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  722 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:721",
+          "score": 1.0,
+          "line": 721,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  721 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:720",
+          "score": 1.0,
+          "line": 720,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  720 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:718",
+          "score": 1.0,
+          "line": 718,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  718 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:714",
+          "score": 1.0,
+          "line": 714,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  714 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:711",
+          "score": 1.0,
+          "line": 711,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  711 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:709",
+          "score": 1.0,
+          "line": 709,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  709 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 11,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:708",
+          "score": 1.0,
+          "line": 708,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  708 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 12,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:706",
+          "score": 1.0,
+          "line": 706,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  706 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 13,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:699",
+          "score": 1.0,
+          "line": 699,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  699 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 14,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:574",
+          "score": 1.0,
+          "line": 574,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  574 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 15,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:573",
+          "score": 1.0,
+          "line": 573,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  573 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 16,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:571",
+          "score": 1.0,
+          "line": 571,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  571 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 17,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:570",
+          "score": 1.0,
+          "line": 570,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  570 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 18,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:569",
+          "score": 1.0,
+          "line": 569,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  569 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 19,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:564",
+          "score": 1.0,
+          "line": 564,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  564 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 20,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:562",
+          "score": 1.0,
+          "line": 562,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  562 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 21,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:561",
+          "score": 1.0,
+          "line": 561,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  561 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 22,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:555",
+          "score": 1.0,
+          "line": 555,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  555 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 23,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:552",
+          "score": 1.0,
+          "line": 552,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  552 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 24,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:551",
+          "score": 1.0,
+          "line": 551,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  551 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 25,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:550",
+          "score": 1.0,
+          "line": 550,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  550 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 26,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:545",
+          "score": 1.0,
+          "line": 545,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  545 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 27,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:544",
+          "score": 1.0,
+          "line": 544,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  544 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 28,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:543",
+          "score": 1.0,
+          "line": 543,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  543 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 29,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:537",
+          "score": 1.0,
+          "line": 537,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  537 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 30,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:506",
+          "score": 1.0,
+          "line": 506,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  506 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 31,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:497",
+          "score": 1.0,
+          "line": 497,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  497 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 32,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:491",
+          "score": 1.0,
+          "line": 491,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  491 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 33,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:480",
+          "score": 1.0,
+          "line": 480,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  480 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 34,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:472",
+          "score": 1.0,
+          "line": 472,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  472 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 35,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:471",
+          "score": 1.0,
+          "line": 471,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  471 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 36,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:470",
+          "score": 1.0,
+          "line": 470,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  470 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 37,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:467",
+          "score": 1.0,
+          "line": 467,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  467 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 38,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:466",
+          "score": 1.0,
+          "line": 466,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  466 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 39,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:465",
+          "score": 1.0,
+          "line": 465,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  465 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 40,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:464",
+          "score": 1.0,
+          "line": 464,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  464 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 41,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:463",
+          "score": 1.0,
+          "line": 463,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  463 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 42,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:462",
+          "score": 1.0,
+          "line": 462,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  462 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 43,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:461",
+          "score": 1.0,
+          "line": 461,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  461 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 44,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:459",
+          "score": 1.0,
+          "line": 459,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  459 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 45,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:453",
+          "score": 1.0,
+          "line": 453,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  453 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 46,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:452",
+          "score": 1.0,
+          "line": 452,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  452 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 47,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:451",
+          "score": 1.0,
+          "line": 451,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  451 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 48,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:450",
+          "score": 1.0,
+          "line": 450,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  450 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 49,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:449",
+          "score": 1.0,
+          "line": 449,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  449 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        },
+        {
+          "rank": 50,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:448",
+          "score": 1.0,
+          "line": 448,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  448 | 1.0000",
+          "metadata": {
+            "score_formula": "SBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-5.4.3, py-1.8.1, pluggy-0.13.1\nbenchmark: 3.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)\nrootdir: /home/workspace/luigi_33/luigi\nplugins: cov-2.9.0, requests-mock-1.8.0, timeout-2.1.0, sugar-0.9.3, fauxpy-0.7.0, anyio-4.5.2, benchmark-3.2.3\ncollected 4 items\n\ntest/parameter_test.py FFFF                                              [100%]\n\n=================================== FAILURES ===================================\n_________________ ParameterTest.test_local_insignificant_param _________________\n\nself = <parameter_test.ParameterTest testMethod=test_local_insignificant_param>\n\n    def test_local_insignificant_param(self):\n        \"\"\" Ensure we have the same behavior as in before a78338c  \"\"\"\n        class MyTask(luigi.Task):\n            # This could typically be \"--num-threads=True\"\n            x = luigi.Parameter(significant=False)\n    \n>       MyTask('arg')\n\ntest/parameter_test.py:304: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nluigi/task.py:103: in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncls = <class 'parameter_test.ParameterTest.test_local_insignificant_param.<locals>.MyTask'>\nparams = [('x', <luigi.parameter.Parameter object at 0xffffb9c17a60>)]\nargs = ('arg',), kwargs = {}\n\n    @classmethod\n    def get_param_values(cls, params, args, kwargs):\n        \"\"\"\n        Get the values of the parameters from the args and kwargs.\n    \n        :param params: list of (param_name, Parameter).\n        :param args: positional arguments\n        :param kwargs: keyword arguments.\n        :returns: list of `(name, value)` tuples, one for each parameter.\n        \"\"\"\n        result = {}\n    \n        params_dict = dict(params)\n    \n        task_name = cls.task_family\n    \n        # In case any exceptions are thrown, create a helpful description of how the Task was invoked\n        # TODO: should we detect non-reprable arguments? These will lead to mysterious errors\n        exc_desc = '%s[args=%s, kwargs=%s]' % (task_name, args, kwargs)\n    \n        # Fill in the positional arguments\n        positional_params = [(n, p) for n, p in params if p.significant]\n        for i, arg in enumerate(args):\n            if i >= len(positional_params):\n>               raise parameter.UnknownParameterException('%s: takes at most %d parameters (%d given)' % (exc_desc, len(positional_params), len(args)))\nE               luigi.parameter.UnknownParameterException: MyTask[args=('arg',), kwargs={}]: takes at most 0 parameters (1 given)\n\nluigi/task.py:337: UnknownParameterException\n___________ TestRemoveGlobalParameters.test_global_significant_param ___________\n\nself = <parameter_test.TestRemoveGlobalParameters testMethod=test_global_significant_param>\n\n    def test_global_significant_param(self):\n        \"\"\" We don't want any kind of global param to be positional \"\"\"\n        class MyTask(luigi.Task):\n            # This could typically be called \"--test-dry-run\"\n            x_g1 = luigi.Parameter(default='y', is_global=True, significant=True)\n    \n>       self.assertRaises(luigi.parameter.UnknownParameterException,\n                          lambda: MyTask('arg'))\nE       AssertionError: UnknownParameterException not raised by <lambda>\n\ntest/parameter_test.py:428: AssertionError\n_________________ TestRemoveGlobalParameters.test_mixed_params _________________\n\nself = <parameter_test.TestRemoveGlobalParameters testMethod=test_mixed_params>\n\n    def test_mixed_params(self):\n        \"\"\" Essentially for what broke in a78338c and was reported in #738 \"\"\"\n        class MyTask(luigi.Task):\n            # This could typically be \"--num-threads=True\"\n            x_g3 = luigi.Parameter(default='y', is_global=True)\n            local_param = luigi.Parameter()\n    \n>       MyTask('setting_local_param')\n\ntest/parameter_test.py:447: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nluigi/task.py:103: in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncls = <class 'parameter_test.TestRemoveGlobalParameters.test_mixed_params.<locals>.MyTask'>\nparams = [('x_g3', <luigi.parameter.Parameter object at 0xffffb7e80550>), ('local_param', <luigi.parameter.Parameter object at 0xffffb7e80580>)]\nargs = ('setting_local_param',), kwargs = {}\n\n    @classmethod\n    def get_param_values(cls, params, args, kwargs):\n        \"\"\"\n        Get the values of the parameters from the args and kwargs.\n    \n        :param params: list of (param_name, Parameter).\n        :param args: positional arguments\n        :param kwargs: keyword arguments.\n        :returns: list of `(name, value)` tuples, one for each parameter.\n        \"\"\"\n        result = {}\n    \n        params_dict = dict(params)\n    \n        task_name = cls.task_family\n    \n        # In case any exceptions are thrown, create a helpful description of how the Task was invoked\n        # TODO: should we detect non-reprable arguments? These will lead to mysterious errors\n        exc_desc = '%s[args=%s, kwargs=%s]' % (task_name, args, kwargs)\n    \n        # Fill in the positional arguments\n        positional_params = [(n, p) for n, p in params if p.significant]\n        for i, arg in enumerate(args):\n            if i >= len(positional_params):\n                raise parameter.UnknownParameterException('%s: takes at most %d parameters (%d given)' % (exc_desc, len(positional_params), len(args)))\n            param_name, param_obj = positional_params[i]\n            result[param_name] = arg\n    \n        # Then the optional arguments\n        for param_name, arg in six.iteritems(kwargs):\n            if param_name in result:\n                raise parameter.DuplicateParameterException('%s: parameter %s was already set as a positional parameter' % (exc_desc, param_name))\n            if param_name not in params_dict:\n                raise parameter.UnknownParameterException('%s: unknown parameter %s' % (exc_desc, param_name))\n            result[param_name] = arg\n    \n        # Then use the defaults for anything not filled in\n        for param_name, param_obj in params:\n            if param_name not in result:\n                if not param_obj.has_task_value(task_name, param_name):\n>                   raise parameter.MissingParameterException(\"%s: requires the '%s' parameter to be set\" % (exc_desc, param_name))\nE                   luigi.parameter.MissingParameterException: MyTask[args=('setting_local_param',), kwargs={}]: requires the 'local_param' parameter to be set\n\nluigi/task.py:353: MissingParameterException\n------------------------------ Captured log call -------------------------------\nINFO     luigi-interface:configuration.py:44 Loaded []\n___________ TestRemoveGlobalParameters.test_mixed_params_inheritence ___________\n\nself = <parameter_test.TestRemoveGlobalParameters testMethod=test_mixed_params_inheritence>\n\n    def test_mixed_params_inheritence(self):\n        \"\"\" A slightly more real-world like test case \"\"\"\n        class TaskWithOneGlobalParam(luigi.Task):\n            non_positional_param = luigi.Parameter(default='y', is_global=True)\n    \n        class TaskWithOnePositionalParam(TaskWithOneGlobalParam):\n            \"\"\" Try to mess with positional parameters by subclassing \"\"\"\n            only_positional_param = luigi.Parameter()\n    \n            def complete(self):\n                return True\n    \n        class PositionalParamsRequirer(luigi.Task):\n    \n            def requires(self):\n                return TaskWithOnePositionalParam('only_positional_value')\n    \n            def run(self):\n                pass\n    \n>       self.run_and_check(['PositionalParamsRequirer'])\n\ntest/parameter_test.py:469: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest/parameter_test.py:367: in run_and_check\n    self.assertTrue(run_exit_status)\nE   AssertionError: False is not true\n----------------------------- Captured stderr call -----------------------------\nDEBUG: Checking if PositionalParamsRequirer() is complete\nERROR: Luigi unexpected framework error while scheduling PositionalParamsRequirer()\nTraceback (most recent call last):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 453, in add\n    for next in self._add(item, is_complete):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 506, in _add\n    deps = task.deps()\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 556, in deps\n    return flatten(self._requires())\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 530, in _requires\n    return flatten(self.requires())  # base impl\n  File \"/home/workspace/luigi_33/luigi/test/parameter_test.py\", line 464, in requires\n    return TaskWithOnePositionalParam('only_positional_value')\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 103, in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 353, in get_param_values\n    raise parameter.MissingParameterException(\"%s: requires the '%s' parameter to be set\" % (exc_desc, param_name))\nluigi.parameter.MissingParameterException: TaskWithOnePositionalParam[args=('only_positional_value',), kwargs={}]: requires the 'only_positional_param' parameter to be set\nINFO: Skipping error email. Set `error-email` in the `core` section of the luigi config file to receive error emails.\nINFO: Done scheduling tasks\nINFO: Running Worker with 1 processes\nDEBUG: Asking scheduler for work...\nINFO: Done\nINFO: There are no more tasks to run at this time\nINFO: Worker Worker(salt=132293817, workers=1, host=082a47848142, username=root, pid=90569) was stopped. Shutting down Keep-Alive thread\n------------------------------ Captured log call -------------------------------\nDEBUG    luigi-interface:worker.py:251 Checking if PositionalParamsRequirer() is complete\nERROR    luigi-interface:worker.py:412 Luigi unexpected framework error while scheduling PositionalParamsRequirer()\nTraceback (most recent call last):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 453, in add\n    for next in self._add(item, is_complete):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 506, in _add\n    deps = task.deps()\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 556, in deps\n    return flatten(self._requires())\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 530, in _requires\n    return flatten(self.requires())  # base impl\n  File \"/home/workspace/luigi_33/luigi/test/parameter_test.py\", line 464, in requires\n    return TaskWithOnePositionalParam('only_positional_value')\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 103, in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 353, in get_param_values\n    raise parameter.MissingParameterException(\"%s: requires the '%s' parameter to be set\" % (exc_desc, param_name))\nluigi.parameter.MissingParameterException: TaskWithOnePositionalParam[args=('only_positional_value',), kwargs={}]: requires the 'only_positional_param' parameter to be set\nINFO     luigi-interface:notifications.py:166 Skipping error email. Set `error-email` in the `core` section of the luigi config file to receive error emails.\nINFO     luigi-interface:interface.py:174 Done scheduling tasks\nINFO     luigi-interface:worker.py:706 Running Worker with 1 processes\nDEBUG    luigi-interface:worker.py:561 Asking scheduler for work...\nINFO     luigi-interface:worker.py:550 Done\nINFO     luigi-interface:worker.py:551 There are no more tasks to run at this time\nINFO     luigi-interface:worker.py:339 Worker Worker(salt=132293817, workers=1, host=082a47848142, username=root, pid=90569) was stopped. Shutting down Keep-Alive thread\n=============================== warnings summary ===============================\nluigi/deprecate_kwarg.py:52\nluigi/deprecate_kwarg.py:52\nluigi/deprecate_kwarg.py:52\ntest/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param\ntest/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params\ntest/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n  /home/workspace/luigi_33/luigi/luigi/deprecate_kwarg.py:52: DeprecationWarning: is_global is deprecated and will be removed. Please use either  (a) class level config (eg. --MyTask-my-param 42) (b) a separate Config class with global settings on it\n    return function(*args, **kwargs)\n\ntest/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n  /home/workspace/luigi_33/luigi/luigi/worker.py:253: UserWarning: Task PositionalParamsRequirer() without outputs has no custom complete() method\n    is_complete = task.complete()\n\n-- Docs: https://docs.pytest.org/en/latest/warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. test/parameter_test.py::ParameterTest::test_local_insignificant_param\nFauxPy: --->   2. test/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param\nFauxPy: --->   3. test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params\nFauxPy: --->   4. test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 0.8210\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile            | Line | Score \n-------------------------------\nluigi/worker.py |  740 | 1.1000\nluigi/worker.py |  736 | 1.1000\nluigi/worker.py |  723 | 1.1000\nluigi/worker.py |  722 | 1.1000\nluigi/worker.py |  721 | 1.1000\nluigi/worker.py |  720 | 1.1000\nluigi/worker.py |  718 | 1.1000\nluigi/worker.py |  714 | 1.1000\nluigi/worker.py |  711 | 1.1000\nluigi/worker.py |  709 | 1.1000\nluigi/worker.py |  708 | 1.1000\nluigi/worker.py |  706 | 1.1000\nluigi/worker.py |  699 | 1.1000\nluigi/worker.py |  574 | 1.1000\nluigi/worker.py |  573 | 1.1000\nluigi/worker.py |  571 | 1.1000\nluigi/worker.py |  570 | 1.1000\nluigi/worker.py |  569 | 1.1000\nluigi/worker.py |  564 | 1.1000\nluigi/worker.py |  562 | 1.1000\nluigi/worker.py |  561 | 1.1000\nluigi/worker.py |  555 | 1.1000\nluigi/worker.py |  552 | 1.1000\nluigi/worker.py |  551 | 1.1000\nluigi/worker.py |  550 | 1.1000\nluigi/worker.py |  545 | 1.1000\nluigi/worker.py |  544 | 1.1000\nluigi/worker.py |  543 | 1.1000\nluigi/worker.py |  537 | 1.1000\nluigi/worker.py |  506 | 1.1000\nluigi/worker.py |  497 | 1.1000\nluigi/worker.py |  491 | 1.1000\nluigi/worker.py |  480 | 1.1000\nluigi/worker.py |  472 | 1.1000\nluigi/worker.py |  471 | 1.1000\nluigi/worker.py |  470 | 1.1000\nluigi/worker.py |  467 | 1.1000\nluigi/worker.py |  466 | 1.1000\nluigi/worker.py |  465 | 1.1000\nluigi/worker.py |  464 | 1.1000\nluigi/worker.py |  463 | 1.1000\nluigi/worker.py |  462 | 1.1000\nluigi/worker.py |  461 | 1.1000\nluigi/worker.py |  459 | 1.1000\nluigi/worker.py |  453 | 1.1000\nluigi/worker.py |  452 | 1.1000\nluigi/worker.py |  451 | 1.1000\nluigi/worker.py |  450 | 1.1000\nluigi/worker.py |  449 | 1.1000\nluigi/worker.py |  448 | 1.1000\n-------------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile                     | Line | Score \n----------------------------------------\nluigi/task.py            |   99 | 0.9756\nluigi/task.py            |   97 | 0.9756\nluigi/task.py            |   94 | 0.9756\nluigi/task.py            |   85 | 0.9756\nluigi/task.py            |   83 | 0.9756\nluigi/task.py            |   82 | 0.9756\nluigi/task.py            |   80 | 0.9756\nluigi/task.py            |   79 | 0.9756\nluigi/task.py            |  336 | 0.9756\nluigi/task.py            |  335 | 0.9756\nluigi/task.py            |  334 | 0.9756\nluigi/task.py            |  331 | 0.9756\nluigi/task.py            |  327 | 0.9756\nluigi/task.py            |  325 | 0.9756\nluigi/task.py            |  323 | 0.9756\nluigi/task.py            |  311 | 0.9756\nluigi/task.py            |  310 | 0.9756\nluigi/task.py            |  307 | 0.9756\nluigi/task.py            |  305 | 0.9756\nluigi/task.py            |  304 | 0.9756\nluigi/task.py            |  303 | 0.9756\nluigi/task.py            |  302 | 0.9756\nluigi/task.py            |  301 | 0.9756\nluigi/task.py            |  141 | 0.9756\nluigi/task.py            |  140 | 0.9756\nluigi/task.py            |  103 | 0.9756\nluigi/task.py            |  102 | 0.9756\nluigi/parameter.py       |  154 | 0.9756\nluigi/parameter.py       |  153 | 0.9756\nluigi/parameter.py       |  151 | 0.9756\nluigi/parameter.py       |  149 | 0.9756\nluigi/parameter.py       |  147 | 0.9756\nluigi/parameter.py       |  144 | 0.9756\nluigi/parameter.py       |  136 | 0.9756\nluigi/parameter.py       |  134 | 0.9756\nluigi/parameter.py       |  133 | 0.9756\nluigi/parameter.py       |  132 | 0.9756\nluigi/parameter.py       |  131 | 0.9756\nluigi/parameter.py       |  129 | 0.9756\nluigi/parameter.py       |  128 | 0.9756\nluigi/deprecate_kwarg.py |   52 | 0.9756\nluigi/deprecate_kwarg.py |   51 | 0.9756\nluigi/deprecate_kwarg.py |   48 | 0.9756\nluigi/deprecate_kwarg.py |   44 | 0.9756\nluigi/deprecate_kwarg.py |   43 | 0.9756\nluigi/task.py            |  351 | 0.8417\nluigi/task.py            |  350 | 0.8417\nluigi/task.py            |  342 | 0.8417\nluigi/task.py            |  339 | 0.8417\nluigi/task.py            |  338 | 0.8417\n----------------------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile                     | Line | Score   \n------------------------------------------\nluigi/task.py            |   99 | 160.0000\nluigi/task.py            |   97 | 160.0000\nluigi/task.py            |   94 | 160.0000\nluigi/task.py            |   85 | 160.0000\nluigi/task.py            |   83 | 160.0000\nluigi/task.py            |   82 | 160.0000\nluigi/task.py            |   80 | 160.0000\nluigi/task.py            |   79 | 160.0000\nluigi/task.py            |  336 | 160.0000\nluigi/task.py            |  335 | 160.0000\nluigi/task.py            |  334 | 160.0000\nluigi/task.py            |  331 | 160.0000\nluigi/task.py            |  327 | 160.0000\nluigi/task.py            |  325 | 160.0000\nluigi/task.py            |  323 | 160.0000\nluigi/task.py            |  311 | 160.0000\nluigi/task.py            |  310 | 160.0000\nluigi/task.py            |  307 | 160.0000\nluigi/task.py            |  305 | 160.0000\nluigi/task.py            |  304 | 160.0000\nluigi/task.py            |  303 | 160.0000\nluigi/task.py            |  302 | 160.0000\nluigi/task.py            |  301 | 160.0000\nluigi/task.py            |  141 | 160.0000\nluigi/task.py            |  140 | 160.0000\nluigi/task.py            |  103 | 160.0000\nluigi/task.py            |  102 | 160.0000\nluigi/parameter.py       |  154 | 160.0000\nluigi/parameter.py       |  153 | 160.0000\nluigi/parameter.py       |  151 | 160.0000\nluigi/parameter.py       |  149 | 160.0000\nluigi/parameter.py       |  147 | 160.0000\nluigi/parameter.py       |  144 | 160.0000\nluigi/parameter.py       |  136 | 160.0000\nluigi/parameter.py       |  134 | 160.0000\nluigi/parameter.py       |  133 | 160.0000\nluigi/parameter.py       |  132 | 160.0000\nluigi/parameter.py       |  131 | 160.0000\nluigi/parameter.py       |  129 | 160.0000\nluigi/parameter.py       |  128 | 160.0000\nluigi/deprecate_kwarg.py |   52 | 160.0000\nluigi/deprecate_kwarg.py |   51 | 160.0000\nluigi/deprecate_kwarg.py |   48 | 160.0000\nluigi/deprecate_kwarg.py |   44 | 160.0000\nluigi/deprecate_kwarg.py |   43 | 160.0000\nluigi/task.py            |  351 |   8.1818\nluigi/task.py            |  350 |   8.1818\nluigi/task.py            |  342 |   8.1818\nluigi/task.py            |  339 |   8.1818\nluigi/task.py            |  338 |   8.1818\n------------------------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile                     | Line | Score \n----------------------------------------\nluigi/task.py            |   99 | 0.9756\nluigi/task.py            |   97 | 0.9756\nluigi/task.py            |   94 | 0.9756\nluigi/task.py            |   85 | 0.9756\nluigi/task.py            |   83 | 0.9756\nluigi/task.py            |   82 | 0.9756\nluigi/task.py            |   80 | 0.9756\nluigi/task.py            |   79 | 0.9756\nluigi/task.py            |  336 | 0.9756\nluigi/task.py            |  335 | 0.9756\nluigi/task.py            |  334 | 0.9756\nluigi/task.py            |  331 | 0.9756\nluigi/task.py            |  327 | 0.9756\nluigi/task.py            |  325 | 0.9756\nluigi/task.py            |  323 | 0.9756\nluigi/task.py            |  311 | 0.9756\nluigi/task.py            |  310 | 0.9756\nluigi/task.py            |  307 | 0.9756\nluigi/task.py            |  305 | 0.9756\nluigi/task.py            |  304 | 0.9756\nluigi/task.py            |  303 | 0.9756\nluigi/task.py            |  302 | 0.9756\nluigi/task.py            |  301 | 0.9756\nluigi/task.py            |  141 | 0.9756\nluigi/task.py            |  140 | 0.9756\nluigi/task.py            |  103 | 0.9756\nluigi/task.py            |  102 | 0.9756\nluigi/parameter.py       |  154 | 0.9756\nluigi/parameter.py       |  153 | 0.9756\nluigi/parameter.py       |  151 | 0.9756\nluigi/parameter.py       |  149 | 0.9756\nluigi/parameter.py       |  147 | 0.9756\nluigi/parameter.py       |  144 | 0.9756\nluigi/parameter.py       |  136 | 0.9756\nluigi/parameter.py       |  134 | 0.9756\nluigi/parameter.py       |  133 | 0.9756\nluigi/parameter.py       |  132 | 0.9756\nluigi/parameter.py       |  131 | 0.9756\nluigi/parameter.py       |  129 | 0.9756\nluigi/parameter.py       |  128 | 0.9756\nluigi/deprecate_kwarg.py |   52 | 0.9756\nluigi/deprecate_kwarg.py |   51 | 0.9756\nluigi/deprecate_kwarg.py |   48 | 0.9756\nluigi/deprecate_kwarg.py |   44 | 0.9756\nluigi/deprecate_kwarg.py |   43 | 0.9756\nluigi/task.py            |  351 | 0.7317\nluigi/task.py            |  350 | 0.7317\nluigi/task.py            |  342 | 0.7317\nluigi/task.py            |  339 | 0.7317\nluigi/task.py            |  338 | 0.7317\n----------------------------------------\n\n----------------------\n|   Scores for SBI   |\n----------------------\nFile            | Line | Score \n-------------------------------\nluigi/worker.py |  740 | 1.0000\nluigi/worker.py |  736 | 1.0000\nluigi/worker.py |  723 | 1.0000\nluigi/worker.py |  722 | 1.0000\nluigi/worker.py |  721 | 1.0000\nluigi/worker.py |  720 | 1.0000\nluigi/worker.py |  718 | 1.0000\nluigi/worker.py |  714 | 1.0000\nluigi/worker.py |  711 | 1.0000\nluigi/worker.py |  709 | 1.0000\nluigi/worker.py |  708 | 1.0000\nluigi/worker.py |  706 | 1.0000\nluigi/worker.py |  699 | 1.0000\nluigi/worker.py |  574 | 1.0000\nluigi/worker.py |  573 | 1.0000\nluigi/worker.py |  571 | 1.0000\nluigi/worker.py |  570 | 1.0000\nluigi/worker.py |  569 | 1.0000\nluigi/worker.py |  564 | 1.0000\nluigi/worker.py |  562 | 1.0000\nluigi/worker.py |  561 | 1.0000\nluigi/worker.py |  555 | 1.0000\nluigi/worker.py |  552 | 1.0000\nluigi/worker.py |  551 | 1.0000\nluigi/worker.py |  550 | 1.0000\nluigi/worker.py |  545 | 1.0000\nluigi/worker.py |  544 | 1.0000\nluigi/worker.py |  543 | 1.0000\nluigi/worker.py |  537 | 1.0000\nluigi/worker.py |  506 | 1.0000\nluigi/worker.py |  497 | 1.0000\nluigi/worker.py |  491 | 1.0000\nluigi/worker.py |  480 | 1.0000\nluigi/worker.py |  472 | 1.0000\nluigi/worker.py |  471 | 1.0000\nluigi/worker.py |  470 | 1.0000\nluigi/worker.py |  467 | 1.0000\nluigi/worker.py |  466 | 1.0000\nluigi/worker.py |  465 | 1.0000\nluigi/worker.py |  464 | 1.0000\nluigi/worker.py |  463 | 1.0000\nluigi/worker.py |  462 | 1.0000\nluigi/worker.py |  461 | 1.0000\nluigi/worker.py |  459 | 1.0000\nluigi/worker.py |  453 | 1.0000\nluigi/worker.py |  452 | 1.0000\nluigi/worker.py |  451 | 1.0000\nluigi/worker.py |  450 | 1.0000\nluigi/worker.py |  449 | 1.0000\nluigi/worker.py |  448 | 1.0000\n-------------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED test/parameter_test.py::ParameterTest::test_local_insignificant_param\nFAILED test/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param\nFAILED test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params\nFAILED test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n======================== 4 failed, 7 warnings in 0.81s =========================",
+    "returncode": 1
+  }
+}

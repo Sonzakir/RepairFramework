@@ -1,0 +1,66 @@
+{
+  "run_id": "run_259",
+  "status": "completed",
+  "started_at": "2026-07-07T15:19:03.073167+00:00",
+  "finished_at": "2026-07-07T15:19:06.790474+00:00",
+  "backend": "llm-fl",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "tests/test_black.py",
+      "location": "tests/test_black.py:1278",
+      "score": 1.0,
+      "line": 1278,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "forcing ProcessPoolExecutor to raise OSError should trigger single-process fallback; failure suggests fallback path is broken or missing"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "tests/test_black.py",
+      "location": "tests/test_black.py:1288",
+      "score": 0.99,
+      "line": 1288,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "CLI invocation unexpectedly exits with code 1 in mono-process scenario, pointing to handling around this execution path"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "tests/test_black.py",
+      "location": "tests/test_black.py:162",
+      "score": 0.98,
+      "line": 162,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "assertion reveals black.main returned nonzero exit code, indicating the command failed instead of recovering from executor creation error"
+      }
+    }
+  ],
+  "metadata": {
+    "fl_backend": "llm",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "system_prompt": "fl_prompt1",
+    "score_formula": "llm-rank: descending synthetic score by model order",
+    "files_shown": [
+      "tests/test_black.py"
+    ],
+    "had_traceback": true,
+    "location_count": 3,
+    "raw_llm_response": "[\n  {\"file\": \"tests/test_black.py\", \"line\": 1278, \"reason\": \"forcing ProcessPoolExecutor to raise OSError should trigger single-process fallback; failure suggests fallback path is broken or missing\"},\n  {\"file\": \"tests/test_black.py\", \"line\": 1288, \"reason\": \"CLI invocation unexpectedly exits with code 1 in mono-process scenario, pointing to handling around this execution path\"},\n  {\"file\": \"tests/test_black.py\", \"line\": 162, \"reason\": \"assertion reveals black.main returned nonzero exit code, indicating the command failed instead of recovering from executor creation error\"}\n]"
+  }
+}

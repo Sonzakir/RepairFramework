@@ -1,0 +1,426 @@
+{
+  "run_id": "run_365",
+  "status": "completed",
+  "started_at": "2026-07-13T21:00:38.326196+00:00",
+  "finished_at": "2026-07-13T21:00:49.516049+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 11
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:992",
+      "score": 0.9091,
+      "line": 992,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  992 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:983",
+      "score": 0.9091,
+      "line": 983,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  983 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:982",
+      "score": 0.9091,
+      "line": 982,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  982 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:978",
+      "score": 0.9091,
+      "line": 978,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  978 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "black.py",
+      "location": "black.py:973",
+      "score": 0.9091,
+      "line": 973,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  973 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "black.py",
+    "test_targets": [
+      "tests/test_black.py::BlackTestCase::test_comments6"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:992",
+          "score": 1.1,
+          "line": 992,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  992 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:983",
+          "score": 1.1,
+          "line": 983,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  983 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:982",
+          "score": 1.1,
+          "line": 982,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  982 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:978",
+          "score": 1.1,
+          "line": 978,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  978 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:973",
+          "score": 1.1,
+          "line": 973,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  973 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:992",
+          "score": 0.9091,
+          "line": 992,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  992 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:983",
+          "score": 0.9091,
+          "line": 983,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  983 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:982",
+          "score": 0.9091,
+          "line": 982,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  982 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:978",
+          "score": 0.9091,
+          "line": 978,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  978 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:973",
+          "score": 0.9091,
+          "line": 973,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  973 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:992",
+          "score": 10.0,
+          "line": 992,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  992 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:983",
+          "score": 10.0,
+          "line": 983,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  983 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:982",
+          "score": 10.0,
+          "line": 982,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  982 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:978",
+          "score": 10.0,
+          "line": 978,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  978 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:973",
+          "score": 10.0,
+          "line": 973,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  973 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:992",
+          "score": 0.9091,
+          "line": 992,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  992 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:983",
+          "score": 0.9091,
+          "line": 983,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  983 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:982",
+          "score": 0.9091,
+          "line": 982,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  982 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:978",
+          "score": 0.9091,
+          "line": 978,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  978 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:973",
+          "score": 0.9091,
+          "line": 973,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  973 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "WSBI": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:992",
+          "score": 1.0,
+          "line": 992,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  992 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:983",
+          "score": 1.0,
+          "line": 983,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  983 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:982",
+          "score": 1.0,
+          "line": 982,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  982 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:978",
+          "score": 1.0,
+          "line": 978,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  978 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:973",
+          "score": 1.0,
+          "line": 973,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  973 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-8.3.5, pluggy-1.5.0\nrootdir: /home/workspace/black_11/black\nconfigfile: pyproject.toml\nplugins: timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 1 item\n\ntests/test_black.py F                                                    [100%]\n\n=================================== FAILURES ===================================\n_________________________ BlackTestCase.test_comments6 _________________________\n\nself = <tests.test_black.BlackTestCase testMethod=test_comments6>\n\n    @patch(\"black.dump_to_file\", dump_to_stderr)\n    def test_comments6(self) -> None:\n        source, expected = read_data(\"comments6\")\n        actual = fs(source)\n>       self.assertFormatEqual(expected, actual)\n\ntests/test_black.py:369: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_black.py:156: in assertFormatEqual\n    self.assertEqual(expected, actual)\nE   AssertionError: 'from[32 chars]ef f(\\n    a,  # type: int\\n):\\n    pass\\n\\n\\n[1362 chars]nt\\n' != 'from[32 chars]ef f(a,):  # type: int\\n    pass\\n\\n\\n# test t[1330 chars]nt\\n'\nE     from typing import Any, Tuple\nE     \nE     \nE   + def f(a,):  # type: int\nE   - def f(\nE   -     a,  # type: int\nE   - ):\nE         pass\nE     \nE     \nE     # test type comments\nE     def f(a, b, c, d, e, f, g, h, i):\nE         # type: (int, int, int, int, int, int, int, int, int) -> None\nE         pass\nE     \nE     \nE     def f(\nE         a,  # type: int\nE         b,  # type: int\nE         c,  # type: int\nE         d,  # type: int\nE         e,  # type: int\nE         f,  # type: int\nE         g,  # type: int\nE         h,  # type: int\nE         i,  # type: int\nE     ):\nE         # type: (...) -> None\nE         pass\nE     \nE     \nE     def f(\nE         arg,  # type: int\nE         *args,  # type: *Any\nE         default=False,  # type: bool\nE         **kwargs,  # type: **Any\nE     ):\nE         # type: (...) -> None\nE         pass\nE     \nE     \nE   + def f(a, b, c, d):  # type: int  # type: int  # type: int  # type: int\nE   - def f(\nE   -     a,  # type: int\nE   -     b,  # type: int\nE   -     c,  # type: int\nE   -     d,  # type: int\nE   - ):\nE         # type: (...) -> None\nE     \nE         element = 0  # type: int\nE         another_element = 1  # type: float\nE         another_element_with_long_name = 2  # type: int\nE         another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style = (\nE             3\nE         )  # type: int\nE     \nE         tup = (\nE             another_element,  # type: int\nE             another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style,  # type: int\nE         )  # type: Tuple[int, int]\nE     \nE         a = (\nE             element\nE             + another_element\nE             + another_element_with_long_name\nE             + element\nE             + another_element\nE             + another_element_with_long_name\nE         )  # type: int\n----------------------------- Captured stderr call -----------------------------\nExpected tree:\nfile_input\n  simple_stmt\n    import_from\n      NAME 'from'\n      NAME ' ' 'typing'\n      NAME ' ' 'import'\n      import_as_names\n        NAME ' ' 'Any'\n        COMMA ','\n        NAME ' ' 'Tuple'\n      /import_as_names\n    /import_from\n    NEWLINE '\\n'\n  /simple_stmt\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME '\\n    ' 'a'\n        COMMA ','\n      /typedargslist\n      RPAR '  # type: int\\n' ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n# test type comments\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME 'a'\n        COMMA ','\n        NAME ' ' 'b'\n        COMMA ','\n        NAME ' ' 'c'\n        COMMA ','\n        NAME ' ' 'd'\n        COMMA ','\n        NAME ' ' 'e'\n        COMMA ','\n        NAME ' ' 'f'\n        COMMA ','\n        NAME ' ' 'g'\n        COMMA ','\n        NAME ' ' 'h'\n        COMMA ','\n        NAME ' ' 'i'\n      /typedargslist\n      RPAR ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    # type: (int, int, int, int, int, int, int, int, int) -> None\\n    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME '\\n    ' 'a'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'b'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'c'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'd'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'e'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'f'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'g'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'h'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'i'\n        COMMA ','\n      /typedargslist\n      RPAR '  # type: int\\n' ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    # type: (...) -> None\\n    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME '\\n    ' 'arg'\n        COMMA ','\n        STAR '  # type: int\\n    ' '*'\n        NAME 'args'\n        COMMA ','\n        NAME '  # type: *Any\\n    ' 'default'\n        EQUAL '='\n        NAME 'False'\n        COMMA ','\n        DOUBLESTAR '  # type: bool\\n    ' '**'\n        NAME 'kwargs'\n        COMMA ','\n      /typedargslist\n      RPAR '  # type: **Any\\n' ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    # type: (...) -> None\\n    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME '\\n    ' 'a'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'b'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'c'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'd'\n        COMMA ','\n      /typedargslist\n      RPAR '  # type: int\\n' ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        expr_stmt\n          NAME '    # type: (...) -> None\\n\\n    ' 'element'\n          EQUAL ' ' '='\n          NUMBER ' ' '0'\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '    ' 'another_element'\n          EQUAL ' ' '='\n          NUMBER ' ' '1'\n        /expr_stmt\n        NEWLINE '  # type: float' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '    ' 'another_element_with_long_name'\n          EQUAL ' ' '='\n          NUMBER ' ' '2'\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '    ' 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style'\n          EQUAL ' ' '='\n          atom\n            LPAR ' ' '('\n            NUMBER '\\n        ' '3'\n            RPAR '\\n    ' ')'\n          /atom\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '\\n    ' 'tup'\n          EQUAL ' ' '='\n          atom\n            LPAR ' ' '('\n            testlist_gexp\n              NAME '\\n        ' 'another_element'\n              COMMA ','\n              NAME '  # type: int\\n        ' 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style'\n              COMMA ','\n            /testlist_gexp\n            RPAR '  # type: int\\n    ' ')'\n          /atom\n        /expr_stmt\n        NEWLINE '  # type: Tuple[int, int]' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '\\n    ' 'a'\n          EQUAL ' ' '='\n          atom\n            LPAR ' ' '('\n            arith_expr\n              NAME '\\n        ' 'element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element_with_long_name'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element_with_long_name'\n            /arith_expr\n            RPAR '\\n    ' ')'\n          /atom\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  ENDMARKER ''\n/file_input\nActual tree:\nfile_input\n  simple_stmt\n    import_from\n      NAME 'from'\n      NAME ' ' 'typing'\n      NAME ' ' 'import'\n      import_as_names\n        NAME ' ' 'Any'\n        COMMA ','\n        NAME ' ' 'Tuple'\n      /import_as_names\n    /import_from\n    NEWLINE '\\n'\n  /simple_stmt\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME 'a'\n        COMMA ','\n      /typedargslist\n      RPAR ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '  # type: int' '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n# test type comments\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME 'a'\n        COMMA ','\n        NAME ' ' 'b'\n        COMMA ','\n        NAME ' ' 'c'\n        COMMA ','\n        NAME ' ' 'd'\n        COMMA ','\n        NAME ' ' 'e'\n        COMMA ','\n        NAME ' ' 'f'\n        COMMA ','\n        NAME ' ' 'g'\n        COMMA ','\n        NAME ' ' 'h'\n        COMMA ','\n        NAME ' ' 'i'\n      /typedargslist\n      RPAR ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    # type: (int, int, int, int, int, int, int, int, int) -> None\\n    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME '\\n    ' 'a'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'b'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'c'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'd'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'e'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'f'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'g'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'h'\n        COMMA ','\n        NAME '  # type: int\\n    ' 'i'\n        COMMA ','\n      /typedargslist\n      RPAR '  # type: int\\n' ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    # type: (...) -> None\\n    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME '\\n    ' 'arg'\n        COMMA ','\n        STAR '  # type: int\\n    ' '*'\n        NAME 'args'\n        COMMA ','\n        NAME '  # type: *Any\\n    ' 'default'\n        EQUAL '='\n        NAME 'False'\n        COMMA ','\n        DOUBLESTAR '  # type: bool\\n    ' '**'\n        NAME 'kwargs'\n        COMMA ','\n      /typedargslist\n      RPAR '  # type: **Any\\n' ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT ''\n      simple_stmt\n        NAME '    # type: (...) -> None\\n    ' 'pass'\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'f'\n    parameters\n      LPAR '('\n      typedargslist\n        NAME 'a'\n        COMMA ','\n        NAME ' ' 'b'\n        COMMA ','\n        NAME ' ' 'c'\n        COMMA ','\n        NAME ' ' 'd'\n      /typedargslist\n      RPAR ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '  # type: int  # type: int  # type: int  # type: int' '\\n'\n      INDENT ''\n      simple_stmt\n        expr_stmt\n          NAME '    # type: (...) -> None\\n\\n    ' 'element'\n          EQUAL ' ' '='\n          NUMBER ' ' '0'\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '    ' 'another_element'\n          EQUAL ' ' '='\n          NUMBER ' ' '1'\n        /expr_stmt\n        NEWLINE '  # type: float' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '    ' 'another_element_with_long_name'\n          EQUAL ' ' '='\n          NUMBER ' ' '2'\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '    ' 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style'\n          EQUAL ' ' '='\n          atom\n            LPAR ' ' '('\n            NUMBER '\\n        ' '3'\n            RPAR '\\n    ' ')'\n          /atom\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '\\n    ' 'tup'\n          EQUAL ' ' '='\n          atom\n            LPAR ' ' '('\n            testlist_gexp\n              NAME '\\n        ' 'another_element'\n              COMMA ','\n              NAME '  # type: int\\n        ' 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style'\n              COMMA ','\n            /testlist_gexp\n            RPAR '  # type: int\\n    ' ')'\n          /atom\n        /expr_stmt\n        NEWLINE '  # type: Tuple[int, int]' '\\n'\n      /simple_stmt\n      simple_stmt\n        expr_stmt\n          NAME '\\n    ' 'a'\n          EQUAL ' ' '='\n          atom\n            LPAR ' ' '('\n            arith_expr\n              NAME '\\n        ' 'element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element_with_long_name'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element'\n              PLUS '\\n        ' '+'\n              NAME ' ' 'another_element_with_long_name'\n            /arith_expr\n            RPAR '\\n    ' ')'\n          /atom\n        /expr_stmt\n        NEWLINE '  # type: int' '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  ENDMARKER ''\n/file_input\n------------------------------ Captured log call -------------------------------\nDEBUG    root:driver.py:71 NAME 'from' (prefix='')\nDEBUG    root:driver.py:71 NAME 'typing' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'import' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'Any' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'Tuple' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n# test type comments\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n# test type comments\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'e' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'g' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'h' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'i' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (int, int, int, int, int, int, int, int, int) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (int, int, int, int, int, int, int, int, int) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'e' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'f' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'g' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'h' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'i' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (...) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'arg' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 STAR '*' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 NAME 'args' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'default' (prefix='  # type: *Any\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix='')\nDEBUG    root:driver.py:71 NAME 'False' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 DOUBLESTAR '**' (prefix='  # type: bool\\n    ')\nDEBUG    root:driver.py:71 NAME 'kwargs' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: **Any\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (...) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n\\n')\nDEBUG    root:driver.py:71 NAME 'element' (prefix='    # type: (...) -> None\\n\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '0' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '1' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: float')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '2' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '3' (prefix='\\n        ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'tup' (prefix='\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix='\\n        ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style' (prefix='  # type: int\\n        ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: Tuple[int, int]')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'element' (prefix='\\n        ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='')\nDEBUG    root:driver.py:71 ENDMARKER '' (prefix='')\nDEBUG    root:driver.py:83 Stop.\nDEBUG    root:driver.py:71 NAME 'from' (prefix='')\nDEBUG    root:driver.py:71 NAME 'typing' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'import' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'Any' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'Tuple' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n# test type comments\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n# test type comments\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'e' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'g' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'h' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'i' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (int, int, int, int, int, int, int, int, int) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (int, int, int, int, int, int, int, int, int) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'e' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'f' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'g' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'h' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'i' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (...) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'arg' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 STAR '*' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 NAME 'args' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'default' (prefix='  # type: *Any\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix='')\nDEBUG    root:driver.py:71 NAME 'False' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 DOUBLESTAR '**' (prefix='  # type: bool\\n    ')\nDEBUG    root:driver.py:71 NAME 'kwargs' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: **Any\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (...) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n\\n')\nDEBUG    root:driver.py:71 NAME 'element' (prefix='    # type: (...) -> None\\n\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '0' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '1' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: float')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '2' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '3' (prefix='\\n        ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'tup' (prefix='\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix='\\n        ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style' (prefix='  # type: int\\n        ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: Tuple[int, int]')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'element' (prefix='\\n        ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='')\nDEBUG    root:driver.py:71 ENDMARKER '' (prefix='')\nDEBUG    root:driver.py:83 Stop.\nDEBUG    root:driver.py:71 NAME 'from' (prefix='')\nDEBUG    root:driver.py:71 NAME 'typing' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'import' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'Any' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'Tuple' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n# test type comments\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n# test type comments\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'e' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'g' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'h' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'i' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (int, int, int, int, int, int, int, int, int) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (int, int, int, int, int, int, int, int, int) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'e' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'f' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'g' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'h' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'i' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (...) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'arg' (prefix='\\n    ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 STAR '*' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 NAME 'args' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'default' (prefix='  # type: *Any\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix='')\nDEBUG    root:driver.py:71 NAME 'False' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 DOUBLESTAR '**' (prefix='  # type: bool\\n    ')\nDEBUG    root:driver.py:71 NAME 'kwargs' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: **Any\\n')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n')\nDEBUG    root:driver.py:71 NAME 'pass' (prefix='    # type: (...) -> None\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'def' (prefix='\\n\\n')\nDEBUG    root:driver.py:71 NAME 'f' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix='')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'b' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'c' (prefix=' ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'd' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='')\nDEBUG    root:driver.py:71 COLON ':' (prefix='')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int  # type: int  # type: int  # type: int')\nDEBUG    root:driver.py:71 INDENT '    ' (prefix='    # type: (...) -> None\\n\\n')\nDEBUG    root:driver.py:71 NAME 'element' (prefix='    # type: (...) -> None\\n\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '0' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '1' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: float')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '2' (prefix=' ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style' (prefix='    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NUMBER '3' (prefix='\\n        ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 NAME 'tup' (prefix='\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix='\\n        ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 NAME 'another_really_really_long_element_with_a_unnecessarily_long_name_to_describe_what_it_does_enterprise_style' (prefix='  # type: int\\n        ')\nDEBUG    root:driver.py:71 COMMA ',' (prefix='')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='  # type: int\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: Tuple[int, int]')\nDEBUG    root:driver.py:71 NAME 'a' (prefix='\\n    ')\nDEBUG    root:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    root:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    root:driver.py:71 NAME 'element' (prefix='\\n        ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element' (prefix=' ')\nDEBUG    root:driver.py:71 PLUS '+' (prefix='\\n        ')\nDEBUG    root:driver.py:71 NAME 'another_element_with_long_name' (prefix=' ')\nDEBUG    root:driver.py:71 RPAR ')' (prefix='\\n    ')\nDEBUG    root:driver.py:71 NEWLINE '\\n' (prefix='  # type: int')\nDEBUG    root:driver.py:71 DEDENT '' (prefix='')\nDEBUG    root:driver.py:71 ENDMARKER '' (prefix='')\nDEBUG    root:driver.py:83 Stop.\n=============================== warnings summary ===============================\nenv/lib/python3.8/site-packages/aiohttp/helpers.py:107\n  /home/workspace/black_11/black/env/lib/python3.8/site-packages/aiohttp/helpers.py:107: DeprecationWarning: \"@coroutine\" decorator is deprecated since Python 3.8, use \"async def\" instead\n    def noop(*args, **kwargs):  # type: ignore\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_black.py::BlackTestCase::test_comments6\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 1.3336\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile     | Line | Score \n------------------------\nblack.py |  992 | 1.1000\nblack.py |  983 | 1.1000\nblack.py |  982 | 1.1000\nblack.py |  978 | 1.1000\nblack.py |  973 | 1.1000\n------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile     | Line | Score \n------------------------\nblack.py |  992 | 0.9091\nblack.py |  983 | 0.9091\nblack.py |  982 | 0.9091\nblack.py |  978 | 0.9091\nblack.py |  973 | 0.9091\n------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile     | Line | Score  \n-------------------------\nblack.py |  992 | 10.0000\nblack.py |  983 | 10.0000\nblack.py |  982 | 10.0000\nblack.py |  978 | 10.0000\nblack.py |  973 | 10.0000\n-------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile     | Line | Score \n------------------------\nblack.py |  992 | 0.9091\nblack.py |  983 | 0.9091\nblack.py |  982 | 0.9091\nblack.py |  978 | 0.9091\nblack.py |  973 | 0.9091\n------------------------\n\n-----------------------\n|   Scores for WSBI   |\n-----------------------\nFile     | Line | Score \n------------------------\nblack.py |  992 | 1.0000\nblack.py |  983 | 1.0000\nblack.py |  982 | 1.0000\nblack.py |  978 | 1.0000\nblack.py |  973 | 1.0000\n------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_black.py::BlackTestCase::test_comments6 - AssertionError: '...\n========================= 1 failed, 1 warning in 1.32s =========================",
+    "returncode": 1
+  }
+}

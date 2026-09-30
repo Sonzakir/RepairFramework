@@ -1,0 +1,7 @@
+{
+  "run_id": "run_263",
+  "status": "error",
+  "started_at": "2026-07-07T17:44:45.426733+00:00",
+  "finished_at": "2026-07-07T17:44:46.005803+00:00",
+  "error": "APRFrameworkError: LLM API call failed (BadRequestError): Error code: 400 - {'type': 'https://tools.ietf.org/html/rfc9110#section-15.5.1', 'title': 'Bad Request', 'status': 400, 'traceId': '00-551ef656c17481dcfa543cac6bacad85-d0c0bdf51098453b-00'}"
+}

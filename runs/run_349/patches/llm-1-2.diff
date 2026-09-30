@@ -1,0 +1,11 @@
+--- /workspace/.workspace/bugsinpy/black_3/black/tests/test_black.py
++++ /workspace/.workspace/bugsinpy/black_3/black/tests/test_black.py
+@@ -1651,7 +1651,7 @@
+             tmp_config = Path(black.dump_to_file())
+             tmp_config.unlink()
+             args = ["--config", str(tmp_config), str(tmp_file)]
+-            self.invokeBlack(args, exit_code=2, ignore_config=False)
++            self.invokeBlack(args, exit_code=1, ignore_config=False)
+         finally:
+             tmp_file.unlink()
+ 

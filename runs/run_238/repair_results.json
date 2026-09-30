@@ -1,0 +1,96 @@
+{
+  "run_id": "run_238",
+  "project": "tornado",
+  "bug_id": 14,
+  "fl_mode": "perfect",
+  "fl_backend": "perfect-fl",
+  "status": "correct",
+  "validation_summary": "Found 1 plausible patch(es) out of 1 validated (budget: 200, elapsed: 1.9s). First plausible: llm-iter-1-0.",
+  "started_at": "2026-07-07T11:00:39.393757+00:00",
+  "finished_at": "2026-07-07T11:00:41.270515+00:00",
+  "elapsed_seconds": 1.8636610840003414,
+  "config": {
+    "technique": "llm",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "tornado",
+    "bug_id": 14,
+    "variant": "iterative",
+    "fl_mode": "perfect",
+    "fl_backend": "perfect-fl",
+    "ranker": "none"
+  },
+  "candidates_validated": 1,
+  "plausible_count": 1,
+  "correct_count": 1,
+  "metrics": {
+    "total_candidates_generated": 1,
+    "candidates_validated": 1,
+    "plausible_count": 1,
+    "correct_count": 1,
+    "time_to_first_plausible_seconds": 1.863660250999601,
+    "total_wall_clock_seconds": 1.8636610840003414,
+    "rank_of_first_correct": null,
+    "llm_query_count": 1
+  },
+  "plausible_patches": [
+    {
+      "patch_id": "llm-iter-1-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM iterative patch for tornado/ioloop.py:252 (turn 1)",
+      "validation_summary": "All tests passed with patch llm-iter-1-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "iteration": 1,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "failure_kind": "none"
+      }
+    }
+  ],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-iter-1-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM iterative patch for tornado/ioloop.py:252 (turn 1)",
+      "validation_summary": "All tests passed with patch llm-iter-1-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "iteration": 1,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "failure_kind": "none"
+      }
+    }
+  ]
+}

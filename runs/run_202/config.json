@@ -1,0 +1,23 @@
+{
+  "runner": "template-repair",
+  "project": "tornado",
+  "bug_id": 14,
+  "technique": "template",
+  "budget": 200,
+  "top_n_locations": 5,
+  "enabled_operators": [
+    "arith",
+    "comp"
+  ],
+  "timeout_per_test": 120,
+  "stop_on_first": false,
+  "regression_check": true,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "fl_family": "sbfl",
+  "localization_metric": "ochiai",
+  "mbfl_metric": "metallaxis",
+  "granularity": "statement",
+  "skip_localize": false,
+  "started_at": "2026-07-06T18:15:19.940522+00:00"
+}

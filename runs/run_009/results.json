@@ -1,0 +1,7 @@
+{
+  "run_id": "run_009",
+  "status": "error",
+  "started_at": "2026-06-27T12:16:12.265502+00:00",
+  "finished_at": "2026-06-27T12:16:23.470544+00:00",
+  "error": "ConfigurationError: FauxPy localization command failed. ImportError while loading conftest '/home/workspace/matplotlib_7/matplotlib/lib/matplotlib/tests/conftest.py'.\nlib/matplotlib/__init__.py:107: in <module>\n    from . import cbook, rcsetup\nlib/matplotlib/cbook/__init__.py:28: in <module>\n    import numpy as np\nE   ModuleNotFoundError: No module named 'numpy'"
+}

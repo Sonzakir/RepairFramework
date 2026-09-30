@@ -1,0 +1,776 @@
+{
+  "run_id": "run_376",
+  "project": "tornado",
+  "bug_id": 14,
+  "fl_mode": "llm-fl",
+  "fl_backend": "llm-fl",
+  "status": "correct",
+  "validation_summary": "Found 9 plausible patch(es) out of 9 validated (budget: 200, elapsed: 17.2s). First plausible: llm-1-0.",
+  "started_at": "2026-07-13T21:05:18.509163+00:00",
+  "finished_at": "2026-07-13T21:05:50.298230+00:00",
+  "elapsed_seconds": 17.23423000799994,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "tornado",
+    "bug_id": 14,
+    "approach": "a5-full-llm",
+    "technique": "llm",
+    "fl_mode": "llm-fl",
+    "fl_backend": "llm-fl",
+    "context_enrichment": true,
+    "iterative": false,
+    "retrieval_budget": 3,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 9,
+  "plausible_count": 9,
+  "correct_count": 9,
+  "metrics": {
+    "total_candidates_generated": 9,
+    "candidates_validated": 9,
+    "plausible_count": 9,
+    "correct_count": 9,
+    "time_to_first_plausible_seconds": 14.473650715000076,
+    "total_wall_clock_seconds": 17.23423000799994,
+    "rank_of_first_correct": null,
+    "llm_query_count": 12,
+    "assessment_query_count": 9
+  },
+  "plausible_patches": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 0.98,
+        "assessment_rationale": "The original condition was inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is targeted, preserves surrounding behavior, and generalizes to other callers using make_current=True rather than merely silencing the tested failure.",
+        "assessment_raw_response": "{\"quality_score\": 0.98, \"rationale\": \"The original condition was inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is targeted, preserves surrounding behavior, and generalizes to other callers using make_current=True rather than merely silencing the tested failure.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 0.99,
+        "assessment_rationale": "The patch corrects an obviously inverted condition: make_current=True should raise only when a current IOLoop already exists, not when none exists. It is narrowly targeted, preserves surrounding behavior, and matches the intended semantics beyond the single failing test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The patch corrects an obviously inverted condition: make_current=True should raise only when a current IOLoop already exists, not when none exists. It is narrowly targeted, preserves surrounding behavior, and matches the intended semantics beyond the single failing test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The patch corrects an obviously inverted condition: make_current=True should fail only when a current IOLoop already exists, not when none exists. It is narrowly targeted, matches the intended semantics in both the passing and failing paths, and is unlikely to disturb unrelated behavior.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The patch corrects an obviously inverted condition: make_current=True should fail only when a current IOLoop already exists, not when none exists. It is narrowly targeted, matches the intended semantics in both the passing and failing paths, and is unlikely to disturb unrelated behavior.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-3-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and generalizes to all callers of initialize rather than special-casing the test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and generalizes to all callers of initialize rather than special-casing the test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-3-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The patch corrects an inverted condition in the make_current=True path, matching the intended semantics: raise only when a current IOLoop already exists, otherwise make this one current. It is a minimal, targeted fix that generalizes directly beyond the visible test without altering unrelated behavior.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The patch corrects an inverted condition in the make_current=True path, matching the intended semantics: raise only when a current IOLoop already exists, otherwise make this one current. It is a minimal, targeted fix that generalizes directly beyond the visible test without altering unrelated behavior.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-3-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to all uses of explicit make_current rather than special-casing the test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to all uses of explicit make_current rather than special-casing the test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    }
+  ],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 0.98,
+        "assessment_rationale": "The original condition was inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is targeted, preserves surrounding behavior, and generalizes to other callers using make_current=True rather than merely silencing the tested failure.",
+        "assessment_raw_response": "{\"quality_score\": 0.98, \"rationale\": \"The original condition was inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is targeted, preserves surrounding behavior, and generalizes to other callers using make_current=True rather than merely silencing the tested failure.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 0.99,
+        "assessment_rationale": "The patch corrects an obviously inverted condition: make_current=True should raise only when a current IOLoop already exists, not when none exists. It is narrowly targeted, preserves surrounding behavior, and matches the intended semantics beyond the single failing test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The patch corrects an obviously inverted condition: make_current=True should raise only when a current IOLoop already exists, not when none exists. It is narrowly targeted, preserves surrounding behavior, and matches the intended semantics beyond the single failing test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The patch corrects an obviously inverted condition: make_current=True should fail only when a current IOLoop already exists, not when none exists. It is narrowly targeted, matches the intended semantics in both the passing and failing paths, and is unlikely to disturb unrelated behavior.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The patch corrects an obviously inverted condition: make_current=True should fail only when a current IOLoop already exists, not when none exists. It is narrowly targeted, matches the intended semantics in both the passing and failing paths, and is unlikely to disturb unrelated behavior.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-3-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and generalizes to all callers of initialize rather than special-casing the test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and generalizes to all callers of initialize rather than special-casing the test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-3-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The patch corrects an inverted condition in the make_current=True path, matching the intended semantics: raise only when a current IOLoop already exists, otherwise make this one current. It is a minimal, targeted fix that generalizes directly beyond the visible test without altering unrelated behavior.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The patch corrects an inverted condition in the make_current=True path, matching the intended semantics: raise only when a current IOLoop already exists, otherwise make this one current. It is a minimal, targeted fix that generalizes directly beyond the visible test without altering unrelated behavior.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-3-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to all uses of explicit make_current rather than special-casing the test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to all uses of explicit make_current rather than special-casing the test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    }
+  ],
+  "assessed_plausible_patches": [
+    {
+      "patch_id": "llm-1-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 1
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-3-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and generalizes to all callers of initialize rather than special-casing the test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and generalizes to all callers of initialize rather than special-casing the test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 2
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-3-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The patch corrects an inverted condition in the make_current=True path, matching the intended semantics: raise only when a current IOLoop already exists, otherwise make this one current. It is a minimal, targeted fix that generalizes directly beyond the visible test without altering unrelated behavior.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The patch corrects an inverted condition in the make_current=True path, matching the intended semantics: raise only when a current IOLoop already exists, otherwise make this one current. It is a minimal, targeted fix that generalizes directly beyond the visible test without altering unrelated behavior.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 3
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:251 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-3-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 251,
+        "quality_score": 1.0,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to all uses of explicit make_current rather than special-casing the test.",
+        "assessment_raw_response": "{\"quality_score\": 1.0, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to all uses of explicit make_current rather than special-casing the test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 4
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 0.99,
+        "assessment_rationale": "The patch corrects an obviously inverted condition: make_current=True should raise only when a current IOLoop already exists, not when none exists. It is narrowly targeted, preserves surrounding behavior, and matches the intended semantics beyond the single failing test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The patch corrects an obviously inverted condition: make_current=True should raise only when a current IOLoop already exists, not when none exists. It is narrowly targeted, preserves surrounding behavior, and matches the intended semantics beyond the single failing test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 5
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The patch corrects an obviously inverted condition: make_current=True should fail only when a current IOLoop already exists, not when none exists. It is narrowly targeted, matches the intended semantics in both the passing and failing paths, and is unlikely to disturb unrelated behavior.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The patch corrects an obviously inverted condition: make_current=True should fail only when a current IOLoop already exists, not when none exists. It is narrowly targeted, matches the intended semantics in both the passing and failing paths, and is unlikely to disturb unrelated behavior.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 6
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is minimal, preserves surrounding behavior, and matches the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 7
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:253 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 253,
+        "quality_score": 0.99,
+        "assessment_rationale": "The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to the intended semantics beyond the single test.",
+        "assessment_raw_response": "{\"quality_score\": 0.99, \"rationale\": \"The original condition was clearly inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects that logic directly. It is minimal, preserves surrounding behavior, and generalizes to the intended semantics beyond the single test.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 8
+    },
+    {
+      "patch_id": "llm-1-0",
+      "status": "correct",
+      "is_correct": true,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0. Matches the developer fix (correct).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252,
+        "quality_score": 0.98,
+        "assessment_rationale": "The original condition was inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is targeted, preserves surrounding behavior, and generalizes to other callers using make_current=True rather than merely silencing the tested failure.",
+        "assessment_raw_response": "{\"quality_score\": 0.98, \"rationale\": \"The original condition was inverted: make_current=True should raise only when a current IOLoop already exists, and the patch corrects exactly that logic. It is targeted, preserves surrounding behavior, and generalizes to other callers using make_current=True rather than merely silencing the tested failure.\"}"
+      },
+      "context_similarity_score": 1.0,
+      "similarity_band": "identical to the developer fix",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 9
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+--- /workspace/.workspace/bugsinpy/black_1/black/black.py
++++ /workspace/.workspace/bugsinpy/black_1/black/black.py
+@@ -618,7 +618,23 @@
+     if sys.platform == "win32":
+         # Work around https://bugs.python.org/issue26903
+         worker_count = min(worker_count, 61)
+-    executor = ProcessPoolExecutor(max_workers=worker_count)
++    try:
++        executor = ProcessPoolExecutor(max_workers=worker_count)
++    except OSError:
++        # Fall back to running in-process if process pool cannot be started
++        loop.run_until_complete(
++            schedule_formatting(
++                sources=sources,
++                fast=fast,
++                write_back=write_back,
++                mode=mode,
++                report=report,
++                loop=loop,
++                executor=None,
++            )
++        )
++        shutdown(loop)
++        return
+     try:
+         loop.run_until_complete(
+             schedule_formatting(

@@ -1,0 +1,81 @@
+{
+  "run_id": "run_331",
+  "status": "completed",
+  "started_at": "2026-07-12T19:57:40.809685+00:00",
+  "finished_at": "2026-07-12T19:57:43.876168+00:00",
+  "backend": "llm-fl",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:621",
+      "score": 1.0,
+      "line": 621,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "unconditionally constructs ProcessPoolExecutor; patched test makes this raise OSError, but code should fall back to single-process mode"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:612",
+      "score": 0.99,
+      "line": 612,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "multi-file formatting path lacks handling for environments where process pools are unavailable"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:623",
+      "score": 0.98,
+      "line": 623,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "parallel scheduling is only attempted after executor creation succeeds; no fallback path if executor setup fails"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:635",
+      "score": 0.97,
+      "line": 635,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "finally block assumes loop/executor path, reinforcing missing exception handling around executor creation"
+      }
+    }
+  ],
+  "metadata": {
+    "fl_backend": "llm",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "system_prompt": "fl_prompt1",
+    "score_formula": "llm-rank: descending synthetic score by model order",
+    "files_shown": [
+      "black.py",
+      "blackd.py",
+      "tests/test_black.py"
+    ],
+    "had_traceback": true,
+    "location_count": 4,
+    "raw_llm_response": "[\n  {\"file\": \"black.py\", \"line\": 621, \"reason\": \"unconditionally constructs ProcessPoolExecutor; patched test makes this raise OSError, but code should fall back to single-process mode\"},\n  {\"file\": \"black.py\", \"line\": 612, \"reason\": \"multi-file formatting path lacks handling for environments where process pools are unavailable\"},\n  {\"file\": \"black.py\", \"line\": 623, \"reason\": \"parallel scheduling is only attempted after executor creation succeeds; no fallback path if executor setup fails\"},\n  {\"file\": \"black.py\", \"line\": 635, \"reason\": \"finally block assumes loop/executor path, reinforcing missing exception handling around executor creation\"}\n]"
+  }
+}

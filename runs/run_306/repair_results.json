@@ -1,0 +1,434 @@
+{
+  "run_id": "run_306",
+  "project": "black",
+  "bug_id": 1,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "status": "plausible",
+  "validation_summary": "Found 4 plausible patch(es) out of 10 validated (budget: 20, elapsed: 90.6s). First plausible: llm-1-0.",
+  "started_at": "2026-07-12T18:59:00.061323+00:00",
+  "finished_at": "2026-07-12T19:00:30.881748+00:00",
+  "elapsed_seconds": 90.58166187400002,
+  "config": {
+    "project": "black",
+    "bug_id": 1,
+    "technique": "llm",
+    "budget": 20,
+    "top_n_locations": 5,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "perfect",
+    "fl_backend": "oracle",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-12T18:59:00.049491+00:00",
+    "runner": "llm-repair",
+    "model": "gpt-4.1-2025-04-14",
+    "temperature": 0.8,
+    "max_candidates": 5,
+    "llm_provider": "openai-compatible",
+    "system_prompt": "prompt1",
+    "context_enrichment": true,
+    "few_shot_count": 0,
+    "iterative": false,
+    "max_iterations": 5,
+    "retrieval_budget": 3,
+    "timeout_seconds": 120,
+    "ranker": "none",
+    "similarity_score": false
+  },
+  "candidates_validated": 10,
+  "plausible_count": 4,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 10,
+    "candidates_validated": 10,
+    "plausible_count": 4,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": 65.03504398699988,
+    "total_wall_clock_seconds": 90.58166187400002,
+    "rank_of_first_correct": null,
+    "llm_query_count": 20
+  },
+  "plausible_patches": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fallback to synchronous operation in mono-process-only environments\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        # Fallback to synchronous operation in mono-process-only environments\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fallback: mono-process (serial) execution if process pool can't start (e.g. low RLIMIT_NPROC)\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        # Fallback: mono-process (serial) execution if process pool can't start (e.g. low RLIMIT_NPROC)\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fallback to running in the main process\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        # Fallback to running in the main process\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-3",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 4)",
+      "validation_summary": "All tests passed with patch llm-1-3.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fall back to single-process execution if process pool creation fails\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\n    def reformat_many(\n        sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n    ) -> None:\n        \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n        loop = asyncio.get_event_loop()\n        worker_count = os.cpu_count()\n        if sys.platform == \"win32\":\n            # Work around https://bugs.python.org/issue26903\n            worker_count = min(worker_count, 61)\n        try:\n            executor = ProcessPoolExecutor(max_workers=worker_count)\n        except OSError:\n            # Fall back to single-process execution if process pool creation fails\n            executor = None\n        try:\n            loop.run_until_complete(\n                schedule_formatting(\n                    sources=sources,\n                    fast=fast,\n                    write_back=write_back,\n                    mode=mode,\n                    report=report,\n                    loop=loop,\n                    executor=executor,\n                )\n            )\n        finally:\n            shutdown(loop)\n            if executor is not None:\n                executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    }
+  ],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fallback to synchronous operation in mono-process-only environments\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        # Fallback to synchronous operation in mono-process-only environments\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fallback: mono-process (serial) execution if process pool can't start (e.g. low RLIMIT_NPROC)\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        # Fallback: mono-process (serial) execution if process pool can't start (e.g. low RLIMIT_NPROC)\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fallback to running in the main process\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        # Fallback to running in the main process\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-3",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 4)",
+      "validation_summary": "All tests passed with patch llm-1-3.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,11 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # Fall back to single-process execution if process pool creation fails\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +637,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\n    def reformat_many(\n        sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n    ) -> None:\n        \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n        loop = asyncio.get_event_loop()\n        worker_count = os.cpu_count()\n        if sys.platform == \"win32\":\n            # Work around https://bugs.python.org/issue26903\n            worker_count = min(worker_count, 61)\n        try:\n            executor = ProcessPoolExecutor(max_workers=worker_count)\n        except OSError:\n            # Fall back to single-process execution if process pool creation fails\n            executor = None\n        try:\n            loop.run_until_complete(\n                schedule_formatting(\n                    sources=sources,\n                    fast=fast,\n                    write_back=write_back,\n                    mode=mode,\n                    report=report,\n                    loop=loop,\n                    executor=executor,\n                )\n            )\n        finally:\n            shutdown(loop)\n            if executor is not None:\n                executor.shutdown()\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "schedule_formatting",
+            "result_summary": "# black.py:639\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    tas\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-3",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:636 (attempt 4)",
+      "validation_summary": "Patch llm-2-3 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -633,7 +633,10 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        try:\n+            executor.shutdown()\n+        except OSError:\n+            pass\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    executor = ProcessPoolExecutor(max_workers=worker_count)\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        try:\n            executor.shutdown()\n        except OSError:\n            pass\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 636
+      },
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:646 (attempt 1)",
+      "validation_summary": "Patch llm-3-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -669,14 +669,25 @@\n         # from different processes.\n         manager = Manager()\n         lock = manager.Lock()\n-    tasks = {\n-        asyncio.ensure_future(\n-            loop.run_in_executor(\n-                executor, format_file_in_place, src, fast, mode, write_back, lock\n-            )\n-        ): src\n-        for src in sorted(sources)\n-    }\n+    try:\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    executor, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n+    except OSError:\n+        # fallback to serial execution if executor fails (e.g., mono-process only env)\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    None, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n     pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n     try:\n         loop.add_signal_handler(signal.SIGINT, cancel, pending)\n@@ -701,6 +712,7 @@\n                 ):\n                     sources_to_cache.append(src)\n                 report.done(src, changed)\n+        pending = tasks.keys()\n     if cancelled:\n         await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n     if sources_to_cache:\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    try:\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    executor, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    except OSError:\n        # fallback to serial execution if executor fails (e.g., mono-process only env)\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    None, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n    try:\n        loop.add_signal_handler(signal.SIGINT, cancel, pending)\n        loop.add_signal_handler(signal.SIGTERM, cancel, pending)\n    except NotImplementedError:\n        # There are no good alternatives for these on Windows.\n        pass\n    while pending:\n        done, _ = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)\n        for task in done:\n            src = tasks.pop(task)\n            if task.cancelled():\n                cancelled.append(task)\n            elif task.exception():\n                report.failed(src, str(task.exception()))\n            else:\n                changed = Changed.YES if task.result() else Changed.NO\n                # If the file was written back or was successfully checked as\n                # well-formatted, store this information in the cache.\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n        pending = tasks.keys()\n    if cancelled:\n        await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n    if sources_to_cache:\n        write_cache(cache, sources_to_cache, mode)\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 646
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "format_file_in_place",
+            "result_summary": "# black.py:710\ndef format_file_in_place(\n    src: Path,\n    fast: bool,\n    mode: Mode,\n    write_back: WriteBack = WriteBack.NO,\n    lock: Any = None,  # multiprocessing.Manager().Lock() is some crazy proxy\n) -> bool:\n    \"\"\"Format file under `src` path. Return True if changed.\n\n    If `write_back` is DIFF, write a diff to stdout. If it is YES, write reformatted\n    code to the file.\n    `mode` and `fast` options are passed to :func:`format_file_contents`.\n    \"\"\"\n    if src.suffix == \".pyi\":\n        mode = replace(mode, is_pyi=True)\n\n    then = datetime.utcfromtimestamp(src.stat().st_mtime)\n    with open(src, \"rb\") as buf:\n        src_contents, encoding, newline = decode_bytes(buf.read())\n    try:\n        dst_contents = format_file_contents(src_contents, fast=fast, mode=mode)\n    except NothingChanged:\n        return False\n\n    if write_back == WriteBack.YES:\n        with open(src, \"w\", encoding=encoding, newline=newline) as f:\n            f.write(dst_contents)\n    elif write_back in\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:646 (attempt 2)",
+      "validation_summary": "Patch llm-3-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -669,14 +669,25 @@\n         # from different processes.\n         manager = Manager()\n         lock = manager.Lock()\n-    tasks = {\n-        asyncio.ensure_future(\n-            loop.run_in_executor(\n-                executor, format_file_in_place, src, fast, mode, write_back, lock\n-            )\n-        ): src\n-        for src in sorted(sources)\n-    }\n+    try:\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    executor, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n+    except OSError:\n+        # Fallback: run in the current process if the executor cannot start.\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    None, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n     pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n     try:\n         loop.add_signal_handler(signal.SIGINT, cancel, pending)\n@@ -701,6 +712,7 @@\n                 ):\n                     sources_to_cache.append(src)\n                 report.done(src, changed)\n+        pending = tasks.keys()\n     if cancelled:\n         await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n     if sources_to_cache:\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    try:\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    executor, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    except OSError:\n        # Fallback: run in the current process if the executor cannot start.\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    None, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n    try:\n        loop.add_signal_handler(signal.SIGINT, cancel, pending)\n        loop.add_signal_handler(signal.SIGTERM, cancel, pending)\n    except NotImplementedError:\n        # There are no good alternatives for these on Windows.\n        pass\n    while pending:\n        done, _ = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)\n        for task in done:\n            src = tasks.pop(task)\n            if task.cancelled():\n                cancelled.append(task)\n            elif task.exception():\n                report.failed(src, str(task.exception()))\n            else:\n                changed = Changed.YES if task.result() else Changed.NO\n                # If the file was written back or was successfully checked as\n                # well-formatted, store this information in the cache.\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n        pending = tasks.keys()\n    if cancelled:\n        await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n    if sources_to_cache:\n        write_cache(cache, sources_to_cache, mode)\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 646
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "format_file_in_place",
+            "result_summary": "# black.py:710\ndef format_file_in_place(\n    src: Path,\n    fast: bool,\n    mode: Mode,\n    write_back: WriteBack = WriteBack.NO,\n    lock: Any = None,  # multiprocessing.Manager().Lock() is some crazy proxy\n) -> bool:\n    \"\"\"Format file under `src` path. Return True if changed.\n\n    If `write_back` is DIFF, write a diff to stdout. If it is YES, write reformatted\n    code to the file.\n    `mode` and `fast` options are passed to :func:`format_file_contents`.\n    \"\"\"\n    if src.suffix == \".pyi\":\n        mode = replace(mode, is_pyi=True)\n\n    then = datetime.utcfromtimestamp(src.stat().st_mtime)\n    with open(src, \"rb\") as buf:\n        src_contents, encoding, newline = decode_bytes(buf.read())\n    try:\n        dst_contents = format_file_contents(src_contents, fast=fast, mode=mode)\n    except NothingChanged:\n        return False\n\n    if write_back == WriteBack.YES:\n        with open(src, \"w\", encoding=encoding, newline=newline) as f:\n            f.write(dst_contents)\n    elif write_back in\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:646 (attempt 3)",
+      "validation_summary": "Patch llm-3-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -669,14 +669,31 @@\n         # from different processes.\n         manager = Manager()\n         lock = manager.Lock()\n-    tasks = {\n-        asyncio.ensure_future(\n-            loop.run_in_executor(\n-                executor, format_file_in_place, src, fast, mode, write_back, lock\n-            )\n-        ): src\n-        for src in sorted(sources)\n-    }\n+    try:\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    executor, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n+    except OSError:\n+        # Fallback to synchronous processing (mono process environment)\n+        for src in sorted(sources):\n+            try:\n+                changed = Changed.YES if format_file_in_place(src, fast, mode, write_back, lock) else Changed.NO\n+                if write_back is WriteBack.YES or (\n+                    write_back is WriteBack.CHECK and changed is Changed.NO\n+                ):\n+                    sources_to_cache.append(src)\n+                report.done(src, changed)\n+            except Exception as exc:\n+                report.failed(src, str(exc))\n+        if sources_to_cache:\n+            write_cache(cache, sources_to_cache, mode)\n+        return\n+\n     pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n     try:\n         loop.add_signal_handler(signal.SIGINT, cancel, pending)\n@@ -701,6 +718,7 @@\n                 ):\n                     sources_to_cache.append(src)\n                 report.done(src, changed)\n+        pending = tasks.keys()\n     if cancelled:\n         await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n     if sources_to_cache:\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    try:\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    executor, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    except OSError:\n        # Fallback to synchronous processing (mono process environment)\n        for src in sorted(sources):\n            try:\n                changed = Changed.YES if format_file_in_place(src, fast, mode, write_back, lock) else Changed.NO\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n            except Exception as exc:\n                report.failed(src, str(exc))\n        if sources_to_cache:\n            write_cache(cache, sources_to_cache, mode)\n        return\n\n    pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n    try:\n        loop.add_signal_handler(signal.SIGINT, cancel, pending)\n        loop.add_signal_handler(signal.SIGTERM, cancel, pending)\n    except NotImplementedError:\n        # There are no good alternatives for these on Windows.\n        pass\n    while pending:\n        done, _ = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)\n        for task in done:\n            src = tasks.pop(task)\n            if task.cancelled():\n                cancelled.append(task)\n            elif task.exception():\n                report.failed(src, str(task.exception()))\n            else:\n                changed = Changed.YES if task.result() else Changed.NO\n                # If the file was written back or was successfully checked as\n                # well-formatted, store this information in the cache.\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n        pending = tasks.keys()\n    if cancelled:\n        await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n    if sources_to_cache:\n        write_cache(cache, sources_to_cache, mode)\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 646
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "format_file_in_place",
+            "result_summary": "# black.py:710\ndef format_file_in_place(\n    src: Path,\n    fast: bool,\n    mode: Mode,\n    write_back: WriteBack = WriteBack.NO,\n    lock: Any = None,  # multiprocessing.Manager().Lock() is some crazy proxy\n) -> bool:\n    \"\"\"Format file under `src` path. Return True if changed.\n\n    If `write_back` is DIFF, write a diff to stdout. If it is YES, write reformatted\n    code to the file.\n    `mode` and `fast` options are passed to :func:`format_file_contents`.\n    \"\"\"\n    if src.suffix == \".pyi\":\n        mode = replace(mode, is_pyi=True)\n\n    then = datetime.utcfromtimestamp(src.stat().st_mtime)\n    with open(src, \"rb\") as buf:\n        src_contents, encoding, newline = decode_bytes(buf.read())\n    try:\n        dst_contents = format_file_contents(src_contents, fast=fast, mode=mode)\n    except NothingChanged:\n        return False\n\n    if write_back == WriteBack.YES:\n        with open(src, \"w\", encoding=encoding, newline=newline) as f:\n            f.write(dst_contents)\n    elif write_back in\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-3",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:646 (attempt 4)",
+      "validation_summary": "Patch llm-3-3 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -669,14 +669,32 @@\n         # from different processes.\n         manager = Manager()\n         lock = manager.Lock()\n-    tasks = {\n-        asyncio.ensure_future(\n-            loop.run_in_executor(\n-                executor, format_file_in_place, src, fast, mode, write_back, lock\n-            )\n-        ): src\n-        for src in sorted(sources)\n-    }\n+    try:\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    executor, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n+    except OSError:\n+        # Fallback: run formatting sequentially if executor cannot be used\n+        for src in sorted(sources):\n+            try:\n+                result = format_file_in_place(src, fast, mode, write_back, lock)\n+                changed = Changed.YES if result else Changed.NO\n+                if write_back is WriteBack.YES or (\n+                    write_back is WriteBack.CHECK and changed is Changed.NO\n+                ):\n+                    sources_to_cache.append(src)\n+                report.done(src, changed)\n+            except Exception as exc:\n+                report.failed(src, str(exc))\n+        if sources_to_cache:\n+            write_cache(cache, sources_to_cache, mode)\n+        return\n+\n     pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n     try:\n         loop.add_signal_handler(signal.SIGINT, cancel, pending)\n@@ -701,6 +719,7 @@\n                 ):\n                     sources_to_cache.append(src)\n                 report.done(src, changed)\n+        pending = tasks.keys()\n     if cancelled:\n         await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n     if sources_to_cache:\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    try:\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    executor, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    except OSError:\n        # Fallback: run formatting sequentially if executor cannot be used\n        for src in sorted(sources):\n            try:\n                result = format_file_in_place(src, fast, mode, write_back, lock)\n                changed = Changed.YES if result else Changed.NO\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n            except Exception as exc:\n                report.failed(src, str(exc))\n        if sources_to_cache:\n            write_cache(cache, sources_to_cache, mode)\n        return\n\n    pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n    try:\n        loop.add_signal_handler(signal.SIGINT, cancel, pending)\n        loop.add_signal_handler(signal.SIGTERM, cancel, pending)\n    except NotImplementedError:\n        # There are no good alternatives for these on Windows.\n        pass\n    while pending:\n        done, _ = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)\n        for task in done:\n            src = tasks.pop(task)\n            if task.cancelled():\n                cancelled.append(task)\n            elif task.exception():\n                report.failed(src, str(task.exception()))\n            else:\n                changed = Changed.YES if task.result() else Changed.NO\n                # If the file was written back or was successfully checked as\n                # well-formatted, store this information in the cache.\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n        pending = tasks.keys()\n    if cancelled:\n        await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n    if sources_to_cache:\n        write_cache(cache, sources_to_cache, mode)\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 646
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "format_file_in_place",
+            "result_summary": "# black.py:710\ndef format_file_in_place(\n    src: Path,\n    fast: bool,\n    mode: Mode,\n    write_back: WriteBack = WriteBack.NO,\n    lock: Any = None,  # multiprocessing.Manager().Lock() is some crazy proxy\n) -> bool:\n    \"\"\"Format file under `src` path. Return True if changed.\n\n    If `write_back` is DIFF, write a diff to stdout. If it is YES, write reformatted\n    code to the file.\n    `mode` and `fast` options are passed to :func:`format_file_contents`.\n    \"\"\"\n    if src.suffix == \".pyi\":\n        mode = replace(mode, is_pyi=True)\n\n    then = datetime.utcfromtimestamp(src.stat().st_mtime)\n    with open(src, \"rb\") as buf:\n        src_contents, encoding, newline = decode_bytes(buf.read())\n    try:\n        dst_contents = format_file_contents(src_contents, fast=fast, mode=mode)\n    except NothingChanged:\n        return False\n\n    if write_back == WriteBack.YES:\n        with open(src, \"w\", encoding=encoding, newline=newline) as f:\n            f.write(dst_contents)\n    elif write_back in\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-4",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:646 (attempt 5)",
+      "validation_summary": "Patch llm-3-4 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -669,14 +669,32 @@\n         # from different processes.\n         manager = Manager()\n         lock = manager.Lock()\n-    tasks = {\n-        asyncio.ensure_future(\n-            loop.run_in_executor(\n-                executor, format_file_in_place, src, fast, mode, write_back, lock\n-            )\n-        ): src\n-        for src in sorted(sources)\n-    }\n+    try:\n+        tasks = {\n+            asyncio.ensure_future(\n+                loop.run_in_executor(\n+                    executor, format_file_in_place, src, fast, mode, write_back, lock\n+                )\n+            ): src\n+            for src in sorted(sources)\n+        }\n+    except OSError:\n+        # Fall back to synchronous formatting if the executor is not usable.\n+        for src in sorted(sources):\n+            try:\n+                result = format_file_in_place(src, fast, mode, write_back)\n+                changed = Changed.YES if result else Changed.NO\n+                if write_back is WriteBack.YES or (\n+                    write_back is WriteBack.CHECK and changed is Changed.NO\n+                ):\n+                    sources_to_cache.append(src)\n+                report.done(src, changed)\n+            except Exception as exc:\n+                report.failed(src, str(exc))\n+        if sources_to_cache:\n+            write_cache(cache, sources_to_cache, mode)\n+        return\n+\n     pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n     try:\n         loop.add_signal_handler(signal.SIGINT, cancel, pending)\n@@ -701,6 +719,7 @@\n                 ):\n                     sources_to_cache.append(src)\n                 report.done(src, changed)\n+        pending = tasks.keys()\n     if cancelled:\n         await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n     if sources_to_cache:\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def schedule_formatting(\n    sources: Set[Path],\n    fast: bool,\n    write_back: WriteBack,\n    mode: Mode,\n    report: \"Report\",\n    loop: asyncio.AbstractEventLoop,\n    executor: Executor,\n) -> None:\n    \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n\n    (Use ProcessPoolExecutors for actual parallelism.)\n\n    `write_back`, `fast`, and `mode` options are passed to\n    :func:`format_file_in_place`.\n    \"\"\"\n    cache: Cache = {}\n    if write_back != WriteBack.DIFF:\n        cache = read_cache(mode)\n        sources, cached = filter_cached(cache, sources)\n        for src in sorted(cached):\n            report.done(src, Changed.CACHED)\n    if not sources:\n        return\n\n    cancelled = []\n    sources_to_cache = []\n    lock = None\n    if write_back == WriteBack.DIFF:\n        # For diff output, we need locks to ensure we don't interleave output\n        # from different processes.\n        manager = Manager()\n        lock = manager.Lock()\n    try:\n        tasks = {\n            asyncio.ensure_future(\n                loop.run_in_executor(\n                    executor, format_file_in_place, src, fast, mode, write_back, lock\n                )\n            ): src\n            for src in sorted(sources)\n        }\n    except OSError:\n        # Fall back to synchronous formatting if the executor is not usable.\n        for src in sorted(sources):\n            try:\n                result = format_file_in_place(src, fast, mode, write_back)\n                changed = Changed.YES if result else Changed.NO\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n            except Exception as exc:\n                report.failed(src, str(exc))\n        if sources_to_cache:\n            write_cache(cache, sources_to_cache, mode)\n        return\n\n    pending: Iterable[\"asyncio.Future[bool]\"] = tasks.keys()\n    try:\n        loop.add_signal_handler(signal.SIGINT, cancel, pending)\n        loop.add_signal_handler(signal.SIGTERM, cancel, pending)\n    except NotImplementedError:\n        # There are no good alternatives for these on Windows.\n        pass\n    while pending:\n        done, _ = await asyncio.wait(pending, return_when=asyncio.FIRST_COMPLETED)\n        for task in done:\n            src = tasks.pop(task)\n            if task.cancelled():\n                cancelled.append(task)\n            elif task.exception():\n                report.failed(src, str(task.exception()))\n            else:\n                changed = Changed.YES if task.result() else Changed.NO\n                # If the file was written back or was successfully checked as\n                # well-formatted, store this information in the cache.\n                if write_back is WriteBack.YES or (\n                    write_back is WriteBack.CHECK and changed is Changed.NO\n                ):\n                    sources_to_cache.append(src)\n                report.done(src, changed)\n        pending = tasks.keys()\n    if cancelled:\n        await asyncio.gather(*cancelled, loop=loop, return_exceptions=True)\n    if sources_to_cache:\n        write_cache(cache, sources_to_cache, mode)\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 646
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_function_definition",
+            "argument": "format_file_in_place",
+            "result_summary": "# black.py:710\ndef format_file_in_place(\n    src: Path,\n    fast: bool,\n    mode: Mode,\n    write_back: WriteBack = WriteBack.NO,\n    lock: Any = None,  # multiprocessing.Manager().Lock() is some crazy proxy\n) -> bool:\n    \"\"\"Format file under `src` path. Return True if changed.\n\n    If `write_back` is DIFF, write a diff to stdout. If it is YES, write reformatted\n    code to the file.\n    `mode` and `fast` options are passed to :func:`format_file_contents`.\n    \"\"\"\n    if src.suffix == \".pyi\":\n        mode = replace(mode, is_pyi=True)\n\n    then = datetime.utcfromtimestamp(src.stat().st_mtime)\n    with open(src, \"rb\") as buf:\n        src_contents, encoding, newline = decode_bytes(buf.read())\n    try:\n        dst_contents = format_file_contents(src_contents, fast=fast, mode=mode)\n    except NothingChanged:\n        return False\n\n    if write_back == WriteBack.YES:\n        with open(src, \"w\", encoding=encoding, newline=newline) as f:\n            f.write(dst_contents)\n    elif write_back in\n\n[truncated after 1000 characters]"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "runner": "template-repair",
+  "project": "black",
+  "bug_id": 3,
+  "technique": "template",
+  "budget": 20,
+  "top_n_locations": 15,
+  "enabled_operators": [
+    "obo"
+  ],
+  "timeout_per_test": 120,
+  "stop_on_first": true,
+  "fl_family": "sbfl",
+  "localization_metric": "ochiai",
+  "mbfl_metric": "metallaxis",
+  "granularity": "statement",
+  "skip_localize": false,
+  "started_at": "2026-06-27T23:12:50.842964+00:00"
+}

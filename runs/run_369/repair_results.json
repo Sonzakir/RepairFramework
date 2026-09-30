@@ -1,0 +1,225 @@
+{
+  "run_id": "run_369",
+  "project": "black",
+  "bug_id": 11,
+  "fl_mode": "perfect",
+  "fl_backend": "perfect-fl",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 9/9 candidates (budget: 200, elapsed: 30.2s).",
+  "started_at": "2026-07-13T21:01:28.399151+00:00",
+  "finished_at": "2026-07-13T21:01:58.582109+00:00",
+  "elapsed_seconds": 30.18261888899997,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "black",
+    "bug_id": 11,
+    "approach": "a4-single-shot",
+    "technique": "llm",
+    "fl_mode": "perfect",
+    "fl_backend": "perfect-fl",
+    "context_enrichment": false,
+    "iterative": false,
+    "retrieval_budget": 0,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 9,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 9,
+    "candidates_validated": 9,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 30.18261888899997,
+    "rank_of_first_correct": null,
+    "llm_query_count": 9,
+    "assessment_query_count": 0
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2115 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2112,8 +2112,10 @@\n         return\n \n     line_str = str(line).strip(\"\\n\")\n-    if not line.should_explode and is_line_short_enough(\n-        line, line_length=line_length, line_str=line_str\n+    if not line.should_explode and (\n+        not inner or is_line_short_enough(\n+            line, line_length=line_length, line_str=line_str\n+        )\n     ):\n         yield line\n         return\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef split_line(\n    line: Line, line_length: int, inner: bool = False, py36: bool = False\n) -> Iterator[Line]:\n    \"\"\"Split a `line` into potentially many lines.\n\n    They should fit in the allotted `line_length` but might not be able to.\n    `inner` signifies that there were a pair of brackets somewhere around the\n    current `line`, possibly transitively. This means we can fallback to splitting\n    by delimiters if the LHS/RHS don't yield any results.\n\n    If `py36` is True, splitting may generate syntax that is only compatible\n    with Python 3.6 and later.\n    \"\"\"\n    if line.is_comment:\n        yield line\n        return\n\n    line_str = str(line).strip(\"\\n\")\n    if not line.should_explode and (\n        not inner or is_line_short_enough(\n            line, line_length=line_length, line_str=line_str\n        )\n    ):\n        yield line\n        return\n\n    split_funcs: List[SplitFunc]\n    if line.is_def:\n        split_funcs = [left_hand_split]\n    else:\n\n        def rhs(line: Line, py36: bool = False) -> Iterator[Line]:\n            for omit in generate_trailers_to_omit(line, line_length):\n                lines = list(right_hand_split(line, line_length, py36, omit=omit))\n                if is_line_short_enough(lines[0], line_length=line_length):\n                    yield from lines\n                    return\n\n            # All splits failed, best effort split with no omits.\n            # This mostly happens to multiline strings that are by definition\n            # reported as not fitting a single line.\n            yield from right_hand_split(line, py36)\n\n        if line.inside_brackets:\n            split_funcs = [delimiter_split, standalone_comment_split, rhs]\n        else:\n            split_funcs = [rhs]\n    for split_func in split_funcs:\n        # We are accumulating lines in `result` because we might want to abort\n        # mission and return the original line in the end, or attempt a different\n        # split altogether.\n        result: List[Line] = []\n        try:\n            for l in split_func(line, py36):\n                if str(l).strip(\"\\n\") == line_str:\n                    raise CannotSplit(\"Split function returned an unchanged result\")\n\n                result.extend(\n                    split_line(l, line_length=line_length, inner=True, py36=py36)\n                )\n        except CannotSplit:\n            continue\n\n        else:\n            yield from result\n            break\n\n    else:\n        yield line\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2115
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2115 (attempt 2)",
+      "validation_summary": "Patch llm-1-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2112,8 +2112,10 @@\n         return\n \n     line_str = str(line).strip(\"\\n\")\n-    if not line.should_explode and is_line_short_enough(\n-        line, line_length=line_length, line_str=line_str\n+    if not line.should_explode and (\n+        not inner or is_line_short_enough(\n+            line, line_length=line_length, line_str=line_str\n+        )\n     ):\n         yield line\n         return\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef split_line(\n    line: Line, line_length: int, inner: bool = False, py36: bool = False\n) -> Iterator[Line]:\n    \"\"\"Split a `line` into potentially many lines.\n\n    They should fit in the allotted `line_length` but might not be able to.\n    `inner` signifies that there were a pair of brackets somewhere around the\n    current `line`, possibly transitively. This means we can fallback to splitting\n    by delimiters if the LHS/RHS don't yield any results.\n\n    If `py36` is True, splitting may generate syntax that is only compatible\n    with Python 3.6 and later.\n    \"\"\"\n    if line.is_comment:\n        yield line\n        return\n\n    line_str = str(line).strip(\"\\n\")\n    if not line.should_explode and (\n        not inner or is_line_short_enough(\n            line, line_length=line_length, line_str=line_str\n        )\n    ):\n        yield line\n        return\n\n    split_funcs: List[SplitFunc]\n    if line.is_def:\n        split_funcs = [left_hand_split]\n    else:\n\n        def rhs(line: Line, py36: bool = False) -> Iterator[Line]:\n            for omit in generate_trailers_to_omit(line, line_length):\n                lines = list(right_hand_split(line, line_length, py36, omit=omit))\n                if is_line_short_enough(lines[0], line_length=line_length):\n                    yield from lines\n                    return\n\n            # All splits failed, best effort split with no omits.\n            # This mostly happens to multiline strings that are by definition\n            # reported as not fitting a single line.\n            yield from right_hand_split(line, py36)\n\n        if line.inside_brackets:\n            split_funcs = [delimiter_split, standalone_comment_split, rhs]\n        else:\n            split_funcs = [rhs]\n    for split_func in split_funcs:\n        # We are accumulating lines in `result` because we might want to abort\n        # mission and return the original line in the end, or attempt a different\n        # split altogether.\n        result: List[Line] = []\n        try:\n            for l in split_func(line, py36):\n                if str(l).strip(\"\\n\") == line_str:\n                    raise CannotSplit(\"Split function returned an unchanged result\")\n\n                result.extend(\n                    split_line(l, line_length=line_length, inner=True, py36=py36)\n                )\n        except CannotSplit:\n            continue\n\n        else:\n            yield from result\n            break\n\n    else:\n        yield line\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2115
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2115 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2112,8 +2112,12 @@\n         return\n \n     line_str = str(line).strip(\"\\n\")\n-    if not line.should_explode and is_line_short_enough(\n-        line, line_length=line_length, line_str=line_str\n+    if (\n+        not line.should_explode\n+        and (\n+            not line.inside_brackets or not inner\n+        )\n+        and is_line_short_enough(line, line_length=line_length, line_str=line_str)\n     ):\n         yield line\n         return\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef split_line(\n    line: Line, line_length: int, inner: bool = False, py36: bool = False\n) -> Iterator[Line]:\n    \"\"\"Split a `line` into potentially many lines.\n\n    They should fit in the allotted `line_length` but might not be able to.\n    `inner` signifies that there were a pair of brackets somewhere around the\n    current `line`, possibly transitively. This means we can fallback to splitting\n    by delimiters if the LHS/RHS don't yield any results.\n\n    If `py36` is True, splitting may generate syntax that is only compatible\n    with Python 3.6 and later.\n    \"\"\"\n    if line.is_comment:\n        yield line\n        return\n\n    line_str = str(line).strip(\"\\n\")\n    if (\n        not line.should_explode\n        and (\n            not line.inside_brackets or not inner\n        )\n        and is_line_short_enough(line, line_length=line_length, line_str=line_str)\n    ):\n        yield line\n        return\n\n    split_funcs: List[SplitFunc]\n    if line.is_def:\n        split_funcs = [left_hand_split]\n    else:\n\n        def rhs(line: Line, py36: bool = False) -> Iterator[Line]:\n            for omit in generate_trailers_to_omit(line, line_length):\n                lines = list(right_hand_split(line, line_length, py36, omit=omit))\n                if is_line_short_enough(lines[0], line_length=line_length):\n                    yield from lines\n                    return\n\n            # All splits failed, best effort split with no omits.\n            # This mostly happens to multiline strings that are by definition\n            # reported as not fitting a single line.\n            yield from right_hand_split(line, py36)\n\n        if line.inside_brackets:\n            split_funcs = [delimiter_split, standalone_comment_split, rhs]\n        else:\n            split_funcs = [rhs]\n    for split_func in split_funcs:\n        # We are accumulating lines in `result` because we might want to abort\n        # mission and return the original line in the end, or attempt a different\n        # split altogether.\n        result: List[Line] = []\n        try:\n            for l in split_func(line, py36):\n                if str(l).strip(\"\\n\") == line_str:\n                    raise CannotSplit(\"Split function returned an unchanged result\")\n\n                result.extend(\n                    split_line(l, line_length=line_length, inner=True, py36=py36)\n                )\n        except CannotSplit:\n            continue\n\n        else:\n            yield from result\n            break\n\n    else:\n        yield line\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2115
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2116 (attempt 1)",
+      "validation_summary": "Patch llm-2-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2112,8 +2112,10 @@\n         return\n \n     line_str = str(line).strip(\"\\n\")\n-    if not line.should_explode and is_line_short_enough(\n-        line, line_length=line_length, line_str=line_str\n+    if (\n+        not line.should_explode\n+        and is_line_short_enough(line, line_length=line_length, line_str=line_str)\n+        and not (inner and line.inside_brackets)\n     ):\n         yield line\n         return\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef split_line(\n    line: Line, line_length: int, inner: bool = False, py36: bool = False\n) -> Iterator[Line]:\n    \"\"\"Split a `line` into potentially many lines.\n\n    They should fit in the allotted `line_length` but might not be able to.\n    `inner` signifies that there were a pair of brackets somewhere around the\n    current `line`, possibly transitively. This means we can fallback to splitting\n    by delimiters if the LHS/RHS don't yield any results.\n\n    If `py36` is True, splitting may generate syntax that is only compatible\n    with Python 3.6 and later.\n    \"\"\"\n    if line.is_comment:\n        yield line\n        return\n\n    line_str = str(line).strip(\"\\n\")\n    if (\n        not line.should_explode\n        and is_line_short_enough(line, line_length=line_length, line_str=line_str)\n        and not (inner and line.inside_brackets)\n    ):\n        yield line\n        return\n\n    split_funcs: List[SplitFunc]\n    if line.is_def:\n        split_funcs = [left_hand_split]\n    else:\n\n        def rhs(line: Line, py36: bool = False) -> Iterator[Line]:\n            for omit in generate_trailers_to_omit(line, line_length):\n                lines = list(right_hand_split(line, line_length, py36, omit=omit))\n                if is_line_short_enough(lines[0], line_length=line_length):\n                    yield from lines\n                    return\n\n            # All splits failed, best effort split with no omits.\n            # This mostly happens to multiline strings that are by definition\n            # reported as not fitting a single line.\n            yield from right_hand_split(line, py36)\n\n        if line.inside_brackets:\n            split_funcs = [delimiter_split, standalone_comment_split, rhs]\n        else:\n            split_funcs = [rhs]\n    for split_func in split_funcs:\n        # We are accumulating lines in `result` because we might want to abort\n        # mission and return the original line in the end, or attempt a different\n        # split altogether.\n        result: List[Line] = []\n        try:\n            for l in split_func(line, py36):\n                if str(l).strip(\"\\n\") == line_str:\n                    raise CannotSplit(\"Split function returned an unchanged result\")\n\n                result.extend(\n                    split_line(l, line_length=line_length, inner=True, py36=py36)\n                )\n        except CannotSplit:\n            continue\n\n        else:\n            yield from result\n            break\n\n    else:\n        yield line\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2116
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2116 (attempt 2)",
+      "validation_summary": "Patch llm-2-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2112,8 +2112,8 @@\n         return\n \n     line_str = str(line).strip(\"\\n\")\n-    if not line.should_explode and is_line_short_enough(\n-        line, line_length=line_length, line_str=line_str\n+    if not line.should_explode and (\n+        not inner or is_line_short_enough(line, line_length=line_length, line_str=line_str)\n     ):\n         yield line\n         return\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef split_line(\n    line: Line, line_length: int, inner: bool = False, py36: bool = False\n) -> Iterator[Line]:\n    \"\"\"Split a `line` into potentially many lines.\n\n    They should fit in the allotted `line_length` but might not be able to.\n    `inner` signifies that there were a pair of brackets somewhere around the\n    current `line`, possibly transitively. This means we can fallback to splitting\n    by delimiters if the LHS/RHS don't yield any results.\n\n    If `py36` is True, splitting may generate syntax that is only compatible\n    with Python 3.6 and later.\n    \"\"\"\n    if line.is_comment:\n        yield line\n        return\n\n    line_str = str(line).strip(\"\\n\")\n    if not line.should_explode and (\n        not inner or is_line_short_enough(line, line_length=line_length, line_str=line_str)\n    ):\n        yield line\n        return\n\n    split_funcs: List[SplitFunc]\n    if line.is_def:\n        split_funcs = [left_hand_split]\n    else:\n\n        def rhs(line: Line, py36: bool = False) -> Iterator[Line]:\n            for omit in generate_trailers_to_omit(line, line_length):\n                lines = list(right_hand_split(line, line_length, py36, omit=omit))\n                if is_line_short_enough(lines[0], line_length=line_length):\n                    yield from lines\n                    return\n\n            # All splits failed, best effort split with no omits.\n            # This mostly happens to multiline strings that are by definition\n            # reported as not fitting a single line.\n            yield from right_hand_split(line, py36)\n\n        if line.inside_brackets:\n            split_funcs = [delimiter_split, standalone_comment_split, rhs]\n        else:\n            split_funcs = [rhs]\n    for split_func in split_funcs:\n        # We are accumulating lines in `result` because we might want to abort\n        # mission and return the original line in the end, or attempt a different\n        # split altogether.\n        result: List[Line] = []\n        try:\n            for l in split_func(line, py36):\n                if str(l).strip(\"\\n\") == line_str:\n                    raise CannotSplit(\"Split function returned an unchanged result\")\n\n                result.extend(\n                    split_line(l, line_length=line_length, inner=True, py36=py36)\n                )\n        except CannotSplit:\n            continue\n\n        else:\n            yield from result\n            break\n\n    else:\n        yield line\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2116
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2116 (attempt 3)",
+      "validation_summary": "Patch llm-2-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2112,8 +2112,10 @@\n         return\n \n     line_str = str(line).strip(\"\\n\")\n-    if not line.should_explode and is_line_short_enough(\n-        line, line_length=line_length, line_str=line_str\n+    if (\n+        not line.should_explode\n+        and not (line.inside_brackets and line.contains_standalone_comments())\n+        and is_line_short_enough(line, line_length=line_length, line_str=line_str)\n     ):\n         yield line\n         return\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef split_line(\n    line: Line, line_length: int, inner: bool = False, py36: bool = False\n) -> Iterator[Line]:\n    \"\"\"Split a `line` into potentially many lines.\n\n    They should fit in the allotted `line_length` but might not be able to.\n    `inner` signifies that there were a pair of brackets somewhere around the\n    current `line`, possibly transitively. This means we can fallback to splitting\n    by delimiters if the LHS/RHS don't yield any results.\n\n    If `py36` is True, splitting may generate syntax that is only compatible\n    with Python 3.6 and later.\n    \"\"\"\n    if line.is_comment:\n        yield line\n        return\n\n    line_str = str(line).strip(\"\\n\")\n    if (\n        not line.should_explode\n        and not (line.inside_brackets and line.contains_standalone_comments())\n        and is_line_short_enough(line, line_length=line_length, line_str=line_str)\n    ):\n        yield line\n        return\n\n    split_funcs: List[SplitFunc]\n    if line.is_def:\n        split_funcs = [left_hand_split]\n    else:\n\n        def rhs(line: Line, py36: bool = False) -> Iterator[Line]:\n            for omit in generate_trailers_to_omit(line, line_length):\n                lines = list(right_hand_split(line, line_length, py36, omit=omit))\n                if is_line_short_enough(lines[0], line_length=line_length):\n                    yield from lines\n                    return\n\n            # All splits failed, best effort split with no omits.\n            # This mostly happens to multiline strings that are by definition\n            # reported as not fitting a single line.\n            yield from right_hand_split(line, py36)\n\n        if line.inside_brackets:\n            split_funcs = [delimiter_split, standalone_comment_split, rhs]\n        else:\n            split_funcs = [rhs]\n    for split_func in split_funcs:\n        # We are accumulating lines in `result` because we might want to abort\n        # mission and return the original line in the end, or attempt a different\n        # split altogether.\n        result: List[Line] = []\n        try:\n            for l in split_func(line, py36):\n                if str(l).strip(\"\\n\") == line_str:\n                    raise CannotSplit(\"Split function returned an unchanged result\")\n\n                result.extend(\n                    split_line(l, line_length=line_length, inner=True, py36=py36)\n                )\n        except CannotSplit:\n            continue\n\n        else:\n            yield from result\n            break\n\n    else:\n        yield line\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2116
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2465 (attempt 1)",
+      "validation_summary": "Patch llm-3-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2469,11 +2469,9 @@\n     Note: don't use backslashes for formatting or you'll lose your voting rights.\n     \"\"\"\n     if not inside_brackets:\n-        spl = leaf.prefix.split(\"#\")\n+        spl = leaf.prefix.split(\"#\", 1)\n         if \"\\\\\" not in spl[0]:\n-            nl_count = spl[-1].count(\"\\n\")\n-            if len(spl) > 1:\n-                nl_count -= 1\n+            nl_count = spl[0].count(\"\\n\")\n             leaf.prefix = \"\\n\" * nl_count\n             return\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef normalize_prefix(leaf: Leaf, *, inside_brackets: bool) -> None:\n    \"\"\"Leave existing extra newlines if not `inside_brackets`. Remove everything\n    else.\n\n    Note: don't use backslashes for formatting or you'll lose your voting rights.\n    \"\"\"\n    if not inside_brackets:\n        spl = leaf.prefix.split(\"#\", 1)\n        if \"\\\\\" not in spl[0]:\n            nl_count = spl[0].count(\"\\n\")\n            leaf.prefix = \"\\n\" * nl_count\n            return\n\n    leaf.prefix = \"\"\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2465
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2465 (attempt 2)",
+      "validation_summary": "Patch llm-3-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2469,11 +2469,11 @@\n     Note: don't use backslashes for formatting or you'll lose your voting rights.\n     \"\"\"\n     if not inside_brackets:\n-        spl = leaf.prefix.split(\"#\")\n+        spl = leaf.prefix.split(\"#\", 1)\n         if \"\\\\\" not in spl[0]:\n-            nl_count = spl[-1].count(\"\\n\")\n+            nl_count = leaf.prefix.count(\"\\n\")\n             if len(spl) > 1:\n-                nl_count -= 1\n+                nl_count -= spl[1].count(\"\\n\")\n             leaf.prefix = \"\\n\" * nl_count\n             return\n \n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef normalize_prefix(leaf: Leaf, *, inside_brackets: bool) -> None:\n    \"\"\"Leave existing extra newlines if not `inside_brackets`. Remove everything\n    else.\n\n    Note: don't use backslashes for formatting or you'll lose your voting rights.\n    \"\"\"\n    if not inside_brackets:\n        spl = leaf.prefix.split(\"#\", 1)\n        if \"\\\\\" not in spl[0]:\n            nl_count = leaf.prefix.count(\"\\n\")\n            if len(spl) > 1:\n                nl_count -= spl[1].count(\"\\n\")\n            leaf.prefix = \"\\n\" * nl_count\n            return\n\n    leaf.prefix = \"\"\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2465
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:2465 (attempt 3)",
+      "validation_summary": "Patch llm-3-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -2469,10 +2469,10 @@\n     Note: don't use backslashes for formatting or you'll lose your voting rights.\n     \"\"\"\n     if not inside_brackets:\n-        spl = leaf.prefix.split(\"#\")\n-        if \"\\\\\" not in spl[0]:\n-            nl_count = spl[-1].count(\"\\n\")\n-            if len(spl) > 1:\n+        before_comment, has_comment, after_comment = leaf.prefix.partition(\"#\")\n+        if \"\\\\\" not in before_comment:\n+            nl_count = after_comment.count(\"\\n\") if has_comment else before_comment.count(\"\\n\")\n+            if has_comment:\n                 nl_count -= 1\n             leaf.prefix = \"\\n\" * nl_count\n             return\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\ndef normalize_prefix(leaf: Leaf, *, inside_brackets: bool) -> None:\n    \"\"\"Leave existing extra newlines if not `inside_brackets`. Remove everything\n    else.\n\n    Note: don't use backslashes for formatting or you'll lose your voting rights.\n    \"\"\"\n    if not inside_brackets:\n        before_comment, has_comment, after_comment = leaf.prefix.partition(\"#\")\n        if \"\\\\\" not in before_comment:\n            nl_count = after_comment.count(\"\\n\") if has_comment else before_comment.count(\"\\n\")\n            if has_comment:\n                nl_count -= 1\n            leaf.prefix = \"\\n\" * nl_count\n            return\n\n    leaf.prefix = \"\"\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 2465
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    }
+  ],
+  "assessed_plausible_patches": []
+}

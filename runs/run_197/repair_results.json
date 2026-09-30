@@ -1,0 +1,50 @@
+{
+  "run_id": "run_197",
+  "project": "black",
+  "bug_id": 1,
+  "status": "no_patch",
+  "validation_summary": "No mutation operators matched at the top suspicious locations.",
+  "started_at": "2026-07-06T18:09:46.507288+00:00",
+  "finished_at": "2026-07-06T18:09:47.160603+00:00",
+  "elapsed_seconds": 0.6525765000001229,
+  "config": {
+    "runner": "template-repair",
+    "project": "black",
+    "bug_id": 1,
+    "technique": "template",
+    "budget": 200,
+    "top_n_locations": 5,
+    "enabled_operators": [
+      "arith",
+      "comp"
+    ],
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "auto",
+    "fl_backend": "sbfl",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-06T18:09:45.227775+00:00",
+    "ranker": "none"
+  },
+  "candidates_validated": 0,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 0,
+    "candidates_validated": 0,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 0.6525765000001229,
+    "rank_of_first_correct": null
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": []
+}

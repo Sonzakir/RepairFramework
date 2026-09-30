@@ -1,0 +1,14 @@
+{
+  "runner": "fauxpy-localizer",
+  "backend": "fauxpy",
+  "project": "fastapi",
+  "bug_id": 3,
+  "family": "sbfl",
+  "granularity": "statement",
+  "top_n": 10,
+  "mutation_strategy": null,
+  "mutation_budget": null,
+  "mutation_seed": 0,
+  "started_at": "2026-07-06T17:53:23.920449+00:00",
+  "metric": "ochiai"
+}

@@ -1,0 +1,68 @@
+{
+  "run_id": "run_262",
+  "status": "completed",
+  "started_at": "2026-07-07T17:38:28.812711+00:00",
+  "finished_at": "2026-07-07T17:38:32.984594+00:00",
+  "backend": "llm-fl",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:621",
+      "score": 1.0,
+      "line": 621,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "unconditionally constructs ProcessPoolExecutor; test mocks this to raise OSError and expects fallback instead of CLI failure"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:612",
+      "score": 0.99,
+      "line": 612,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "multi-file path always routes into parallel formatting code, triggering executor creation in mono-process environment"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:623",
+      "score": 0.98,
+      "line": 623,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "no error handling around executor setup/use, so executor creation failure propagates and causes exit code 1"
+      }
+    }
+  ],
+  "metadata": {
+    "fl_backend": "llm",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "system_prompt": "fl_prompt1",
+    "score_formula": "llm-rank: descending synthetic score by model order",
+    "files_shown": [
+      "black.py",
+      "blackd.py",
+      "tests/test_black.py"
+    ],
+    "had_traceback": true,
+    "location_count": 3,
+    "raw_llm_response": "[\n  {\"file\": \"black.py\", \"line\": 621, \"reason\": \"unconditionally constructs ProcessPoolExecutor; test mocks this to raise OSError and expects fallback instead of CLI failure\"},\n  {\"file\": \"black.py\", \"line\": 612, \"reason\": \"multi-file path always routes into parallel formatting code, triggering executor creation in mono-process environment\"},\n  {\"file\": \"black.py\", \"line\": 623, \"reason\": \"no error handling around executor setup/use, so executor creation failure propagates and causes exit code 1\"}\n]"
+  }
+}

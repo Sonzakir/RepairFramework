@@ -1,0 +1,111 @@
+{
+  "run_id": "run_277",
+  "project": "tornado",
+  "bug_id": 14,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 3/3 candidates (budget: 200, elapsed: 4.6s).",
+  "started_at": "2026-07-08T20:29:47.854503+00:00",
+  "finished_at": "2026-07-08T20:29:52.500919+00:00",
+  "elapsed_seconds": 4.6457778770000004,
+  "config": {
+    "project": "tornado",
+    "bug_id": 14,
+    "technique": "llm",
+    "budget": 200,
+    "top_n_locations": 3,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "perfect",
+    "fl_backend": "oracle",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-08T20:29:47.848453+00:00",
+    "runner": "llm-repair",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "llm_provider": "openai-compatible",
+    "system_prompt": "prompt1",
+    "context_enrichment": false,
+    "few_shot_count": 0,
+    "iterative": false,
+    "max_iterations": 5,
+    "retrieval_budget": 0,
+    "timeout_seconds": 120,
+    "ranker": "none"
+  },
+  "candidates_validated": 3,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 3,
+    "candidates_validated": 3,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 4.6457778770000004,
+    "rank_of_first_correct": null,
+    "llm_query_count": 3
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "context_similarity_score": null,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 1)",
+      "validation_summary": "Unexpected validation error: The BugsInPy executor container is not available. Run `python -m apr_framework bugsinpy setup` first.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "context_similarity_score": null,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 2)",
+      "validation_summary": "Unexpected validation error: The BugsInPy executor container is not available. Run `python -m apr_framework bugsinpy setup` first.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "context_similarity_score": null,
+      "summary": "LLM patch for tornado/ioloop.py:252 (attempt 3)",
+      "validation_summary": "Unexpected validation error: The BugsInPy executor container is not available. Run `python -m apr_framework bugsinpy setup` first.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n+++ /workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py\n@@ -249,7 +249,7 @@\n             if IOLoop.current(instance=False) is None:\n                 self.make_current()\n         elif make_current:\n-            if IOLoop.current(instance=False) is None:\n+            if IOLoop.current(instance=False) is not None:\n                 raise RuntimeError(\"current IOLoop already exists\")\n             self.make_current()\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef initialize(self, make_current=None):\n    if make_current is None:\n        if IOLoop.current(instance=False) is None:\n            self.make_current()\n    elif make_current:\n        if IOLoop.current(instance=False) is not None:\n            raise RuntimeError(\"current IOLoop already exists\")\n        self.make_current()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/tornado_14/tornado/tornado/ioloop.py",
+        "target_line": 252
+      }
+    }
+  ]
+}

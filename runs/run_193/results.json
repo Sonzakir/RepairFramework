@@ -1,0 +1,819 @@
+{
+  "run_id": "run_193",
+  "status": "completed",
+  "started_at": "2026-07-06T17:53:49.092772+00:00",
+  "finished_at": "2026-07-06T17:53:51.607894+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "luigi",
+    "bug_id": 33
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:99",
+      "score": 0.9756,
+      "line": 99,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   99 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:97",
+      "score": 0.9756,
+      "line": 97,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   97 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:94",
+      "score": 0.9756,
+      "line": 94,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   94 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:85",
+      "score": 0.9756,
+      "line": 85,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   85 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:83",
+      "score": 0.9756,
+      "line": 83,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   83 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 6,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:82",
+      "score": 0.9756,
+      "line": 82,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   82 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 7,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:80",
+      "score": 0.9756,
+      "line": 80,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   80 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 8,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:79",
+      "score": 0.9756,
+      "line": 79,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |   79 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 9,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:336",
+      "score": 0.9756,
+      "line": 336,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |  336 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 10,
+      "file_path": "luigi/task.py",
+      "location": "luigi/task.py:335",
+      "score": 0.9756,
+      "line": 335,
+      "end_line": null,
+      "function": null,
+      "raw_location": "luigi/task.py |  335 | 0.9756",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "luigi",
+    "test_targets": [
+      "test/parameter_test.py::ParameterTest::test_local_insignificant_param",
+      "test/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param",
+      "test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params",
+      "test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:740",
+          "score": 1.1,
+          "line": 740,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  740 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:736",
+          "score": 1.1,
+          "line": 736,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  736 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:723",
+          "score": 1.1,
+          "line": 723,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  723 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:722",
+          "score": 1.1,
+          "line": 722,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  722 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:721",
+          "score": 1.1,
+          "line": 721,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  721 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:720",
+          "score": 1.1,
+          "line": 720,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  720 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:718",
+          "score": 1.1,
+          "line": 718,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  718 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:714",
+          "score": 1.1,
+          "line": 714,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  714 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:711",
+          "score": 1.1,
+          "line": 711,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  711 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:709",
+          "score": 1.1,
+          "line": 709,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  709 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:99",
+          "score": 0.9756,
+          "line": 99,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   99 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:97",
+          "score": 0.9756,
+          "line": 97,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   97 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:94",
+          "score": 0.9756,
+          "line": 94,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   94 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:85",
+          "score": 0.9756,
+          "line": 85,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   85 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:83",
+          "score": 0.9756,
+          "line": 83,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   83 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:82",
+          "score": 0.9756,
+          "line": 82,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   82 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:80",
+          "score": 0.9756,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   80 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:79",
+          "score": 0.9756,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   79 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:336",
+          "score": 0.9756,
+          "line": 336,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |  336 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:335",
+          "score": 0.9756,
+          "line": 335,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |  335 | 0.9756",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:99",
+          "score": 160.0,
+          "line": 99,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   99 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:97",
+          "score": 160.0,
+          "line": 97,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   97 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:94",
+          "score": 160.0,
+          "line": 94,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   94 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:85",
+          "score": 160.0,
+          "line": 85,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   85 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:83",
+          "score": 160.0,
+          "line": 83,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   83 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:82",
+          "score": 160.0,
+          "line": 82,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   82 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:80",
+          "score": 160.0,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   80 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:79",
+          "score": 160.0,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   79 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:336",
+          "score": 160.0,
+          "line": 336,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |  336 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:335",
+          "score": 160.0,
+          "line": 335,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |  335 | 160.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:99",
+          "score": 0.9756,
+          "line": 99,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   99 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:97",
+          "score": 0.9756,
+          "line": 97,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   97 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:94",
+          "score": 0.9756,
+          "line": 94,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   94 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:85",
+          "score": 0.9756,
+          "line": 85,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   85 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:83",
+          "score": 0.9756,
+          "line": 83,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   83 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:82",
+          "score": 0.9756,
+          "line": 82,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   82 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:80",
+          "score": 0.9756,
+          "line": 80,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   80 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:79",
+          "score": 0.9756,
+          "line": 79,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |   79 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:336",
+          "score": 0.9756,
+          "line": 336,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |  336 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/task.py",
+          "location": "luigi/task.py:335",
+          "score": 0.9756,
+          "line": 335,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/task.py |  335 | 0.9756",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "WSBI": [
+        {
+          "rank": 1,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:740",
+          "score": 1.0,
+          "line": 740,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  740 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:736",
+          "score": 1.0,
+          "line": 736,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  736 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:723",
+          "score": 1.0,
+          "line": 723,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  723 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:722",
+          "score": 1.0,
+          "line": 722,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  722 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:721",
+          "score": 1.0,
+          "line": 721,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  721 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:720",
+          "score": 1.0,
+          "line": 720,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  720 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:718",
+          "score": 1.0,
+          "line": 718,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  718 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:714",
+          "score": 1.0,
+          "line": 714,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  714 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:711",
+          "score": 1.0,
+          "line": 711,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  711 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "luigi/worker.py",
+          "location": "luigi/worker.py:709",
+          "score": 1.0,
+          "line": 709,
+          "end_line": null,
+          "function": null,
+          "raw_location": "luigi/worker.py |  709 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-5.4.3, py-1.8.1, pluggy-0.13.1\nbenchmark: 3.2.3 (defaults: timer=time.perf_counter disable_gc=False min_rounds=5 min_time=0.000005 max_time=1.0 calibration_precision=10 warmup=False warmup_iterations=100000)\nrootdir: /home/workspace/luigi_33/luigi\nplugins: cov-2.9.0, requests-mock-1.8.0, timeout-2.1.0, sugar-0.9.3, fauxpy-0.7.0, anyio-4.5.2, benchmark-3.2.3\ncollected 4 items\n\ntest/parameter_test.py FFFF                                              [100%]\n\n=================================== FAILURES ===================================\n_________________ ParameterTest.test_local_insignificant_param _________________\n\nself = <parameter_test.ParameterTest testMethod=test_local_insignificant_param>\n\n    def test_local_insignificant_param(self):\n        \"\"\" Ensure we have the same behavior as in before a78338c  \"\"\"\n        class MyTask(luigi.Task):\n            # This could typically be \"--num-threads=True\"\n            x = luigi.Parameter(significant=False)\n    \n>       MyTask('arg')\n\ntest/parameter_test.py:304: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nluigi/task.py:103: in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncls = <class 'parameter_test.ParameterTest.test_local_insignificant_param.<locals>.MyTask'>\nparams = [('x', <luigi.parameter.Parameter object at 0xffffb67ecac0>)]\nargs = ('arg',), kwargs = {}\n\n    @classmethod\n    def get_param_values(cls, params, args, kwargs):\n        \"\"\"\n        Get the values of the parameters from the args and kwargs.\n    \n        :param params: list of (param_name, Parameter).\n        :param args: positional arguments\n        :param kwargs: keyword arguments.\n        :returns: list of `(name, value)` tuples, one for each parameter.\n        \"\"\"\n        result = {}\n    \n        params_dict = dict(params)\n    \n        task_name = cls.task_family\n    \n        # In case any exceptions are thrown, create a helpful description of how the Task was invoked\n        # TODO: should we detect non-reprable arguments? These will lead to mysterious errors\n        exc_desc = '%s[args=%s, kwargs=%s]' % (task_name, args, kwargs)\n    \n        # Fill in the positional arguments\n        positional_params = [(n, p) for n, p in params if p.significant]\n        for i, arg in enumerate(args):\n            if i >= len(positional_params):\n>               raise parameter.UnknownParameterException('%s: takes at most %d parameters (%d given)' % (exc_desc, len(positional_params), len(args)))\nE               luigi.parameter.UnknownParameterException: MyTask[args=('arg',), kwargs={}]: takes at most 0 parameters (1 given)\n\nluigi/task.py:337: UnknownParameterException\n___________ TestRemoveGlobalParameters.test_global_significant_param ___________\n\nself = <parameter_test.TestRemoveGlobalParameters testMethod=test_global_significant_param>\n\n    def test_global_significant_param(self):\n        \"\"\" We don't want any kind of global param to be positional \"\"\"\n        class MyTask(luigi.Task):\n            # This could typically be called \"--test-dry-run\"\n            x_g1 = luigi.Parameter(default='y', is_global=True, significant=True)\n    \n>       self.assertRaises(luigi.parameter.UnknownParameterException,\n                          lambda: MyTask('arg'))\nE       AssertionError: UnknownParameterException not raised by <lambda>\n\ntest/parameter_test.py:428: AssertionError\n_________________ TestRemoveGlobalParameters.test_mixed_params _________________\n\nself = <parameter_test.TestRemoveGlobalParameters testMethod=test_mixed_params>\n\n    def test_mixed_params(self):\n        \"\"\" Essentially for what broke in a78338c and was reported in #738 \"\"\"\n        class MyTask(luigi.Task):\n            # This could typically be \"--num-threads=True\"\n            x_g3 = luigi.Parameter(default='y', is_global=True)\n            local_param = luigi.Parameter()\n    \n>       MyTask('setting_local_param')\n\ntest/parameter_test.py:447: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nluigi/task.py:103: in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ncls = <class 'parameter_test.TestRemoveGlobalParameters.test_mixed_params.<locals>.MyTask'>\nparams = [('x_g3', <luigi.parameter.Parameter object at 0xffffb6788dc0>), ('local_param', <luigi.parameter.Parameter object at 0xffffb6788c70>)]\nargs = ('setting_local_param',), kwargs = {}\n\n    @classmethod\n    def get_param_values(cls, params, args, kwargs):\n        \"\"\"\n        Get the values of the parameters from the args and kwargs.\n    \n        :param params: list of (param_name, Parameter).\n        :param args: positional arguments\n        :param kwargs: keyword arguments.\n        :returns: list of `(name, value)` tuples, one for each parameter.\n        \"\"\"\n        result = {}\n    \n        params_dict = dict(params)\n    \n        task_name = cls.task_family\n    \n        # In case any exceptions are thrown, create a helpful description of how the Task was invoked\n        # TODO: should we detect non-reprable arguments? These will lead to mysterious errors\n        exc_desc = '%s[args=%s, kwargs=%s]' % (task_name, args, kwargs)\n    \n        # Fill in the positional arguments\n        positional_params = [(n, p) for n, p in params if p.significant]\n        for i, arg in enumerate(args):\n            if i >= len(positional_params):\n                raise parameter.UnknownParameterException('%s: takes at most %d parameters (%d given)' % (exc_desc, len(positional_params), len(args)))\n            param_name, param_obj = positional_params[i]\n            result[param_name] = arg\n    \n        # Then the optional arguments\n        for param_name, arg in six.iteritems(kwargs):\n            if param_name in result:\n                raise parameter.DuplicateParameterException('%s: parameter %s was already set as a positional parameter' % (exc_desc, param_name))\n            if param_name not in params_dict:\n                raise parameter.UnknownParameterException('%s: unknown parameter %s' % (exc_desc, param_name))\n            result[param_name] = arg\n    \n        # Then use the defaults for anything not filled in\n        for param_name, param_obj in params:\n            if param_name not in result:\n                if not param_obj.has_task_value(task_name, param_name):\n>                   raise parameter.MissingParameterException(\"%s: requires the '%s' parameter to be set\" % (exc_desc, param_name))\nE                   luigi.parameter.MissingParameterException: MyTask[args=('setting_local_param',), kwargs={}]: requires the 'local_param' parameter to be set\n\nluigi/task.py:353: MissingParameterException\n------------------------------ Captured log call -------------------------------\nINFO     luigi-interface:configuration.py:44 Loaded []\n___________ TestRemoveGlobalParameters.test_mixed_params_inheritence ___________\n\nself = <parameter_test.TestRemoveGlobalParameters testMethod=test_mixed_params_inheritence>\n\n    def test_mixed_params_inheritence(self):\n        \"\"\" A slightly more real-world like test case \"\"\"\n        class TaskWithOneGlobalParam(luigi.Task):\n            non_positional_param = luigi.Parameter(default='y', is_global=True)\n    \n        class TaskWithOnePositionalParam(TaskWithOneGlobalParam):\n            \"\"\" Try to mess with positional parameters by subclassing \"\"\"\n            only_positional_param = luigi.Parameter()\n    \n            def complete(self):\n                return True\n    \n        class PositionalParamsRequirer(luigi.Task):\n    \n            def requires(self):\n                return TaskWithOnePositionalParam('only_positional_value')\n    \n            def run(self):\n                pass\n    \n>       self.run_and_check(['PositionalParamsRequirer'])\n\ntest/parameter_test.py:469: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntest/parameter_test.py:367: in run_and_check\n    self.assertTrue(run_exit_status)\nE   AssertionError: False is not true\n----------------------------- Captured stderr call -----------------------------\nDEBUG: Checking if PositionalParamsRequirer() is complete\nERROR: Luigi unexpected framework error while scheduling PositionalParamsRequirer()\nTraceback (most recent call last):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 453, in add\n    for next in self._add(item, is_complete):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 506, in _add\n    deps = task.deps()\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 556, in deps\n    return flatten(self._requires())\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 530, in _requires\n    return flatten(self.requires())  # base impl\n  File \"/home/workspace/luigi_33/luigi/test/parameter_test.py\", line 464, in requires\n    return TaskWithOnePositionalParam('only_positional_value')\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 103, in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 353, in get_param_values\n    raise parameter.MissingParameterException(\"%s: requires the '%s' parameter to be set\" % (exc_desc, param_name))\nluigi.parameter.MissingParameterException: TaskWithOnePositionalParam[args=('only_positional_value',), kwargs={}]: requires the 'only_positional_param' parameter to be set\nINFO: Skipping error email. Set `error-email` in the `core` section of the luigi config file to receive error emails.\nINFO: Done scheduling tasks\nINFO: Running Worker with 1 processes\nDEBUG: Asking scheduler for work...\nINFO: Done\nINFO: There are no more tasks to run at this time\nINFO: Worker Worker(salt=035259934, workers=1, host=beef841789e9, username=root, pid=894) was stopped. Shutting down Keep-Alive thread\n------------------------------ Captured log call -------------------------------\nDEBUG    luigi-interface:worker.py:251 Checking if PositionalParamsRequirer() is complete\nERROR    luigi-interface:worker.py:412 Luigi unexpected framework error while scheduling PositionalParamsRequirer()\nTraceback (most recent call last):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 453, in add\n    for next in self._add(item, is_complete):\n  File \"/home/workspace/luigi_33/luigi/luigi/worker.py\", line 506, in _add\n    deps = task.deps()\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 556, in deps\n    return flatten(self._requires())\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 530, in _requires\n    return flatten(self.requires())  # base impl\n  File \"/home/workspace/luigi_33/luigi/test/parameter_test.py\", line 464, in requires\n    return TaskWithOnePositionalParam('only_positional_value')\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 103, in __call__\n    param_values = cls.get_param_values(params, args, kwargs)\n  File \"/home/workspace/luigi_33/luigi/luigi/task.py\", line 353, in get_param_values\n    raise parameter.MissingParameterException(\"%s: requires the '%s' parameter to be set\" % (exc_desc, param_name))\nluigi.parameter.MissingParameterException: TaskWithOnePositionalParam[args=('only_positional_value',), kwargs={}]: requires the 'only_positional_param' parameter to be set\nINFO     luigi-interface:notifications.py:166 Skipping error email. Set `error-email` in the `core` section of the luigi config file to receive error emails.\nINFO     luigi-interface:interface.py:174 Done scheduling tasks\nINFO     luigi-interface:worker.py:706 Running Worker with 1 processes\nDEBUG    luigi-interface:worker.py:561 Asking scheduler for work...\nINFO     luigi-interface:worker.py:550 Done\nINFO     luigi-interface:worker.py:551 There are no more tasks to run at this time\nINFO     luigi-interface:worker.py:339 Worker Worker(salt=035259934, workers=1, host=beef841789e9, username=root, pid=894) was stopped. Shutting down Keep-Alive thread\n=============================== warnings summary ===============================\nluigi/deprecate_kwarg.py:52\nluigi/deprecate_kwarg.py:52\nluigi/deprecate_kwarg.py:52\ntest/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param\ntest/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params\ntest/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n  /home/workspace/luigi_33/luigi/luigi/deprecate_kwarg.py:52: DeprecationWarning: is_global is deprecated and will be removed. Please use either  (a) class level config (eg. --MyTask-my-param 42) (b) a separate Config class with global settings on it\n    return function(*args, **kwargs)\n\ntest/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n  /home/workspace/luigi_33/luigi/luigi/worker.py:253: UserWarning: Task PositionalParamsRequirer() without outputs has no custom complete() method\n    is_complete = task.complete()\n\n-- Docs: https://docs.pytest.org/en/latest/warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. test/parameter_test.py::ParameterTest::test_local_insignificant_param\nFauxPy: --->   2. test/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param\nFauxPy: --->   3. test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params\nFauxPy: --->   4. test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 0.8162\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile            | Line | Score \n-------------------------------\nluigi/worker.py |  740 | 1.1000\nluigi/worker.py |  736 | 1.1000\nluigi/worker.py |  723 | 1.1000\nluigi/worker.py |  722 | 1.1000\nluigi/worker.py |  721 | 1.1000\nluigi/worker.py |  720 | 1.1000\nluigi/worker.py |  718 | 1.1000\nluigi/worker.py |  714 | 1.1000\nluigi/worker.py |  711 | 1.1000\nluigi/worker.py |  709 | 1.1000\n-------------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile          | Line | Score \n-----------------------------\nluigi/task.py |   99 | 0.9756\nluigi/task.py |   97 | 0.9756\nluigi/task.py |   94 | 0.9756\nluigi/task.py |   85 | 0.9756\nluigi/task.py |   83 | 0.9756\nluigi/task.py |   82 | 0.9756\nluigi/task.py |   80 | 0.9756\nluigi/task.py |   79 | 0.9756\nluigi/task.py |  336 | 0.9756\nluigi/task.py |  335 | 0.9756\n-----------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile          | Line | Score   \n-------------------------------\nluigi/task.py |   99 | 160.0000\nluigi/task.py |   97 | 160.0000\nluigi/task.py |   94 | 160.0000\nluigi/task.py |   85 | 160.0000\nluigi/task.py |   83 | 160.0000\nluigi/task.py |   82 | 160.0000\nluigi/task.py |   80 | 160.0000\nluigi/task.py |   79 | 160.0000\nluigi/task.py |  336 | 160.0000\nluigi/task.py |  335 | 160.0000\n-------------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile          | Line | Score \n-----------------------------\nluigi/task.py |   99 | 0.9756\nluigi/task.py |   97 | 0.9756\nluigi/task.py |   94 | 0.9756\nluigi/task.py |   85 | 0.9756\nluigi/task.py |   83 | 0.9756\nluigi/task.py |   82 | 0.9756\nluigi/task.py |   80 | 0.9756\nluigi/task.py |   79 | 0.9756\nluigi/task.py |  336 | 0.9756\nluigi/task.py |  335 | 0.9756\n-----------------------------\n\n-----------------------\n|   Scores for WSBI   |\n-----------------------\nFile            | Line | Score \n-------------------------------\nluigi/worker.py |  740 | 1.0000\nluigi/worker.py |  736 | 1.0000\nluigi/worker.py |  723 | 1.0000\nluigi/worker.py |  722 | 1.0000\nluigi/worker.py |  721 | 1.0000\nluigi/worker.py |  720 | 1.0000\nluigi/worker.py |  718 | 1.0000\nluigi/worker.py |  714 | 1.0000\nluigi/worker.py |  711 | 1.0000\nluigi/worker.py |  709 | 1.0000\n-------------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED test/parameter_test.py::ParameterTest::test_local_insignificant_param\nFAILED test/parameter_test.py::TestRemoveGlobalParameters::test_global_significant_param\nFAILED test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params\nFAILED test/parameter_test.py::TestRemoveGlobalParameters::test_mixed_params_inheritence\n======================== 4 failed, 7 warnings in 0.80s =========================",
+    "returncode": 1
+  }
+}

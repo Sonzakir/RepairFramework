@@ -1,0 +1,225 @@
+{
+  "run_id": "run_390",
+  "project": "black",
+  "bug_id": 3,
+  "fl_mode": "auto",
+  "fl_backend": "fauxpy",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 9/9 candidates (budget: 200, elapsed: 22.1s).",
+  "started_at": "2026-07-13T21:31:07.577778+00:00",
+  "finished_at": "2026-07-13T21:31:30.420591+00:00",
+  "elapsed_seconds": 22.10477717699996,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "black",
+    "bug_id": 3,
+    "approach": "a4-single-shot",
+    "technique": "llm",
+    "fl_mode": "auto",
+    "fl_backend": "fauxpy",
+    "context_enrichment": false,
+    "iterative": false,
+    "retrieval_budget": 0,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 9,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 9,
+    "candidates_validated": 9,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 22.10477717699996,
+    "rank_of_first_correct": null,
+    "llm_query_count": 9,
+    "assessment_query_count": 0
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3863 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3860,7 +3860,7 @@\n             f.write(lines)\n             if lines and lines[-1] != \"\\n\":\n                 f.write(\"\\n\")\n-    return f.name\n+        return f.name\n \n \n @contextmanager\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n        return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3863
+      },
+      "context_similarity_score": 0.0297029702970297,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3863 (attempt 2)",
+      "validation_summary": "Patch llm-1-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3860,7 +3860,7 @@\n             f.write(lines)\n             if lines and lines[-1] != \"\\n\":\n                 f.write(\"\\n\")\n-    return f.name\n+        return f.name\n \n \n @contextmanager\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n        return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3863
+      },
+      "context_similarity_score": 0.0297029702970297,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3863 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3860,7 +3860,7 @@\n             f.write(lines)\n             if lines and lines[-1] != \"\\n\":\n                 f.write(\"\\n\")\n-    return f.name\n+        return f.name\n \n \n @contextmanager\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n        return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3863
+      },
+      "context_similarity_score": 0.0297029702970297,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3859 (attempt 1)",
+      "validation_summary": "Patch llm-2-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3857,9 +3857,12 @@\n         mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n     ) as f:\n         for lines in output:\n-            f.write(lines)\n-            if lines and lines[-1] != \"\\n\":\n-                f.write(\"\\n\")\n+            if isinstance(lines, str):\n+                lines = lines.splitlines(True)\n+            for line in lines:\n+                f.write(line)\n+                if line and line[-1] != \"\\n\":\n+                    f.write(\"\\n\")\n     return f.name\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            if isinstance(lines, str):\n                lines = lines.splitlines(True)\n            for line in lines:\n                f.write(line)\n                if line and line[-1] != \"\\n\":\n                    f.write(\"\\n\")\n    return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3859
+      },
+      "context_similarity_score": 0.011560693641618497,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3859 (attempt 2)",
+      "validation_summary": "Patch llm-2-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3857,9 +3857,12 @@\n         mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n     ) as f:\n         for lines in output:\n-            f.write(lines)\n-            if lines and lines[-1] != \"\\n\":\n-                f.write(\"\\n\")\n+            if isinstance(lines, str):\n+                lines = [lines]\n+            for line in lines:\n+                f.write(line)\n+                if line and line[-1] != \"\\n\":\n+                    f.write(\"\\n\")\n     return f.name\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            if isinstance(lines, str):\n                lines = [lines]\n            for line in lines:\n                f.write(line)\n                if line and line[-1] != \"\\n\":\n                    f.write(\"\\n\")\n    return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3859
+      },
+      "context_similarity_score": 0.011816838995568686,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3859 (attempt 3)",
+      "validation_summary": "Patch llm-2-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3857,9 +3857,15 @@\n         mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n     ) as f:\n         for lines in output:\n-            f.write(lines)\n-            if lines and lines[-1] != \"\\n\":\n-                f.write(\"\\n\")\n+            if isinstance(lines, (list, tuple)):\n+                for line in lines:\n+                    f.write(line)\n+                    if line and line[-1] != \"\\n\":\n+                        f.write(\"\\n\")\n+            else:\n+                f.write(lines)\n+                if lines and lines[-1] != \"\\n\":\n+                    f.write(\"\\n\")\n     return f.name\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            if isinstance(lines, (list, tuple)):\n                for line in lines:\n                    f.write(line)\n                    if line and line[-1] != \"\\n\":\n                        f.write(\"\\n\")\n            else:\n                f.write(lines)\n                if lines and lines[-1] != \"\\n\":\n                    f.write(\"\\n\")\n    return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3859
+      },
+      "context_similarity_score": 0.010796221322537112,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3858 (attempt 1)",
+      "validation_summary": "Patch llm-3-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3860,7 +3860,8 @@\n             f.write(lines)\n             if lines and lines[-1] != \"\\n\":\n                 f.write(\"\\n\")\n-    return f.name\n+        f.flush()\n+        return f.name\n \n \n @contextmanager\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n        f.flush()\n        return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3858
+      },
+      "context_similarity_score": 0.033734939759036145,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3858 (attempt 2)",
+      "validation_summary": "Patch llm-3-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3854,7 +3854,7 @@\n def dump_to_file(*output: str) -> str:\n     \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n     with tempfile.NamedTemporaryFile(\n-        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n+        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\", newline=\"\"\n     ) as f:\n         for lines in output:\n             f.write(lines)\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\", newline=\"\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n    return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3858
+      },
+      "context_similarity_score": 0.008645533141210375,
+      "similarity_band": "different (little in common)"
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3858 (attempt 3)",
+      "validation_summary": "Patch llm-3-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_3/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_3/black/black.py\n@@ -3854,7 +3854,7 @@\n def dump_to_file(*output: str) -> str:\n     \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n     with tempfile.NamedTemporaryFile(\n-        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\"\n+        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\", newline=\"\\n\"\n     ) as f:\n         for lines in output:\n             f.write(lines)\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef dump_to_file(*output: str) -> str:\n    \"\"\"Dump `output` to a temporary file. Return path to the file.\"\"\"\n    with tempfile.NamedTemporaryFile(\n        mode=\"w\", prefix=\"blk_\", suffix=\".log\", delete=False, encoding=\"utf8\", newline=\"\\n\"\n    ) as f:\n        for lines in output:\n            f.write(lines)\n            if lines and lines[-1] != \"\\n\":\n                f.write(\"\\n\")\n    return f.name\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_3/black/black.py",
+        "target_line": 3858
+      },
+      "context_similarity_score": 0.008620689655172414,
+      "similarity_band": "different (little in common)"
+    }
+  ],
+  "assessed_plausible_patches": []
+}

@@ -1,0 +1,127 @@
+{
+  "generated_at": "2026-07-06T19:08:14.810639+00:00",
+  "ranker": "weighted-composite",
+  "budget": 200,
+  "results": [
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "tornado",
+        "bug_id": 14
+      },
+      "fl_mode": "auto",
+      "fl_backend": "auto-fl",
+      "status": "error",
+      "total_candidates_generated": 0,
+      "candidates_validated": 0,
+      "plausible_count": 0,
+      "correct_count": 0,
+      "time_to_first_plausible_seconds": null,
+      "total_wall_clock_seconds": 0.0,
+      "generation_rank_of_first_correct": null,
+      "ranked_rank_of_first_correct": null,
+      "run_dir": null,
+      "error": "ConfigurationError: FauxPy is not installed in the project environment and installation failed. Collecting fauxpy==0.7.0\n  Using cached fauxpy-0.7.0-py3-none-any.whl.metadata (3.6 kB)\nCollecting pytest>=3.1.2 (from fauxpy==0.7.0)\n  Using cached pytest-7.4.4-py3-none-any.whl.metadata (7.9 kB)\nCollecting coverage>=6.2 (from fauxpy==0.7.0)\n  Using cached coverage-7.2.7-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (9.7 kB)\nCollecting cosmic-ray==8.3.5 (from fauxpy==0.7.0)\n  Using cached cosmic_ray-8.3.5-py3-none-any.whl.metadata (3.6 kB)\nCollecting astor~=0.8.1 (from fauxpy==0.7.0)\n  Using cached astor-0.8.1-py2.py3-none-any.whl.metadata (4.2 kB)\nCollecting pytest-timeout==2.1.0 (from fauxpy==0.7.0)\n  Using cached pytest_timeout-2.1.0-py3-none-any.whl.metadata (16 kB)\nRequirement already satisfied: wheel in ./env/lib/python3.7/site-packages (from fauxpy==0.7.0) (0.42.0)\nCollecting pyllmut (from fauxpy==0.7.0)\n  Using cached pyllmut-0.6.0-py3-none-any.whl.metadata (4.4 kB)\nCollecting aiohttp (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached aiohttp-3.8.6-cp37-cp37m-manylinux_2_17_aarch64.manylinux2014_aarch64.whl.metadata (7.7 kB)\nCollecting anybadge (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached anybadge-1.16.0-py3-none-any.whl.metadata (30 kB)\nCollecting astunparse (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached astunparse-1.6.3-py2.py3-none-any.whl.metadata (4.4 kB)\nCollecting click (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached click-8.1.8-py3-none-any.whl.metadata (2.3 kB)\nCollecting decorator (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached decorator-5.1.1-py3-none-any.whl.metadata (4.0 kB)\nCollecting exit-codes (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached exit_codes-1.3.0-py2.py3-none-any.whl.metadata (1.5 kB)\nCollecting gitpython (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached gitpython-3.1.50-py3-none-any.whl.metadata (14 kB)\nCollecting parso (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached parso-0.8.7-py2.py3-none-any.whl.metadata (8.2 kB)\nCollecting pathlib (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached pathlib-1.0.1-py3-none-any.whl.metadata (5.1 kB)\nCollecting qprompt (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached qprompt-0.16.3.tar.gz (10 kB)\n  Preparing metadata (setup.py): started\n  Preparing metadata (setup.py): finished with status 'done'\nCollecting rich (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached rich-13.8.1-py3-none-any.whl.metadata (18 kB)\nCollecting sqlalchemy (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached sqlalchemy-2.0.51-py3-none-any.whl.metadata (9.5 kB)\nCollecting stevedore (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached stevedore-3.5.2-py3-none-any.whl.metadata (2.2 kB)\nCollecting toml (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached toml-0.10.2-py2.py3-none-any.whl.metadata (7.1 kB)\nCollecting virtualenv<=16.7.10 (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached virtualenv-16.7.10-py2.py3-none-any.whl.metadata (4.0 kB)\nCollecting yattag (from cosmic-ray==8.3.5->fauxpy==0.7.0)\n  Using cached yattag-1.16.1.tar.gz (29 kB)\n  Preparing metadata (setup.py): started\n  Preparing metadata (setup.py): finished with status 'done'\nCollecting iniconfig (from pytest>=3.1.2->fauxpy==0.7.0)\n  Using cached iniconfig-2.0.0-py3-none-any.whl.metadata (2.6 kB)\nRequirement already satisfied: packaging in ./env/lib/python3.7/site-packages (from pytest>=3.1.2->fauxpy==0.7.0) (24.0)\nCollecting pluggy<2.0,>=0.12 (from pytest>=3.1.2->fauxpy==0.7.0)\n  Using cached pluggy-1.2.0-py3-none-any.whl.metadata (4.4 kB)\nCollecting exceptiongroup>=1.0.0rc8 (from pytest>=3.1.2->fauxpy==0.7.0)\n  Using cached exceptiongroup-1.3.1-py3-none-any.whl.metadata (6.7 kB)\nCollecting tomli>=1.0.0 (from pytest>=3.1.2->fauxpy==0.7.0)\n  Using cached tomli-2.0.1-py3-none-any.whl.metadata (8.9 kB)\nCollecting importlib-metadata>=0.12 (from pytest>=3.1.2->fauxpy==0.7.0)\n  Using cached importlib_metadata-6.7.0-py3-none-any.whl.metadata (4.9 kB)\nINFO: pip is looking at multiple versions of pyllmut to determine which version is compatible with other requirements. This could take a while.\nCollecting pyllmut (from fauxpy==0.7.0)\n  Using cached pyllmut-0.5.0-py3-none-any.whl.metadata (4.4 kB)\n  Using cached pyllmut-0.4.0-py3-none-any.whl.metadata (4.3 kB)\n  Using cached pyllmut-0.3.0-py3-none-any.whl.metadata (4.1 kB)\n  Using cached pyllmut-0.2.0-py3-none-any.whl.metadata (4.1 kB)\n  Using cached pyllmut-0.1.0-py3-none-any.whl.metadata (3.9 kB)\n\nThe conflict is caused by:\n    pyllmut 0.6.0 depends on openai<2.0.0 and >=1.0.0\n    pyllmut 0.5.0 depends on openai<2.0.0 and >=1.0.0\n    pyllmut 0.4.0 depends on openai~=1.58.1\n    pyllmut 0.3.0 depends on openai~=1.58.1\n    pyllmut 0.2.0 depends on openai~=1.58.1\n    pyllmut 0.1.0 depends on openai~=1.58.1\n\nTo fix this you could try to:\n1. loosen the range of package versions you've specified\n2. remove package versions to allow pip attempt to solve the dependency conflict\nERROR: Cannot install fauxpy because these package versions have conflicting dependencies.\nERROR: ResolutionImpossible: for help visit https://pip.pypa.io/en/latest/topics/dependency-resolution/#dealing-with-dependency-conflicts"
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "tornado",
+        "bug_id": 14
+      },
+      "fl_mode": "perfect",
+      "fl_backend": "perfect-fl",
+      "status": "correct",
+      "total_candidates_generated": 6,
+      "candidates_validated": 6,
+      "plausible_count": 1,
+      "correct_count": 1,
+      "time_to_first_plausible_seconds": 0.6652073750001364,
+      "total_wall_clock_seconds": 1.1575345009996454,
+      "generation_rank_of_first_correct": 1,
+      "ranked_rank_of_first_correct": 1,
+      "run_dir": "/workspace/runs/run_214",
+      "error": null
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "scrapy",
+        "bug_id": 2
+      },
+      "fl_mode": "auto",
+      "fl_backend": "fauxpy",
+      "status": "no_patch",
+      "total_candidates_generated": 0,
+      "candidates_validated": 0,
+      "plausible_count": 0,
+      "correct_count": 0,
+      "time_to_first_plausible_seconds": null,
+      "total_wall_clock_seconds": 4.459000592760276e-06,
+      "generation_rank_of_first_correct": null,
+      "ranked_rank_of_first_correct": null,
+      "run_dir": "/workspace/runs/run_215",
+      "error": null
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "scrapy",
+        "bug_id": 2
+      },
+      "fl_mode": "perfect",
+      "fl_backend": "perfect-fl",
+      "status": "failed",
+      "total_candidates_generated": 5,
+      "candidates_validated": 5,
+      "plausible_count": 0,
+      "correct_count": 0,
+      "time_to_first_plausible_seconds": null,
+      "total_wall_clock_seconds": 1.2843944169999304,
+      "generation_rank_of_first_correct": null,
+      "ranked_rank_of_first_correct": null,
+      "run_dir": "/workspace/runs/run_216",
+      "error": null
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "black",
+        "bug_id": 1
+      },
+      "fl_mode": "auto",
+      "fl_backend": "fauxpy",
+      "status": "failed",
+      "total_candidates_generated": 8,
+      "candidates_validated": 8,
+      "plausible_count": 0,
+      "correct_count": 0,
+      "time_to_first_plausible_seconds": null,
+      "total_wall_clock_seconds": 12.238425671999721,
+      "generation_rank_of_first_correct": null,
+      "ranked_rank_of_first_correct": null,
+      "run_dir": "/workspace/runs/run_217",
+      "error": null
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "black",
+        "bug_id": 1
+      },
+      "fl_mode": "perfect",
+      "fl_backend": "perfect-fl",
+      "status": "no_patch",
+      "total_candidates_generated": 0,
+      "candidates_validated": 0,
+      "plausible_count": 0,
+      "correct_count": 0,
+      "time_to_first_plausible_seconds": null,
+      "total_wall_clock_seconds": 1.1038767090003603,
+      "generation_rank_of_first_correct": null,
+      "ranked_rank_of_first_correct": null,
+      "run_dir": "/workspace/runs/run_218",
+      "error": null
+    }
+  ]
+}

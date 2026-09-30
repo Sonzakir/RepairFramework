@@ -1,0 +1,14 @@
+{
+  "runner": "fauxpy-localizer",
+  "backend": "fauxpy",
+  "project": "PySnooper",
+  "bug_id": 2,
+  "family": "mbfl",
+  "granularity": "statement",
+  "top_n": 5,
+  "mutation_strategy": null,
+  "mutation_budget": null,
+  "mutation_seed": 0,
+  "started_at": "2026-06-27T16:04:50.650711+00:00",
+  "metric": "metallaxis"
+}

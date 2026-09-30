@@ -1,0 +1,12 @@
+## Code Retrieval
+The buggy code region above is shown in isolation. Before writing the patch you may pull in
+the rest of the project by replying with exactly one retrieval command and nothing else:
+
+RETRIEVE: get_function_definition("name")
+RETRIEVE: get_class_definition("name")
+RETRIEVE: find_usages("name")
+
+Retrieve whenever the fix depends on code you cannot currently see — the body of a helper the
+buggy function calls, the class it belongs to, or the call sites that constrain its contract.
+You will receive the retrieved source and may then retrieve again. When you have enough
+information, return the corrected function in the normal Python fenced code block format.

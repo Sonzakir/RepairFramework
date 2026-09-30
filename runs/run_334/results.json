@@ -1,0 +1,426 @@
+{
+  "run_id": "run_334",
+  "status": "completed",
+  "started_at": "2026-07-13T20:30:46.682453+00:00",
+  "finished_at": "2026-07-13T20:30:58.609063+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 7
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:999",
+      "score": 0.9091,
+      "line": 999,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  999 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:998",
+      "score": 0.9091,
+      "line": 998,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  998 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:997",
+      "score": 0.9091,
+      "line": 997,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  997 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:996",
+      "score": 0.9091,
+      "line": 996,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  996 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "black.py",
+      "location": "black.py:995",
+      "score": 0.9091,
+      "line": 995,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  995 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "black.py",
+    "test_targets": [
+      "tests/test_black.py::BlackTestCase::test_tuple_assign"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:999",
+          "score": 1.1,
+          "line": 999,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  999 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:998",
+          "score": 1.1,
+          "line": 998,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  998 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:997",
+          "score": 1.1,
+          "line": 997,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  997 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:996",
+          "score": 1.1,
+          "line": 996,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  996 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:995",
+          "score": 1.1,
+          "line": 995,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  995 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:999",
+          "score": 0.9091,
+          "line": 999,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  999 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:998",
+          "score": 0.9091,
+          "line": 998,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  998 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:997",
+          "score": 0.9091,
+          "line": 997,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  997 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:996",
+          "score": 0.9091,
+          "line": 996,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  996 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:995",
+          "score": 0.9091,
+          "line": 995,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  995 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:999",
+          "score": 10.0,
+          "line": 999,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  999 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:998",
+          "score": 10.0,
+          "line": 998,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  998 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:997",
+          "score": 10.0,
+          "line": 997,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  997 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:996",
+          "score": 10.0,
+          "line": 996,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  996 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:995",
+          "score": 10.0,
+          "line": 995,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  995 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:999",
+          "score": 0.9091,
+          "line": 999,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  999 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:998",
+          "score": 0.9091,
+          "line": 998,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  998 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:997",
+          "score": 0.9091,
+          "line": 997,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  997 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:996",
+          "score": 0.9091,
+          "line": 996,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  996 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:995",
+          "score": 0.9091,
+          "line": 995,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  995 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "WSBI": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:999",
+          "score": 1.0,
+          "line": 999,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  999 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:998",
+          "score": 1.0,
+          "line": 998,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  998 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:997",
+          "score": 1.0,
+          "line": 997,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  997 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:996",
+          "score": 1.0,
+          "line": 996,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  996 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:995",
+          "score": 1.0,
+          "line": 995,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  995 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-8.3.5, pluggy-1.5.0\nrootdir: /home/workspace/black_7/black\nconfigfile: pyproject.toml\nplugins: timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 1 item\n\ntests/test_black.py F                                                    [100%]\n\n=================================== FAILURES ===================================\n_______________________ BlackTestCase.test_tuple_assign ________________________\n\nself = <tests.test_black.BlackTestCase testMethod=test_tuple_assign>\n\n    @patch(\"black.dump_to_file\", dump_to_stderr)\n    def test_tuple_assign(self) -> None:\n        source, expected = read_data(\"tupleassign\")\n        actual = fs(source)\n>       self.assertFormatEqual(expected, actual)\n\ntests/test_black.py:549: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_black.py:159: in assertFormatEqual\n    self.assertEqual(expected, actual)\nE   AssertionError: '(\\n    sdfjklsdfsjldkflkjsf,\\n    sdfjsdf[81 chars]3)\\n' != 'sdfjklsdfsjldkflkjsf, sdfjsdfjlksdljkfsdl[74 chars]n)\\n'\nE   + sdfjklsdfsjldkflkjsf, sdfjsdfjlksdljkfsdlkf, sdfsdjfklsdfjlksdljkf, sdsfsdfjskdflsfsdf = (\nE   +     1,\nE   +     2,\nE   +     3,\nE   + )\nE   - (\nE   -     sdfjklsdfsjldkflkjsf,\nE   -     sdfjsdfjlksdljkfsdlkf,\nE   -     sdfsdjfklsdfjlksdljkf,\nE   -     sdsfsdfjskdflsfsdf,\nE   - ) = (1, 2, 3)\n----------------------------- Captured stderr call -----------------------------\nExpected tree:\nfile_input\n  simple_stmt\n    expr_stmt\n      atom\n        LPAR '('\n        testlist_gexp\n          NAME '\\n    ' 'sdfjklsdfsjldkflkjsf'\n          COMMA ','\n          NAME '\\n    ' 'sdfjsdfjlksdljkfsdlkf'\n          COMMA ','\n          NAME '\\n    ' 'sdfsdjfklsdfjlksdljkf'\n          COMMA ','\n          NAME '\\n    ' 'sdsfsdfjskdflsfsdf'\n          COMMA ','\n        /testlist_gexp\n        RPAR '\\n' ')'\n      /atom\n      EQUAL ' ' '='\n      atom\n        LPAR ' ' '('\n        testlist_gexp\n          NUMBER '1'\n          COMMA ','\n          NUMBER ' ' '2'\n          COMMA ','\n          NUMBER ' ' '3'\n        /testlist_gexp\n        RPAR ')'\n      /atom\n    /expr_stmt\n    NEWLINE '\\n'\n  /simple_stmt\n  ENDMARKER ''\n/file_input\nActual tree:\nfile_input\n  simple_stmt\n    expr_stmt\n      testlist_star_expr\n        NAME 'sdfjklsdfsjldkflkjsf'\n        COMMA ','\n        NAME ' ' 'sdfjsdfjlksdljkfsdlkf'\n        COMMA ','\n        NAME ' ' 'sdfsdjfklsdfjlksdljkf'\n        COMMA ','\n        NAME ' ' 'sdsfsdfjskdflsfsdf'\n      /testlist_star_expr\n      EQUAL ' ' '='\n      atom\n        LPAR ' ' '('\n        testlist_gexp\n          NUMBER '\\n    ' '1'\n          COMMA ','\n          NUMBER '\\n    ' '2'\n          COMMA ','\n          NUMBER '\\n    ' '3'\n          COMMA ','\n        /testlist_gexp\n        RPAR '\\n' ')'\n      /atom\n    /expr_stmt\n    NEWLINE '\\n'\n  /simple_stmt\n  ENDMARKER ''\n/file_input\n------------------------------ Captured log call -------------------------------\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfjklsdfsjldkflkjsf' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfjsdfjlksdljkfsdlkf' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfsdjfklsdfjlksdljkf' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdsfsdfjskdflsfsdf' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '1' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '2' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '3' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 ENDMARKER '' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:83 Stop.\nDEBUG    blib2to3.pgen2.driver:driver.py:71 LPAR '(' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfjklsdfsjldkflkjsf' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfjsdfjlksdljkfsdlkf' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfsdjfklsdfjlksdljkf' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdsfsdfjskdflsfsdf' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 RPAR ')' (prefix='\\n')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '1' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '2' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '3' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 RPAR ')' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 ENDMARKER '' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:83 Stop.\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfjklsdfsjldkflkjsf' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfjsdfjlksdljkfsdlkf' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdfsdjfklsdfjlksdljkf' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NAME 'sdsfsdfjskdflsfsdf' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 EQUAL '=' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 LPAR '(' (prefix=' ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '1' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '2' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NUMBER '3' (prefix='\\n    ')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 COMMA ',' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 RPAR ')' (prefix='\\n')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 NEWLINE '\\n' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:71 ENDMARKER '' (prefix='')\nDEBUG    blib2to3.pgen2.driver:driver.py:83 Stop.\n=============================== warnings summary ===============================\nenv/lib/python3.8/site-packages/aiohttp/helpers.py:107\n  /home/workspace/black_7/black/env/lib/python3.8/site-packages/aiohttp/helpers.py:107: DeprecationWarning: \"@coroutine\" decorator is deprecated since Python 3.8, use \"async def\" instead\n    def noop(*args, **kwargs):  # type: ignore\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_black.py::BlackTestCase::test_tuple_assign\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 1.0897\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile     | Line | Score \n------------------------\nblack.py |  999 | 1.1000\nblack.py |  998 | 1.1000\nblack.py |  997 | 1.1000\nblack.py |  996 | 1.1000\nblack.py |  995 | 1.1000\n------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile     | Line | Score \n------------------------\nblack.py |  999 | 0.9091\nblack.py |  998 | 0.9091\nblack.py |  997 | 0.9091\nblack.py |  996 | 0.9091\nblack.py |  995 | 0.9091\n------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile     | Line | Score  \n-------------------------\nblack.py |  999 | 10.0000\nblack.py |  998 | 10.0000\nblack.py |  997 | 10.0000\nblack.py |  996 | 10.0000\nblack.py |  995 | 10.0000\n-------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile     | Line | Score \n------------------------\nblack.py |  999 | 0.9091\nblack.py |  998 | 0.9091\nblack.py |  997 | 0.9091\nblack.py |  996 | 0.9091\nblack.py |  995 | 0.9091\n------------------------\n\n-----------------------\n|   Scores for WSBI   |\n-----------------------\nFile     | Line | Score \n------------------------\nblack.py |  999 | 1.0000\nblack.py |  998 | 1.0000\nblack.py |  997 | 1.0000\nblack.py |  996 | 1.0000\nblack.py |  995 | 1.0000\n------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_black.py::BlackTestCase::test_tuple_assign - AssertionError...\n========================= 1 failed, 1 warning in 1.07s =========================",
+    "returncode": 1
+  }
+}

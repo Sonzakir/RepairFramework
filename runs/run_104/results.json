@@ -1,0 +1,816 @@
+{
+  "run_id": "run_104",
+  "status": "completed",
+  "started_at": "2026-06-30T08:43:14.452061+00:00",
+  "finished_at": "2026-06-30T08:43:15.902848+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:write_cache:6307",
+      "score": 0.9091,
+      "line": 6307,
+      "end_line": 6317,
+      "function": "write_cache",
+      "raw_location": "black.py | write_cache                    | 6307-6317 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:target_version_option_callback:324",
+      "score": 0.9091,
+      "line": 324,
+      "end_line": 332,
+      "function": "target_version_option_callback",
+      "raw_location": "black.py | target_version_option_callback |  324-332  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:reformat_many:612",
+      "score": 0.9091,
+      "line": 612,
+      "end_line": 636,
+      "function": "reformat_many",
+      "raw_location": "black.py | reformat_many                  |  612-636  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:read_pyproject_toml:286",
+      "score": 0.9091,
+      "line": 286,
+      "end_line": 321,
+      "function": "read_pyproject_toml",
+      "raw_location": "black.py | read_pyproject_toml            |  286-321  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "black.py",
+      "location": "black.py:re_compile_maybe_verbose:6083",
+      "score": 0.9091,
+      "line": 6083,
+      "end_line": 6091,
+      "function": "re_compile_maybe_verbose",
+      "raw_location": "black.py | re_compile_maybe_verbose       | 6083-6091 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 6,
+      "file_path": "black.py",
+      "location": "black.py:path_empty:567",
+      "score": 0.9091,
+      "line": 567,
+      "end_line": 576,
+      "function": "path_empty",
+      "raw_location": "black.py | path_empty                     |  567-576  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 7,
+      "file_path": "black.py",
+      "location": "black.py:parse_pyproject_toml:276",
+      "score": 0.9091,
+      "line": 276,
+      "end_line": 283,
+      "function": "parse_pyproject_toml",
+      "raw_location": "black.py | parse_pyproject_toml           |  276-283  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 8,
+      "file_path": "black.py",
+      "location": "black.py:main:469",
+      "score": 0.9091,
+      "line": 469,
+      "end_line": 564,
+      "function": "main",
+      "raw_location": "black.py | main                           |  469-564  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 9,
+      "file_path": "black.py",
+      "location": "black.py:get_gitignore:5686",
+      "score": 0.9091,
+      "line": 5686,
+      "end_line": 5693,
+      "function": "get_gitignore",
+      "raw_location": "black.py | get_gitignore                  | 5686-5693 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 10,
+      "file_path": "black.py",
+      "location": "black.py:get_cache_key:244",
+      "score": 0.9091,
+      "line": 244,
+      "end_line": 258,
+      "function": "get_cache_key",
+      "raw_location": "black.py | get_cache_key                  |  244-258  | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "black.py",
+    "test_targets": [
+      "tests/test_black.py::BlackTestCase::test_works_in_mono_process_only_environment"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:write_cache:6307",
+          "score": 1.1,
+          "line": 6307,
+          "end_line": 6317,
+          "function": "write_cache",
+          "raw_location": "black.py | write_cache                    | 6307-6317 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:target_version_option_callback:324",
+          "score": 1.1,
+          "line": 324,
+          "end_line": 332,
+          "function": "target_version_option_callback",
+          "raw_location": "black.py | target_version_option_callback |  324-332  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:reformat_many:612",
+          "score": 1.1,
+          "line": 612,
+          "end_line": 636,
+          "function": "reformat_many",
+          "raw_location": "black.py | reformat_many                  |  612-636  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:read_pyproject_toml:286",
+          "score": 1.1,
+          "line": 286,
+          "end_line": 321,
+          "function": "read_pyproject_toml",
+          "raw_location": "black.py | read_pyproject_toml            |  286-321  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:re_compile_maybe_verbose:6083",
+          "score": 1.1,
+          "line": 6083,
+          "end_line": 6091,
+          "function": "re_compile_maybe_verbose",
+          "raw_location": "black.py | re_compile_maybe_verbose       | 6083-6091 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:path_empty:567",
+          "score": 1.1,
+          "line": 567,
+          "end_line": 576,
+          "function": "path_empty",
+          "raw_location": "black.py | path_empty                     |  567-576  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:parse_pyproject_toml:276",
+          "score": 1.1,
+          "line": 276,
+          "end_line": 283,
+          "function": "parse_pyproject_toml",
+          "raw_location": "black.py | parse_pyproject_toml           |  276-283  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:main:469",
+          "score": 1.1,
+          "line": 469,
+          "end_line": 564,
+          "function": "main",
+          "raw_location": "black.py | main                           |  469-564  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:get_gitignore:5686",
+          "score": 1.1,
+          "line": 5686,
+          "end_line": 5693,
+          "function": "get_gitignore",
+          "raw_location": "black.py | get_gitignore                  | 5686-5693 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:get_cache_key:244",
+          "score": 1.1,
+          "line": 244,
+          "end_line": 258,
+          "function": "get_cache_key",
+          "raw_location": "black.py | get_cache_key                  |  244-258  | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:write_cache:6307",
+          "score": 0.9091,
+          "line": 6307,
+          "end_line": 6317,
+          "function": "write_cache",
+          "raw_location": "black.py | write_cache                    | 6307-6317 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:target_version_option_callback:324",
+          "score": 0.9091,
+          "line": 324,
+          "end_line": 332,
+          "function": "target_version_option_callback",
+          "raw_location": "black.py | target_version_option_callback |  324-332  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:reformat_many:612",
+          "score": 0.9091,
+          "line": 612,
+          "end_line": 636,
+          "function": "reformat_many",
+          "raw_location": "black.py | reformat_many                  |  612-636  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:read_pyproject_toml:286",
+          "score": 0.9091,
+          "line": 286,
+          "end_line": 321,
+          "function": "read_pyproject_toml",
+          "raw_location": "black.py | read_pyproject_toml            |  286-321  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:re_compile_maybe_verbose:6083",
+          "score": 0.9091,
+          "line": 6083,
+          "end_line": 6091,
+          "function": "re_compile_maybe_verbose",
+          "raw_location": "black.py | re_compile_maybe_verbose       | 6083-6091 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:path_empty:567",
+          "score": 0.9091,
+          "line": 567,
+          "end_line": 576,
+          "function": "path_empty",
+          "raw_location": "black.py | path_empty                     |  567-576  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:parse_pyproject_toml:276",
+          "score": 0.9091,
+          "line": 276,
+          "end_line": 283,
+          "function": "parse_pyproject_toml",
+          "raw_location": "black.py | parse_pyproject_toml           |  276-283  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:main:469",
+          "score": 0.9091,
+          "line": 469,
+          "end_line": 564,
+          "function": "main",
+          "raw_location": "black.py | main                           |  469-564  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:get_gitignore:5686",
+          "score": 0.9091,
+          "line": 5686,
+          "end_line": 5693,
+          "function": "get_gitignore",
+          "raw_location": "black.py | get_gitignore                  | 5686-5693 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:get_cache_key:244",
+          "score": 0.9091,
+          "line": 244,
+          "end_line": 258,
+          "function": "get_cache_key",
+          "raw_location": "black.py | get_cache_key                  |  244-258  | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:write_cache:6307",
+          "score": 10.0,
+          "line": 6307,
+          "end_line": 6317,
+          "function": "write_cache",
+          "raw_location": "black.py | write_cache                    | 6307-6317 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:target_version_option_callback:324",
+          "score": 10.0,
+          "line": 324,
+          "end_line": 332,
+          "function": "target_version_option_callback",
+          "raw_location": "black.py | target_version_option_callback |  324-332  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:reformat_many:612",
+          "score": 10.0,
+          "line": 612,
+          "end_line": 636,
+          "function": "reformat_many",
+          "raw_location": "black.py | reformat_many                  |  612-636  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:read_pyproject_toml:286",
+          "score": 10.0,
+          "line": 286,
+          "end_line": 321,
+          "function": "read_pyproject_toml",
+          "raw_location": "black.py | read_pyproject_toml            |  286-321  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:re_compile_maybe_verbose:6083",
+          "score": 10.0,
+          "line": 6083,
+          "end_line": 6091,
+          "function": "re_compile_maybe_verbose",
+          "raw_location": "black.py | re_compile_maybe_verbose       | 6083-6091 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:path_empty:567",
+          "score": 10.0,
+          "line": 567,
+          "end_line": 576,
+          "function": "path_empty",
+          "raw_location": "black.py | path_empty                     |  567-576  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:parse_pyproject_toml:276",
+          "score": 10.0,
+          "line": 276,
+          "end_line": 283,
+          "function": "parse_pyproject_toml",
+          "raw_location": "black.py | parse_pyproject_toml           |  276-283  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:main:469",
+          "score": 10.0,
+          "line": 469,
+          "end_line": 564,
+          "function": "main",
+          "raw_location": "black.py | main                           |  469-564  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:get_gitignore:5686",
+          "score": 10.0,
+          "line": 5686,
+          "end_line": 5693,
+          "function": "get_gitignore",
+          "raw_location": "black.py | get_gitignore                  | 5686-5693 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:get_cache_key:244",
+          "score": 10.0,
+          "line": 244,
+          "end_line": 258,
+          "function": "get_cache_key",
+          "raw_location": "black.py | get_cache_key                  |  244-258  | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:write_cache:6307",
+          "score": 0.9091,
+          "line": 6307,
+          "end_line": 6317,
+          "function": "write_cache",
+          "raw_location": "black.py | write_cache                    | 6307-6317 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:target_version_option_callback:324",
+          "score": 0.9091,
+          "line": 324,
+          "end_line": 332,
+          "function": "target_version_option_callback",
+          "raw_location": "black.py | target_version_option_callback |  324-332  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:reformat_many:612",
+          "score": 0.9091,
+          "line": 612,
+          "end_line": 636,
+          "function": "reformat_many",
+          "raw_location": "black.py | reformat_many                  |  612-636  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:read_pyproject_toml:286",
+          "score": 0.9091,
+          "line": 286,
+          "end_line": 321,
+          "function": "read_pyproject_toml",
+          "raw_location": "black.py | read_pyproject_toml            |  286-321  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:re_compile_maybe_verbose:6083",
+          "score": 0.9091,
+          "line": 6083,
+          "end_line": 6091,
+          "function": "re_compile_maybe_verbose",
+          "raw_location": "black.py | re_compile_maybe_verbose       | 6083-6091 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:path_empty:567",
+          "score": 0.9091,
+          "line": 567,
+          "end_line": 576,
+          "function": "path_empty",
+          "raw_location": "black.py | path_empty                     |  567-576  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:parse_pyproject_toml:276",
+          "score": 0.9091,
+          "line": 276,
+          "end_line": 283,
+          "function": "parse_pyproject_toml",
+          "raw_location": "black.py | parse_pyproject_toml           |  276-283  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:main:469",
+          "score": 0.9091,
+          "line": 469,
+          "end_line": 564,
+          "function": "main",
+          "raw_location": "black.py | main                           |  469-564  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:get_gitignore:5686",
+          "score": 0.9091,
+          "line": 5686,
+          "end_line": 5693,
+          "function": "get_gitignore",
+          "raw_location": "black.py | get_gitignore                  | 5686-5693 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:get_cache_key:244",
+          "score": 0.9091,
+          "line": 244,
+          "end_line": 258,
+          "function": "get_cache_key",
+          "raw_location": "black.py | get_cache_key                  |  244-258  | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "WSBI": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:write_cache:6307",
+          "score": 1.0,
+          "line": 6307,
+          "end_line": 6317,
+          "function": "write_cache",
+          "raw_location": "black.py | write_cache                    | 6307-6317 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:target_version_option_callback:324",
+          "score": 1.0,
+          "line": 324,
+          "end_line": 332,
+          "function": "target_version_option_callback",
+          "raw_location": "black.py | target_version_option_callback |  324-332  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:reformat_many:612",
+          "score": 1.0,
+          "line": 612,
+          "end_line": 636,
+          "function": "reformat_many",
+          "raw_location": "black.py | reformat_many                  |  612-636  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:read_pyproject_toml:286",
+          "score": 1.0,
+          "line": 286,
+          "end_line": 321,
+          "function": "read_pyproject_toml",
+          "raw_location": "black.py | read_pyproject_toml            |  286-321  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:re_compile_maybe_verbose:6083",
+          "score": 1.0,
+          "line": 6083,
+          "end_line": 6091,
+          "function": "re_compile_maybe_verbose",
+          "raw_location": "black.py | re_compile_maybe_verbose       | 6083-6091 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:path_empty:567",
+          "score": 1.0,
+          "line": 567,
+          "end_line": 576,
+          "function": "path_empty",
+          "raw_location": "black.py | path_empty                     |  567-576  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:parse_pyproject_toml:276",
+          "score": 1.0,
+          "line": 276,
+          "end_line": 283,
+          "function": "parse_pyproject_toml",
+          "raw_location": "black.py | parse_pyproject_toml           |  276-283  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:main:469",
+          "score": 1.0,
+          "line": 469,
+          "end_line": 564,
+          "function": "main",
+          "raw_location": "black.py | main                           |  469-564  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:get_gitignore:5686",
+          "score": 1.0,
+          "line": 5686,
+          "end_line": 5693,
+          "function": "get_gitignore",
+          "raw_location": "black.py | get_gitignore                  | 5686-5693 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:get_cache_key:244",
+          "score": 1.0,
+          "line": 244,
+          "end_line": 258,
+          "function": "get_cache_key",
+          "raw_location": "black.py | get_cache_key                  |  244-258  | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-8.3.5, pluggy-1.5.0\nrootdir: /home/workspace/black_1/black\nconfigfile: pyproject.toml\nplugins: timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 1 item\n\ntests/test_black.py F                                                    [100%]\n\n=================================== FAILURES ===================================\n__________ BlackTestCase.test_works_in_mono_process_only_environment ___________\n\nself = <tests.test_black.BlackTestCase testMethod=test_works_in_mono_process_only_environment>\nmock_executor = <MagicMock name='ProcessPoolExecutor' spec='ProcessPoolExecutor' id='281473369228864'>\n\n    @patch(\"black.ProcessPoolExecutor\", autospec=True)\n    def test_works_in_mono_process_only_environment(self, mock_executor) -> None:\n        mock_executor.side_effect = OSError()\n        mode = black.FileMode()\n        with cache_dir() as workspace:\n            one = (workspace / \"one.py\").resolve()\n            with one.open(\"w\") as fobj:\n                fobj.write(\"print('hello')\")\n            two = (workspace / \"two.py\").resolve()\n            with two.open(\"w\") as fobj:\n                fobj.write(\"print('hello')\")\n            black.write_cache({}, [one], mode)\n>           self.invokeBlack([str(workspace)])\n\ntests/test_black.py:1288: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_black.py:162: in invokeBlack\n    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())\nE   AssertionError: 1 != 0 :\n=============================== warnings summary ===============================\nenv/lib/python3.8/site-packages/aiohttp/helpers.py:107\n  /home/workspace/black_1/black/env/lib/python3.8/site-packages/aiohttp/helpers.py:107: DeprecationWarning: \"@coroutine\" decorator is deprecated since Python 3.8, use \"async def\" instead\n    def noop(*args, **kwargs):  # type: ignore\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_black.py::BlackTestCase::test_works_in_mono_process_only_environment\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 0.4581\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile     | Function                       | Line      | Score \n--------------------------------------------------------------\nblack.py | write_cache                    | 6307-6317 | 1.1000\nblack.py | target_version_option_callback |  324-332  | 1.1000\nblack.py | reformat_many                  |  612-636  | 1.1000\nblack.py | read_pyproject_toml            |  286-321  | 1.1000\nblack.py | re_compile_maybe_verbose       | 6083-6091 | 1.1000\nblack.py | path_empty                     |  567-576  | 1.1000\nblack.py | parse_pyproject_toml           |  276-283  | 1.1000\nblack.py | main                           |  469-564  | 1.1000\nblack.py | get_gitignore                  | 5686-5693 | 1.1000\nblack.py | get_cache_key                  |  244-258  | 1.1000\n--------------------------------------------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile     | Function                       | Line      | Score \n--------------------------------------------------------------\nblack.py | write_cache                    | 6307-6317 | 0.9091\nblack.py | target_version_option_callback |  324-332  | 0.9091\nblack.py | reformat_many                  |  612-636  | 0.9091\nblack.py | read_pyproject_toml            |  286-321  | 0.9091\nblack.py | re_compile_maybe_verbose       | 6083-6091 | 0.9091\nblack.py | path_empty                     |  567-576  | 0.9091\nblack.py | parse_pyproject_toml           |  276-283  | 0.9091\nblack.py | main                           |  469-564  | 0.9091\nblack.py | get_gitignore                  | 5686-5693 | 0.9091\nblack.py | get_cache_key                  |  244-258  | 0.9091\n--------------------------------------------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile     | Function                       | Line      | Score  \n---------------------------------------------------------------\nblack.py | write_cache                    | 6307-6317 | 10.0000\nblack.py | target_version_option_callback |  324-332  | 10.0000\nblack.py | reformat_many                  |  612-636  | 10.0000\nblack.py | read_pyproject_toml            |  286-321  | 10.0000\nblack.py | re_compile_maybe_verbose       | 6083-6091 | 10.0000\nblack.py | path_empty                     |  567-576  | 10.0000\nblack.py | parse_pyproject_toml           |  276-283  | 10.0000\nblack.py | main                           |  469-564  | 10.0000\nblack.py | get_gitignore                  | 5686-5693 | 10.0000\nblack.py | get_cache_key                  |  244-258  | 10.0000\n---------------------------------------------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile     | Function                       | Line      | Score \n--------------------------------------------------------------\nblack.py | write_cache                    | 6307-6317 | 0.9091\nblack.py | target_version_option_callback |  324-332  | 0.9091\nblack.py | reformat_many                  |  612-636  | 0.9091\nblack.py | read_pyproject_toml            |  286-321  | 0.9091\nblack.py | re_compile_maybe_verbose       | 6083-6091 | 0.9091\nblack.py | path_empty                     |  567-576  | 0.9091\nblack.py | parse_pyproject_toml           |  276-283  | 0.9091\nblack.py | main                           |  469-564  | 0.9091\nblack.py | get_gitignore                  | 5686-5693 | 0.9091\nblack.py | get_cache_key                  |  244-258  | 0.9091\n--------------------------------------------------------------\n\n-----------------------\n|   Scores for WSBI   |\n-----------------------\nFile     | Function                       | Line      | Score \n--------------------------------------------------------------\nblack.py | write_cache                    | 6307-6317 | 1.0000\nblack.py | target_version_option_callback |  324-332  | 1.0000\nblack.py | reformat_many                  |  612-636  | 1.0000\nblack.py | read_pyproject_toml            |  286-321  | 1.0000\nblack.py | re_compile_maybe_verbose       | 6083-6091 | 1.0000\nblack.py | path_empty                     |  567-576  | 1.0000\nblack.py | parse_pyproject_toml           |  276-283  | 1.0000\nblack.py | main                           |  469-564  | 1.0000\nblack.py | get_gitignore                  | 5686-5693 | 1.0000\nblack.py | get_cache_key                  |  244-258  | 1.0000\n--------------------------------------------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_black.py::BlackTestCase::test_works_in_mono_process_only_environment\n========================= 1 failed, 1 warning in 0.44s =========================",
+    "returncode": 1
+  }
+}

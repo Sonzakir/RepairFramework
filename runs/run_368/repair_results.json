@@ -1,0 +1,225 @@
+{
+  "run_id": "run_368",
+  "project": "black",
+  "bug_id": 11,
+  "fl_mode": "auto",
+  "fl_backend": "fauxpy",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 9/9 candidates (budget: 200, elapsed: 19.0s).",
+  "started_at": "2026-07-13T21:01:09.421953+00:00",
+  "finished_at": "2026-07-13T21:01:28.395156+00:00",
+  "elapsed_seconds": 18.972205425000084,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "black",
+    "bug_id": 11,
+    "approach": "a4-single-shot",
+    "technique": "llm",
+    "fl_mode": "auto",
+    "fl_backend": "fauxpy",
+    "context_enrichment": false,
+    "iterative": false,
+    "retrieval_budget": 0,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 9,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 9,
+    "candidates_validated": 9,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 18.972205425000084,
+    "rank_of_first_correct": null,
+    "llm_query_count": 9,
+    "assessment_query_count": 0
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:992 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -987,8 +987,6 @@\n         ):\n             self.depth -= 1\n             self._for_loop_depths.pop()\n-            return True\n-\n         return False\n \n     def maybe_increment_lambda_arguments(self, leaf: Leaf) -> bool:\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 992
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:992 (attempt 2)",
+      "validation_summary": "Patch llm-1-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -989,7 +989,7 @@\n             self._for_loop_depths.pop()\n             return True\n \n-        return False\n+        return leaf.type == token.ASYNC\n \n     def maybe_increment_lambda_arguments(self, leaf: Leaf) -> bool:\n         \"\"\"In a lambda expression, there might be more than one argument.\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return leaf.type == token.ASYNC\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 992
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:992 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -989,7 +989,7 @@\n             self._for_loop_depths.pop()\n             return True\n \n-        return False\n+        return leaf.type == token.NAME and leaf.value == \"in\"\n \n     def maybe_increment_lambda_arguments(self, leaf: Leaf) -> bool:\n         \"\"\"In a lambda expression, there might be more than one argument.\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return leaf.type == token.NAME and leaf.value == \"in\"\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 992
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:983 (attempt 1)",
+      "validation_summary": "Patch llm-2-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -981,7 +981,7 @@\n         \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n         if (\n             self._for_loop_depths\n-            and self._for_loop_depths[-1] == self.depth\n+            and self._for_loop_depths[-1] == self.depth - 1\n             and leaf.type == token.NAME\n             and leaf.value == \"in\"\n         ):\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth - 1\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 983
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:983 (attempt 2)",
+      "validation_summary": "Patch llm-2-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -981,7 +981,7 @@\n         \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n         if (\n             self._for_loop_depths\n-            and self._for_loop_depths[-1] == self.depth\n+            and self._for_loop_depths[-1] == self.depth - 1\n             and leaf.type == token.NAME\n             and leaf.value == \"in\"\n         ):\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth - 1\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 983
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:983 (attempt 3)",
+      "validation_summary": "Patch llm-2-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -981,7 +981,7 @@\n         \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n         if (\n             self._for_loop_depths\n-            and self._for_loop_depths[-1] == self.depth\n+            and self._for_loop_depths[-1] == self.depth - 1\n             and leaf.type == token.NAME\n             and leaf.value == \"in\"\n         ):\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth - 1\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 983
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:982 (attempt 1)",
+      "validation_summary": "Patch llm-3-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -981,7 +981,7 @@\n         \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n         if (\n             self._for_loop_depths\n-            and self._for_loop_depths[-1] == self.depth\n+            and self._for_loop_depths[-1] == self.depth - 1\n             and leaf.type == token.NAME\n             and leaf.value == \"in\"\n         ):\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth - 1\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 982
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:982 (attempt 2)",
+      "validation_summary": "Patch llm-3-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -981,7 +981,7 @@\n         \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n         if (\n             self._for_loop_depths\n-            and self._for_loop_depths[-1] == self.depth\n+            and self._for_loop_depths[-1] == self.depth + 1\n             and leaf.type == token.NAME\n             and leaf.value == \"in\"\n         ):\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth + 1\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 982
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:982 (attempt 3)",
+      "validation_summary": "Patch llm-3-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_11/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_11/black/black.py\n@@ -981,7 +981,7 @@\n         \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n         if (\n             self._for_loop_depths\n-            and self._for_loop_depths[-1] == self.depth\n+            and self._for_loop_depths[-1] == self.depth - 1\n             and leaf.type == token.NAME\n             and leaf.value == \"in\"\n         ):\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.9091,
+        "llm_response": "```python\ndef maybe_decrement_after_for_loop_variable(self, leaf: Leaf) -> bool:\n    \"\"\"See `maybe_increment_for_loop_variable` above for explanation.\"\"\"\n    if (\n        self._for_loop_depths\n        and self._for_loop_depths[-1] == self.depth - 1\n        and leaf.type == token.NAME\n        and leaf.value == \"in\"\n    ):\n        self.depth -= 1\n        self._for_loop_depths.pop()\n        return True\n\n    return False\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_11/black/black.py",
+        "target_line": 982
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    }
+  ],
+  "assessed_plausible_patches": []
+}

@@ -1,0 +1,426 @@
+{
+  "run_id": "run_333",
+  "status": "completed",
+  "started_at": "2026-07-13T20:30:17.221423+00:00",
+  "finished_at": "2026-07-13T20:30:27.702986+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 3
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:3863",
+      "score": 0.9091,
+      "line": 3863,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 3863 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:3859",
+      "score": 0.9091,
+      "line": 3859,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 3859 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:3858",
+      "score": 0.9091,
+      "line": 3858,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 3858 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:3857",
+      "score": 0.9091,
+      "line": 3857,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 3857 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "black.py",
+      "location": "black.py:3856",
+      "score": 0.9091,
+      "line": 3856,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 3856 | 0.9091",
+      "metadata": {
+        "score_formula": "Ochiai"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "sbfl",
+    "src": "black.py",
+    "test_targets": [
+      "tests/test_black.py::BlackTestCase::test_invalid_config_return_code"
+    ],
+    "score_formula": "Ochiai",
+    "all_metrics": {
+      "Tarantula": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:3863",
+          "score": 1.1,
+          "line": 3863,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3863 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:3859",
+          "score": 1.1,
+          "line": 3859,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3859 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:3858",
+          "score": 1.1,
+          "line": 3858,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3858 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:3857",
+          "score": 1.1,
+          "line": 3857,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3857 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:3856",
+          "score": 1.1,
+          "line": 3856,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3856 | 1.1000",
+          "metadata": {
+            "score_formula": "Tarantula"
+          }
+        }
+      ],
+      "Ochiai": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:3863",
+          "score": 0.9091,
+          "line": 3863,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3863 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:3859",
+          "score": 0.9091,
+          "line": 3859,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3859 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:3858",
+          "score": 0.9091,
+          "line": 3858,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3858 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:3857",
+          "score": 0.9091,
+          "line": 3857,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3857 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:3856",
+          "score": 0.9091,
+          "line": 3856,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3856 | 0.9091",
+          "metadata": {
+            "score_formula": "Ochiai"
+          }
+        }
+      ],
+      "Dstar": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:3863",
+          "score": 10.0,
+          "line": 3863,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3863 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:3859",
+          "score": 10.0,
+          "line": 3859,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3859 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:3858",
+          "score": 10.0,
+          "line": 3858,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3858 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:3857",
+          "score": 10.0,
+          "line": 3857,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3857 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:3856",
+          "score": 10.0,
+          "line": 3856,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3856 | 10.0000",
+          "metadata": {
+            "score_formula": "Dstar"
+          }
+        }
+      ],
+      "Jaccard": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:3863",
+          "score": 0.9091,
+          "line": 3863,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3863 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:3859",
+          "score": 0.9091,
+          "line": 3859,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3859 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:3858",
+          "score": 0.9091,
+          "line": 3858,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3858 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:3857",
+          "score": 0.9091,
+          "line": 3857,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3857 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:3856",
+          "score": 0.9091,
+          "line": 3856,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3856 | 0.9091",
+          "metadata": {
+            "score_formula": "Jaccard"
+          }
+        }
+      ],
+      "WSBI": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:3863",
+          "score": 1.0,
+          "line": 3863,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3863 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:3859",
+          "score": 1.0,
+          "line": 3859,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3859 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:3858",
+          "score": 1.0,
+          "line": 3858,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3858 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:3857",
+          "score": 1.0,
+          "line": 3857,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3857 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:3856",
+          "score": 1.0,
+          "line": 3856,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 3856 | 1.0000",
+          "metadata": {
+            "score_formula": "WSBI"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-8.3.5, pluggy-1.5.0\nrootdir: /home/workspace/black_3/black\nconfigfile: pyproject.toml\nplugins: timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 1 item\n\ntests/test_black.py F                                                    [100%]\n\n=================================== FAILURES ===================================\n________________ BlackTestCase.test_invalid_config_return_code _________________\n\nself = <tests.test_black.BlackTestCase testMethod=test_invalid_config_return_code>\n\n    def test_invalid_config_return_code(self) -> None:\n        tmp_file = Path(black.dump_to_file())\n        try:\n            tmp_config = Path(black.dump_to_file())\n            tmp_config.unlink()\n            args = [\"--config\", str(tmp_config), str(tmp_file)]\n>           self.invokeBlack(args, exit_code=2, ignore_config=False)\n\ntests/test_black.py:1654: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_black.py:162: in invokeBlack\n    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())\nE   AssertionError: 1 != 2 : Error: Could not open file /tmp/blk__wtvxw38.log: Error reading configuration file: [Errno 2] No such file or directory: '/tmp/blk__wtvxw38.log'\n=============================== warnings summary ===============================\nenv/lib/python3.8/site-packages/aiohttp/helpers.py:107\n  /home/workspace/black_3/black/env/lib/python3.8/site-packages/aiohttp/helpers.py:107: DeprecationWarning: \"@coroutine\" decorator is deprecated since Python 3.8, use \"async def\" instead\n    def noop(*args, **kwargs):  # type: ignore\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running SBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_black.py::BlackTestCase::test_invalid_config_return_code\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 0.2408\n\n----------------------------\n|   Scores for Tarantula   |\n----------------------------\nFile     | Line | Score \n------------------------\nblack.py | 3863 | 1.1000\nblack.py | 3859 | 1.1000\nblack.py | 3858 | 1.1000\nblack.py | 3857 | 1.1000\nblack.py | 3856 | 1.1000\n------------------------\n\n-------------------------\n|   Scores for Ochiai   |\n-------------------------\nFile     | Line | Score \n------------------------\nblack.py | 3863 | 0.9091\nblack.py | 3859 | 0.9091\nblack.py | 3858 | 0.9091\nblack.py | 3857 | 0.9091\nblack.py | 3856 | 0.9091\n------------------------\n\n------------------------\n|   Scores for Dstar   |\n------------------------\nFile     | Line | Score  \n-------------------------\nblack.py | 3863 | 10.0000\nblack.py | 3859 | 10.0000\nblack.py | 3858 | 10.0000\nblack.py | 3857 | 10.0000\nblack.py | 3856 | 10.0000\n-------------------------\n\n--------------------------\n|   Scores for Jaccard   |\n--------------------------\nFile     | Line | Score \n------------------------\nblack.py | 3863 | 0.9091\nblack.py | 3859 | 0.9091\nblack.py | 3858 | 0.9091\nblack.py | 3857 | 0.9091\nblack.py | 3856 | 0.9091\n------------------------\n\n-----------------------\n|   Scores for WSBI   |\n-----------------------\nFile     | Line | Score \n------------------------\nblack.py | 3863 | 1.0000\nblack.py | 3859 | 1.0000\nblack.py | 3858 | 1.0000\nblack.py | 3857 | 1.0000\nblack.py | 3856 | 1.0000\n------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_black.py::BlackTestCase::test_invalid_config_return_code - ...\n========================= 1 failed, 1 warning in 0.23s =========================",
+    "returncode": 1
+  }
+}

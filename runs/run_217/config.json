@@ -1,0 +1,25 @@
+{
+  "runner": "repair-comparison",
+  "technique": "template",
+  "budget": 200,
+  "top_n_locations": 5,
+  "enabled_operators": [
+    "arith",
+    "comp",
+    "obo",
+    "bool",
+    "negate",
+    "return"
+  ],
+  "timeout_per_test": 120,
+  "stop_on_first": false,
+  "regression_check": true,
+  "fl_family": "sbfl",
+  "localization_metric": "ochiai",
+  "granularity": "statement",
+  "project": "black",
+  "bug_id": 1,
+  "fl_mode": "auto",
+  "fl_backend": "fauxpy",
+  "ranker": "weighted-composite"
+}

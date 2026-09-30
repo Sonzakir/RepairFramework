@@ -1,0 +1,39 @@
+{
+  "run_id": "run_048",
+  "status": "completed",
+  "started_at": "2026-06-27T16:07:38.441853+00:00",
+  "finished_at": "2026-06-27T16:07:41.846756+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "PySnooper",
+    "bug_id": 3
+  },
+  "ranked_locations": [],
+  "metadata": {
+    "family": "mbfl",
+    "src": "pysnooper",
+    "test_targets": [
+      "-q",
+      "-s",
+      "tests/test_pysnooper.py::test_file_output"
+    ],
+    "score_formula": "Metallaxis",
+    "all_metrics": {
+      "Muse": [],
+      "Metallaxis": []
+    },
+    "raw_output": "F\n=================================== FAILURES ===================================\n_______________________________ test_file_output _______________________________\n\n    def test_file_output():\n    \n        with temp_file_tools.create_temp_folder(prefix='pysnooper') as folder:\n            path = folder / 'foo.log'\n            @pysnooper.snoop(str(path))\n            def my_function(foo):\n                x = 7\n                y = 8\n                return y + x\n>           result = my_function('baba')\n\ntests/test_pysnooper.py:183: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \nenv/lib/python3.8/site-packages/decorator-5.3.1-py3.8.egg/decorator/__init__.py:247: in fun\n    return caller(func, *(extras + args), **kw)\npysnooper/pysnooper.py:72: in decorate\n    return function(*args, **kwargs)\ntests/test_pysnooper.py:178: in my_function\n    @pysnooper.snoop(str(path))\npysnooper/tracer.py:173: in trace\n    self.write('{indent}{newish_string}{name} = {value_repr}'.format(\npysnooper/tracer.py:114: in write\n    self._write(s)\n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\ns = \"Starting var:.. foo = 'baba'\\n\"\n\n    def write(s):\n>       with open(output_path, 'a') as output_file:\nE       NameError: name 'output_path' is not defined\n\npysnooper/pysnooper.py:26: NameError\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running MBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_pysnooper.py::test_file_output\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\nFauxPy: ---> Generating mutants using the mutation strategy Traditional for the following module:\nFauxPy: --->   /home/workspace/PySnooper_3/PySnooper/pysnooper/pysnooper.py\nFauxPy: ---> Number of generated mutants: 3\nFauxPy: ---> Generating mutants using the mutation strategy Traditional for the following module:\nFauxPy: --->   /home/workspace/PySnooper_3/PySnooper/pysnooper/tracer.py\nFauxPy: ---> Number of generated mutants: 7\nFauxPy: ---> Total generated mutants: 10\nFauxPy: ---> Mutants selected for validation: 10\nFauxPy: ---> Mutation generation time: 0.2640\nFauxPy: ---> Running 10 Mutants\nFauxPy: ---> Running Mutant M0 (1/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M1 (2/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M2 (3/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M3 (4/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M4 (5/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M5 (6/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M6 (7/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M7 (8/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M8 (9/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Running Mutant M9 (10/10)\nFauxPy: ---> Timeout or bad mutant\nFauxPy: ---> Mutant validation time: 0.5512\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 2.3824\n\n-----------------------\n|   Scores for Muse   |\n-----------------------\nFile | Line | Score\n-------------------\n-------------------\n\n-----------------------------\n|   Scores for Metallaxis   |\n-----------------------------\nFile | Line | Score\n-------------------\n-------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_pysnooper.py::test_file_output - NameError: name 'output_pa...\n1 failed in 2.36s",
+    "returncode": 1,
+    "mutation_strategy": null,
+    "mutation_budget": null,
+    "mutation_seed": 0,
+    "mutants_generated": 10,
+    "mutants_validated": 10,
+    "mutation_generation_time_seconds": 0.264,
+    "mutant_validation_time_seconds": 0.5512,
+    "fauxpy_report_dir": "/workspace/.workspace/bugsinpy/PySnooper_3/FauxPyReport_PySnooper_mbfl_statement_traditional_2026_06_27_16_07_39_412799",
+    "mutants_timed_out": 10,
+    "mutants_with_missing_tests": 0
+  }
+}

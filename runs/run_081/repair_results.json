@@ -1,0 +1,51 @@
+{
+  "run_id": "run_081",
+  "project": "PySnooper",
+  "bug_id": 1,
+  "status": "no_patch",
+  "validation_summary": "No mutation operators matched at the top suspicious locations.",
+  "started_at": "2026-06-29T18:51:17.280223+00:00",
+  "finished_at": "2026-06-29T18:51:17.306036+00:00",
+  "elapsed_seconds": 0.02530479200000002,
+  "config": {
+    "runner": "template-repair",
+    "project": "PySnooper",
+    "bug_id": 1,
+    "technique": "template",
+    "budget": 50,
+    "top_n_locations": 3,
+    "enabled_operators": [
+      "comp",
+      "obo",
+      "arith"
+    ],
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": false,
+    "fl_mode": "perfect",
+    "fl_backend": "oracle",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-06-29T18:51:17.273599+00:00",
+    "ranker": "weighted-composite"
+  },
+  "candidates_validated": 0,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 0,
+    "candidates_validated": 0,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 0.02530479200000002,
+    "rank_of_first_correct": null
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": [],
+  "rank_of_first_correct": null,
+  "all_results": []
+}

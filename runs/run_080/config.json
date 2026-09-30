@@ -1,0 +1,22 @@
+{
+  "runner": "template-repair",
+  "project": "scrapy",
+  "bug_id": 2,
+  "technique": "template",
+  "budget": 3,
+  "top_n_locations": 5,
+  "enabled_operators": [
+    "comp"
+  ],
+  "timeout_per_test": 120,
+  "stop_on_first": true,
+  "regression_check": false,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "fl_family": "sbfl",
+  "localization_metric": "ochiai",
+  "mbfl_metric": "metallaxis",
+  "granularity": "statement",
+  "skip_localize": false,
+  "started_at": "2026-06-28T14:24:59.449961+00:00"
+}

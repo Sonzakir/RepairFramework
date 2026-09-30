@@ -1,0 +1,88 @@
+{
+  "run_id": "run_297",
+  "project": "ansible",
+  "bug_id": 3,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 1/1 candidates (budget: 5, elapsed: 14.5s).",
+  "started_at": "2026-07-12T18:26:40.724786+00:00",
+  "finished_at": "2026-07-12T18:26:55.229509+00:00",
+  "elapsed_seconds": 14.503955799000096,
+  "config": {
+    "project": "ansible",
+    "bug_id": 3,
+    "technique": "llm",
+    "budget": 5,
+    "top_n_locations": 1,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "perfect",
+    "fl_backend": "oracle",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-12T18:26:40.719981+00:00",
+    "runner": "llm-repair",
+    "model": "gpt-4.1-2025-04-14",
+    "temperature": 0.0,
+    "max_candidates": 1,
+    "llm_provider": "openai-compatible",
+    "system_prompt": "prompt1",
+    "context_enrichment": true,
+    "few_shot_count": 0,
+    "iterative": false,
+    "max_iterations": 5,
+    "retrieval_budget": 3,
+    "timeout_seconds": 120,
+    "ranker": "none",
+    "similarity_score": false
+  },
+  "candidates_validated": 1,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 1,
+    "candidates_validated": 1,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 14.503955799000096,
+    "rank_of_first_correct": null,
+    "llm_query_count": 3
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for lib/ansible/module_utils/facts/system/distribution.py:323 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=53, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/ansible_3/ansible/lib/ansible/module_utils/facts/system/distribution.py\n+++ /workspace/.workspace/bugsinpy/ansible_3/ansible/lib/ansible/module_utils/facts/system/distribution.py\n@@ -320,7 +320,7 @@\n         elif 'SteamOS' in data:\n             debian_facts['distribution'] = 'SteamOS'\n             # nothing else to do, SteamOS gets correct info from python functions\n-        elif path == '/etc/lsb-release' and 'Kali' in data:\n+        elif path == '/etc/lsb-release' and ('Kali' in data or 'DISTRIB_ID=Kali' in data):\n             debian_facts['distribution'] = 'Kali'\n             release = re.search('DISTRIB_RELEASE=(.*)', data)\n             if release:\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef parse_distribution_file_Debian(self, name, data, path, collected_facts):\n    debian_facts = {}\n    if 'Debian' in data or 'Raspbian' in data:\n        debian_facts['distribution'] = 'Debian'\n        release = re.search(r\"PRETTY_NAME=[^(]+ \\(?([^)]+?)\\)\", data)\n        if release:\n            debian_facts['distribution_release'] = release.groups()[0]\n\n        # Last resort: try to find release from tzdata as either lsb is missing or this is very old debian\n        if collected_facts['distribution_release'] == 'NA' and 'Debian' in data:\n            dpkg_cmd = self.module.get_bin_path('dpkg')\n            if dpkg_cmd:\n                cmd = \"%s --status tzdata|grep Provides|cut -f2 -d'-'\" % dpkg_cmd\n                rc, out, err = self.module.run_command(cmd)\n                if rc == 0:\n                    debian_facts['distribution_release'] = out.strip()\n    elif 'Ubuntu' in data:\n        debian_facts['distribution'] = 'Ubuntu'\n        # nothing else to do, Ubuntu gets correct info from python functions\n    elif 'SteamOS' in data:\n        debian_facts['distribution'] = 'SteamOS'\n        # nothing else to do, SteamOS gets correct info from python functions\n    elif path == '/etc/lsb-release' and ('Kali' in data or 'DISTRIB_ID=Kali' in data):\n        debian_facts['distribution'] = 'Kali'\n        release = re.search('DISTRIB_RELEASE=(.*)', data)\n        if release:\n            debian_facts['distribution_release'] = release.groups()[0]\n    elif 'Devuan' in data:\n        debian_facts['distribution'] = 'Devuan'\n        release = re.search(r\"PRETTY_NAME=\\\"?[^(\\\"]+ \\(?([^) \\\"]+)\\)?\", data)\n        if release:\n            debian_facts['distribution_release'] = release.groups()[0]\n        version = re.search(r\"VERSION_ID=\\\"(.*)\\\"\", data)\n        if version:\n            debian_facts['distribution_version'] = version.group(1)\n            debian_facts['distribution_major_version'] = version.group(1)\n    elif 'Cumulus' in data:\n        debian_facts['distribution'] = 'Cumulus Linux'\n        version = re.search(r\"VERSION_ID=(.*)\", data)\n        if version:\n            major, _minor, _dummy_ver = version.group(1).split(\".\")\n            debian_facts['distribution_version'] = version.group(1)\n            debian_facts['distribution_major_version'] = major\n\n        release = re.search(r'VERSION=\"(.*)\"', data)\n        if release:\n            debian_facts['distribution_release'] = release.groups()[0]\n    elif \"Mint\" in data:\n        debian_facts['distribution'] = 'Linux Mint'\n        version = re.search(r\"VERSION_ID=\\\"(.*)\\\"\", data)\n        if version:\n            debian_facts['distribution_version'] = version.group(1)\n            debian_facts['distribution_major_version'] = version.group(1).split('.')[0]\n    else:\n        return False, debian_facts\n\n    return True, debian_facts\n```",
+        "model": "gpt-4.1-2025-04-14",
+        "source_path": "/workspace/.workspace/bugsinpy/ansible_3/ansible/lib/ansible/module_utils/facts/system/distribution.py",
+        "target_line": 323
+      },
+      "retrieval": {
+        "steps": [
+          {
+            "tool_name": "get_class_definition",
+            "argument": "DistributionFactCollector",
+            "result_summary": "# lib/ansible/module_utils/facts/system/distribution.py:645\nclass DistributionFactCollector(BaseFactCollector):\n    name = 'distribution'\n    _fact_ids = set(['distribution_version',\n                     'distribution_release',\n                     'distribution_major_version',\n                     'os_family'])\n\n    def collect(self, module=None, collected_facts=None):\n        collected_facts = collected_facts or {}\n        facts_dict = {}\n        if not module:\n            return facts_dict\n\n        distribution = Distribution(module=module)\n        distro_facts = distribution.get_distribution_facts()\n\n        return distro_facts"
+          }
+        ],
+        "step_count": 1,
+        "stop_reason": "model_ready"
+      }
+    }
+  ]
+}

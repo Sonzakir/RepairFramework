@@ -1,0 +1,37 @@
+{
+  "run_id": "run_053",
+  "status": "completed",
+  "started_at": "2026-06-27T16:11:23.244833+00:00",
+  "finished_at": "2026-06-27T16:11:35.997228+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "scrapy",
+    "bug_id": 2
+  },
+  "ranked_locations": [],
+  "metadata": {
+    "family": "mbfl",
+    "src": "scrapy",
+    "test_targets": [
+      "tests/test_utils_datatypes.py::LocalCacheTest::test_cache_without_limit"
+    ],
+    "score_formula": "Metallaxis",
+    "all_metrics": {
+      "Muse": [],
+      "Metallaxis": []
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-5.4.2, py-1.8.1, pluggy-0.13.1\nrootdir: /home/workspace/scrapy_2/scrapy, inifile: pytest.ini\nplugins: timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 1 item\n\ntests/test_utils_datatypes.py F                                          [100%]\n\n=================================== FAILURES ===================================\n___________________ LocalCacheTest.test_cache_without_limit ____________________\n\nself = <tests.test_utils_datatypes.LocalCacheTest testMethod=test_cache_without_limit>\n\n    def test_cache_without_limit(self):\n        max = 10**4\n        cache = LocalCache()\n        for x in range(max):\n>           cache[str(x)] = x\n\n/home/workspace/scrapy_2/scrapy/tests/test_utils_datatypes.py:264: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \n\nself = LocalCache(), key = '0', value = 0\n\n    def __setitem__(self, key, value):\n>       while len(self) >= self.limit:\nE       TypeError: '>=' not supported between instances of 'int' and 'NoneType'\n\n/home/workspace/scrapy_2/scrapy/scrapy/utils/datatypes.py:318: TypeError\n=============================== warnings summary ===============================\ntests/test_utils_datatypes.py::LocalCacheTest::test_cache_without_limit\n  /home/workspace/scrapy_2/scrapy/env/lib/python3.8/site-packages/coverage/control.py:894: CoverageWarning: No data was collected. (no-data-collected)\n    self._warn(\"No data was collected.\", slug=\"no-data-collected\")\n\n-- Docs: https://docs.pytest.org/en/latest/warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running MBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_utils_datatypes.py::LocalCacheTest::test_cache_without_limit\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\nFauxPy: ---> Total generated mutants: 0\nFauxPy: ---> Mutants selected for validation: 0\nFauxPy: ---> Mutation generation time: 0.0001\nFauxPy: ---> Running 0 Mutants\nFauxPy: ---> Mutant validation time: 0.0000\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 2.6336\n\n-----------------------\n|   Scores for Muse   |\n-----------------------\nFile | Line | Score\n-------------------\n-------------------\n\n-----------------------------\n|   Scores for Metallaxis   |\n-----------------------------\nFile | Line | Score\n-------------------\n-------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_utils_datatypes.py::LocalCacheTest::test_cache_without_limit\n========================= 1 failed, 1 warning in 2.62s =========================",
+    "returncode": 1,
+    "mutation_strategy": null,
+    "mutation_budget": null,
+    "mutation_seed": 0,
+    "mutants_generated": 0,
+    "mutants_validated": 0,
+    "mutation_generation_time_seconds": 0.0001,
+    "mutant_validation_time_seconds": 0.0,
+    "fauxpy_report_dir": "/workspace/.workspace/bugsinpy/scrapy_2/FauxPyReport_scrapy_mbfl_statement_traditional_2026_06_27_16_11_33_309244",
+    "mutants_timed_out": 0,
+    "mutants_with_missing_tests": 0
+  }
+}

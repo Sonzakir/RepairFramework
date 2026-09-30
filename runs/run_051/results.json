@@ -1,0 +1,7 @@
+{
+  "run_id": "run_051",
+  "status": "error",
+  "started_at": "2026-06-27T16:09:22.823587+00:00",
+  "finished_at": "2026-06-27T16:09:24.275395+00:00",
+  "error": "ConfigurationError: FauxPy is not installed in the project environment and installation failed. ERROR: Could not find a version that satisfies the requirement fauxpy==0.7.0 (from versions: 0.1, 0.1.1, 0.2.0, 0.3.0, 0.4.0)\nERROR: No matching distribution found for fauxpy==0.7.0"
+}

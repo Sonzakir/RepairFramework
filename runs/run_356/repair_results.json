@@ -1,0 +1,201 @@
+{
+  "run_id": "run_356",
+  "project": "black",
+  "bug_id": 7,
+  "fl_mode": "llm-fl",
+  "fl_backend": "llm-fl",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 6/6 candidates (budget: 200, elapsed: 29.7s).",
+  "started_at": "2026-07-13T20:43:44.220975+00:00",
+  "finished_at": "2026-07-13T20:44:13.860181+00:00",
+  "elapsed_seconds": 29.66028593100009,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "black",
+    "bug_id": 7,
+    "approach": "a5-full-llm",
+    "technique": "llm",
+    "fl_mode": "llm-fl",
+    "fl_backend": "llm-fl",
+    "context_enrichment": true,
+    "iterative": false,
+    "retrieval_budget": 3,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 6,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 6,
+    "candidates_validated": 6,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 29.66028593100009,
+    "rank_of_first_correct": null,
+    "llm_query_count": 8,
+    "assessment_query_count": 0
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3417 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_7/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_7/black/black.py\n@@ -3414,7 +3414,7 @@\n def assert_stable(src: str, dst: str, mode: FileMode) -> None:\n     \"\"\"Raise AssertionError if `dst` reformats differently the second time.\"\"\"\n     newdst = format_str(dst, mode=mode)\n-    if dst != newdst:\n+    if dst != newdst and not ASTSafetyError.compare(src, dst):\n         log = dump_to_file(\n             diff(src, dst, \"source\", \"first pass\"),\n             diff(dst, newdst, \"first pass\", \"second pass\"),\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef assert_stable(src: str, dst: str, mode: FileMode) -> None:\n    \"\"\"Raise AssertionError if `dst` reformats differently the second time.\"\"\"\n    newdst = format_str(dst, mode=mode)\n    if dst != newdst and not ASTSafetyError.compare(src, dst):\n        log = dump_to_file(\n            diff(src, dst, \"source\", \"first pass\"),\n            diff(dst, newdst, \"first pass\", \"second pass\"),\n        )\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced different code on the second pass \"\n            f\"of the formatter.  \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This diff might be helpful: {log}\"\n        ) from None\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_7/black/black.py",
+        "target_line": 3417
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3417 (attempt 2)",
+      "validation_summary": "Patch llm-1-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_7/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_7/black/black.py\n@@ -3414,7 +3414,7 @@\n def assert_stable(src: str, dst: str, mode: FileMode) -> None:\n     \"\"\"Raise AssertionError if `dst` reformats differently the second time.\"\"\"\n     newdst = format_str(dst, mode=mode)\n-    if dst != newdst:\n+    if dst != newdst and src != newdst:\n         log = dump_to_file(\n             diff(src, dst, \"source\", \"first pass\"),\n             diff(dst, newdst, \"first pass\", \"second pass\"),\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef assert_stable(src: str, dst: str, mode: FileMode) -> None:\n    \"\"\"Raise AssertionError if `dst` reformats differently the second time.\"\"\"\n    newdst = format_str(dst, mode=mode)\n    if dst != newdst and src != newdst:\n        log = dump_to_file(\n            diff(src, dst, \"source\", \"first pass\"),\n            diff(dst, newdst, \"first pass\", \"second pass\"),\n        )\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced different code on the second pass \"\n            f\"of the formatter.  \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This diff might be helpful: {log}\"\n        ) from None\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_7/black/black.py",
+        "target_line": 3417
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3417 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_7/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_7/black/black.py\n@@ -3415,6 +3415,8 @@\n     \"\"\"Raise AssertionError if `dst` reformats differently the second time.\"\"\"\n     newdst = format_str(dst, mode=mode)\n     if dst != newdst:\n+        if format_str(src, mode=mode) == newdst:\n+            return\n         log = dump_to_file(\n             diff(src, dst, \"source\", \"first pass\"),\n             diff(dst, newdst, \"first pass\", \"second pass\"),\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef assert_stable(src: str, dst: str, mode: FileMode) -> None:\n    \"\"\"Raise AssertionError if `dst` reformats differently the second time.\"\"\"\n    newdst = format_str(dst, mode=mode)\n    if dst != newdst:\n        if format_str(src, mode=mode) == newdst:\n            return\n        log = dump_to_file(\n            diff(src, dst, \"source\", \"first pass\"),\n            diff(dst, newdst, \"first pass\", \"second pass\"),\n        )\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced different code on the second pass \"\n            f\"of the formatter.  \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This diff might be helpful: {log}\"\n        ) from None\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_7/black/black.py",
+        "target_line": 3417
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3404 (attempt 1)",
+      "validation_summary": "Patch llm-2-0 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_7/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_7/black/black.py\n@@ -3368,11 +3368,26 @@\n                     ):\n                         for item in item.elts:\n                             yield from _v(item, depth + 2)\n+                    # Ignore tuple/list wrapper differences in assignment targets, because\n+                    # parentheses may be added/removed without changing semantics.\n+                    elif (\n+                        field == \"targets\"\n+                        and isinstance(node, ast.Assign)\n+                        and isinstance(item, (ast.Tuple, ast.List))\n+                    ):\n+                        for item in item.elts:\n+                            yield from _v(item, depth + 2)\n                     elif isinstance(item, ast.AST):\n                         yield from _v(item, depth + 2)\n \n             elif isinstance(value, ast.AST):\n-                yield from _v(value, depth + 2)\n+                # Ignore tuple/list wrapper differences on the left-hand side of\n+                # assignments, because formatting may add/remove parentheses.\n+                if field == \"target\" and isinstance(node, (ast.Assign, ast.AnnAssign, ast.For, ast.AsyncFor)) and isinstance(value, (ast.Tuple, ast.List)):\n+                    for item in value.elts:\n+                        yield from _v(item, depth + 2)\n+                else:\n+                    yield from _v(value, depth + 2)\n \n             else:\n                 yield f\"{'  ' * (depth+2)}{value!r},  # {value.__class__.__name__}\"\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef assert_equivalent(src: str, dst: str) -> None:\n    \"\"\"Raise AssertionError if `src` and `dst` aren't equivalent.\"\"\"\n\n    import ast\n    import traceback\n\n    def _v(node: ast.AST, depth: int = 0) -> Iterator[str]:\n        \"\"\"Simple visitor generating strings to compare ASTs by content.\"\"\"\n        yield f\"{'  ' * depth}{node.__class__.__name__}(\"\n\n        for field in sorted(node._fields):\n            try:\n                value = getattr(node, field)\n            except AttributeError:\n                continue\n\n            yield f\"{'  ' * (depth+1)}{field}=\"\n\n            if isinstance(value, list):\n                for item in value:\n                    # Ignore nested tuples within del statements, because we may insert\n                    # parentheses and they change the AST.\n                    if (\n                        field == \"targets\"\n                        and isinstance(node, ast.Delete)\n                        and isinstance(item, ast.Tuple)\n                    ):\n                        for item in item.elts:\n                            yield from _v(item, depth + 2)\n                    # Ignore tuple/list wrapper differences in assignment targets, because\n                    # parentheses may be added/removed without changing semantics.\n                    elif (\n                        field == \"targets\"\n                        and isinstance(node, ast.Assign)\n                        and isinstance(item, (ast.Tuple, ast.List))\n                    ):\n                        for item in item.elts:\n                            yield from _v(item, depth + 2)\n                    elif isinstance(item, ast.AST):\n                        yield from _v(item, depth + 2)\n\n            elif isinstance(value, ast.AST):\n                # Ignore tuple/list wrapper differences on the left-hand side of\n                # assignments, because formatting may add/remove parentheses.\n                if field == \"target\" and isinstance(node, (ast.Assign, ast.AnnAssign, ast.For, ast.AsyncFor)) and isinstance(value, (ast.Tuple, ast.List)):\n                    for item in value.elts:\n                        yield from _v(item, depth + 2)\n                else:\n                    yield from _v(value, depth + 2)\n\n            else:\n                yield f\"{'  ' * (depth+2)}{value!r},  # {value.__class__.__name__}\"\n\n        yield f\"{'  ' * depth})  # /{node.__class__.__name__}\"\n\n    try:\n        src_ast = ast.parse(src)\n    except Exception as exc:\n        major, minor = sys.version_info[:2]\n        raise AssertionError(\n            f\"cannot use --safe with this file; failed to parse source file \"\n            f\"with Python {major}.{minor}'s builtin AST. Re-run with --fast \"\n            f\"or stop using deprecated Python 2 syntax. AST error message: {exc}\"\n        )\n\n    try:\n        dst_ast = ast.parse(dst)\n    except Exception as exc:\n        log = dump_to_file(\"\".join(traceback.format_tb(exc.__traceback__)), dst)\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced invalid code: {exc}. \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This invalid output might be helpful: {log}\"\n        ) from None\n\n    src_ast_str = \"\\n\".join(_v(src_ast))\n    dst_ast_str = \"\\n\".join(_v(dst_ast))\n    if src_ast_str != dst_ast_str:\n        log = dump_to_file(diff(src_ast_str, dst_ast_str, \"src\", \"dst\"))\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced code that is not equivalent to \"\n            f\"the source.  \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This diff might be helpful: {log}\"\n        ) from None\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_7/black/black.py",
+        "target_line": 3404
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3404 (attempt 2)",
+      "validation_summary": "Patch llm-2-1 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_7/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_7/black/black.py\n@@ -3368,11 +3368,28 @@\n                     ):\n                         for item in item.elts:\n                             yield from _v(item, depth + 2)\n+                    # Ignore tuple/list wrappers in assignment targets, because we may\n+                    # add or remove optional parentheses around unpacking assignment.\n+                    elif (\n+                        field == \"targets\"\n+                        and isinstance(node, ast.Assign)\n+                        and isinstance(item, (ast.Tuple, ast.List))\n+                    ):\n+                        for item in item.elts:\n+                            yield from _v(item, depth + 2)\n                     elif isinstance(item, ast.AST):\n                         yield from _v(item, depth + 2)\n \n             elif isinstance(value, ast.AST):\n-                yield from _v(value, depth + 2)\n+                if (\n+                    field == \"target\"\n+                    and isinstance(node, (ast.For, ast.AsyncFor))\n+                    and isinstance(value, (ast.Tuple, ast.List))\n+                ):\n+                    for item in value.elts:\n+                        yield from _v(item, depth + 2)\n+                else:\n+                    yield from _v(value, depth + 2)\n \n             else:\n                 yield f\"{'  ' * (depth+2)}{value!r},  # {value.__class__.__name__}\"\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef assert_equivalent(src: str, dst: str) -> None:\n    \"\"\"Raise AssertionError if `src` and `dst` aren't equivalent.\"\"\"\n\n    import ast\n    import traceback\n\n    def _v(node: ast.AST, depth: int = 0) -> Iterator[str]:\n        \"\"\"Simple visitor generating strings to compare ASTs by content.\"\"\"\n        yield f\"{'  ' * depth}{node.__class__.__name__}(\"\n\n        for field in sorted(node._fields):\n            try:\n                value = getattr(node, field)\n            except AttributeError:\n                continue\n\n            yield f\"{'  ' * (depth+1)}{field}=\"\n\n            if isinstance(value, list):\n                for item in value:\n                    # Ignore nested tuples within del statements, because we may insert\n                    # parentheses and they change the AST.\n                    if (\n                        field == \"targets\"\n                        and isinstance(node, ast.Delete)\n                        and isinstance(item, ast.Tuple)\n                    ):\n                        for item in item.elts:\n                            yield from _v(item, depth + 2)\n                    # Ignore tuple/list wrappers in assignment targets, because we may\n                    # add or remove optional parentheses around unpacking assignment.\n                    elif (\n                        field == \"targets\"\n                        and isinstance(node, ast.Assign)\n                        and isinstance(item, (ast.Tuple, ast.List))\n                    ):\n                        for item in item.elts:\n                            yield from _v(item, depth + 2)\n                    elif isinstance(item, ast.AST):\n                        yield from _v(item, depth + 2)\n\n            elif isinstance(value, ast.AST):\n                if (\n                    field == \"target\"\n                    and isinstance(node, (ast.For, ast.AsyncFor))\n                    and isinstance(value, (ast.Tuple, ast.List))\n                ):\n                    for item in value.elts:\n                        yield from _v(item, depth + 2)\n                else:\n                    yield from _v(value, depth + 2)\n\n            else:\n                yield f\"{'  ' * (depth+2)}{value!r},  # {value.__class__.__name__}\"\n\n        yield f\"{'  ' * depth})  # /{node.__class__.__name__}\"\n\n    try:\n        src_ast = ast.parse(src)\n    except Exception as exc:\n        major, minor = sys.version_info[:2]\n        raise AssertionError(\n            f\"cannot use --safe with this file; failed to parse source file \"\n            f\"with Python {major}.{minor}'s builtin AST. Re-run with --fast \"\n            f\"or stop using deprecated Python 2 syntax. AST error message: {exc}\"\n        )\n\n    try:\n        dst_ast = ast.parse(dst)\n    except Exception as exc:\n        log = dump_to_file(\"\".join(traceback.format_tb(exc.__traceback__)), dst)\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced invalid code: {exc}. \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This invalid output might be helpful: {log}\"\n        ) from None\n\n    src_ast_str = \"\\n\".join(_v(src_ast))\n    dst_ast_str = \"\\n\".join(_v(dst_ast))\n    if src_ast_str != dst_ast_str:\n        log = dump_to_file(diff(src_ast_str, dst_ast_str, \"src\", \"dst\"))\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced code that is not equivalent to \"\n            f\"the source.  \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This diff might be helpful: {log}\"\n        ) from None\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_7/black/black.py",
+        "target_line": 3404
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:3404 (attempt 3)",
+      "validation_summary": "Patch llm-2-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_7/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_7/black/black.py\n@@ -3368,11 +3368,28 @@\n                     ):\n                         for item in item.elts:\n                             yield from _v(item, depth + 2)\n+                    # Ignore tuple/list wrappers in assignment targets, because we may\n+                    # add or remove parentheses around them and they change the AST.\n+                    elif (\n+                        field in {\"targets\", \"target\"}\n+                        and isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.For, ast.AsyncFor))\n+                        and isinstance(item, (ast.Tuple, ast.List))\n+                    ):\n+                        for item in item.elts:\n+                            yield from _v(item, depth + 2)\n                     elif isinstance(item, ast.AST):\n                         yield from _v(item, depth + 2)\n \n             elif isinstance(value, ast.AST):\n-                yield from _v(value, depth + 2)\n+                if (\n+                    field in {\"targets\", \"target\"}\n+                    and isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.For, ast.AsyncFor))\n+                    and isinstance(value, (ast.Tuple, ast.List))\n+                ):\n+                    for item in value.elts:\n+                        yield from _v(item, depth + 2)\n+                else:\n+                    yield from _v(value, depth + 2)\n \n             else:\n                 yield f\"{'  ' * (depth+2)}{value!r},  # {value.__class__.__name__}\"\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef assert_equivalent(src: str, dst: str) -> None:\n    \"\"\"Raise AssertionError if `src` and `dst` aren't equivalent.\"\"\"\n\n    import ast\n    import traceback\n\n    def _v(node: ast.AST, depth: int = 0) -> Iterator[str]:\n        \"\"\"Simple visitor generating strings to compare ASTs by content.\"\"\"\n        yield f\"{'  ' * depth}{node.__class__.__name__}(\"\n\n        for field in sorted(node._fields):\n            try:\n                value = getattr(node, field)\n            except AttributeError:\n                continue\n\n            yield f\"{'  ' * (depth+1)}{field}=\"\n\n            if isinstance(value, list):\n                for item in value:\n                    # Ignore nested tuples within del statements, because we may insert\n                    # parentheses and they change the AST.\n                    if (\n                        field == \"targets\"\n                        and isinstance(node, ast.Delete)\n                        and isinstance(item, ast.Tuple)\n                    ):\n                        for item in item.elts:\n                            yield from _v(item, depth + 2)\n                    # Ignore tuple/list wrappers in assignment targets, because we may\n                    # add or remove parentheses around them and they change the AST.\n                    elif (\n                        field in {\"targets\", \"target\"}\n                        and isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.For, ast.AsyncFor))\n                        and isinstance(item, (ast.Tuple, ast.List))\n                    ):\n                        for item in item.elts:\n                            yield from _v(item, depth + 2)\n                    elif isinstance(item, ast.AST):\n                        yield from _v(item, depth + 2)\n\n            elif isinstance(value, ast.AST):\n                if (\n                    field in {\"targets\", \"target\"}\n                    and isinstance(node, (ast.Assign, ast.AnnAssign, ast.AugAssign, ast.For, ast.AsyncFor))\n                    and isinstance(value, (ast.Tuple, ast.List))\n                ):\n                    for item in value.elts:\n                        yield from _v(item, depth + 2)\n                else:\n                    yield from _v(value, depth + 2)\n\n            else:\n                yield f\"{'  ' * (depth+2)}{value!r},  # {value.__class__.__name__}\"\n\n        yield f\"{'  ' * depth})  # /{node.__class__.__name__}\"\n\n    try:\n        src_ast = ast.parse(src)\n    except Exception as exc:\n        major, minor = sys.version_info[:2]\n        raise AssertionError(\n            f\"cannot use --safe with this file; failed to parse source file \"\n            f\"with Python {major}.{minor}'s builtin AST. Re-run with --fast \"\n            f\"or stop using deprecated Python 2 syntax. AST error message: {exc}\"\n        )\n\n    try:\n        dst_ast = ast.parse(dst)\n    except Exception as exc:\n        log = dump_to_file(\"\".join(traceback.format_tb(exc.__traceback__)), dst)\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced invalid code: {exc}. \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This invalid output might be helpful: {log}\"\n        ) from None\n\n    src_ast_str = \"\\n\".join(_v(src_ast))\n    dst_ast_str = \"\\n\".join(_v(dst_ast))\n    if src_ast_str != dst_ast_str:\n        log = dump_to_file(diff(src_ast_str, dst_ast_str, \"src\", \"dst\"))\n        raise AssertionError(\n            f\"INTERNAL ERROR: Black produced code that is not equivalent to \"\n            f\"the source.  \"\n            f\"Please report a bug on https://github.com/python/black/issues.  \"\n            f\"This diff might be helpful: {log}\"\n        ) from None\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_7/black/black.py",
+        "target_line": 3404
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    }
+  ],
+  "assessed_plausible_patches": []
+}

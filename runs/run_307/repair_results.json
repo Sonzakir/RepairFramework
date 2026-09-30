@@ -1,0 +1,733 @@
+{
+  "run_id": "run_307",
+  "project": "black",
+  "bug_id": 1,
+  "fl_mode": "auto",
+  "fl_backend": "llm-fl",
+  "status": "plausible",
+  "validation_summary": "Found 8 plausible patch(es) out of 9 validated (budget: 200, elapsed: 104.4s). First plausible: llm-1-0.",
+  "started_at": "2026-07-12T19:40:16.530888+00:00",
+  "finished_at": "2026-07-12T19:42:15.915235+00:00",
+  "elapsed_seconds": 104.3692452539999,
+  "config": {
+    "project": "black",
+    "bug_id": 1,
+    "technique": "llm",
+    "budget": 200,
+    "top_n_locations": 3,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "auto",
+    "fl_backend": "llm-fl",
+    "fl_backend_choice": "llm",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-12T19:40:13.343081+00:00",
+    "runner": "llm-repair",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "llm_provider": "openai-compatible",
+    "system_prompt": "prompt1",
+    "context_enrichment": true,
+    "few_shot_count": 0,
+    "iterative": false,
+    "max_iterations": 5,
+    "retrieval_budget": 3,
+    "timeout_seconds": 120,
+    "fl_system_prompt": "fl_prompt1",
+    "fl_max_source_lines": 400,
+    "fl_source_window": 40,
+    "assess": true,
+    "assess_system_prompt": "assess_prompt1",
+    "assess_max_patches": null,
+    "assess_model": "gpt-5.4",
+    "assess_temperature": 1.0,
+    "assess_llm_provider": "openai-compatible",
+    "assess_llm_base_url": "https://api.openai.com/v1",
+    "assess_llm_api_key_env": "OPENAI_API_KEY",
+    "ranker": "none",
+    "assessor": "llm-patch-assessor",
+    "similarity_score": true
+  },
+  "candidates_validated": 9,
+  "plausible_count": 8,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 9,
+    "candidates_validated": 9,
+    "plausible_count": 8,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": 42.81989239399991,
+    "total_wall_clock_seconds": 104.3692452539999,
+    "rank_of_first_correct": null,
+    "llm_query_count": 12,
+    "assessment_query_count": 8
+  },
+  "plausible_patches": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch only suppresses ProcessPoolExecutor construction failure by setting executor=None, but it does not ensure schedule_formatting can actually operate correctly without an executor, so it likely overfits the visible test rather than implementing a real single-process fallback. It is small, but risks breaking behavior or causing hidden failures when code later assumes a valid executor.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch only suppresses ProcessPoolExecutor construction failure by setting executor=None, but it does not ensure schedule_formatting can actually operate correctly without an executor, so it likely overfits the visible test rather than implementing a real single-process fallback. It is small, but risks breaking behavior or causing hidden failures when code later assumes a valid executor.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,8 +618,9 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    executor = None\n     try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n         loop.run_until_complete(\n             schedule_formatting(\n                 sources=sources,\n@@ -631,9 +632,22 @@\n                 executor=executor,\n             )\n         )\n+    except OSError:\n+        loop.run_until_complete(\n+            schedule_formatting(\n+                sources=sources,\n+                fast=fast,\n+                write_back=write_back,\n+                mode=mode,\n+                report=report,\n+                loop=loop,\n+                executor=None,\n+            )\n+        )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    executor = None\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    except OSError:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=None,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621,
+        "quality_score": 0.93,
+        "assessment_rationale": "The patch addresses the real failure mode by falling back to single-process formatting when creating the process pool is unsupported, which matches the intended behavior beyond the specific test. It is targeted and preserves normal multiprocessing behavior, with only minor uncertainty because it catches all OSErrors from the whole formatting block rather than only pool-creation failures.",
+        "assessment_raw_response": "{\"quality_score\": 0.93, \"rationale\": \"The patch addresses the real failure mode by falling back to single-process formatting when creating the process pool is unsupported, which matches the intended behavior beyond the specific test. It is targeted and preserves normal multiprocessing behavior, with only minor uncertainty because it catches all OSErrors from the whole formatting block rather than only pool-creation failures.\"}"
+      },
+      "context_similarity_score": 0.32607167955024596,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch only catches ProcessPoolExecutor construction failure and then passes executor=None into the existing parallel scheduling path, which is likely not a valid general fallback to mono-process execution. It avoids the immediate crash in this test setup but does not implement the underlying single-process formatting behavior robustly.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch only catches ProcessPoolExecutor construction failure and then passes executor=None into the existing parallel scheduling path, which is likely not a valid general fallback to mono-process execution. It avoids the immediate crash in this test setup but does not implement the underlying single-process formatting behavior robustly.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch suppresses ProcessPoolExecutor creation failure by passing executor=None into the existing scheduling path, rather than implementing a real single-process fallback. It is likely overfit to the mocked test and risks breaking or changing behavior for genuine mono-process environments if schedule_formatting assumes a valid executor.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch suppresses ProcessPoolExecutor creation failure by passing executor=None into the existing scheduling path, rather than implementing a real single-process fallback. It is likely overfit to the mocked test and risks breaking or changing behavior for genuine mono-process environments if schedule_formatting assumes a valid executor.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.86,
+        "assessment_rationale": "The patch addresses the real failure mode by tolerating ProcessPoolExecutor creation failure and falling back to running scheduling with no executor, which matches the mono-process-only scenario rather than hard-coding the test case. It is small and targeted, though it assumes downstream code correctly handles executor=None and only catches OSError at construction time.",
+        "assessment_raw_response": "{\"quality_score\": 0.86, \"rationale\": \"The patch addresses the real failure mode by tolerating ProcessPoolExecutor creation failure and falling back to running scheduling with no executor, which matches the mono-process-only scenario rather than hard-coding the test case. It is small and targeted, though it assumes downstream code correctly handles executor=None and only catches OSError at construction time.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-3-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,12 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        for src in sources:\n+            reformat_one(src, fast, write_back, mode, report)\n+        return\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"reformat_one\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        for src in sources:\n            reformat_one(src, fast, write_back, mode, report)\n        return\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.95,
+        "assessment_rationale": "The patch addresses the real failure mode: inability to create a ProcessPoolExecutor in constrained environments, and sensibly falls back to sequential reformatting rather than crashing. It is targeted and likely generalizes, with only minor uncertainty from catching all OSErrors at executor creation and changing execution mode for that case.",
+        "assessment_raw_response": "{\"quality_score\": 0.95, \"rationale\": \"The patch addresses the real failure mode: inability to create a ProcessPoolExecutor in constrained environments, and sensibly falls back to sequential reformatting rather than crashing. It is targeted and likely generalizes, with only minor uncertainty from catching all OSErrors at executor creation and changing execution mode for that case.\"}"
+      },
+      "context_similarity_score": 0.38645418326693226,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-3-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"shutdown\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.78,
+        "assessment_rationale": "The patch addresses the real failure mode\u2014ProcessPoolExecutor creation can fail in constrained environments\u2014and lets formatting proceed without a pool instead of crashing. However, it relies on downstream code tolerating executor=None, so while plausible and targeted, its correctness depends on schedule_formatting handling that case robustly.",
+        "assessment_raw_response": "{\"quality_score\": 0.78, \"rationale\": \"The patch addresses the real failure mode\u2014ProcessPoolExecutor creation can fail in constrained environments\u2014and lets formatting proceed without a pool instead of crashing. However, it relies on downstream code tolerating executor=None, so while plausible and targeted, its correctness depends on schedule_formatting handling that case robustly.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-3-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,12 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        for src in sources:\n+            reformat_one(src, fast, write_back, mode, report)\n+        return\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"reformat_one\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        for src in sources:\n            reformat_one(src, fast, write_back, mode, report)\n        return\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.95,
+        "assessment_rationale": "The patch addresses the real failure mode by handling ProcessPoolExecutor creation failure and falling back to sequential formatting, which is the intended behavior in mono-process-only environments. It is narrowly targeted and should generalize to similar executor-startup OSErrors, with only minor uncertainty about whether all executor-construction failures should map to this fallback.",
+        "assessment_raw_response": "{\"quality_score\": 0.95, \"rationale\": \"The patch addresses the real failure mode by handling ProcessPoolExecutor creation failure and falling back to sequential formatting, which is the intended behavior in mono-process-only environments. It is narrowly targeted and should generalize to similar executor-startup OSErrors, with only minor uncertainty about whether all executor-construction failures should map to this fallback.\"}"
+      },
+      "context_similarity_score": 0.38645418326693226,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    }
+  ],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch only suppresses ProcessPoolExecutor construction failure by setting executor=None, but it does not ensure schedule_formatting can actually operate correctly without an executor, so it likely overfits the visible test rather than implementing a real single-process fallback. It is small, but risks breaking behavior or causing hidden failures when code later assumes a valid executor.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch only suppresses ProcessPoolExecutor construction failure by setting executor=None, but it does not ensure schedule_formatting can actually operate correctly without an executor, so it likely overfits the visible test rather than implementing a real single-process fallback. It is small, but risks breaking behavior or causing hidden failures when code later assumes a valid executor.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,8 +618,9 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    executor = None\n     try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n         loop.run_until_complete(\n             schedule_formatting(\n                 sources=sources,\n@@ -631,9 +632,22 @@\n                 executor=executor,\n             )\n         )\n+    except OSError:\n+        loop.run_until_complete(\n+            schedule_formatting(\n+                sources=sources,\n+                fast=fast,\n+                write_back=write_back,\n+                mode=mode,\n+                report=report,\n+                loop=loop,\n+                executor=None,\n+            )\n+        )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    executor = None\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    except OSError:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=None,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621,
+        "quality_score": 0.93,
+        "assessment_rationale": "The patch addresses the real failure mode by falling back to single-process formatting when creating the process pool is unsupported, which matches the intended behavior beyond the specific test. It is targeted and preserves normal multiprocessing behavior, with only minor uncertainty because it catches all OSErrors from the whole formatting block rather than only pool-creation failures.",
+        "assessment_raw_response": "{\"quality_score\": 0.93, \"rationale\": \"The patch addresses the real failure mode by falling back to single-process formatting when creating the process pool is unsupported, which matches the intended behavior beyond the specific test. It is targeted and preserves normal multiprocessing behavior, with only minor uncertainty because it catches all OSErrors from the whole formatting block rather than only pool-creation failures.\"}"
+      },
+      "context_similarity_score": 0.32607167955024596,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=1, errors=0).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,8 +618,9 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    executor = None\n     try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n         loop.run_until_complete(\n             schedule_formatting(\n                 sources=sources,\n@@ -631,9 +632,14 @@\n                 executor=executor,\n             )\n         )\n+    except OSError:\n+        _format_many(\n+            sources=sources, fast=fast, write_back=write_back, mode=mode, report=report\n+        )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    executor = None\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    except OSError:\n        _format_many(\n            sources=sources, fast=fast, write_back=write_back, mode=mode, report=report\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621
+      },
+      "context_similarity_score": null,
+      "similarity_band": null,
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch only catches ProcessPoolExecutor construction failure and then passes executor=None into the existing parallel scheduling path, which is likely not a valid general fallback to mono-process execution. It avoids the immediate crash in this test setup but does not implement the underlying single-process formatting behavior robustly.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch only catches ProcessPoolExecutor construction failure and then passes executor=None into the existing parallel scheduling path, which is likely not a valid general fallback to mono-process execution. It avoids the immediate crash in this test setup but does not implement the underlying single-process formatting behavior robustly.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch suppresses ProcessPoolExecutor creation failure by passing executor=None into the existing scheduling path, rather than implementing a real single-process fallback. It is likely overfit to the mocked test and risks breaking or changing behavior for genuine mono-process environments if schedule_formatting assumes a valid executor.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch suppresses ProcessPoolExecutor creation failure by passing executor=None into the existing scheduling path, rather than implementing a real single-process fallback. It is likely overfit to the mocked test and risks breaking or changing behavior for genuine mono-process environments if schedule_formatting assumes a valid executor.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.86,
+        "assessment_rationale": "The patch addresses the real failure mode by tolerating ProcessPoolExecutor creation failure and falling back to running scheduling with no executor, which matches the mono-process-only scenario rather than hard-coding the test case. It is small and targeted, though it assumes downstream code correctly handles executor=None and only catches OSError at construction time.",
+        "assessment_raw_response": "{\"quality_score\": 0.86, \"rationale\": \"The patch addresses the real failure mode by tolerating ProcessPoolExecutor creation failure and falling back to running scheduling with no executor, which matches the mono-process-only scenario rather than hard-coding the test case. It is small and targeted, though it assumes downstream code correctly handles executor=None and only catches OSError at construction time.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-3-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,12 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        for src in sources:\n+            reformat_one(src, fast, write_back, mode, report)\n+        return\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"reformat_one\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        for src in sources:\n            reformat_one(src, fast, write_back, mode, report)\n        return\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.95,
+        "assessment_rationale": "The patch addresses the real failure mode: inability to create a ProcessPoolExecutor in constrained environments, and sensibly falls back to sequential reformatting rather than crashing. It is targeted and likely generalizes, with only minor uncertainty from catching all OSErrors at executor creation and changing execution mode for that case.",
+        "assessment_raw_response": "{\"quality_score\": 0.95, \"rationale\": \"The patch addresses the real failure mode: inability to create a ProcessPoolExecutor in constrained environments, and sensibly falls back to sequential reformatting rather than crashing. It is targeted and likely generalizes, with only minor uncertainty from catching all OSErrors at executor creation and changing execution mode for that case.\"}"
+      },
+      "context_similarity_score": 0.38645418326693226,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-3-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"shutdown\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.78,
+        "assessment_rationale": "The patch addresses the real failure mode\u2014ProcessPoolExecutor creation can fail in constrained environments\u2014and lets formatting proceed without a pool instead of crashing. However, it relies on downstream code tolerating executor=None, so while plausible and targeted, its correctness depends on schedule_formatting handling that case robustly.",
+        "assessment_raw_response": "{\"quality_score\": 0.78, \"rationale\": \"The patch addresses the real failure mode\u2014ProcessPoolExecutor creation can fail in constrained environments\u2014and lets formatting proceed without a pool instead of crashing. However, it relies on downstream code tolerating executor=None, so while plausible and targeted, its correctness depends on schedule_formatting handling that case robustly.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-3-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,12 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        for src in sources:\n+            reformat_one(src, fast, write_back, mode, report)\n+        return\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"reformat_one\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        for src in sources:\n            reformat_one(src, fast, write_back, mode, report)\n        return\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.95,
+        "assessment_rationale": "The patch addresses the real failure mode by handling ProcessPoolExecutor creation failure and falling back to sequential formatting, which is the intended behavior in mono-process-only environments. It is narrowly targeted and should generalize to similar executor-startup OSErrors, with only minor uncertainty about whether all executor-construction failures should map to this fallback.",
+        "assessment_raw_response": "{\"quality_score\": 0.95, \"rationale\": \"The patch addresses the real failure mode by handling ProcessPoolExecutor creation failure and falling back to sequential formatting, which is the intended behavior in mono-process-only environments. It is narrowly targeted and should generalize to similar executor-startup OSErrors, with only minor uncertainty about whether all executor-construction failures should map to this fallback.\"}"
+      },
+      "context_similarity_score": 0.38645418326693226,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      }
+    }
+  ],
+  "assessed_plausible_patches": [
+    {
+      "patch_id": "llm-3-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-3-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,12 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        for src in sources:\n+            reformat_one(src, fast, write_back, mode, report)\n+        return\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"reformat_one\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        for src in sources:\n            reformat_one(src, fast, write_back, mode, report)\n        return\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.95,
+        "assessment_rationale": "The patch addresses the real failure mode: inability to create a ProcessPoolExecutor in constrained environments, and sensibly falls back to sequential reformatting rather than crashing. It is targeted and likely generalizes, with only minor uncertainty from catching all OSErrors at executor creation and changing execution mode for that case.",
+        "assessment_raw_response": "{\"quality_score\": 0.95, \"rationale\": \"The patch addresses the real failure mode: inability to create a ProcessPoolExecutor in constrained environments, and sensibly falls back to sequential reformatting rather than crashing. It is targeted and likely generalizes, with only minor uncertainty from catching all OSErrors at executor creation and changing execution mode for that case.\"}"
+      },
+      "context_similarity_score": 0.38645418326693226,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 1
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-3-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,12 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        for src in sources:\n+            reformat_one(src, fast, write_back, mode, report)\n+        return\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"reformat_one\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        for src in sources:\n            reformat_one(src, fast, write_back, mode, report)\n        return\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.95,
+        "assessment_rationale": "The patch addresses the real failure mode by handling ProcessPoolExecutor creation failure and falling back to sequential formatting, which is the intended behavior in mono-process-only environments. It is narrowly targeted and should generalize to similar executor-startup OSErrors, with only minor uncertainty about whether all executor-construction failures should map to this fallback.",
+        "assessment_raw_response": "{\"quality_score\": 0.95, \"rationale\": \"The patch addresses the real failure mode by handling ProcessPoolExecutor creation failure and falling back to sequential formatting, which is the intended behavior in mono-process-only environments. It is narrowly targeted and should generalize to similar executor-startup OSErrors, with only minor uncertainty about whether all executor-construction failures should map to this fallback.\"}"
+      },
+      "context_similarity_score": 0.38645418326693226,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 2
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,8 +618,9 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    executor = None\n     try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n         loop.run_until_complete(\n             schedule_formatting(\n                 sources=sources,\n@@ -631,9 +632,22 @@\n                 executor=executor,\n             )\n         )\n+    except OSError:\n+        loop.run_until_complete(\n+            schedule_formatting(\n+                sources=sources,\n+                fast=fast,\n+                write_back=write_back,\n+                mode=mode,\n+                report=report,\n+                loop=loop,\n+                executor=None,\n+            )\n+        )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    executor = None\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    except OSError:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=None,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621,
+        "quality_score": 0.93,
+        "assessment_rationale": "The patch addresses the real failure mode by falling back to single-process formatting when creating the process pool is unsupported, which matches the intended behavior beyond the specific test. It is targeted and preserves normal multiprocessing behavior, with only minor uncertainty because it catches all OSErrors from the whole formatting block rather than only pool-creation failures.",
+        "assessment_raw_response": "{\"quality_score\": 0.93, \"rationale\": \"The patch addresses the real failure mode by falling back to single-process formatting when creating the process pool is unsupported, which matches the intended behavior beyond the specific test. It is targeted and preserves normal multiprocessing behavior, with only minor uncertainty because it catches all OSErrors from the whole formatting block rather than only pool-creation failures.\"}"
+      },
+      "context_similarity_score": 0.32607167955024596,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 3
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.86,
+        "assessment_rationale": "The patch addresses the real failure mode by tolerating ProcessPoolExecutor creation failure and falling back to running scheduling with no executor, which matches the mono-process-only scenario rather than hard-coding the test case. It is small and targeted, though it assumes downstream code correctly handles executor=None and only catches OSError at construction time.",
+        "assessment_raw_response": "{\"quality_score\": 0.86, \"rationale\": \"The patch addresses the real failure mode by tolerating ProcessPoolExecutor creation failure and falling back to running scheduling with no executor, which matches the mono-process-only scenario rather than hard-coding the test case. It is small and targeted, though it assumes downstream code correctly handles executor=None and only catches OSError at construction time.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 4
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:623 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-3-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: get_function_definition(\"shutdown\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 623,
+        "quality_score": 0.78,
+        "assessment_rationale": "The patch addresses the real failure mode\u2014ProcessPoolExecutor creation can fail in constrained environments\u2014and lets formatting proceed without a pool instead of crashing. However, it relies on downstream code tolerating executor=None, so while plausible and targeted, its correctness depends on schedule_formatting handling that case robustly.",
+        "assessment_raw_response": "{\"quality_score\": 0.78, \"rationale\": \"The patch addresses the real failure mode\u2014ProcessPoolExecutor creation can fail in constrained environments\u2014and lets formatting proceed without a pool instead of crashing. However, it relies on downstream code tolerating executor=None, so while plausible and targeted, its correctness depends on schedule_formatting handling that case robustly.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 5
+    },
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:621 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 621,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch only suppresses ProcessPoolExecutor construction failure by setting executor=None, but it does not ensure schedule_formatting can actually operate correctly without an executor, so it likely overfits the visible test rather than implementing a real single-process fallback. It is small, but risks breaking behavior or causing hidden failures when code later assumes a valid executor.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch only suppresses ProcessPoolExecutor construction failure by setting executor=None, but it does not ensure schedule_formatting can actually operate correctly without an executor, so it likely overfits the visible test rather than implementing a real single-process fallback. It is small, but risks breaking behavior or causing hidden failures when code later assumes a valid executor.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 6
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch only catches ProcessPoolExecutor construction failure and then passes executor=None into the existing parallel scheduling path, which is likely not a valid general fallback to mono-process execution. It avoids the immediate crash in this test setup but does not implement the underlying single-process formatting behavior robustly.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch only catches ProcessPoolExecutor construction failure and then passes executor=None into the existing parallel scheduling path, which is likely not a valid general fallback to mono-process execution. It avoids the immediate crash in this test setup but does not implement the underlying single-process formatting behavior robustly.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 7
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "plausible",
+      "is_correct": false,
+      "summary": "LLM patch for black.py:612 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/black_1/black/black.py\n+++ /workspace/.workspace/bugsinpy/black_1/black/black.py\n@@ -618,7 +618,10 @@\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        executor = None\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +636,8 @@\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "RETRIEVE: get_function_definition(\"schedule_formatting\")\nRETRIEVE: find_usages(\"reformat_many\")\n```python\ndef reformat_many(\n    sources: Set[Path], fast: bool, write_back: WriteBack, mode: Mode, report: \"Report\"\n) -> None:\n    \"\"\"Reformat multiple files using a ProcessPoolExecutor.\"\"\"\n    loop = asyncio.get_event_loop()\n    worker_count = os.cpu_count()\n    if sys.platform == \"win32\":\n        # Work around https://bugs.python.org/issue26903\n        worker_count = min(worker_count, 61)\n    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None\n    try:\n        loop.run_until_complete(\n            schedule_formatting(\n                sources=sources,\n                fast=fast,\n                write_back=write_back,\n                mode=mode,\n                report=report,\n                loop=loop,\n                executor=executor,\n            )\n        )\n    finally:\n        shutdown(loop)\n        if executor is not None:\n            executor.shutdown()\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/black_1/black/black.py",
+        "target_line": 612,
+        "quality_score": 0.18,
+        "assessment_rationale": "The patch suppresses ProcessPoolExecutor creation failure by passing executor=None into the existing scheduling path, rather than implementing a real single-process fallback. It is likely overfit to the mocked test and risks breaking or changing behavior for genuine mono-process environments if schedule_formatting assumes a valid executor.",
+        "assessment_raw_response": "{\"quality_score\": 0.18, \"rationale\": \"The patch suppresses ProcessPoolExecutor creation failure by passing executor=None into the existing scheduling path, rather than implementing a real single-process fallback. It is likely overfit to the mocked test and risks breaking or changing behavior for genuine mono-process environments if schedule_formatting assumes a valid executor.\"}"
+      },
+      "context_similarity_score": 0.3828125,
+      "similarity_band": "loosely similar",
+      "retrieval": {
+        "steps": [],
+        "step_count": 0,
+        "stop_reason": "model_ready"
+      },
+      "rank_position": 8
+    }
+  ]
+}

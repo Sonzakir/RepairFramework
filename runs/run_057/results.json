@@ -1,0 +1,7 @@
+{
+  "run_id": "run_057",
+  "status": "error",
+  "started_at": "2026-06-27T16:29:29.459035+00:00",
+  "finished_at": "2026-06-27T16:29:48.067437+00:00",
+  "error": "ConfigurationError: FauxPy localization command failed. ImportError while loading conftest '/home/workspace/httpie_1/httpie/tests/conftest.py'.\ntests/conftest.py:6: in <module>\n    pytest.fixture(autouse=True)(httpbin_ca_bundle)\nE   ValueError: fixture is being applied more than once to the same function"
+}

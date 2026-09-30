@@ -1,0 +1,432 @@
+{
+  "run_id": "run_196",
+  "status": "completed",
+  "started_at": "2026-07-06T18:03:25.655818+00:00",
+  "finished_at": "2026-07-06T18:04:20.376997+00:00",
+  "backend": "fauxpy",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:530",
+      "score": 1.0,
+      "line": 530,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  530 | 1.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:548",
+      "score": 1.0,
+      "line": 548,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  548 | 1.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:5712",
+      "score": 1.0,
+      "line": 5712,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 5712 | 1.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 4,
+      "file_path": "black.py",
+      "location": "black.py:5749",
+      "score": 1.0,
+      "line": 5749,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 5749 | 1.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 5,
+      "file_path": "black.py",
+      "location": "black.py:153",
+      "score": 0.0,
+      "line": 153,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  153 | 0.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 6,
+      "file_path": "black.py",
+      "location": "black.py:159",
+      "score": 0.0,
+      "line": 159,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  159 | 0.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 7,
+      "file_path": "black.py",
+      "location": "black.py:294",
+      "score": 0.0,
+      "line": 294,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  294 | 0.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 8,
+      "file_path": "black.py",
+      "location": "black.py:490",
+      "score": 0.0,
+      "line": 490,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  490 | 0.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 9,
+      "file_path": "black.py",
+      "location": "black.py:513",
+      "score": 0.0,
+      "line": 513,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py |  513 | 0.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    },
+    {
+      "rank": 10,
+      "file_path": "black.py",
+      "location": "black.py:5720",
+      "score": 0.0,
+      "line": 5720,
+      "end_line": null,
+      "function": null,
+      "raw_location": "black.py | 5720 | 0.0000",
+      "metadata": {
+        "score_formula": "Metallaxis"
+      }
+    }
+  ],
+  "metadata": {
+    "family": "mbfl",
+    "src": "black.py",
+    "test_targets": [
+      "tests/test_black.py::BlackTestCase::test_works_in_mono_process_only_environment"
+    ],
+    "score_formula": "Metallaxis",
+    "all_metrics": {
+      "Muse": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:548",
+          "score": 0.2,
+          "line": 548,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  548 | 0.2000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:153",
+          "score": 0.0,
+          "line": 153,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  153 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:159",
+          "score": 0.0,
+          "line": 159,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  159 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:294",
+          "score": 0.0,
+          "line": 294,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  294 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:490",
+          "score": 0.0,
+          "line": 490,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  490 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:513",
+          "score": 0.0,
+          "line": 513,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  513 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:530",
+          "score": 0.0,
+          "line": 530,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  530 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:5712",
+          "score": 0.0,
+          "line": 5712,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 5712 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:5720",
+          "score": 0.0,
+          "line": 5720,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 5720 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:5742",
+          "score": 0.0,
+          "line": 5742,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 5742 | 0.0000",
+          "metadata": {
+            "score_formula": "Muse"
+          }
+        }
+      ],
+      "Metallaxis": [
+        {
+          "rank": 1,
+          "file_path": "black.py",
+          "location": "black.py:530",
+          "score": 1.0,
+          "line": 530,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  530 | 1.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 2,
+          "file_path": "black.py",
+          "location": "black.py:548",
+          "score": 1.0,
+          "line": 548,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  548 | 1.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 3,
+          "file_path": "black.py",
+          "location": "black.py:5712",
+          "score": 1.0,
+          "line": 5712,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 5712 | 1.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 4,
+          "file_path": "black.py",
+          "location": "black.py:5749",
+          "score": 1.0,
+          "line": 5749,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 5749 | 1.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 5,
+          "file_path": "black.py",
+          "location": "black.py:153",
+          "score": 0.0,
+          "line": 153,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  153 | 0.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 6,
+          "file_path": "black.py",
+          "location": "black.py:159",
+          "score": 0.0,
+          "line": 159,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  159 | 0.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 7,
+          "file_path": "black.py",
+          "location": "black.py:294",
+          "score": 0.0,
+          "line": 294,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  294 | 0.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 8,
+          "file_path": "black.py",
+          "location": "black.py:490",
+          "score": 0.0,
+          "line": 490,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  490 | 0.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 9,
+          "file_path": "black.py",
+          "location": "black.py:513",
+          "score": 0.0,
+          "line": 513,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py |  513 | 0.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        },
+        {
+          "rank": 10,
+          "file_path": "black.py",
+          "location": "black.py:5720",
+          "score": 0.0,
+          "line": 5720,
+          "end_line": null,
+          "function": null,
+          "raw_location": "black.py | 5720 | 0.0000",
+          "metadata": {
+            "score_formula": "Metallaxis"
+          }
+        }
+      ]
+    },
+    "raw_output": "============================= test session starts ==============================\nplatform linux -- Python 3.8.3, pytest-8.3.5, pluggy-1.5.0\nrootdir: /home/workspace/black_1/black\nconfigfile: pyproject.toml\nplugins: timeout-2.1.0, fauxpy-0.7.0, anyio-4.5.2\ncollected 1 item\n\ntests/test_black.py F                                                    [100%]\n\n=================================== FAILURES ===================================\n__________ BlackTestCase.test_works_in_mono_process_only_environment ___________\n\nself = <tests.test_black.BlackTestCase testMethod=test_works_in_mono_process_only_environment>\nmock_executor = <MagicMock name='ProcessPoolExecutor' spec='ProcessPoolExecutor' id='281473698150720'>\n\n    @patch(\"black.ProcessPoolExecutor\", autospec=True)\n    def test_works_in_mono_process_only_environment(self, mock_executor) -> None:\n        mock_executor.side_effect = OSError()\n        mode = black.FileMode()\n        with cache_dir() as workspace:\n            one = (workspace / \"one.py\").resolve()\n            with one.open(\"w\") as fobj:\n                fobj.write(\"print('hello')\")\n            two = (workspace / \"two.py\").resolve()\n            with two.open(\"w\") as fobj:\n                fobj.write(\"print('hello')\")\n            black.write_cache({}, [one], mode)\n>           self.invokeBlack([str(workspace)])\n\ntests/test_black.py:1288: \n_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ \ntests/test_black.py:162: in invokeBlack\n    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())\nE   AssertionError: 1 != 0 :\n=============================== warnings summary ===============================\nenv/lib/python3.8/site-packages/aiohttp/helpers.py:107\n  /home/workspace/black_1/black/env/lib/python3.8/site-packages/aiohttp/helpers.py:107: DeprecationWarning: \"@coroutine\" decorator is deprecated since Python 3.8, use \"async def\" instead\n    def noop(*args, **kwargs):  # type: ignore\n\n-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html\n\n\n***************************************************\n                FauxPy Started!                    \n***************************************************\n\nFauxPy: ---> Running MBFL session\nFauxPy: ---> Targeted failing tests:\nFauxPy: --->   1. tests/test_black.py::BlackTestCase::test_works_in_mono_process_only_environment\n\n\n==============================\n Dynamic Analysis in Progress \n==============================\n\nFauxPy: ---> Candidate mutation locations: 93\nFauxPy: ---> Selected mutation locations: 50\nFauxPy: ---> Generating mutants using the mutation strategy Traditional for the following module:\nFauxPy: --->   /home/workspace/black_1/black/black.py\nFauxPy: ---> Number of generated mutants: 58\nFauxPy: ---> Total generated mutants: 58\nFauxPy: ---> Mutants selected for validation: 50\nFauxPy: ---> Mutation generation time: 18.5143\nFauxPy: ---> Running 50 Mutants\nFauxPy: ---> Running Mutant M0 (1/50)\nFauxPy: ---> Running Mutant M1 (2/50)\nFauxPy: ---> Running Mutant M2 (3/50)\nFauxPy: ---> Running Mutant M3 (4/50)\nFauxPy: ---> Running Mutant M4 (5/50)\nFauxPy: ---> Running Mutant M5 (6/50)\nFauxPy: ---> Running Mutant M6 (7/50)\nFauxPy: ---> Running Mutant M7 (8/50)\nFauxPy: ---> Running Mutant M8 (9/50)\nFauxPy: ---> Running Mutant M9 (10/50)\nFauxPy: ---> Running Mutant M10 (11/50)\nFauxPy: ---> Running Mutant M11 (12/50)\nFauxPy: ---> Running Mutant M12 (13/50)\nFauxPy: ---> Running Mutant M13 (14/50)\nFauxPy: ---> Running Mutant M14 (15/50)\nFauxPy: ---> Running Mutant M15 (16/50)\nFauxPy: ---> Running Mutant M16 (17/50)\nFauxPy: ---> Running Mutant M17 (18/50)\nFauxPy: ---> Running Mutant M18 (19/50)\nFauxPy: ---> Running Mutant M19 (20/50)\nFauxPy: ---> Running Mutant M20 (21/50)\nFauxPy: ---> Running Mutant M21 (22/50)\nFauxPy: ---> Running Mutant M22 (23/50)\nFauxPy: ---> Running Mutant M23 (24/50)\nFauxPy: ---> Running Mutant M24 (25/50)\nFauxPy: ---> Running Mutant M25 (26/50)\nFauxPy: ---> Running Mutant M26 (27/50)\nFauxPy: ---> Running Mutant M27 (28/50)\nFauxPy: ---> Running Mutant M28 (29/50)\nFauxPy: ---> Running Mutant M29 (30/50)\nFauxPy: ---> Running Mutant M30 (31/50)\nFauxPy: ---> Running Mutant M31 (32/50)\nFauxPy: ---> Running Mutant M32 (33/50)\nFauxPy: ---> Running Mutant M33 (34/50)\nFauxPy: ---> Running Mutant M34 (35/50)\nFauxPy: ---> Running Mutant M35 (36/50)\nFauxPy: ---> Running Mutant M36 (37/50)\nFauxPy: ---> Running Mutant M37 (38/50)\nFauxPy: ---> Running Mutant M38 (39/50)\nFauxPy: ---> Running Mutant M39 (40/50)\nFauxPy: ---> Running Mutant M40 (41/50)\nFauxPy: ---> Running Mutant M41 (42/50)\nFauxPy: ---> Running Mutant M42 (43/50)\nFauxPy: ---> Running Mutant M43 (44/50)\nFauxPy: ---> Running Mutant M44 (45/50)\nFauxPy: ---> Running Mutant M45 (46/50)\nFauxPy: ---> Running Mutant M46 (47/50)\nFauxPy: ---> Running Mutant M47 (48/50)\nFauxPy: ---> Running Mutant M48 (49/50)\nFauxPy: ---> Running Mutant M49 (50/50)\nFauxPy: ---> Mutant validation time: 31.5074\n\n\n--- Dynamic Analysis Complete ---\n\n============================\n Fault Localization Results \n============================\n\n=== Performance ===\nExecution Time: 53.6931\n\n-----------------------\n|   Scores for Muse   |\n-----------------------\nFile     | Line | Score \n------------------------\nblack.py |  548 | 0.2000\nblack.py |  153 | 0.0000\nblack.py |  159 | 0.0000\nblack.py |  294 | 0.0000\nblack.py |  490 | 0.0000\nblack.py |  513 | 0.0000\nblack.py |  530 | 0.0000\nblack.py | 5712 | 0.0000\nblack.py | 5720 | 0.0000\nblack.py | 5742 | 0.0000\n------------------------\n\n-----------------------------\n|   Scores for Metallaxis   |\n-----------------------------\nFile     | Line | Score \n------------------------\nblack.py |  530 | 1.0000\nblack.py |  548 | 1.0000\nblack.py | 5712 | 1.0000\nblack.py | 5749 | 1.0000\nblack.py |  153 | 0.0000\nblack.py |  159 | 0.0000\nblack.py |  294 | 0.0000\nblack.py |  490 | 0.0000\nblack.py |  513 | 0.0000\nblack.py | 5720 | 0.0000\n------------------------\n\n**************************************************\n                FauxPy Ended!                     \n**************************************************\n\n=========================== short test summary info ============================\nFAILED tests/test_black.py::BlackTestCase::test_works_in_mono_process_only_environment\n======================== 1 failed, 1 warning in 53.68s =========================",
+    "returncode": 1,
+    "mutation_strategy": "random",
+    "mutation_budget": 50,
+    "mutation_seed": 0,
+    "candidate_mutation_locations": 93,
+    "selected_mutation_locations": 50,
+    "mutants_generated": 58,
+    "mutants_validated": 50,
+    "mutation_generation_time_seconds": 18.5143,
+    "mutant_validation_time_seconds": 31.5074,
+    "fauxpy_report_dir": "/workspace/.workspace/bugsinpy/black_1/FauxPyReport_black_mbfl_statement_traditional_2026_07_06_18_03_26_588930",
+    "mutants_timed_out": 0,
+    "mutants_with_missing_tests": 0
+  }
+}

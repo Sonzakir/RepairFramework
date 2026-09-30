@@ -1,0 +1,29 @@
+{
+  "project": "scrapy",
+  "bug_id": 2,
+  "technique": "template",
+  "budget": 200,
+  "top_n_locations": 5,
+  "stop_on_first": false,
+  "regression_check": true,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "fl_backend_choice": "fauxpy",
+  "fl_family": "sbfl",
+  "localization_metric": "ochiai",
+  "mbfl_metric": "metallaxis",
+  "granularity": "statement",
+  "skip_localize": false,
+  "started_at": "2026-07-13T21:40:30.504476+00:00",
+  "runner": "template-repair",
+  "enabled_operators": [
+    "arith",
+    "comp",
+    "obo",
+    "bool",
+    "negate",
+    "return"
+  ],
+  "timeout_per_test": 120,
+  "similarity_score": true
+}

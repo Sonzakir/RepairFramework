@@ -1,0 +1,265 @@
+{
+  "run_id": "run_279",
+  "project": "scrapy",
+  "bug_id": 2,
+  "fl_mode": "perfect",
+  "fl_backend": "oracle",
+  "status": "plausible",
+  "validation_summary": "Found 6 plausible patch(es) out of 6 validated (budget: 200, elapsed: 17.7s). First plausible: llm-1-0.",
+  "started_at": "2026-07-08T20:31:38.982448+00:00",
+  "finished_at": "2026-07-08T20:31:56.762934+00:00",
+  "elapsed_seconds": 17.71777904999999,
+  "config": {
+    "project": "scrapy",
+    "bug_id": 2,
+    "technique": "llm",
+    "budget": 200,
+    "top_n_locations": 3,
+    "stop_on_first": false,
+    "regression_check": true,
+    "fl_mode": "perfect",
+    "fl_backend": "oracle",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "mbfl_metric": "metallaxis",
+    "granularity": "statement",
+    "skip_localize": false,
+    "started_at": "2026-07-08T20:31:38.978295+00:00",
+    "runner": "llm-repair",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "llm_provider": "openai-compatible",
+    "system_prompt": "prompt1",
+    "context_enrichment": true,
+    "few_shot_count": 0,
+    "iterative": false,
+    "max_iterations": 5,
+    "retrieval_budget": 0,
+    "timeout_seconds": 120,
+    "ranker": "none"
+  },
+  "candidates_validated": 6,
+  "plausible_count": 6,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 6,
+    "candidates_validated": 6,
+    "plausible_count": 6,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": 15.882781174000002,
+    "total_wall_clock_seconds": 17.71777904999999,
+    "rank_of_first_correct": null,
+    "llm_query_count": 6
+  },
+  "plausible_patches": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.8351177730192719,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:318 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,7 +315,7 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n+        while self.limit is not None and len(self) >= self.limit:\n             self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    while self.limit is not None and len(self) >= self.limit:\n        self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 318
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.8351177730192719,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:318 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,7 +315,7 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n+        while self.limit is not None and len(self) >= self.limit:\n             self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    while self.limit is not None and len(self) >= self.limit:\n        self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 318
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.8351177730192719,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:318 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,7 +315,7 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n+        while self.limit is not None and len(self) >= self.limit:\n             self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    while self.limit is not None and len(self) >= self.limit:\n        self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 318
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.9201520912547528,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:319 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,8 +315,9 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n-            self.popitem(last=False)\n+        if self.limit is not None:\n+            while len(self) >= self.limit:\n+                self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    if self.limit is not None:\n        while len(self) >= self.limit:\n            self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 319
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.9201520912547528,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:319 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,8 +315,9 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n-            self.popitem(last=False)\n+        if self.limit is not None:\n+            while len(self) >= self.limit:\n+                self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    if self.limit is not None:\n        while len(self) >= self.limit:\n            self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 319
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.9201520912547528,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:319 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,8 +315,9 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n-            self.popitem(last=False)\n+        if self.limit is not None:\n+            while len(self) >= self.limit:\n+                self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    if self.limit is not None:\n        while len(self) >= self.limit:\n            self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 319
+      }
+    }
+  ],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.8351177730192719,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:318 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-1-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,7 +315,7 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n+        while self.limit is not None and len(self) >= self.limit:\n             self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    while self.limit is not None and len(self) >= self.limit:\n        self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 318
+      }
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.8351177730192719,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:318 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-1-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,7 +315,7 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n+        while self.limit is not None and len(self) >= self.limit:\n             self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    while self.limit is not None and len(self) >= self.limit:\n        self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 318
+      }
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.8351177730192719,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:318 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-1-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,7 +315,7 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n+        while self.limit is not None and len(self) >= self.limit:\n             self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    while self.limit is not None and len(self) >= self.limit:\n        self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 318
+      }
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.9201520912547528,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:319 (attempt 1)",
+      "validation_summary": "All tests passed with patch llm-2-0.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,8 +315,9 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n-            self.popitem(last=False)\n+        if self.limit is not None:\n+            while len(self) >= self.limit:\n+                self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    if self.limit is not None:\n        while len(self) >= self.limit:\n            self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 319
+      }
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.9201520912547528,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:319 (attempt 2)",
+      "validation_summary": "All tests passed with patch llm-2-1.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,8 +315,9 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n-            self.popitem(last=False)\n+        if self.limit is not None:\n+            while len(self) >= self.limit:\n+                self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    if self.limit is not None:\n        while len(self) >= self.limit:\n            self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 319
+      }
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "plausible",
+      "is_correct": false,
+      "context_similarity_score": 0.9201520912547528,
+      "summary": "LLM patch for scrapy/utils/datatypes.py:319 (attempt 3)",
+      "validation_summary": "All tests passed with patch llm-2-2.",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n+++ /workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py\n@@ -315,8 +315,9 @@\n         self.limit = limit\n \n     def __setitem__(self, key, value):\n-        while len(self) >= self.limit:\n-            self.popitem(last=False)\n+        if self.limit is not None:\n+            while len(self) >= self.limit:\n+                self.popitem(last=False)\n         super(LocalCache, self).__setitem__(key, value)\n \n \n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\ndef __setitem__(self, key, value):\n    if self.limit is not None:\n        while len(self) >= self.limit:\n            self.popitem(last=False)\n    super(LocalCache, self).__setitem__(key, value)\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/scrapy_2/scrapy/scrapy/utils/datatypes.py",
+        "target_line": 319
+      }
+    }
+  ]
+}

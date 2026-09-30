@@ -1,0 +1,18 @@
+services:
+  apr-framework:
+    build:
+      context: .
+    working_dir: /workspace
+    environment:
+      APR_CONTAINER_PROJECT_ROOT: /workspace
+      APR_HOST_PROJECT_ROOT: ${APR_HOST_PROJECT_ROOT:-${PWD}}
+      BUGSINPY_CONTAINER: ${BUGSINPY_CONTAINER:-apr-bugsinpy-executor}
+      BUGSINPY_HOME: /workspace/.tools/bugsinpy
+      BUGSINPY_IMAGE: ${BUGSINPY_IMAGE:-apr-bugsinpy:local}
+      PYTHONPATH: /workspace/src
+    volumes:
+      - ${APR_HOST_PROJECT_ROOT:-${PWD}}:/workspace
+      - /var/run/docker.sock:/var/run/docker.sock
+    stdin_open: true
+    tty: true
+

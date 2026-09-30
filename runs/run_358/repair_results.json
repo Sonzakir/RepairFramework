@@ -1,0 +1,225 @@
+{
+  "run_id": "run_358",
+  "project": "fastapi",
+  "bug_id": 6,
+  "fl_mode": "perfect",
+  "fl_backend": "perfect-fl",
+  "status": "failed",
+  "validation_summary": "No plausible patch found. Validated 9/9 candidates (budget: 200, elapsed: 50.1s).",
+  "started_at": "2026-07-13T20:44:43.390213+00:00",
+  "finished_at": "2026-07-13T20:45:33.439533+00:00",
+  "elapsed_seconds": 50.050593314000025,
+  "config": {
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "max_candidates": 3,
+    "top_n_locations": 3,
+    "max_iterations": 5,
+    "budget": 200,
+    "timeout_per_test": 120,
+    "stop_on_first": false,
+    "regression_check": true,
+    "llm_provider": "openai-compatible",
+    "llm_base_url": "https://api.openai.com/v1",
+    "system_prompt": "prompt1",
+    "fl_system_prompt": "fl_prompt1",
+    "assess_system_prompt": "assess_prompt1",
+    "fl_family": "sbfl",
+    "localization_metric": "ochiai",
+    "granularity": "statement",
+    "project": "fastapi",
+    "bug_id": 6,
+    "approach": "a4-single-shot",
+    "technique": "llm",
+    "fl_mode": "perfect",
+    "fl_backend": "perfect-fl",
+    "context_enrichment": false,
+    "iterative": false,
+    "retrieval_budget": 0,
+    "assess": true,
+    "similarity_score": true,
+    "ranker": "none"
+  },
+  "candidates_validated": 9,
+  "plausible_count": 0,
+  "correct_count": 0,
+  "metrics": {
+    "total_candidates_generated": 9,
+    "candidates_validated": 9,
+    "plausible_count": 0,
+    "correct_count": 0,
+    "time_to_first_plausible_seconds": null,
+    "total_wall_clock_seconds": 50.050593314000025,
+    "rank_of_first_correct": null,
+    "llm_query_count": 9,
+    "assessment_query_count": 0
+  },
+  "plausible_patches": [],
+  "ranked_plausible_patches": null,
+  "rank_of_first_correct": null,
+  "all_results": [
+    {
+      "patch_id": "llm-1-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:632 (attempt 1)",
+      "validation_summary": "Patch llm-1-0 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -627,6 +627,7 @@\n         if len(required_params) == 1 and not embed:\n             received_body = {field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n                 if field.shape in sequence_shapes and isinstance(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        field = required_params[0]\n        field_info = get_field_info(field)\n        embed = getattr(field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(\n                    received_body, FormData\n                ):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 632
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:632 (attempt 2)",
+      "validation_summary": "Patch llm-1-1 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -629,6 +629,7 @@\n         for field in required_params:\n             value: Any = None\n             if received_body is not None:\n+                field_info = get_field_info(field)\n                 if field.shape in sequence_shapes and isinstance(\n                     received_body, FormData\n                 ):\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        field = required_params[0]\n        field_info = get_field_info(field)\n        embed = getattr(field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {field.alias: received_body}\n        for field in required_params:\n            value: Any = None\n            if received_body is not None:\n                field_info = get_field_info(field)\n                if field.shape in sequence_shapes and isinstance(\n                    received_body, FormData\n                ):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 632
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-1-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:632 (attempt 3)",
+      "validation_summary": "Patch llm-1-2 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,12 +621,13 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n                 if field.shape in sequence_shapes and isinstance(\n",
+      "metadata": {
+        "location_rank": 1,
+        "location_score": 1.0,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(\n                    received_body, FormData\n                ):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 632
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:633 (attempt 1)",
+      "validation_summary": "Patch llm-2-0 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,17 +621,16 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n-                if field.shape in sequence_shapes and isinstance(\n-                    received_body, FormData\n-                ):\n+                if field.shape in sequence_shapes and isinstance(received_body, FormData):\n                     value = received_body.getlist(field.alias)\n                 else:\n                     value = received_body.get(field.alias)\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(received_body, FormData):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 633
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:633 (attempt 2)",
+      "validation_summary": "Patch llm-2-1 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,17 +621,16 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n-                if field.shape in sequence_shapes and isinstance(\n-                    received_body, FormData\n-                ):\n+                if field.shape in sequence_shapes and isinstance(received_body, FormData):\n                     value = received_body.getlist(field.alias)\n                 else:\n                     value = received_body.get(field.alias)\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(received_body, FormData):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 633
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-2-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:633 (attempt 3)",
+      "validation_summary": "Patch llm-2-2 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,12 +621,13 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n                 if field.shape in sequence_shapes and isinstance(\n",
+      "metadata": {
+        "location_rank": 2,
+        "location_score": 0.99,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(\n                    received_body, FormData\n                ):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 633
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-0",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:634 (attempt 1)",
+      "validation_summary": "Patch llm-3-0 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,12 +621,13 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n                 if field.shape in sequence_shapes and isinstance(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(\n                    received_body, FormData\n                ):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 634
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-1",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:634 (attempt 2)",
+      "validation_summary": "Patch llm-3-1 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,17 +621,16 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n-                if field.shape in sequence_shapes and isinstance(\n-                    received_body, FormData\n-                ):\n+                if field.shape in sequence_shapes and isinstance(received_body, FormData):\n                     value = received_body.getlist(field.alias)\n                 else:\n                     value = received_body.get(field.alias)\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(received_body, FormData):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 634
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    },
+    {
+      "patch_id": "llm-3-2",
+      "status": "failed",
+      "is_correct": false,
+      "summary": "LLM patch for fastapi/dependencies/utils.py:634 (attempt 3)",
+      "validation_summary": "Patch llm-3-2 did not fix all tests (passed=0, failed=0, errors=1).",
+      "diff_text": "--- /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n+++ /workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py\n@@ -621,12 +621,13 @@\n     values = {}\n     errors = []\n     if required_params:\n-        field = required_params[0]\n-        field_info = get_field_info(field)\n-        embed = getattr(field_info, \"embed\", None)\n+        first_field = required_params[0]\n+        first_field_info = get_field_info(first_field)\n+        embed = getattr(first_field_info, \"embed\", None)\n         if len(required_params) == 1 and not embed:\n-            received_body = {field.alias: received_body}\n+            received_body = {first_field.alias: received_body}\n         for field in required_params:\n+            field_info = get_field_info(field)\n             value: Any = None\n             if received_body is not None:\n                 if field.shape in sequence_shapes and isinstance(\n",
+      "metadata": {
+        "location_rank": 3,
+        "location_score": 0.98,
+        "llm_response": "```python\nasync def request_body_to_args(\n    required_params: List[ModelField],\n    received_body: Optional[Union[Dict[str, Any], FormData]],\n) -> Tuple[Dict[str, Any], List[ErrorWrapper]]:\n    values = {}\n    errors = []\n    if required_params:\n        first_field = required_params[0]\n        first_field_info = get_field_info(first_field)\n        embed = getattr(first_field_info, \"embed\", None)\n        if len(required_params) == 1 and not embed:\n            received_body = {first_field.alias: received_body}\n        for field in required_params:\n            field_info = get_field_info(field)\n            value: Any = None\n            if received_body is not None:\n                if field.shape in sequence_shapes and isinstance(\n                    received_body, FormData\n                ):\n                    value = received_body.getlist(field.alias)\n                else:\n                    value = received_body.get(field.alias)\n            if (\n                value is None\n                or (isinstance(field_info, params.Form) and value == \"\")\n                or (\n                    isinstance(field_info, params.Form)\n                    and field.shape in sequence_shapes\n                    and len(value) == 0\n                )\n            ):\n                if field.required:\n                    if PYDANTIC_1:\n                        errors.append(\n                            ErrorWrapper(MissingError(), loc=(\"body\", field.alias))\n                        )\n                    else:  # pragma: nocover\n                        errors.append(\n                            ErrorWrapper(  # type: ignore\n                                MissingError(),\n                                loc=(\"body\", field.alias),\n                                config=BaseConfig,\n                            )\n                        )\n                else:\n                    values[field.name] = deepcopy(field.default)\n                continue\n            if (\n                isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, UploadFile)\n            ):\n                value = await value.read()\n            elif (\n                field.shape in sequence_shapes\n                and isinstance(field_info, params.File)\n                and lenient_issubclass(field.type_, bytes)\n                and isinstance(value, sequence_types)\n            ):\n                awaitables = [sub_value.read() for sub_value in value]\n                contents = await asyncio.gather(*awaitables)\n                value = sequence_shape_to_type[field.shape](contents)\n            v_, errors_ = field.validate(value, values, loc=(\"body\", field.alias))\n            if isinstance(errors_, ErrorWrapper):\n                errors.append(errors_)\n            elif isinstance(errors_, list):\n                errors.extend(errors_)\n            else:\n                values[field.name] = v_\n    return values, errors\n```",
+        "model": "gpt-5.4",
+        "source_path": "/workspace/.workspace/bugsinpy/fastapi_6/fastapi/fastapi/dependencies/utils.py",
+        "target_line": 634
+      },
+      "context_similarity_score": null,
+      "similarity_band": null
+    }
+  ],
+  "assessed_plausible_patches": []
+}

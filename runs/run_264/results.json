@@ -1,0 +1,68 @@
+{
+  "run_id": "run_264",
+  "status": "completed",
+  "started_at": "2026-07-07T17:45:31.896085+00:00",
+  "finished_at": "2026-07-07T17:45:34.660638+00:00",
+  "backend": "llm-fl",
+  "bug": {
+    "benchmark": "bugsinpy",
+    "project": "black",
+    "bug_id": 1
+  },
+  "ranked_locations": [
+    {
+      "rank": 1,
+      "file_path": "black.py",
+      "location": "black.py:621",
+      "score": 1.0,
+      "line": 621,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "unconditionally constructs ProcessPoolExecutor; when patched to raise OSError the CLI exits with failure instead of falling back to single-process mode"
+      }
+    },
+    {
+      "rank": 2,
+      "file_path": "black.py",
+      "location": "black.py:612",
+      "score": 0.99,
+      "line": 612,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "multi-file reformat path lacks error handling around executor creation for mono-process-only environments"
+      }
+    },
+    {
+      "rank": 3,
+      "file_path": "black.py",
+      "location": "black.py:623",
+      "score": 0.98,
+      "line": 623,
+      "end_line": null,
+      "function": null,
+      "raw_location": "",
+      "metadata": {
+        "reason": "parallel scheduling is attempted without any fallback path after executor setup fails"
+      }
+    }
+  ],
+  "metadata": {
+    "fl_backend": "llm",
+    "model": "gpt-5.4",
+    "temperature": 1.0,
+    "system_prompt": "fl_prompt1",
+    "score_formula": "llm-rank: descending synthetic score by model order",
+    "files_shown": [
+      "black.py",
+      "blackd.py",
+      "tests/test_black.py"
+    ],
+    "had_traceback": true,
+    "location_count": 3,
+    "raw_llm_response": "[\n  {\"file\": \"black.py\", \"line\": 621, \"reason\": \"unconditionally constructs ProcessPoolExecutor; when patched to raise OSError the CLI exits with failure instead of falling back to single-process mode\"},\n  {\"file\": \"black.py\", \"line\": 612, \"reason\": \"multi-file reformat path lacks error handling around executor creation for mono-process-only environments\"},\n  {\"file\": \"black.py\", \"line\": 623, \"reason\": \"parallel scheduling is attempted without any fallback path after executor setup fails\"}\n]"
+  }
+}

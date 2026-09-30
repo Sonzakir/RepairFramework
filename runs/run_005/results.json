@@ -1,0 +1,124 @@
+{
+  "run_id": "run_005",
+  "status": "completed",
+  "started_at": "2026-06-21T14:44:47.315003+00:00",
+  "finished_at": "2026-06-21T14:46:18.436679+00:00",
+  "results": [
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "black",
+        "bug_id": 1
+      },
+      "status": "correct",
+      "checkout": "/workspace/.workspace/bugsinpy/evaluation/run_005/black_1/black",
+      "baseline_tests": {
+        "total_count": 1,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "raw_output": "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment\nRUN EVERY COMMAND\n0\n\n\n======================================================================\nFAIL: test_works_in_mono_process_only_environment (tests.test_black.BlackTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/root/.pyenv/versions/3.8.3/lib/python3.8/unittest/mock.py\", line 1325, in patched\n    return func(*newargs, **newkeywargs)\n  File \"/home/workspace/evaluation/run_005/black_1/black/tests/test_black.py\", line 1288, in test_works_in_mono_process_only_environment\n    self.invokeBlack([str(workspace)])\n  File \"/home/workspace/evaluation/run_005/black_1/black/tests/test_black.py\", line 162, in invokeBlack\n    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())\nAssertionError: 1 != 0 : \n\n----------------------------------------------------------------------\nRan 1 test in 0.006s\n\nFAILED (failures=1)"
+      },
+      "final_tests": {
+        "total_count": 1,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "raw_output": "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment\nRUN EVERY COMMAND\n0\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.008s\n\nOK"
+      },
+      "patch": {
+        "patch_id": "dummy-black-1-ground_truth_patch",
+        "summary": "BugsInPy ground-truth patch",
+        "metadata": {
+          "outcome": "ground_truth_patch",
+          "is_noop": false,
+          "patch_source": "/workspace/.tools/bugsinpy/projects/black/bugs/1/bug_patch.txt"
+        },
+        "diff_text": "diff --git a/black.py b/black.py\nindex 2a913fc..fc1597a 100644\n--- a/black.py\n+++ b/black.py\n@@ -618,7 +618,14 @@ def reformat_many(\n     if sys.platform == \"win32\":\n         # Work around https://bugs.python.org/issue26903\n         worker_count = min(worker_count, 61)\n-    executor = ProcessPoolExecutor(max_workers=worker_count)\n+    try:\n+        executor = ProcessPoolExecutor(max_workers=worker_count)\n+    except OSError:\n+        # we arrive here if the underlying system does not support multi-processing\n+        # like in AWS Lambda, in which case we gracefully fallback to the default\n+        # mono-process Executor by using None\n+        executor = None\n+\n     try:\n         loop.run_until_complete(\n             schedule_formatting(\n@@ -633,7 +640,8 @@ def reformat_many(\n         )\n     finally:\n         shutdown(loop)\n-        executor.shutdown()\n+        if executor is not None:\n+            executor.shutdown()\n \n \n async def schedule_formatting(\n@@ -643,7 +651,7 @@ async def schedule_formatting(\n     mode: Mode,\n     report: \"Report\",\n     loop: asyncio.AbstractEventLoop,\n-    executor: Executor,\n+    executor: Optional[Executor],\n ) -> None:\n     \"\"\"Run formatting of `sources` in parallel using the provided `executor`.\n \n"
+      },
+      "patch_apply": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "started_at": "2026-06-21T14:44:47.315364+00:00",
+      "finished_at": "2026-06-21T14:45:22.491586+00:00"
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "black",
+        "bug_id": 3
+      },
+      "status": "no_patch",
+      "checkout": "/workspace/.workspace/bugsinpy/evaluation/run_005/black_3/black",
+      "baseline_tests": {
+        "total_count": 1,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "raw_output": "python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code\nRUN EVERY COMMAND\n0\n\n\n======================================================================\nFAIL: test_invalid_config_return_code (tests.test_black.BlackTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/workspace/evaluation/run_005/black_3/black/tests/test_black.py\", line 1654, in test_invalid_config_return_code\n    self.invokeBlack(args, exit_code=2, ignore_config=False)\n  File \"/home/workspace/evaluation/run_005/black_3/black/tests/test_black.py\", line 162, in invokeBlack\n    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())\nAssertionError: 1 != 2 : Error: Could not open file /tmp/blk_d_g0c9bu.log: Error reading configuration file: [Errno 2] No such file or directory: '/tmp/blk_d_g0c9bu.log'\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)"
+      },
+      "final_tests": {
+        "total_count": 1,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "raw_output": "python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code\nRUN EVERY COMMAND\n0\n\n\n======================================================================\nFAIL: test_invalid_config_return_code (tests.test_black.BlackTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/home/workspace/evaluation/run_005/black_3/black/tests/test_black.py\", line 1654, in test_invalid_config_return_code\n    self.invokeBlack(args, exit_code=2, ignore_config=False)\n  File \"/home/workspace/evaluation/run_005/black_3/black/tests/test_black.py\", line 162, in invokeBlack\n    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())\nAssertionError: 1 != 2 : Error: Could not open file /tmp/blk_v67_9yge.log: Error reading configuration file: [Errno 2] No such file or directory: '/tmp/blk_v67_9yge.log'\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.001s\n\nFAILED (failures=1)"
+      },
+      "patch": {
+        "patch_id": "dummy-black-3-original_unchanged",
+        "summary": "Original solution unchanged",
+        "metadata": {
+          "outcome": "original_unchanged",
+          "is_noop": true,
+          "patch_source": "/workspace/.tools/bugsinpy/projects/black/bugs/3/bug_patch.txt"
+        },
+        "diff_text": ""
+      },
+      "patch_apply": null,
+      "started_at": "2026-06-21T14:45:22.491851+00:00",
+      "finished_at": "2026-06-21T14:45:41.771510+00:00"
+    },
+    {
+      "bug": {
+        "benchmark": "bugsinpy",
+        "project": "black",
+        "bug_id": 23
+      },
+      "status": "correct",
+      "checkout": "/workspace/.workspace/bugsinpy/evaluation/run_005/black_23/black",
+      "baseline_tests": {
+        "total_count": 1,
+        "passed_count": 0,
+        "failed_count": 1,
+        "error_count": 0,
+        "raw_output": "python -m unittest -q tests.test_black.BlackTestCase.test_python2\nRUN EVERY COMMAND\n0\n\n\nExpected tree:\nfile_input\n  simple_stmt\n    import_name\n      NAME '#!/usr/bin/env python2\\n\\n' 'import'\n      NAME ' ' 'sys'\n    /import_name\n    NEWLINE '\\n'\n  /simple_stmt\n  simple_stmt\n    testlist_star_expr\n      shift_expr\n        NAME '\\n' 'print'\n        RIGHTSHIFT ' ' '>>'\n        power\n          NAME 'sys'\n          trailer\n            DOT '.'\n            NAME 'stderr'\n          /trailer\n        /power\n      /shift_expr\n      COMMA ','\n      STRING ' ' '\"Warning:\"'\n      COMMA ','\n    /testlist_star_expr\n    NEWLINE '\\n'\n  /simple_stmt\n  simple_stmt\n    testlist_star_expr\n      shift_expr\n        NAME 'print'\n        RIGHTSHIFT ' ' '>>'\n        power\n          NAME 'sys'\n          trailer\n            DOT '.'\n            NAME 'stderr'\n          /trailer\n        /power\n      /shift_expr\n      COMMA ','\n      STRING ' ' '\"this is a blast from the past.\"'\n    /testlist_star_expr\n    NEWLINE '\\n'\n  /simple_stmt\n  simple_stmt\n    testlist_star_expr\n      shift_expr\n        NAME 'print'\n        RIGHTSHIFT ' ' '>>'\n        power\n          NAME 'sys'\n          trailer\n            DOT '.'\n            NAME 'stderr'\n          /trailer\n        /power\n      /shift_expr\n      COMMA ','\n      STRING ' ' '\"Look, a repr:\"'\n      COMMA ','\n      atom\n        BACKQUOTE ' ' '`'\n        NAME ' ' 'sys'\n        BACKQUOTE ' ' '`'\n      /atom\n    /testlist_star_expr\n    NEWLINE '\\n'\n  /simple_stmt\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'function'\n    parameters\n      LPAR '('\n      tfpdef\n        LPAR '('\n        tfplist\n          NAME '_globals'\n          COMMA ','\n          NAME ' ' '_locals'\n        /tfplist\n        RPAR ')'\n      /tfpdef\n      RPAR ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT '    '\n      simple_stmt\n        exec_stmt\n          NAME 'exec'\n          STRING ' ' '\"print \\'hi from exec!\\'\"'\n          NAME ' ' 'in'\n          NAME ' ' '_globals'\n          COMMA ','\n          NAME ' ' '_locals'\n        /exec_stmt\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  simple_stmt\n    power\n      NAME '\\n\\n' 'function'\n      trailer\n        LPAR '('\n        atom\n          LPAR '('\n          testlist_gexp\n            power\n              NAME 'globals'\n              trailer\n                LPAR '('\n                RPAR ')'\n              /trailer\n            /power\n            COMMA ','\n            power\n              NAME ' ' 'locals'\n              trailer\n                LPAR '('\n                RPAR ')'\n              /trailer\n            /power\n          /testlist_gexp\n          RPAR ')'\n        /atom\n        RPAR ')'\n      /trailer\n    /power\n    NEWLINE '\\n'\n  /simple_stmt\n  ENDMARKER ''\n/file_input\nActual tree:\nfile_input\n  simple_stmt\n    import_name\n      NAME '#!/usr/bin/env python2\\n\\n' 'import'\n      NAME ' ' 'sys'\n    /import_name\n    NEWLINE '\\n'\n  /simple_stmt\n  simple_stmt\n    testlist_star_expr\n      shift_expr\n        NAME '\\n' 'print'\n        RIGHTSHIFT ' ' '>>'\n        power\n          NAME ' ' 'sys'\n          trailer\n            DOT '.'\n            NAME 'stderr'\n          /trailer\n        /power\n      /shift_expr\n      COMMA ','\n      STRING ' ' '\"Warning:\"'\n      COMMA ','\n    /testlist_star_expr\n    NEWLINE '\\n'\n  /simple_stmt\n  simple_stmt\n    testlist_star_expr\n      shift_expr\n        NAME 'print'\n        RIGHTSHIFT ' ' '>>'\n        power\n          NAME ' ' 'sys'\n          trailer\n            DOT '.'\n            NAME 'stderr'\n          /trailer\n        /power\n      /shift_expr\n      COMMA ','\n      STRING ' ' '\"this is a blast from the past.\"'\n    /testlist_star_expr\n    NEWLINE '\\n'\n  /simple_stmt\n  simple_stmt\n    testlist_star_expr\n      shift_expr\n        NAME 'print'\n        RIGHTSHIFT ' ' '>>'\n        power\n          NAME ' ' 'sys'\n          trailer\n            DOT '.'\n            NAME 'stderr'\n          /trailer\n        /power\n      /shift_expr\n      COMMA ','\n      STRING ' ' '\"Look, a repr:\"'\n      COMMA ','\n      atom\n        BACKQUOTE ' ' '`'\n        NAME ' ' 'sys'\n        BACKQUOTE ' ' '`'\n      /atom\n    /testlist_star_expr\n    NEWLINE '\\n'\n  /simple_stmt\n  funcdef\n    NAME '\\n\\n' 'def'\n    NAME ' ' 'function'\n    parameters\n      LPAR '('\n      tfpdef\n        LPAR '('\n        tfplist\n          NAME '_globals'\n          COMMA ','\n          NAME ' ' '_locals'\n        /tfplist\n        RPAR ')'\n      /tfpdef\n      RPAR ')'\n    /parameters\n    COLON ':'\n    suite\n      NEWLINE '\\n'\n      INDENT '    '\n      simple_stmt\n        exec_stmt\n          NAME 'exec'\n          STRING ' ' '\"print \\'hi from exec!\\'\"'\n          NAME ' ' 'in'\n          NAME ' ' '_globals'\n          COMMA ','\n          NAME ' ' '_locals'\n        /exec_stmt\n        NEWLINE '\\n'\n      /simple_stmt\n      DEDENT ''\n    /suite\n  /funcdef\n  simple_stmt\n    power\n      NAME '\\n\\n' 'function'\n      trailer\n        LPAR '('\n        atom\n          LPAR '('\n          testlist_gexp\n            power\n              NAME 'globals'\n              trailer\n                LPAR '('\n                RPAR ')'\n              /trailer\n            /power\n            COMMA ','\n            power\n              NAME ' ' 'locals'\n              trailer\n                LPAR '('\n                RPAR ')'\n              /trailer\n            /power\n          /testlist_gexp\n          RPAR ')'\n        /atom\n        RPAR ')'\n      /trailer\n    /power\n    NEWLINE '\\n'\n  /simple_stmt\n  ENDMARKER ''\n/file_input\n======================================================================\nFAIL: test_python2 (tests.test_black.BlackTestCase)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/root/.pyenv/versions/3.8.3/lib/python3.8/unittest/mock.py\", line 1325, in patched\n    return func(*newargs, **newkeywargs)\n  File \"/home/workspace/evaluation/run_005/black_23/black/tests/test_black.py\", line 187, in test_python2\n    self.assertFormatEqual(expected, actual)\n  File \"/home/workspace/evaluation/run_005/black_23/black/tests/test_black.py\", line 67, in assertFormatEqual\n    self.assertEqual(expected, actual)\nAssertionError: '#!/u[39 chars]nt >>sys.stderr, \"Warning:\",\\nprint >>sys.stde[214 chars]))\\n' != '#!/u[39 chars]nt >> sys.stderr, \"Warning:\",\\nprint >> sys.st[217 chars]))\\n'\n  #!/usr/bin/env python2\n  \n  import sys\n  \n- print >>sys.stderr, \"Warning:\",\n+ print >> sys.stderr, \"Warning:\",\n?         +\n- print >>sys.stderr, \"this is a blast from the past.\"\n+ print >> sys.stderr, \"this is a blast from the past.\"\n?         +\n- print >>sys.stderr, \"Look, a repr:\", ` sys `\n+ print >> sys.stderr, \"Look, a repr:\", ` sys `\n?         +\n  \n  \n  def function((_globals, _locals)):\n      exec \"print 'hi from exec!'\" in _globals, _locals\n  \n  \n  function((globals(), locals()))\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.006s\n\nFAILED (failures=1)"
+      },
+      "final_tests": {
+        "total_count": 1,
+        "passed_count": 1,
+        "failed_count": 0,
+        "error_count": 0,
+        "raw_output": "python -m unittest -q tests.test_black.BlackTestCase.test_python2\nRUN EVERY COMMAND\n0\n\n\n----------------------------------------------------------------------\nRan 1 test in 0.003s\n\nOK"
+      },
+      "patch": {
+        "patch_id": "dummy-black-23-ground_truth_patch",
+        "summary": "BugsInPy ground-truth patch",
+        "metadata": {
+          "outcome": "ground_truth_patch",
+          "is_noop": false,
+          "patch_source": "/workspace/.tools/bugsinpy/projects/black/bugs/23/bug_patch.txt"
+        },
+        "diff_text": "diff --git a/black.py b/black.py\nindex bb8ec2e..7935cdc 100644\n--- a/black.py\n+++ b/black.py\n@@ -235,23 +235,36 @@ def format_str(src_contents: str, line_length: int) -> FileContent:\n     return dst_contents\n \n \n+GRAMMARS = [\n+    pygram.python_grammar_no_print_statement_no_exec_statement,\n+    pygram.python_grammar_no_print_statement,\n+    pygram.python_grammar_no_exec_statement,\n+    pygram.python_grammar,\n+]\n+\n+\n def lib2to3_parse(src_txt: str) -> Node:\n     \"\"\"Given a string with source, return the lib2to3 Node.\"\"\"\n     grammar = pygram.python_grammar_no_print_statement\n-    drv = driver.Driver(grammar, pytree.convert)\n     if src_txt[-1] != '\\n':\n         nl = '\\r\\n' if '\\r\\n' in src_txt[:1024] else '\\n'\n         src_txt += nl\n-    try:\n-        result = drv.parse_string(src_txt, True)\n-    except ParseError as pe:\n-        lineno, column = pe.context[1]\n-        lines = src_txt.splitlines()\n+    for grammar in GRAMMARS:\n+        drv = driver.Driver(grammar, pytree.convert)\n         try:\n-            faulty_line = lines[lineno - 1]\n-        except IndexError:\n-            faulty_line = \"<line number missing in source>\"\n-        raise ValueError(f\"Cannot parse: {lineno}:{column}: {faulty_line}\") from None\n+            result = drv.parse_string(src_txt, True)\n+            break\n+\n+        except ParseError as pe:\n+            lineno, column = pe.context[1]\n+            lines = src_txt.splitlines()\n+            try:\n+                faulty_line = lines[lineno - 1]\n+            except IndexError:\n+                faulty_line = \"<line number missing in source>\"\n+            exc = ValueError(f\"Cannot parse: {lineno}:{column}: {faulty_line}\")\n+    else:\n+        raise exc from None\n \n     if isinstance(result, Leaf):\n         result = Node(syms.file_input, [result])\n@@ -903,6 +916,17 @@ def whitespace(leaf: Leaf) -> str:  # noqa C901\n         ):\n             return NO\n \n+        elif (\n+            prevp.type == token.RIGHTSHIFT\n+            and prevp.parent\n+            and prevp.parent.type == syms.shift_expr\n+            and prevp.prev_sibling\n+            and prevp.prev_sibling.type == token.NAME\n+            and prevp.prev_sibling.value == 'print'\n+        ):\n+            # Python 2 print chevron\n+            return NO\n+\n     elif prev.type in OPENING_BRACKETS:\n         return NO\n \n@@ -1538,7 +1562,12 @@ def assert_equivalent(src: str, dst: str) -> None:\n     try:\n         src_ast = ast.parse(src)\n     except Exception as exc:\n-        raise AssertionError(f\"cannot parse source: {exc}\") from None\n+        major, minor = sys.version_info[:2]\n+        raise AssertionError(\n+            f\"cannot use --safe with this file; failed to parse source file \"\n+            f\"with Python {major}.{minor}'s builtin AST. Re-run with --fast \"\n+            f\"or stop using deprecated Python 2 syntax. AST error message: {exc}\"\n+        )\n \n     try:\n         dst_ast = ast.parse(dst)\ndiff --git a/blib2to3/pygram.py b/blib2to3/pygram.py\nindex c4ff9d1..bf55ab4 100644\n--- a/blib2to3/pygram.py\n+++ b/blib2to3/pygram.py\n@@ -36,5 +36,12 @@ python_symbols = Symbols(python_grammar)\n python_grammar_no_print_statement = python_grammar.copy()\n del python_grammar_no_print_statement.keywords[\"print\"]\n \n+python_grammar_no_exec_statement = python_grammar.copy()\n+del python_grammar_no_exec_statement.keywords[\"exec\"]\n+\n+python_grammar_no_print_statement_no_exec_statement = python_grammar.copy()\n+del python_grammar_no_print_statement_no_exec_statement.keywords[\"print\"]\n+del python_grammar_no_print_statement_no_exec_statement.keywords[\"exec\"]\n+\n pattern_grammar = driver.load_packaged_grammar(\"blib2to3\", _PATTERN_GRAMMAR_FILE)\n pattern_symbols = Symbols(pattern_grammar)\ndiff --git a/tests/function.py b/tests/function.py\nindex 7fa6866..888ef9f 100644\n--- a/tests/function.py\n+++ b/tests/function.py\n@@ -14,8 +14,9 @@ def func_no_args():\n   for i in range(10):\n     print(i)\n     continue\n+  exec(\"new-style exec\", {}, {})\n   return None\n-async def coroutine(arg):\n+async def coroutine(arg, exec=False):\n  \"Single-line docstring. Multiline is harder to reformat.\"\n  async with some_connection() as conn:\n      await conn.do_what_i_mean('SELECT bobby, tables FROM xkcd', timeout=2)\n@@ -93,10 +94,11 @@ def func_no_args():\n         print(i)\n         continue\n \n+    exec(\"new-style exec\", {}, {})\n     return None\n \n \n-async def coroutine(arg):\n+async def coroutine(arg, exec=False):\n     \"Single-line docstring. Multiline is harder to reformat.\"\n     async with some_connection() as conn:\n         await conn.do_what_i_mean('SELECT bobby, tables FROM xkcd', timeout=2)\n"
+      },
+      "patch_apply": {
+        "returncode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      "started_at": "2026-06-21T14:45:41.771797+00:00",
+      "finished_at": "2026-06-21T14:46:18.436358+00:00"
+    }
+  ]
+}

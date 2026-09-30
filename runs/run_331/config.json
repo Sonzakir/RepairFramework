@@ -1,0 +1,14 @@
+{
+  "runner": "llm-localizer",
+  "backend": "llm",
+  "project": "black",
+  "bug_id": 1,
+  "model": "gpt-5.4",
+  "temperature": 1.0,
+  "top_n": 5,
+  "system_prompt": "fl_prompt1",
+  "llm_base_url": "https://api.openai.com/v1",
+  "max_source_lines": 400,
+  "source_window": 40,
+  "started_at": "2026-07-12T19:57:40.809685+00:00"
+}

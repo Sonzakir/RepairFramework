@@ -1,0 +1,25 @@
+--- /workspace/.workspace/bugsinpy/black_1/black/black.py
++++ /workspace/.workspace/bugsinpy/black_1/black/black.py
+@@ -618,7 +618,11 @@
+     if sys.platform == "win32":
+         # Work around https://bugs.python.org/issue26903
+         worker_count = min(worker_count, 61)
+-    executor = ProcessPoolExecutor(max_workers=worker_count)
++    try:
++        executor = ProcessPoolExecutor(max_workers=worker_count)
++    except OSError:
++        executor = None
++
+     try:
+         loop.run_until_complete(
+             schedule_formatting(
+@@ -633,7 +637,8 @@
+         )
+     finally:
+         shutdown(loop)
+-        executor.shutdown()
++        if executor:
++            executor.shutdown()
+ 
+ 
+ async def schedule_formatting(

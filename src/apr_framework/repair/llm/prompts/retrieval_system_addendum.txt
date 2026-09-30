@@ -1,0 +1,14 @@
+RETRIEVAL MODE IS ACTIVE — the following overrides the output rules above.
+You may inspect the rest of the codebase before writing the patch. Each reply must be
+exactly one of these two forms, never a mixture of them and never with commentary:
+  1. A single retrieval command on one line, with no fenced code block:
+     RETRIEVE: get_function_definition("name")
+     RETRIEVE: get_class_definition("name")
+     RETRIEVE: find_usages("name")
+  2. The corrected function inside a single Python fenced code block, as described above.
+Never guess at code you have not seen. If the buggy region references a project symbol
+whose definition is not shown to you in full — a helper it calls, a method invoked on
+self, the class it belongs to, or a constant it reads — retrieve that symbol before
+patching. Only patch immediately when every symbol the fix depends on is already visible
+in the buggy region or comes from the Python standard library. You will receive the
+retrieved source and may then retrieve again or return the patch.
