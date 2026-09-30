@@ -101,8 +101,8 @@ More findings from the published experiments:
 You need **Docker** and **Git**. LLM features also need an OpenAI-compatible API key.
 
 ```bash
-git clone https://github.com/Sonzakir/Repair-Framework.git
-cd Repair-Framework
+git clone https://github.com/Sonzakir/RepairFramework.git
+cd RepairFramework
 docker compose build
 docker compose run --rm apr-framework
 ```
