@@ -14,7 +14,7 @@ concrete class. The rest of the pipeline does not change.
 flowchart LR
     B[(Benchmark<br/>BugsInPy)] --> L[FaultLocalizer<br/>FauxPy · Hybrid · LLM · Perfect]
     L -->|LocalizationResult| R[RepairAlgorithm<br/>Template · LLM]
-    R -->|PatchCandidate| V[Validation<br/>trigger + regression]
+    R -->|PatchCandidate| V[Validation<br/>integrity + trigger + regression]
     V -->|RepairAttemptResult| S[Scoring<br/>exact diff · similarity · assessor · ranker]
     S --> E[EvaluationRunner<br/>runs/run_NNN]
     E --> P[ReportGenerator<br/>report.md + zip]
@@ -45,6 +45,7 @@ src/apr_framework/
     base.py          # BenchmarkAdapter interface (checkout / prepare_environment / run_tests / list_*)
     bugsinpy.py      # BugsInPyAdapter + BugsInPyToolchain (all Docker/shell calls go here)
     registry.py      # benchmark factory/registry
+    executor_view.py # keeps the executor's view of host-side writes and deletions current
   cli/
     parser.py        # argparse grammar
     app.py           # command dispatch
@@ -60,9 +61,11 @@ src/apr_framework/
     base.py          # RepairAlgorithm interface (+ repair_loop / llm_query_count hooks)
     dummy.py         # random ground-truth / no-op repair component
     correctness.py   # exact-diff match + context similarity score
-    regression.py    # regression half of plausibility
+    regression.py    # regression half of plausibility + trusted-run check
     run_loop.py      # shared generate-and-validate budget loop
-    patch_applier.py # apply/test/restore helper with try/finally restoration
+    patch_applier.py # the one validation path: screen -> apply -> test -> restore -> verify
+    evaluator_integrity.py  # evaluator files: classify, reject edits, lock + verify, purge bytecode
+    unified_diff.py  # parse multi-file unified diffs (any header style)
     ranking/         # PatchRanker, WeightedCompositeRanker, create_ranker()
     template/        # AST mutation operators, patch generator, validator
     llm/             # prompt builder, context enricher, few-shot, feedback,
@@ -82,6 +85,22 @@ src/apr_framework/
   reporting/
     base.py          # ReportGenerator interface
     archive.py       # report.md summary + zipped run artifacts
+  challenge/         # Break This Fix (docs/challenges.md)
+    bundle.py            # case bundles: load, validate, list, replay log
+    multi_file_patch.py  # apply/restore multi-file diffs (create, delete) in pure Python
+    replay.py            # `challenge run`: buggy / candidate / developer-fixed x repeats, witness
+    report.py            # terminal tables
+    agent_workspace.py   # answer-free agent workspace, shims, sync, diff capture
+    shim_server.py       # serves the agent's test shims from outside its sandbox
+    sealed_tests.py      # strips answers from the shim checkout; offline test container
+    claude_code.py       # locked-down headless Claude Code run + transcript leak scan
+    agent_run.py         # `challenge agent-run`: attempt -> capture -> clean evaluation -> runs/run_NNN
+    prompts/             # claude_code_repair.txt
+```
+
+```text
+challenges/          # case bundles (case.json, candidate.diff, witness/, NOTES.md)
+scripts/             # audit_test_edits.py, revalidate_saved_patches.py, preflight_bugs.py, ...
 ```
 
 ## Design decisions
@@ -139,6 +158,32 @@ the CLI shows. Every metric table parsed from FauxPy output is also stored in
 `metadata["all_metrics"]`, so Tarantula, Ochiai, D*, Jaccard, WSBI and any other
 emitted table stay available to later repair or reporting components.
 
+**One validation path, with evaluator integrity built in.** Every candidate, whether
+from the template engine, the LLM engine, or an external agent replayed by
+`challenge`, is validated by `repair/patch_applier.py::apply_patch_and_validate`. It
+rejects candidates that edit evaluator files (tests, fixtures, test configuration,
+BugsInPy scripts) or detect the test runner, locks the evaluator files and verifies
+them after every run, purges the bytecode of touched files, and reports
+`regression_checked` honestly. Rejections get their own status (`rejected`) and are
+written out as evidence. See [Validation](validation-and-scoring.md#evaluator-integrity).
+
+**Agents run on the host, evaluation stays in the executor.** `challenge agent-run`
+must run where the agent CLI is logged in, so it runs on the host and drives the same
+executor container. The agent works in a copy of the project outside the repository;
+its test scripts only exchange files with a harness thread that runs the tests in the
+executor. The tests the agent triggers run in a sealed, offline container that sees
+only that attempt's checkout. See [Break This Fix](challenges.md#fresh-agent-attempts-challenge-agent-run).
+
+**Host-side writes are made visible to the executor.** Docker Desktop's file sharing
+caches file sizes and directory entries, so when the framework runs on the host a
+rewritten file can look truncated to the executor and a deleted file can still look
+present (measured: a rewritten 83-byte `bugsinpy_run_test.sh` read as its old 44
+bytes). Before every command it runs from the host, `BugsInPyDockerExecutor` removes
+the paths the host deleted (recorded by `benchmarks/executor_view.py`) and walks the
+command's checkout, which refreshes the cached view. Checkout trees the executor
+recreates are deleted from inside the executor. Container mode never needed this;
+writes between containers are coherent.
+
 **One validation loop.** The generate-and-validate budget loop lives in
 `repair/run_loop.py`, not inside any algorithm. It uses only the `RepairAlgorithm`
 methods (`generate_patches` / `validate_patch`), so `RepairEvaluationRunner` and
@@ -191,3 +236,9 @@ each other.
 | Full LLM pipeline (one command) | `repair --technique llm --fl-backend llm --retrieval-budget 3 --assess --similarity-score` |
 | Four-approach comparison | `bugsinpy evaluate-course-comparison --bugs "black:1,black:3"` |
 | Comparison output | `experiment_results/course_comparison/results.json` + `README.md` + per-cell `run_artifacts/` |
+| Evaluator-integrity gate | `apply_patch_and_validate` + `EvaluatorGuard`; status `rejected`, `integrity_rejections` in `repair_results.json` |
+| Integrity audit of committed results | `python scripts/audit_test_edits.py` -> `experiment_results/INTEGRITY_AUDIT.md` |
+| Re-validate saved patches | `python scripts/revalidate_saved_patches.py <run_dir>` |
+| List / replay Break This Fix cases | `challenge list`, `challenge run <case-id> [--patch PATH] [--repeats 3]` |
+| Fresh isolated agent attempt | `challenge agent-run --project P --bug N --agent claude-code` (host) |
+| Pilot preflight | `python scripts/preflight_bugs.py project:bug ...` |

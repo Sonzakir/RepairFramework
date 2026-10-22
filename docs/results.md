@@ -12,11 +12,26 @@ see [Evaluation harnesses](evaluation.md).
 > [Validation](validation-and-scoring.md#the-two-correctness-metrics)). Treat margins
 > as indicative, not statistically significant.
 
+> **Correction (found by auditing our own results).** An earlier version of this page
+> reported that the full LLM pipeline found **4 plausible patches on black#3**. It did
+> not repair anything there. All four are one identical edit to the bug's own test
+> (`tests/test_black.py`: `exit_code=2` → `exit_code=1`) that touches no source code,
+> and the validation path accepted it because it never checked *what* a patch
+> changed. A second black#3 run (`runs/run_394`, 3 patches) recorded the same edit.
+> We found this with [`scripts/audit_test_edits.py`](../scripts/audit_test_edits.py),
+> which scans every committed result for "plausible" patches that edit tests,
+> fixtures or test configuration: 11 of 344 recorded plausible/correct patches did,
+> all of them this one black#3 diff
+> ([report](../experiment_results/INTEGRITY_AUDIT.md)). The numbers below are
+> corrected; the committed result files are left as recorded. The validation path
+> now rejects such candidates before running them
+> ([evaluator integrity](validation-and-scoring.md#evaluator-integrity)).
+
 ## Highlights
 
 | Finding | Evidence |
 |---|---|
-| The full LLM pipeline found plausible patches on **every** bug in the comparison, including two where no earlier approach found one | black#1: 0 → 6, black#3: 0 → 4 plausible ([details](#four-approach-comparison)) |
+| The full LLM pipeline found plausible patches on **three of the four** bugs in the comparison, including black#1, where no earlier approach found one | black#1: 0 → 6 plausible. On black#3 its 4 recorded "plausible" patches only edit the test file, so the corrected count is 0 ([correction](#four-approach-comparison)) |
 | Localizing on its own, the full pipeline beat approaches that were **given the oracle fault location** | tornado#14: 9 exact-diff matches vs. 3; scrapy#2: 9 plausible vs. 2 |
 | Context enrichment (failing test + traceback) **quadrupled** plausible patches | 4 → 16 across four bugs under perfect FL ([details](#llm-repair-variants)) |
 | On fastapi#6, hybrid SBFL+MBFL localization beat both families alone | SBFL rank 82, MBFL rank 6, hybrid rank **3**. The gain isn't uniform: on the other two bugs, SBFL ranked better ([details](#fault-localization)) |
@@ -295,11 +310,16 @@ approaches were given the **oracle** location.
 | | Template | Single-shot | Iterative | **Full LLM pipeline** |
 |---|---|---|---|---|
 | FL source | auto/perfect | auto/perfect | auto/perfect | LLM-FL |
-| Plausible patches | 0 | 0 | 0 | **4** |
+| Plausible patches | 0 | 0 | 0 | **0** (4 recorded, all edit `tests/test_black.py`) |
 | Exact-diff matches | 0 | 0 | 0 | 0 |
-| Best assessment quality | — | — | — | 0.12 |
+| Best assessment quality | — | — | — | 0.12 (of the test edits) |
 | Best context similarity (any candidate) | 0.03 | 0.04 | 0.04 | 0.06 |
-| Time to first plausible | — | — | — | 31.0s |
+| Time to first plausible | — | — | — | — (31.0s to the first test edit) |
+
+LLM fault localization was shown only the test file and ranked it first, so the repair
+engine edited the test's expected exit code instead of the program. The repair
+engines now skip test files when choosing where to edit, and the validator rejects
+any candidate that edits one.
 
 **tornado#14**
 
@@ -325,16 +345,20 @@ approaches were given the **oracle** location.
 
 ### Takeaways
 
-- **The full pipeline improved on the best earlier approach on every bug:** black#1
-  plausible 0 → 6, black#3 plausible 0 → 4, tornado#14 exact-diff 3 → 9, scrapy#2
-  plausible 2 → 9. On tornado#14 and scrapy#2, it did this while localizing on its
-  own, against approaches that were handed the oracle location.
+- **The full pipeline improved on the best earlier approach on three of the four
+  bugs:** black#1 plausible 0 → 6, tornado#14 exact-diff 3 → 9, scrapy#2 plausible
+  2 → 9. On tornado#14 and scrapy#2, it did this while localizing on its own, against
+  approaches that were handed the oracle location. On black#3 it found no repair
+  (corrected from "0 → 4"; see the correction at the top of this page).
 - **LLM-FL reaches bugs FauxPy can't.** On scrapy and tornado, FauxPy is blocked by
   Python pins or dependency conflicts. The LLM localizer has no such dependency.
-- **Plausible isn't the same as good, and the graded metrics show it.** On black#3,
-  the pipeline's 4 plausible patches got a best assessment quality of only **0.12**
-  and a best similarity of 0.06. They pass the tests but likely don't fix the bug the
-  developer's way.
+- **"Plausible" was only as good as the evaluator behind it.** On black#3, the
+  pipeline's 4 recorded plausible patches got a best assessment quality of only
+  **0.12** and a best similarity of 0.06. An earlier version of this page read that as
+  "they pass the tests but likely don't fix the bug the developer's way". The real
+  reason is simpler: they change the test, not the program. The assessor's low score
+  pointed the right way, but the decisive evidence is in the diff, and a path check
+  finds it without any model.
 - **Similarity catches near-misses that exact diff hides.** On scrapy#2, single-shot,
   iterative and the full pipeline all scored **0.92** similarity while getting 0
   exact-diff matches. The fix landed in the right place, in nearly the right form.
@@ -343,6 +367,9 @@ approaches were given the **oracle** location.
   only one plausible patch. It also scored the template's exact developer fix on
   tornado#14 at just **0.18**, because a terse single-operator change can read as
   unconvincing in isolation. That is why the exact-diff metric is kept alongside it.
+  It is not even consistent with itself: on black#1 (`run_342`) it scored one
+  byte-identical diff (`executor = None` fallback) **0.88** once and **0.18–0.22**
+  four times.
 - **Retrieval was used sparingly.** Given the tools, the model chose to retrieve only
   once across the whole run (`get_function_definition` ×1, on black#1), in a cell
   that produced 6 plausible patches.

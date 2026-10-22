@@ -2,10 +2,12 @@
 
 Every cell of ``evaluate-course-comparison`` costs LLM calls and test-suite runs,
 so the report must be re-renderable without re-running the matrix. This script
-reloads the committed ``results.json`` into ``CourseCellResult`` objects and hands
-them back to ``CourseComparisonRunner.write_results`` — the same code path the
-live command uses — so tweaks to the tables or the discussion sections can be
-verified against the real numbers for free.
+reloads the committed ``results.json`` into ``CourseCellResult`` objects, re-derives
+per-patch figures (assessment, similarity, retrieval, evaluator edits) from each
+cell's ``run_artifacts/``, and hands them to ``CourseComparisonRunner.write_readme``
+— the same rendering the live command uses — so tweaks to the tables or the
+discussion sections can be verified against the real numbers for free. Only
+``README.md`` is rewritten; the committed ``results.json`` is never modified.
 
     python scripts/regenerate_course_comparison_readme.py [output_dir]
 
@@ -25,6 +27,7 @@ from apr_framework.evaluation.course_comparison_runner import (  # noqa: E402
     CourseCellResult,
     CourseComparisonRunner,
     _summarise_assessment_from_patches,
+    _summarise_evaluator_edits_from_patches,
     _summarise_retrieval_from_patches,
     _summarise_similarity_from_patches,
 )
@@ -58,6 +61,9 @@ def rescore_cell_from_run_artifacts(
     # close they came is what the graded metric exists to report.
     similarity = _summarise_similarity_from_patches(payload.get("all_results") or [])
     retrieval = _summarise_retrieval_from_patches(payload.get("all_results") or [])
+    evaluator_edits = _summarise_evaluator_edits_from_patches(
+        payload.get("plausible_patches") or [], cell.bug.project
+    )
 
     cell.assessed_patch_count = assessment.assessed_patch_count
     cell.best_quality_score = assessment.best_quality_score
@@ -71,6 +77,11 @@ def rescore_cell_from_run_artifacts(
     cell.retrieval_step_total = retrieval.step_total
     cell.retrieval_tool_call_counts = retrieval.tool_call_counts
     cell.patches_with_retrieval_count = retrieval.patches_with_retrieval_count
+    cell.evaluator_edit_count = evaluator_edits.patch_count
+    cell.evaluator_edit_files = evaluator_edits.files
+    cell.integrity_rejected_count = payload.get("metrics", {}).get(
+        "integrity_rejected_count", 0
+    )
     return cell
 
 
@@ -152,7 +163,7 @@ def main() -> int:
         budget=payload.get("budget", 0),
         stop_on_first=False,
     )
-    readme_path = runner.write_results(cells, output_dir)
+    readme_path = runner.write_readme(cells, output_dir)
     print(f"Rebuilt {readme_path} from {len(cells)} cell(s) in {results_path}")
     return 0
 

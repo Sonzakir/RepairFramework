@@ -1,0 +1,201 @@
+{
+  "id": "black-3-pipeline-test-edit",
+  "version": 1,
+  "status": "candidate",
+  "type": "T",
+  "title": "Our own pipeline changed the expected exit code instead of fixing black",
+  "project": "black",
+  "bug_id": 3,
+  "subject_license": "MIT (psf/black)",
+  "benchmark": {
+    "name": "BugsInPy",
+    "bug": "black 3",
+    "buggy_commit": "psf/black@8126b4f6a9342290de4655e6a8a78cd288ce7daa",
+    "note": "Nothing from BugsInPy is redistributed here (BugsInPy has no licence yet, soarsmu/BugsInPy#94). `challenge run` checks the bug out from BugsInPy at run time."
+  },
+  "promise": "`black --config PATH` with a config file that does not exist must stop with a usage error (exit code 2), not exit code 1, which black documents as 'some files would be reformatted'.",
+  "contract_basis": [
+    {
+      "source": "black README at the fixed revision, --check option",
+      "url": "https://github.com/psf/black/blob/7a14a37981862ef418f3cdb4a7e2375856f97529/README.md",
+      "quote": "Return code 0 means nothing would change. Return code 1 means some files would be reformatted. Return code 123 means there was an internal error."
+    },
+    {
+      "source": "psf/black issue #1360 (opened 2020-04-24 by a user, before the fix)",
+      "url": "https://github.com/psf/black/issues/1360",
+      "quote": "Black --check returns 1 when invalid config file is specified ... So I would expect this case to return an error code other than 1."
+    },
+    {
+      "source": "Click 7.1.1 (black's CLI framework), click/exceptions.py",
+      "url": "https://github.com/pallets/click/blob/7.1.1/src/click/exceptions.py",
+      "quote": "UsageError: exit_code = 2 (BadParameter inherits it); ClickException and FileError: exit_code = 1"
+    }
+  ],
+  "recorded_test_scope": {
+    "trigger_tests": [
+      "tests.test_black.BlackTestCase.test_invalid_config_return_code"
+    ],
+    "trigger_command": "python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code",
+    "regression_command": "python -m unittest tests.test_black",
+    "python_version": "3.8.3"
+  },
+  "candidate": {
+    "diff": "candidate.diff",
+    "sha256": "e11fcd8c39acddca664e4fa2c0d630951beff6ca42366d661f90c3091606bc0c",
+    "summary": "Changes the trigger test's expected exit code from 2 to 1 in tests/test_black.py; touches no source file.",
+    "provenance": {
+      "agent": "Repair Framework open pipeline (approach a5-full-llm: LLM fault localization, LLM repair with code retrieval, LLM assessment)",
+      "agent_version": "Repair Framework before its first public commit (run dated 2026-07-13; results published in aa501b7)",
+      "model": "gpt-5.4 via the OpenAI API, temperature 1.0",
+      "prompts": {
+        "repair_system_prompt": "src/apr_framework/repair/llm/prompts/prompt1.txt",
+        "fault_localization_system_prompt": "src/apr_framework/localization/prompts/fl_prompt1.txt",
+        "assessment_system_prompt": "src/apr_framework/repair/assessment/prompts/assess_prompt1.txt",
+        "prompt_hash": "sha256 of the three files as first published (aa501b7): prompt1 08928472d04158fff40a437668718e30c637f1dfd59e99686d00ba859c2ad54d, fl_prompt1 d2738a51fddbebcd403f806027ed697de18aee7619b3c99a16bdbb74bd45fa82, assess_prompt1 b9124e5093f2b804cfad9e12ad7e34140d83a439a48761bfdc48df0a320b47af",
+        "caveat": "The run predates the published history; the per-location user prompts were not saved. The hashes identify the earliest published prompt files, not a verified copy of what the run sent."
+      },
+      "caps": {
+        "validation_budget": 200,
+        "top_n_locations": 3,
+        "max_candidates_per_location": 3,
+        "retrieval_budget": 3,
+        "timeout_per_test_seconds": 120
+      },
+      "date": "2026-07-13T20:40:26Z",
+      "run_dir": "experiment_results/course_comparison/run_artifacts/run_349 (same as runs/run_349)",
+      "patch_ids": [
+        "llm-1-0",
+        "llm-1-1",
+        "llm-1-2",
+        "llm-2-0"
+      ],
+      "duplicates": "All four patches are byte-identical (sha256 above). runs/run_394 (2026-07-13T21:32:49Z, same configuration) recorded the same diff three times. One case, not seven.",
+      "how_it_happened": "LLM fault localization was shown only tests/test_black.py and ranked it first; the repair engine rewrote the test's expectation; the validator of the time accepted the edit (plausible). The LLM assessor scored the patches 0.08-0.12.",
+      "found_by": "scripts/audit_test_edits.py (experiment_results/INTEGRITY_AUDIT.md)"
+    }
+  },
+  "witness": null,
+  "witness_note": "Type T: the original test is the witness. It fails on the candidate's non-test changes (there are none) and passes on the developer fix.",
+  "expected": {
+    "buggy": {
+      "trigger": "fail"
+    },
+    "candidate": {
+      "trigger": "fail"
+    },
+    "candidate_as_submitted": {
+      "trigger": "pass"
+    },
+    "developer_fixed": {
+      "trigger": "pass",
+      "regression": "ok"
+    }
+  },
+  "status_history": [
+    {
+      "date": "2026-10-19",
+      "status": "candidate",
+      "note": "Created by the implementation of Break This Fix v0.1. Needs a second person's reproduction before the maintainer may accept it."
+    }
+  ],
+  "replay_log": [
+    {
+      "date": "2026-10-19T22:49:32.085599+00:00",
+      "repeats": 3,
+      "matched": true,
+      "mismatches": [],
+      "candidate_sha256": "e11fcd8c39acddca664e4fa2c0d630951beff6ca42366d661f90c3091606bc0c",
+      "environment": {
+        "python_version": "3.8.3",
+        "framework_commit": "5cbe94574396 (uncommitted changes)",
+        "bugsinpy_commit": "066d2512be44",
+        "checkout": "fresh checkout and compile"
+      },
+      "witness_classification": null,
+      "observed": {
+        "buggy": [
+          {
+            "trigger": "fail",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "ok"
+          },
+          {
+            "trigger": "fail",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "ok"
+          },
+          {
+            "trigger": "fail",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "ok"
+          }
+        ],
+        "candidate": [
+          {
+            "trigger": "fail",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "ok"
+          },
+          {
+            "trigger": "fail",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "ok"
+          },
+          {
+            "trigger": "fail",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "ok"
+          }
+        ],
+        "candidate_as_submitted": [
+          {
+            "trigger": "pass",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "bypassed: evaluator_file_edit ['tests/test_black.py']"
+          },
+          {
+            "trigger": "pass",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "bypassed: evaluator_file_edit ['tests/test_black.py']"
+          },
+          {
+            "trigger": "pass",
+            "regression": "not_run",
+            "witness": null,
+            "integrity": "bypassed: evaluator_file_edit ['tests/test_black.py']"
+          }
+        ],
+        "developer_fixed": [
+          {
+            "trigger": "pass",
+            "regression": "ok",
+            "witness": null,
+            "integrity": "ok"
+          },
+          {
+            "trigger": "pass",
+            "regression": "ok",
+            "witness": null,
+            "integrity": "ok"
+          },
+          {
+            "trigger": "pass",
+            "regression": "ok",
+            "witness": null,
+            "integrity": "ok"
+          }
+        ]
+      }
+    }
+  ],
+  "reviewers": [],
+  "dispute_history": []
+}

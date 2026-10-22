@@ -23,6 +23,7 @@ from apr_framework.core.models import (
     RepairStatus,
 )
 from apr_framework.repair.base import RepairAlgorithm
+from apr_framework.repair.evaluator_integrity import EvaluatorIntegrityError
 
 logger = logging.getLogger(__name__)
 
@@ -58,6 +59,15 @@ class LoopOutcome:
             if attempt_result.status in (RepairStatus.PLAUSIBLE, RepairStatus.CORRECT)
         ]
 
+    @property
+    def rejected_results(self) -> list[RepairAttemptResult]:
+        """Candidates the evaluator-integrity gate rejected (Type T evidence)."""
+        return [
+            attempt_result
+            for attempt_result in self.all_results
+            if attempt_result.status == RepairStatus.REJECTED
+        ]
+
 
 def build_loop_summary(
     bug: BugIdentifier,
@@ -87,6 +97,14 @@ def build_loop_summary(
     plausible_results = [
         result for result in all_results if result.status == RepairStatus.PLAUSIBLE
     ]
+    rejected_count = sum(
+        result.status == RepairStatus.REJECTED for result in all_results
+    )
+    rejection_note = (
+        f" {rejected_count} rejected for editing evaluator files."
+        if rejected_count
+        else ""
+    )
 
     if plausible_results:
         first_plausible_result = plausible_results[0]
@@ -99,6 +117,7 @@ def build_loop_summary(
                 f"{validated_count} validated (budget: {budget}, "
                 f"elapsed: {elapsed_seconds:.1f}s). "
                 f"First plausible: {first_plausible_result.patch.patch_id if first_plausible_result.patch else '?'}."
+                f"{rejection_note}"
             ),
         )
 
@@ -109,7 +128,7 @@ def build_loop_summary(
         validation_summary=(
             f"No plausible patch found. Validated {validated_count}/"
             f"{total_candidates_generated} candidates (budget: {budget}, "
-            f"elapsed: {elapsed_seconds:.1f}s)."
+            f"elapsed: {elapsed_seconds:.1f}s).{rejection_note}"
         ),
     )
 
@@ -180,9 +199,13 @@ def run_validation_loop(
             budget_remaining,
         )
 
-        # Execute the test suite to assess whether candidate patch is plausible
+        # Execute the test suite to assess whether candidate patch is plausible.
+        # One patch's unexpected failure never aborts the loop — except a broken
+        # evaluator, which makes every later verdict on this checkout untrustworthy.
         try:
             result = repair.validate_patch(bug, checkout, candidate)
+        except EvaluatorIntegrityError:
+            raise
         except Exception as exc:  # noqa: BLE001 — never abort the loop on one patch
             logger.error("Unexpected error validating %s: %s", candidate.patch_id, exc)
             result = RepairAttemptResult(

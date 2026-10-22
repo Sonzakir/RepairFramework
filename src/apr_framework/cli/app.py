@@ -262,6 +262,10 @@ def _run() -> int:
         if args.bugsinpy_command == "evaluate-course-comparison":
             return _run_evaluate_course_comparison(args, project_root, adapter)
 
+    # -- Break This Fix cases --
+    if args.command == "challenge":
+        return handle_challenge(args, project_root)
+
     # -- Repair --
 
     if args.command == "repair":
@@ -312,6 +316,135 @@ def handle_repair(
     _print_repair_summary_for_bug(checkout.bug, writer, repair_result, ranker, assessor)
 
     return 0
+
+
+def handle_challenge(args: argparse.Namespace, project_root: Path) -> int:
+    """Dispatch the ``challenge`` subcommands."""
+    if args.challenge_command == "list":
+        return _list_challenge_cases(project_root)
+    if args.challenge_command == "run":
+        return _run_challenge_case(args, project_root)
+    if args.challenge_command == "agent-run":
+        return _run_challenge_agent_attempt(args, project_root)
+    raise ConfigurationError(f"Unknown challenge command: {args.challenge_command!r}")
+
+
+def _list_challenge_cases(project_root: Path) -> int:
+    """Print every case bundle under challenges/cases/."""
+    from apr_framework.challenge.bundle import list_cases
+    from apr_framework.challenge.report import format_case_list
+
+    print(format_case_list(list_cases(project_root)))
+    return 0
+
+
+def _run_challenge_case(args: argparse.Namespace, project_root: Path) -> int:
+    """Replay one case three ways, print the table, write JSON, exit 0 on a match."""
+    from apr_framework.challenge.bundle import append_replay_log_entry, load_case
+    from apr_framework.challenge.replay import (
+        ReplayOptions,
+        default_result_path,
+        run_case,
+    )
+    from apr_framework.challenge.report import format_replay_result
+
+    bundle = load_case(args.case_id, project_root)
+    adapter = create_bugsinpy_adapter(project_root)
+    adapter.toolchain.ensure_installed()
+    result = run_case(
+        bundle,
+        adapter,
+        project_root,
+        ReplayOptions(
+            patch_path=Path(args.patch_path) if args.patch_path else None,
+            repeats=args.repeats,
+            timeout_seconds=args.timeout,
+            reuse_checkout=args.reuse_checkout,
+        ),
+    )
+    result_path = (
+        Path(args.json_out)
+        if args.json_out
+        else default_result_path(project_root, result)
+    )
+    result_path.parent.mkdir(parents=True, exist_ok=True)
+    result_path.write_text(result.to_json(), encoding="utf-8")
+
+    print(format_replay_result(result))
+    print(f"JSON result: {result_path}")
+    if args.record:
+        append_replay_log_entry(bundle, _summarise_replay_for_case_log(result))
+        print(f"Recorded in {bundle.directory / 'case.json'} (replay_log)")
+    return 0 if result.matched else 1
+
+
+def _run_challenge_agent_attempt(args: argparse.Namespace, project_root: Path) -> int:
+    """Run one isolated coding-agent attempt, then print its outcome and run dir."""
+    from apr_framework.challenge.agent_run import AgentRunOptions, run_agent_attempt
+    from apr_framework.challenge.claude_code import ClaudeCodeCaps
+
+    adapter = create_bugsinpy_adapter(project_root)
+    adapter.toolchain.ensure_installed()
+    bug = BugIdentifier(
+        benchmark="bugsinpy",
+        project=adapter.resolve_project(args.project),
+        bug_id=args.bug,
+    )
+    result = run_agent_attempt(
+        bug,
+        adapter,
+        project_root,
+        AgentRunOptions(
+            caps=ClaudeCodeCaps(
+                max_turns=args.max_turns,
+                timeout_minutes=args.timeout_minutes,
+                max_budget_usd=args.max_budget_usd,
+                model=args.model,
+            ),
+            runs_dir=Path(args.runs_dir),
+            test_timeout_seconds=args.test_timeout,
+            keep_workspace=args.keep_workspace,
+        ),
+    )
+    session = result.session_summary
+    print(f"Run directory: {result.run_dir}")
+    print(f"Agent:         claude-code {session.get('session_cli_version') or ''}")
+    print(f"Model:         {session.get('model')}")
+    print(
+        f"Turns:         {session.get('num_turns')}  "
+        f"duration: {session.get('duration_seconds')}s  "
+        f"cost (estimate): {session.get('total_cost_usd')}"
+    )
+    print(f"Stop reason:   {session.get('stop_reason')}")
+    print(f"Outcome:       {result.outcome}")
+    print(f"Summary:       {result.summary}")
+    for finding in result.leak_findings:
+        print(f"  leak: {finding}")
+    return 0
+
+
+def _summarise_replay_for_case_log(result) -> dict[str, Any]:
+    """The replay_log entry: enough to audit the run without the full JSON."""
+    observed_by_variant: dict[str, list[dict[str, Any]]] = {}
+    for observation in result.observations:
+        observed_by_variant.setdefault(observation.variant, []).append(
+            {
+                "trigger": observation.trigger,
+                "regression": observation.regression,
+                "witness": observation.witness,
+                "integrity": observation.integrity,
+            }
+        )
+    return {
+        "date": result.finished_at,
+        "repeats": result.repeats,
+        "matched": result.matched,
+        "mismatches": result.mismatches,
+        "candidate_sha256": result.candidate_sha256,
+        "environment": result.environment,
+        "witness_classification": result.witness_classification,
+        "observed": observed_by_variant,
+    }
 
 
 def _resolve_repair_checkout_or_fail(
@@ -772,6 +905,14 @@ def _print_repair_summary_for_bug(
     print(f"Validated:     {metrics.candidates_validated} candidate(s)")
     print(f"Plausible:     {metrics.plausible_count} patch(es)")
     print(f"Correct:       {metrics.correct_count} patch(es)")
+    print(
+        f"Rejected:      {metrics.integrity_rejected_count} patch(es) "
+        "(edit evaluator files; see integrity_rejections)"
+    )
+    if repair_result.regression_checked is False:
+        print(
+            "Regression:    NOT checked: plausibility rests on the trigger test alone"
+        )
     print(f"1st plausible: {ttfp_str}")
     print(f"Total time:    {metrics.total_wall_clock_seconds:.1f}s")
     if ranker is not None:

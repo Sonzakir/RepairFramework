@@ -17,7 +17,6 @@ from apr_framework.core.models import (
     RepairAttemptResult,
     RepairStatus,
     RetrievalTrace,
-    TestRunResult,
 )
 from apr_framework.repair.base import RepairAlgorithm
 from apr_framework.repair.llm.client import LLMClient
@@ -41,7 +40,14 @@ from apr_framework.repair.llm.prompt_builder import (
     load_system_prompt,
 )
 from apr_framework.repair.llm.retrieval_loop import run_retrieval_loop
-from apr_framework.repair.patch_applier import apply_patch_and_validate
+from apr_framework.repair.evaluator_integrity import (
+    EvaluatorGuard,
+    EvaluatorIntegrityError,
+)
+from apr_framework.repair.patch_applier import (
+    apply_patch_and_validate,
+    build_attempt_result,
+)
 from apr_framework.repair.regression import RegressionContext, build_regression_context
 from apr_framework.repair.run_loop import LoopOutcome, build_loop_summary
 
@@ -114,6 +120,9 @@ class LLMRepairAlgorithm(RepairAlgorithm):
         # Regression baseline is established once, lazily, on the first
         # validate_patch call; reused for every subsequent candidate.
         self._regression: RegressionContext | None = None
+        # Evaluator files (tests, fixtures, test config, BugsInPy scripts) are
+        # snapshotted once, lazily, and verified after every validation.
+        self._evaluator_guard: EvaluatorGuard | None = None
         # Failing-test context (test source + traceback) is gathered once, lazily,
         # on the first generate_patches call and reused for every prompt.
         self._failing_test_context: FailingTestContext | None = None
@@ -150,9 +159,7 @@ class LLMRepairAlgorithm(RepairAlgorithm):
         Returns:
             All generated PatchCandidate objects across all locations.
         """
-        top_locations = self._localization_result.ranked_locations[
-            : self._repair_config.top_n_locations
-        ]
+        top_locations = self._repair_target_locations(checkout)
         all_patch_candidates: list[PatchCandidate] = []
 
         for location in top_locations:
@@ -177,9 +184,9 @@ class LLMRepairAlgorithm(RepairAlgorithm):
         """Apply a diff candidate to the worktree, run tests, and revert.
 
         Parses the target file path from the diff header, applies the patch
-        with the system ``patch`` utility, delegates the test-run and
-        regression check to ``apply_patch_and_validate``, then restores
-        the file unconditionally.
+        with the system ``patch`` utility, delegates integrity screening, the
+        test-run and regression check, and the evaluator-file verification to
+        ``apply_patch_and_validate``, then restores the file unconditionally.
 
         Args:
             bug:             Bug identifier.
@@ -188,7 +195,8 @@ class LLMRepairAlgorithm(RepairAlgorithm):
                              with an absolute ``fromfile`` path.
 
         Returns:
-            RepairAttemptResult with status PLAUSIBLE or FAILED.
+            RepairAttemptResult with status PLAUSIBLE, FAILED, or REJECTED (the
+            candidate edits evaluator files; see ``apply_patch_and_validate``).
         """
         source_file_path = _parse_source_file_path_from_diff(patch_candidate.diff_text)
         if source_file_path is None:
@@ -245,20 +253,17 @@ class LLMRepairAlgorithm(RepairAlgorithm):
         def restore_fn() -> None:
             source_file_path.write_bytes(original_file_content)
 
-        regression_context = self._regression_context(checkout)
-
-        is_plausible, test_run_result = apply_patch_and_validate(
+        validation_outcome = apply_patch_and_validate(
             apply_fn,
             restore_fn,
             self._adapter,
             checkout,
-            regression_context,
+            self._regression_context(checkout),
             self._repair_config.timeout_seconds,
+            evaluator_guard=self._evaluator_guard_for(checkout),
+            diff_text=diff_text,
+            touched_paths=(source_file_path,),
         )
-
-        passed_count = test_run_result.passed_count
-        failed_count = test_run_result.failed_count
-        error_count = test_run_result.error_count
 
         # Iterative mode hands the failed test run's output back to the LLM as the
         # next conversation turn. Stash it (and the counts) on the candidate's
@@ -266,34 +271,14 @@ class LLMRepairAlgorithm(RepairAlgorithm):
         # Gated on ``iterative`` so single-shot runs stay byte-for-byte unchanged;
         # RepairEvaluationRunner filters ``raw_test_output`` out of the JSON output.
         if self._repair_config.iterative:
+            test_run_result = validation_outcome.trigger_test_run_result
             patch_candidate.metadata["raw_test_output"] = test_run_result.raw_output
-            patch_candidate.metadata["passed_count"] = passed_count
-            patch_candidate.metadata["failed_count"] = failed_count
-            patch_candidate.metadata["error_count"] = error_count
-            patch_candidate.metadata["failure_kind"] = _classify_failure_kind(
-                is_plausible, test_run_result
-            )
+            patch_candidate.metadata["passed_count"] = test_run_result.passed_count
+            patch_candidate.metadata["failed_count"] = test_run_result.failed_count
+            patch_candidate.metadata["error_count"] = test_run_result.error_count
+            patch_candidate.metadata["failure_kind"] = validation_outcome.failure_kind
 
-        if is_plausible:
-            logger.info("Plausible patch found: %s", patch_candidate.patch_id)
-            return RepairAttemptResult(
-                bug=bug,
-                patch=patch_candidate,
-                status=RepairStatus.PLAUSIBLE,
-                validation_summary=(
-                    f"All tests passed with patch {patch_candidate.patch_id}."
-                ),
-            )
-
-        return RepairAttemptResult(
-            bug=bug,
-            patch=patch_candidate,
-            status=RepairStatus.FAILED,
-            validation_summary=(
-                f"Patch {patch_candidate.patch_id} did not fix all tests "
-                f"(passed={passed_count}, failed={failed_count}, errors={error_count})."
-            ),
-        )
+        return build_attempt_result(bug, patch_candidate, validation_outcome)
 
     # ------------------------------------------------------------------
     # Orchestration
@@ -374,9 +359,7 @@ class LLMRepairAlgorithm(RepairAlgorithm):
         while ``max_iterations`` caps the turns spent on any single one.
         """
         started_at = time.monotonic()
-        top_locations = self._localization_result.ranked_locations[
-            : self._repair_config.top_n_locations
-        ]
+        top_locations = self._repair_target_locations(checkout)
 
         all_results: list[RepairAttemptResult] = []
         total_candidates_generated = 0
@@ -554,6 +537,8 @@ class LLMRepairAlgorithm(RepairAlgorithm):
             # FAILED, count it against budget, and end this location's conversation.
             try:
                 result = self.validate_patch(bug, checkout, patch_candidate)
+            except EvaluatorIntegrityError:
+                raise
             except Exception as validation_error:  # noqa: BLE001 — never abort the loop on one patch
                 logger.error(
                     "Unexpected error validating %s: %s",
@@ -577,7 +562,8 @@ class LLMRepairAlgorithm(RepairAlgorithm):
             candidates_validated += 1
             previous_diff_text = extracted_patch.diff_text
 
-            if result.status == RepairStatus.PLAUSIBLE:
+            # A rejected candidate ran no tests, so there is no output to feed back.
+            if result.status in (RepairStatus.PLAUSIBLE, RepairStatus.REJECTED):
                 break
 
             feedback_message = build_test_failure_feedback_message(
@@ -764,6 +750,37 @@ class LLMRepairAlgorithm(RepairAlgorithm):
             retrieval_trace=retrieval_trace,
         )
 
+    def _repair_target_locations(
+        self, checkout: CheckoutResult
+    ) -> list[RankedLocation]:
+        """Return the top-N ranked locations, skipping evaluator files.
+
+        LLM fault localization can rank the failing test itself first (it did on
+        black#3); a repair there rewrites the evaluator, never the bug. Evaluator
+        candidates would be rejected anyway, so they are not targeted at all.
+        """
+        evaluator_guard = self._evaluator_guard_for(checkout)
+        source_locations: list[RankedLocation] = []
+        for location in self._localization_result.ranked_locations:
+            if location.file_path and evaluator_guard.is_evaluator_file(
+                location.file_path
+            ):
+                logger.info(
+                    "Skipping evaluator-file location %s:%s (rank %d)",
+                    location.file_path,
+                    location.line,
+                    location.rank,
+                )
+                continue
+            source_locations.append(location)
+        return source_locations[: self._repair_config.top_n_locations]
+
+    def _evaluator_guard_for(self, checkout: CheckoutResult) -> EvaluatorGuard:
+        """Return the checkout's evaluator guard, snapshotting it once on first use."""
+        if self._evaluator_guard is None:
+            self._evaluator_guard = EvaluatorGuard.for_worktree(checkout.worktree)
+        return self._evaluator_guard
+
     def _regression_context(self, checkout: CheckoutResult) -> RegressionContext:
         """Return the regression baseline, establishing it once on first use."""
         if self._regression is None:
@@ -832,32 +849,6 @@ class LLMRepairAlgorithm(RepairAlgorithm):
             "Source file not found: %s (worktree: %s)", file_path_str, checkout.worktree
         )
         return None
-
-
-def _classify_failure_kind(
-    is_plausible: bool, trigger_test_run_result: TestRunResult
-) -> str:
-    """Classify why a validated patch was not plausible, for iterative feedback.
-
-    ``apply_patch_and_validate`` returns only the *trigger* test run. When a patch
-    makes the bug-triggering test pass but breaks a previously-passing test, that
-    trigger run shows all-green — so its counts/traceback tell the model nothing
-    about the real failure. This distinguishes the two cases so the feedback turn
-    can be honest:
-
-      - "none"       — the patch was plausible (no feedback needed).
-      - "regression" — the trigger test passed but the patch broke another test.
-      - "trigger"    — the bug's own test still fails (trigger output is useful).
-    """
-    if is_plausible:
-        return "none"
-    trigger_passed = (
-        trigger_test_run_result.return_code == 0
-        and trigger_test_run_result.failed_count == 0
-        and trigger_test_run_result.error_count == 0
-        and trigger_test_run_result.passed_count > 0
-    )
-    return "regression" if trigger_passed else "trigger"
 
 
 def _parse_source_file_path_from_diff(diff_text: str) -> Path | None:

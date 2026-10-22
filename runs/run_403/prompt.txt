@@ -1,0 +1,35 @@
+A test in this Python project fails, and the code needs a fix.
+
+Failing test: tests.test_black.BlackTestCase.test_invalid_config_return_code
+
+Output of the failing test on the current code:
+
+```
+python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code
+
+
+======================================================================
+FAIL: test_invalid_config_return_code (tests.test_black.BlackTestCase)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_403-black-3/black/tests/test_black.py", line 1654, in test_invalid_config_return_code
+    self.invokeBlack(args, exit_code=2, ignore_config=False)
+  File "/private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_403-black-3/black/tests/test_black.py", line 162, in invokeBlack
+    self.assertEqual(result.exit_code, exit_code, msg=runner.stderr_bytes.decode())
+AssertionError: 1 != 2 : Error: Could not open file /tmp/blk_om4lghis.log: Error reading configuration file: [Errno 2] No such file or directory: '/tmp/blk_om4lghis.log'
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+FAILED (failures=1)
+```
+
+Running tests: the project's own Python environment is set up behind two scripts in the current directory. They are the only way to run the tests here.
+
+- `./run_failing_test` runs the failing test above.
+- `./run_tests` runs the test file around it (tests/test_black.py).
+
+The tests define the intended behaviour. Change the project's code so the failing test passes without breaking the other tests. Do not modify, delete, skip or weaken any test, fixture or test configuration.
+
+When you are done, reply with a short summary of what you changed and why.

@@ -26,7 +26,7 @@ import re
 from dataclasses import dataclass
 
 from apr_framework.benchmarks.bugsinpy import BugsInPyAdapter
-from apr_framework.core.models import CheckoutResult
+from apr_framework.core.models import CheckoutResult, TestRunResult
 
 logger = logging.getLogger(__name__)
 
@@ -35,6 +35,10 @@ logger = logging.getLogger(__name__)
 _PYTEST_FAIL = re.compile(r"^(?:FAILED|ERROR)\s+(?!\()(\S+)", re.MULTILINE)
 # unittest: "FAIL: test_a (tests.test_x.Case)" / "ERROR: test_a (tests.test_x.Case)"
 _UNITTEST_FAIL = re.compile(r"^(?:FAIL|ERROR):\s+(\w+)\s+\(([\w.]+)\)", re.MULTILINE)
+# pytest aborts the whole session when a module fails to import during collection.
+_COLLECTION_INTERRUPTED = re.compile(r"Interrupted: \d+ errors? during collection")
+# Exit code the executor reports when a test command hit its wall-clock timeout.
+_TIMEOUT_RETURN_CODE = 124
 
 
 @dataclass(frozen=True)
@@ -44,14 +48,34 @@ class RegressionContext:
     Fields:
         enabled:          Whether the regression check should run. False when it was
             switched off or could not be established (e.g. no derivable suite); in
-            that case plausibility falls back to the trigger-test result only.
+            that case plausibility falls back to the trigger-test result only and
+            every result carries ``regression_checked: false``.
         command:          The test command that runs the whole regression suite.
         baseline_failing: Failing test ids on the *unpatched* suite run.
+        disabled_reason:  Why the check is off (empty while enabled); shown in
+            reports next to ``regression_checked: false``.
     """
 
     enabled: bool
     command: str = ""
     baseline_failing: frozenset[str] = frozenset()
+    disabled_reason: str = ""
+
+
+def is_trusted_suite_run(run_result: TestRunResult) -> bool:
+    """Report whether a test-suite run finished and actually executed tests.
+
+    ``bugsinpy-test`` always exits 0 (its last command is ``deactivate``), so the
+    exit code cannot tell a crashed run from a clean one. A run is trusted only
+    when it did not time out, pytest did not abort collection, and at least one
+    test passed or failed. A collection crash reports only errors; a timeout or
+    an interpreter crash reports nothing at all. Neither proves "no new failure".
+    """
+    if run_result.return_code == _TIMEOUT_RETURN_CODE:
+        return False
+    if _COLLECTION_INTERRUPTED.search(run_result.raw_output):
+        return False
+    return run_result.passed_count + run_result.failed_count > 0
 
 
 def parse_failing_test_ids(raw_output: str) -> set[str]:
@@ -125,7 +149,9 @@ def build_regression_context(
     on it.
     """
     if not enabled:
-        return RegressionContext(enabled=False)
+        return RegressionContext(
+            enabled=False, disabled_reason="switched off (--no-regression-check)"
+        )
 
     trigger_command_content = _read_checkout_file(checkout, "bugsinpy_run_test.sh")
     test_file = _read_test_file(checkout)
@@ -134,7 +160,9 @@ def build_regression_context(
             "Regression check disabled: no bugsinpy_run_test.sh in %s",
             checkout.worktree,
         )
-        return RegressionContext(enabled=False)
+        return RegressionContext(
+            enabled=False, disabled_reason="no bugsinpy_run_test.sh in the checkout"
+        )
 
     command = derive_regression_command(trigger_command_content, test_file)
     if command is None:
@@ -144,21 +172,26 @@ def build_regression_context(
             trigger_command_content.strip(),
             test_file,
         )
-        return RegressionContext(enabled=False)
+        return RegressionContext(
+            enabled=False, disabled_reason="no regression suite could be derived"
+        )
 
     logger.info("Establishing regression baseline via: %s", command)
     baseline_run_result = adapter.run_tests(checkout, timeout=timeout, command=command)
     baseline_failing = parse_failing_test_ids(baseline_run_result.raw_output)
 
-    # If the baseline suite produced no parseable result at all (e.g. collection
+    # If the baseline suite did not finish with executed tests (e.g. a collection
     # crash on the buggy checkout), the subset test would be meaningless — disable.
-    if baseline_run_result.passed_count == 0 and not baseline_failing:
+    if not is_trusted_suite_run(baseline_run_result):
         logger.warning(
             "Regression check disabled: baseline suite produced no usable results "
             "(rc=%d). Falling back to trigger-test plausibility only.",
             baseline_run_result.return_code,
         )
-        return RegressionContext(enabled=False)
+        return RegressionContext(
+            enabled=False,
+            disabled_reason="the baseline suite run produced no usable result",
+        )
 
     logger.info(
         "Regression baseline established: %d failing test(s) on the buggy suite.",

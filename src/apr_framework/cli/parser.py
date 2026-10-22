@@ -780,6 +780,131 @@ def build_parser() -> argparse.ArgumentParser:
         help="Directory for per-cell run artifacts (default: runs).",
     )
 
+    ### Break This Fix: case bundles under challenges/cases/
+    challenge_parser = subparsers.add_parser(
+        "challenge",
+        help="Break This Fix cases: list and replay them.",
+    )
+    challenge_subparsers = challenge_parser.add_subparsers(
+        dest="challenge_command", required=True
+    )
+    challenge_subparsers.add_parser("list", help="List every case bundle.")
+
+    challenge_run_parser = challenge_subparsers.add_parser(
+        "run",
+        help=(
+            "Replay a case three ways (buggy, candidate, developer-fixed) with the "
+            "evaluator files locked; exit 0 only if the outcomes match case.json."
+        ),
+    )
+    challenge_run_parser.add_argument("case_id", help="Case directory name")
+    challenge_run_parser.add_argument(
+        "--patch",
+        dest="patch_path",
+        default=None,
+        help=(
+            "Replay this unified diff as the candidate instead of the case's "
+            "candidate.diff (e.g. your own repair attempt)."
+        ),
+    )
+    challenge_run_parser.add_argument(
+        "--repeats",
+        type=int,
+        default=3,
+        help="Clean repeats of every variant (default: 3)",
+    )
+    challenge_run_parser.add_argument(
+        "--timeout",
+        type=int,
+        default=300,
+        help="Seconds allowed per test command (default: 300)",
+    )
+    challenge_run_parser.add_argument(
+        "--reuse-checkout",
+        dest="reuse_checkout",
+        action="store_true",
+        help=(
+            "Reuse an existing compiled challenge checkout instead of checking the "
+            "bug out and compiling it afresh (faster; recorded in the result)."
+        ),
+    )
+    challenge_run_parser.add_argument(
+        "--json-out",
+        dest="json_out",
+        default=None,
+        help=(
+            "Write the JSON result here (default: "
+            ".workspace/challenge_results/<case-id>/<timestamp>.json)"
+        ),
+    )
+    challenge_run_parser.add_argument(
+        "--record",
+        action="store_true",
+        help="Append a summary of this replay to the case's replay_log in case.json.",
+    )
+
+    challenge_agent_parser = challenge_subparsers.add_parser(
+        "agent-run",
+        help=(
+            "Run one fresh, isolated coding-agent repair attempt on a bug, capture "
+            "its complete diff and evaluate it in a clean checkout. Runs on the host "
+            "(where the agent CLI is logged in), not in the framework container."
+        ),
+    )
+    challenge_agent_parser.add_argument("--project", required=True)
+    challenge_agent_parser.add_argument("--bug", type=int, required=True)
+    challenge_agent_parser.add_argument(
+        "--agent",
+        choices=["claude-code"],
+        default="claude-code",
+        help="Coding agent CLI to run (default: claude-code)",
+    )
+    challenge_agent_parser.add_argument(
+        "--max-turns",
+        dest="max_turns",
+        type=int,
+        default=40,
+        help="Agentic turns allowed (default: 40)",
+    )
+    challenge_agent_parser.add_argument(
+        "--timeout-minutes",
+        dest="timeout_minutes",
+        type=int,
+        default=20,
+        help="Wall-clock limit for the agent (default: 20)",
+    )
+    challenge_agent_parser.add_argument(
+        "--max-budget-usd",
+        dest="max_budget_usd",
+        type=float,
+        default=3.0,
+        help="Spend cap for the attempt, as estimated by Claude Code (default: 3.00)",
+    )
+    challenge_agent_parser.add_argument(
+        "--model",
+        default=None,
+        help="Model for the agent (default: the CLI's own default, recorded per run)",
+    )
+    challenge_agent_parser.add_argument(
+        "--test-timeout",
+        dest="test_timeout",
+        type=int,
+        default=300,
+        help="Seconds allowed per test command run for or by the agent (default: 300)",
+    )
+    challenge_agent_parser.add_argument(
+        "--runs-dir",
+        dest="runs_dir",
+        default="runs",
+        help="Directory for the run_NNN output (default: runs)",
+    )
+    challenge_agent_parser.add_argument(
+        "--keep-workspace",
+        dest="keep_workspace",
+        action="store_true",
+        help="Keep the agent's temporary workspace after the run (default: delete it)",
+    )
+
     # Repair command
     repair_parser = subparsers.add_parser(
         "repair",

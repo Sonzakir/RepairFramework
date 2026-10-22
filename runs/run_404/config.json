@@ -1,0 +1,21 @@
+{
+  "runner": "challenge-agent-run",
+  "agent": "claude-code",
+  "project": "black",
+  "bug_id": 3,
+  "fl_mode": "none (the agent localizes the fault itself)",
+  "caps": {
+    "max_turns": 40,
+    "timeout_minutes": 20,
+    "max_budget_usd": 3.0,
+    "model": null
+  },
+  "test_timeout_seconds": 300,
+  "prompt_template": "src/apr_framework/challenge/prompts/claude_code_repair.txt",
+  "prompt_template_sha256": "b3863675e7cf42ff04d585ec4b1dd388943001de764e53c69cf75c03d250bb72",
+  "prompt_sha256": "32daa32384c2162895ef6230f46291801336866abd5f53db76ce5157577708c2",
+  "trigger_command": "python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code",
+  "regression_command": "python -m unittest tests.test_black",
+  "agent_workspace": "/private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_404-black-3/black",
+  "started_at": "2026-10-19T22:06:34.209947+00:00"
+}

@@ -1,0 +1,56 @@
+A test in this Python project fails, and the code needs a fix.
+
+Failing test: tests/test_param_in_path_and_dependency.py::test_reused_param
+
+Output of the failing test on the current code:
+
+```
+pytest tests/test_param_in_path_and_dependency.py::test_reused_param
+
+
+============================= test session starts ==============================
+platform linux -- Python 3.8.3, pytest-5.4.3, py-1.8.1, pluggy-0.13.1
+rootdir: /private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_405-fastapi-4/fastapi
+plugins: cov-2.9.0
+collected 1 item
+
+tests/test_param_in_path_and_dependency.py F                             [100%]
+
+=================================== FAILURES ===================================
+______________________________ test_reused_param _______________________________
+
+    def test_reused_param():
+        response = client.get("/openapi.json")
+        data = response.json()
+>       assert data == openapi_schema
+E       AssertionError: assert {'components'...ead Users'}}}} == {'components'...ead Users'}}}}
+E         Omitting 3 identical items, use -vv to show
+E         Differing items:
+E         {'paths': {'/users/{user_id}': {'get': {'operationId': 'read_users_users__user_id__get', 'parameters': [{'in': 'path',...on': 'Successful Response'}, '422': {'content': {...}, 'description': 'Validation Error'}}, 'summary': 'Read Users'}}}} != {'paths': {'/users/{user_id}': {'get': {'operationId': 'read_users_users__user_id__get', 'parameters': [{'in': 'path',...on': 'Successful Response'}, '422': {'content': {...}, 'description': 'Validation Error'}}, 'summary': 'Read Users'}}}}
+E         Use -v to get the full diff
+
+tests/test_param_in_path_and_dependency.py:88: AssertionError
+=============================== warnings summary ===============================
+env/lib/python3.8/site-packages/aiofiles/os.py:10
+env/lib/python3.8/site-packages/aiofiles/os.py:10
+env/lib/python3.8/site-packages/aiofiles/os.py:10
+env/lib/python3.8/site-packages/aiofiles/os.py:10
+env/lib/python3.8/site-packages/aiofiles/os.py:10
+env/lib/python3.8/site-packages/aiofiles/os.py:10
+  /private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_405-fastapi-4/fastapi/env/lib/python3.8/site-packages/aiofiles/os.py:10: DeprecationWarning: "@coroutine" decorator is deprecated since Python 3.8, use "async def" instead
+    def run(*args, loop=None, executor=None, **kwargs):
+
+-- Docs: https://docs.pytest.org/en/latest/warnings.html
+=========================== short test summary info ============================
+FAILED tests/test_param_in_path_and_dependency.py::test_reused_param - Assert...
+======================== 1 failed, 6 warnings in 0.17s =========================
+```
+
+Running tests: the project's own Python environment is set up behind two scripts in the current directory. They are the only way to run the tests here; other shell commands are not available. Run each script on its own, for example `./run_failing_test`.
+
+- `./run_failing_test` runs the failing test above.
+- `./run_tests` runs the test file around it (tests/test_param_in_path_and_dependency.py).
+
+The tests define the intended behaviour. Change the project's code so the failing test passes without breaking the other tests. Do not modify, delete, skip or weaken any test, fixture or test configuration.
+
+When you are done, reply with a short summary of what you changed and why.

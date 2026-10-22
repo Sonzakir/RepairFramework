@@ -1,0 +1,21 @@
+{
+  "runner": "challenge-agent-run",
+  "agent": "claude-code",
+  "project": "fastapi",
+  "bug_id": 4,
+  "fl_mode": "none (the agent localizes the fault itself)",
+  "caps": {
+    "max_turns": 40,
+    "timeout_minutes": 20,
+    "max_budget_usd": 2.5,
+    "model": "claude-opus-5-5"
+  },
+  "test_timeout_seconds": 300,
+  "prompt_template": "src/apr_framework/challenge/prompts/claude_code_repair.txt",
+  "prompt_template_sha256": "b3863675e7cf42ff04d585ec4b1dd388943001de764e53c69cf75c03d250bb72",
+  "prompt_sha256": "240805f951df31faf740af9b14af08aa788d5cabe3c6bcc0b6709542066f27a0",
+  "trigger_command": "pytest tests/test_param_in_path_and_dependency.py::test_reused_param",
+  "regression_command": "pytest -rfE -q tests/test_param_in_path_and_dependency.py",
+  "agent_workspace": "/private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_405-fastapi-4/fastapi",
+  "started_at": "2026-10-19T22:43:06.524670+00:00"
+}

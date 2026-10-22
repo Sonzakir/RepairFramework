@@ -171,6 +171,9 @@ class RepairEvaluationRunner(EvaluationRunner):
                 similarity_scored_results=(
                     bug_result.outcome.all_results if self._score_similarity else None
                 ),
+                regression_checked=_all_plausible_regression_checked(
+                    bug_result.outcome.plausible_results
+                ),
             )
             for bug_result in bug_run_results
         ]
@@ -276,6 +279,7 @@ class RepairEvaluationRunner(EvaluationRunner):
             rank_of_first_correct=rank_of_first_correct,
             llm_query_count=repair.llm_query_count(),
             assessment_query_count=assessment_query_count,
+            integrity_rejected_count=len(outcome.rejected_results),
         )
 
         # Overall bug status: correct > plausible > (failed/no_patch from the loop).
@@ -290,6 +294,7 @@ class RepairEvaluationRunner(EvaluationRunner):
             f"generated={metrics.total_candidates_generated}, "
             f"validated={metrics.candidates_validated}, "
             f"plausible={metrics.plausible_count}, correct={metrics.correct_count}, "
+            f"rejected={metrics.integrity_rejected_count}, "
             f"ttfp={metrics.time_to_first_plausible_seconds}, "
             f"wall_clock={metrics.total_wall_clock_seconds:.1f}s"
             + (
@@ -338,7 +343,9 @@ class RepairEvaluationRunner(EvaluationRunner):
         self, writer: RunWriter, bug_result: _BugRunResult
     ) -> dict[str, Any]:
         plausible_results = bug_result.outcome.plausible_results
+        rejected_results = bug_result.outcome.rejected_results
         self._write_patch_artifacts(writer, plausible_results)
+        self._write_rejected_patch_artifacts(writer, rejected_results)
 
         ranked_plausible_patches = None
         if self._ranker is not None:
@@ -380,6 +387,14 @@ class RepairEvaluationRunner(EvaluationRunner):
             "candidates_validated": bug_result.metrics.candidates_validated,
             "plausible_count": bug_result.metrics.plausible_count,
             "correct_count": bug_result.metrics.correct_count,
+            "integrity_rejected_count": bug_result.metrics.integrity_rejected_count,
+            # False when any plausible patch rests on the trigger test alone
+            # (regression baseline disabled); None when nothing was plausible.
+            "regression_checked": _all_plausible_regression_checked(plausible_results),
+            "integrity_rejections": [
+                _serialise_integrity_rejection(attempt_result)
+                for attempt_result in rejected_results
+            ],
             "metrics": {
                 "total_candidates_generated": bug_result.metrics.total_candidates_generated,
                 "candidates_validated": bug_result.metrics.candidates_validated,
@@ -388,6 +403,7 @@ class RepairEvaluationRunner(EvaluationRunner):
                 "time_to_first_plausible_seconds": bug_result.metrics.time_to_first_plausible_seconds,
                 "total_wall_clock_seconds": bug_result.metrics.total_wall_clock_seconds,
                 "rank_of_first_correct": bug_result.metrics.rank_of_first_correct,
+                "integrity_rejected_count": bug_result.metrics.integrity_rejected_count,
             },
             "plausible_patches": [
                 self._serialise_result(attempt_result)
@@ -498,6 +514,26 @@ class RepairEvaluationRunner(EvaluationRunner):
         )
 
     @staticmethod
+    def _write_rejected_patch_artifacts(
+        writer: RunWriter, rejected_results: list[RepairAttemptResult]
+    ) -> None:
+        """Keep every rejected diff: rejections are test-tampering evidence."""
+        if not rejected_results:
+            return
+        rejected_dir = writer.run_dir / "patches" / "rejected"
+        rejected_dir.mkdir(parents=True, exist_ok=True)
+        for result in rejected_results:
+            if result.patch is None:
+                continue
+            (rejected_dir / f"{result.patch.patch_id}.diff").write_text(
+                result.patch.diff_text, encoding="utf-8"
+            )
+            writer.log(f"REJECTED {result.patch.patch_id}: {result.validation_summary}")
+        writer.log(
+            f"Wrote {len(rejected_results)} rejected patch artifact(s) to {rejected_dir}"
+        )
+
+    @staticmethod
     def _log_retrieval_traces(
         writer: RunWriter, attempt_results: list[RepairAttemptResult]
     ) -> None:
@@ -567,3 +603,27 @@ class RepairEvaluationRunner(EvaluationRunner):
     def _resolve_runs_dir(self, runs_dir: Path | str) -> Path:
         path = Path(runs_dir)
         return path if path.is_absolute() else self._project_root / path
+
+
+def _all_plausible_regression_checked(
+    plausible_results: list[RepairAttemptResult],
+) -> bool | None:
+    """Return whether every plausible patch passed a trusted regression check."""
+    if not plausible_results:
+        return None
+    return all(
+        result.patch is not None
+        and result.patch.metadata.get("regression_checked") is True
+        for result in plausible_results
+    )
+
+
+def _serialise_integrity_rejection(result: RepairAttemptResult) -> dict[str, Any]:
+    """Return the structured record of one evaluator-integrity rejection."""
+    metadata = result.patch.metadata if result.patch else {}
+    return {
+        "patch_id": result.patch.patch_id if result.patch else None,
+        "integrity": metadata.get("integrity"),
+        "integrity_paths": metadata.get("integrity_paths", []),
+        "validation_summary": result.validation_summary,
+    }

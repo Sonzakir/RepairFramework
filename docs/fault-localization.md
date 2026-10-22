@@ -302,6 +302,12 @@ and `metadata.raw_llm_response` holds its raw answer. If the ranking contains on
 test-file lines, symbol anchoring found nothing. See
 [Troubleshooting](getting-started.md#troubleshooting).
 
+Repair never targets those lines. Both repair engines skip ranked locations in
+evaluator files (tests, fixtures, test configuration) and take the top-N from what
+remains. On black#3, LLM-FL ranked `tests/test_black.py` first, and the repair engine
+of the time rewrote the test's expectation
+([evaluator integrity](validation-and-scoring.md#evaluator-integrity)).
+
 ---
 
 ## Perfect fault localization (oracle)

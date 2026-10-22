@@ -1,0 +1,99 @@
+{
+  "command": [
+    "/Users/fazlisonerkiraz/.local/bin/claude",
+    "-p",
+    "<prompt.txt>",
+    "--restricted",
+    "--safe-mode",
+    "--tools",
+    "Read,Edit,Write,Glob,Grep,Bash",
+    "--allowedTools",
+    "Read",
+    "Edit",
+    "Write",
+    "Glob",
+    "Grep",
+    "Bash(./run_failing_test)",
+    "Bash(./run_failing_test *)",
+    "Bash(./run_tests)",
+    "Bash(./run_tests *)",
+    "--disallowedTools",
+    "WebFetch",
+    "WebSearch",
+    "mcp__*",
+    "--permission-mode",
+    "dontAsk",
+    "--permission-prompts",
+    "none",
+    "--max-turns",
+    "40",
+    "--max-budget-usd",
+    "2.50",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--no-session-persistence",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--settings",
+    "{\"permissions\": {\"blockReadsOutsideWorkingDirectories\": true, \"allow\": [\"Read\", \"Edit\", \"Write\", \"Glob\", \"Grep\", \"Bash(./run_failing_test)\", \"Bash(./run_failing_test *)\", \"Bash(./run_tests)\", \"Bash(./run_tests *)\"], \"deny\": [\"WebFetch\", \"WebSearch\", \"Bash(git *)\", \"Bash(docker *)\", \"Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/**)\", \"Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/**)\", \"Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/.tools/bugsinpy/**)\", \"Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/.tools/bugsinpy/**)\", \"Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/runs/**)\", \"Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/runs/**)\", \"Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/experiment_results/**)\", \"Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/experiment_results/**)\", \"Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/challenges/**)\", \"Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/challenges/**)\", \"Read(//Users/fazlisonerkiraz/.claude/**)\", \"Edit(//Users/fazlisonerkiraz/.claude/**)\"]}, \"sandbox\": {\"enabled\": true, \"allowUnsandboxedCommands\": false, \"failIfUnavailable\": true, \"filesystem\": {\"denyRead\": [\"/Users/fazlisonerkiraz\", \"/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework\", \"/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/.tools/bugsinpy\", \"/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/runs\", \"/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/experiment_results\", \"/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/challenges\", \"/Users/fazlisonerkiraz/.claude\"], \"allowRead\": [\"/private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_405-fastapi-4/fastapi\"]}, \"network\": {\"allowedDomains\": []}}}",
+    "--model",
+    "claude-opus-5-5"
+  ],
+  "settings": {
+    "permissions": {
+      "blockReadsOutsideWorkingDirectories": true,
+      "allow": [
+        "Read",
+        "Edit",
+        "Write",
+        "Glob",
+        "Grep",
+        "Bash(./run_failing_test)",
+        "Bash(./run_failing_test *)",
+        "Bash(./run_tests)",
+        "Bash(./run_tests *)"
+      ],
+      "deny": [
+        "WebFetch",
+        "WebSearch",
+        "Bash(git *)",
+        "Bash(docker *)",
+        "Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/**)",
+        "Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/**)",
+        "Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/.tools/bugsinpy/**)",
+        "Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/.tools/bugsinpy/**)",
+        "Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/runs/**)",
+        "Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/runs/**)",
+        "Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/experiment_results/**)",
+        "Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/experiment_results/**)",
+        "Read(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/challenges/**)",
+        "Edit(//Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/challenges/**)",
+        "Read(//Users/fazlisonerkiraz/.claude/**)",
+        "Edit(//Users/fazlisonerkiraz/.claude/**)"
+      ]
+    },
+    "sandbox": {
+      "enabled": true,
+      "allowUnsandboxedCommands": false,
+      "failIfUnavailable": true,
+      "filesystem": {
+        "denyRead": [
+          "/Users/fazlisonerkiraz",
+          "/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework",
+          "/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/.tools/bugsinpy",
+          "/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/runs",
+          "/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/experiment_results",
+          "/Users/fazlisonerkiraz/Vaults/RepairFrameworkVault/RepairFramework/challenges",
+          "/Users/fazlisonerkiraz/.claude"
+        ],
+        "allowRead": [
+          "/private/var/folders/5w/15bw_1x1751dqdwglw4pz1b80000gn/T/apr-agent-workspaces/run_405-fastapi-4/fastapi"
+        ]
+      },
+      "network": {
+        "allowedDomains": []
+      }
+    }
+  }
+}

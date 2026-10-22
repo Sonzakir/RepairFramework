@@ -34,12 +34,18 @@ class RepairStatus(str, Enum):
             verified as semantically correct.
         FAILED: Candidate patches were generated, but none passed validation.
         NO_PATCH: The repair algorithm did not produce any candidate patch.
+        REJECTED: The evaluator-integrity gate refused the candidate: it edits
+            tests, fixtures, test configuration or BugsInPy scripts, detects the
+            test runner, or changed evaluator files while it ran. The reason is
+            in the candidate's ``integrity`` / ``integrity_paths`` metadata.
+            Rejections are kept and reported as evidence, never dropped.
     """
 
     PLAUSIBLE = "plausible"
     CORRECT = "correct"
     FAILED = "failed"
     NO_PATCH = "no_patch"
+    REJECTED = "rejected"
 
 
 # TODO: Benchmarks as enums? (Since we have a limited number of benchmarks)
@@ -251,6 +257,8 @@ class RepairRunMetrics:
             run (generation + validation).
         llm_query_count:                   Number of LLM API calls the run made, or
             None for backends that issue no LLM queries (e.g. template repair).
+        integrity_rejected_count:          Candidates the evaluator-integrity gate
+            rejected (status REJECTED); reported, never silently dropped.
     """
 
     total_candidates_generated: int = 0
@@ -262,6 +270,7 @@ class RepairRunMetrics:
     rank_of_first_correct: int | None = None
     llm_query_count: int | None = None
     assessment_query_count: int | None = None
+    integrity_rejected_count: int = 0
 
 
 @dataclass
@@ -288,6 +297,10 @@ class EvaluationResult:
     # each carrying context_similarity_score and similarity_band in its patch
     # metadata. Left None when the flag is off.
     similarity_scored_results: "list[RepairAttemptResult] | None" = None
+    # Optional, populated by repair runs: whether every plausible patch passed a
+    # trusted regression check (False: some rest on the trigger test alone; None:
+    # nothing was plausible).
+    regression_checked: bool | None = None
 
 
 @dataclass(frozen=True)

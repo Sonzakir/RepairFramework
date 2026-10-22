@@ -1,0 +1,20 @@
+{
+  "reevaluated_at": "2026-10-22T14:57:58.066859+00:00",
+  "original_outcome": "plausible",
+  "evaluation": {
+    "applied": true,
+    "is_plausible": true,
+    "trigger": {
+      "passed": 1,
+      "failed": 0,
+      "errors": 0
+    },
+    "regression_disabled_reason": "",
+    "trigger_passed": true,
+    "regression_checked": true,
+    "regression_untrusted": false,
+    "regression_new_failures": [],
+    "integrity": "ok",
+    "integrity_paths": []
+  }
+}

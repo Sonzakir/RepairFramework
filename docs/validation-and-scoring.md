@@ -6,16 +6,76 @@ them in the structured JSON output:
 
 | Level | Question | Signal |
 |---|---|---|
-| **Plausible** | Does it fix the failing test *without breaking anything else*? | trigger test + regression-suite subset check |
+| **Integrity** | Does it leave the tests, fixtures and test configuration alone? | evaluator-integrity gate: `integrity`, `integrity_paths`, status `rejected` |
+| **Plausible** | Does it fix the failing test *without breaking anything else*? | trigger test + regression-suite subset check (`regression_checked`) |
 | **Exact diff** | Is it byte-for-byte the developer's fix? | `is_correct` / `correct_count` (boolean) |
 | **Context similarity** | How close is it to the developer's fix? | `context_similarity_score` (`0.0`–`1.0`) |
 | **Assessed quality** | Does it genuinely fix the bug, or just overfit the tests? | LLM assessor `quality_score` (`0.0`–`1.0`), see [LLM repair](llm-repair.md#llm-based-patch-assessment) |
 | **Rank** | Which patch should a developer look at first? | weighted ranker and/or assessor order |
 
+## Evaluator integrity
+
+A patch is judged by the bug's tests, their fixtures, the test-runner configuration
+and the BugsInPy scripts that run them: the **evaluator files**. A patch that edits
+one of them is judged by a different evaluator than the one the bug was recorded
+with, so "it passes" means nothing. This happened in the project's own results: all
+four "plausible" black#3 patches of `run_349` only changed `exit_code=2` to
+`exit_code=1` in `tests/test_black.py` (see the
+[audit](../experiment_results/INTEGRITY_AUDIT.md) and the correction in
+[Results](results.md)).
+
+Every backend validates through the same path,
+[`apply_patch_and_validate`](../src/apr_framework/repair/patch_applier.py), which
+applies three guards from
+[`repair/evaluator_integrity.py`](../src/apr_framework/repair/evaluator_integrity.py):
+
+1. **Screen before applying.** A candidate whose diff, or whose explicit target file,
+   touches an evaluator file is **rejected** and never applied. A source edit whose
+   added lines refer to the test runner (`PYTEST_CURRENT_TEST`, `"pytest" in
+   sys.modules`, `bugsinpy`, ...) is rejected the same way, because behaviour that
+   depends on "am I being tested?" is not a fix.
+2. **Lock and verify.** The evaluator files are snapshotted once per checkout. After
+   every validation their hashes are compared with the snapshot. A changed, deleted
+   or newly created evaluator file is restored from the snapshot and the candidate is
+   rejected as `evaluator_files_mutated`. If the files cannot be restored, the run
+   stops with an `EvaluatorIntegrityError` instead of judging further candidates
+   against a broken evaluator.
+3. **Never target them.** Both repair engines skip evaluator files when choosing
+   where to edit, even when fault localization ranks a test file first (LLM
+   localization did, on black#3). There is no opt-out flag: a test edit cannot be
+   validated against the tests it edits.
+
+**What counts as an evaluator file** (paths relative to the checkout):
+
+| Rule | Examples |
+|---|---|
+| Test files the bug declares | the files in `bugsinpy_run_test.sh` and `test_file` in `bugsinpy_bug.info` |
+| Anything under a test directory | `tests/**`, `test/**` (data files included) |
+| Test modules by name | `test_*.py`, `*_test.py` anywhere |
+| pytest fixtures | `conftest.py` anywhere |
+| Test configuration | `pytest.ini`, `tox.ini`, `setup.cfg`, `.python-version`, and `pyproject.toml` when it has (or the diff edits) a pytest section |
+| BugsInPy scripts and metadata | `bugsinpy_*` |
+| The test environment | the `env/` (or `.venv/`, `venv/`) virtualenv |
+| Modules that would shadow the runner or the standard library | a *new* `sitecustomize.py`, `pytest.py`, `asyncio.py`, `*.pth`, ... |
+| Anything outside the checkout or in `.git/` | `../.tools/bugsinpy/...` |
+
+**How a rejection is reported.** Rejections are evidence of test tampering, so they
+are never dropped silently. The candidate gets `status: "rejected"` and its metadata
+carries `integrity` (`evaluator_file_edit`, `test_environment_detection` or
+`evaluator_files_mutated`) and `integrity_paths`. `repair_results.json` lists every
+rejection under `integrity_rejections` and counts them in
+`integrity_rejected_count`; the rejected diffs are saved under
+`patches/rejected/`; the CLI summary prints a `Rejected:` line.
+
+**Limits.** The gate checks what a patch *edits*. It does not sandbox what the
+patched program *does* at run time; a patch that writes elsewhere is caught only if
+it leaves a changed evaluator file behind. The runner-detection check is a pattern
+heuristic over added lines.
+
 ## Plausibility: two halves
 
-A patch is **plausible** only when both halves hold
-([`repair/template/validator.py`](../src/apr_framework/repair/template/validator.py)):
+A patch is **plausible** only when it passes the integrity screen and both halves
+hold ([`repair/patch_applier.py`](../src/apr_framework/repair/patch_applier.py)):
 
 1. **The failing test now passes.** The bug's trigger test command exits cleanly,
    with zero failures/errors and at least one passing test. The return-code and
@@ -24,7 +84,24 @@ A patch is **plausible** only when both halves hold
    `test_file` introduces no new failures
    ([`repair/regression.py`](../src/apr_framework/repair/regression.py)).
 
-In short: plausible = trigger passed + regression OK.
+In short: plausible = integrity ok + trigger passed + regression OK.
+
+### Trusted results
+
+`bugsinpy-test` always exits 0 (its last command is `deactivate`), so the exit code
+cannot tell a crashed run from a clean one. A regression run is therefore **trusted**
+only when it did not time out, pytest did not abort collection, and at least one test
+passed or failed (`is_trusted_suite_run`). Two states follow from that:
+
+- **A patched regression run with no usable result is not plausible.** The candidate
+  carries `regression_untrusted: true` and a summary saying why.
+- **When the regression baseline is disabled** (`--no-regression-check`, no derivable
+  suite, or a baseline run with no usable result), plausibility rests on the trigger
+  test alone. Every result then carries `regression_checked: false`, the bug-level
+  `regression_checked` in `repair_results.json` is `false`, the validation summary
+  says "regression suite not checked", and the CLI prints a `Regression: NOT checked`
+  line. `regression_checked: true` means a trusted patched run was compared with the
+  baseline.
 
 ### The regression check
 
@@ -208,6 +285,11 @@ the headline counts also at the top level:
 | `rank_of_first_correct` | 1-based position of the first exact-diff match after ranking (when a ranker is active) |
 | `llm_query_count` | LLM calls made (LLM backend only; absent for template runs) |
 | `assessment_query_count` | assessor LLM calls (only with `--assess`) |
+| `integrity_rejected_count` | candidates the evaluator-integrity gate rejected (also at the top level, with the per-candidate `integrity_rejections` list) |
+
+At the top level, `regression_checked` says whether every plausible patch passed a
+trusted regression check (`false`: some rest on the trigger test alone; `null`: nothing
+was plausible).
 
 Each entry in `all_results` / `plausible_patches` also carries an `is_correct` flag
 (Metric 1). With `--similarity-score`, it also carries a `context_similarity_score`

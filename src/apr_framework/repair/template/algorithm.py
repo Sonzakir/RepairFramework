@@ -14,6 +14,11 @@ from apr_framework.core.models import (
     RepairStatus,
 )
 from apr_framework.repair.base import RepairAlgorithm
+from apr_framework.repair.evaluator_integrity import (
+    EvaluatorGuard,
+    EvaluatorIntegrityError,
+)
+from apr_framework.repair.patch_applier import build_attempt_result
 from apr_framework.repair.regression import RegressionContext, build_regression_context
 from apr_framework.repair.template.config import TemplateRepairConfig
 from apr_framework.repair.template.patch_generator import generate_patches
@@ -47,6 +52,9 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
         # Regression baseline is established once, lazily, on first validation
         # (it needs the checkout) and reused for every candidate.
         self._regression: RegressionContext | None = None
+        # Evaluator files are snapshotted once, lazily, and verified after every
+        # validation; evaluator-file locations are never mutated.
+        self._evaluator_guard: EvaluatorGuard | None = None
 
     @property
     def name(self) -> str:
@@ -81,6 +89,12 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
             if source_path is None:
                 logger.warning(
                     "Cannot resolve source path for location %s — skipping",
+                    location.file_path,
+                )
+                continue
+            if self._evaluator_guard_for(checkout).is_evaluator_file(source_path):
+                logger.info(
+                    "Skipping evaluator-file location %s — tests are not repaired",
                     location.file_path,
                 )
                 continue
@@ -138,17 +152,20 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
             patch:    Candidate patch to validate.
 
         Returns:
-            RepairAttemptResult with status PLAUSIBLE, FAILED, or NO_PATCH.
+            RepairAttemptResult with status PLAUSIBLE, FAILED, or REJECTED.
         """
         regression = self._regression_context(checkout)
         try:
-            updated_patch, is_plausible = validate_patch(
+            updated_patch, outcome = validate_patch(
                 candidate=patch,
                 checkout=checkout,
                 adapter=self._adapter,
                 config=self._config,
+                evaluator_guard=self._evaluator_guard_for(checkout),
                 regression=regression,
             )
+        except EvaluatorIntegrityError:
+            raise
         except Exception as exc:
             logger.error(
                 "Validation raised an unexpected error for %s: %s",
@@ -162,27 +179,17 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
                 validation_summary=f"Validation error: {exc}",
             )
 
-        if is_plausible:
-            logger.info("Plausible patch found: %s", updated_patch.patch_id)
+        if outcome is None:
             return RepairAttemptResult(
                 bug=bug,
                 patch=updated_patch,
-                status=RepairStatus.PLAUSIBLE,
-                validation_summary=f"All tests passed with patch {updated_patch.patch_id}.",
+                status=RepairStatus.FAILED,
+                validation_summary=(
+                    f"Patch {updated_patch.patch_id} could not be validated "
+                    "(missing patched source or target file)."
+                ),
             )
-
-        passed_count = updated_patch.metadata.get("test_passed_count", "?")
-        failed_count = updated_patch.metadata.get("test_failed_count", "?")
-        error_count = updated_patch.metadata.get("test_error_count", "?")
-        return RepairAttemptResult(
-            bug=bug,
-            patch=updated_patch,
-            status=RepairStatus.FAILED,
-            validation_summary=(
-                f"Patch {updated_patch.patch_id} did not fix all tests "
-                f"(passed={passed_count}, failed={failed_count}, errors={error_count})."
-            ),
-        )
+        return build_attempt_result(bug, updated_patch, outcome)
 
     # ------------------------------------------------------------------
     # Orchestration — full repair loop with budget
@@ -231,6 +238,12 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
     # ------------------------------------------------------------------
     # Internal helpers
     # ------------------------------------------------------------------
+
+    def _evaluator_guard_for(self, checkout: CheckoutResult) -> EvaluatorGuard:
+        """Return the checkout's evaluator guard, snapshotting it once on first use."""
+        if self._evaluator_guard is None:
+            self._evaluator_guard = EvaluatorGuard.for_worktree(checkout.worktree)
+        return self._evaluator_guard
 
     def _regression_context(self, checkout: CheckoutResult) -> RegressionContext:
         """Return the regression baseline, establishing it once on first use.

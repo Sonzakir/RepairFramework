@@ -16,6 +16,10 @@ from pathlib import Path, PurePosixPath
 from typing import Generator
 
 from apr_framework.benchmarks.base import BenchmarkAdapter
+from apr_framework.benchmarks.executor_view import (
+    build_view_refresh_script,
+    take_host_deletions,
+)
 from apr_framework.core.exceptions import BenchmarkError, ConfigurationError
 from apr_framework.core.models import (
     BugIdentifier,
@@ -47,6 +51,65 @@ def _completed_output(completed: subprocess.CompletedProcess[str]) -> str:
 
 def _completed_returncode(completed: subprocess.CompletedProcess[str]) -> int:
     return getattr(completed, "returncode", 0)
+
+
+_PYTEST_RESULT_KEYWORDS = (
+    r"passed|failed|error|skipped|xfailed|xpassed|deselected|warning"
+)
+# "==== 1 failed, 2 passed in 0.5s ====" (default verbosity) ...
+_PYTEST_BANNER_SUMMARY = re.compile(
+    r"^=+\s+(?P<summary>.*?\d+\s+(?:" + _PYTEST_RESULT_KEYWORDS + r")s?\b.*?)\s+=+\s*$",
+    re.MULTILINE,
+)
+# ... and "2 passed, 6 warnings in 0.08s" (``-q``, which prints no banner).
+_PYTEST_BARE_SUMMARY = re.compile(
+    r"^(?P<summary>\d+\s+(?:"
+    + _PYTEST_RESULT_KEYWORDS
+    + r")s?\b[^\n]*\bin\s+[\d.]+\s*s\b[^\n]*)$",
+    re.MULTILINE,
+)
+_PYTEST_FAILED = re.compile(r"(?P<failed>\d+)\s+failed")
+_PYTEST_PASSED = re.compile(r"(?P<passed>\d+)\s+passed")
+_PYTEST_ERRORS = re.compile(r"(?P<errors>\d+)\s+error[s]?")
+_UNITTEST_TOTAL = re.compile(r"Ran\s+(?P<total>\d+)\s+test[s]?\s+in")
+_UNITTEST_FAILURES = re.compile(r"failures=(?P<failed>\d+)")
+_UNITTEST_ERRORS = re.compile(r"errors=(?P<errors>\d+)")
+
+
+def parse_test_run_counts(raw_output: str) -> tuple[int, int, int, int]:
+    """Return (total, passed, failed, errors) from pytest or unittest output.
+
+    The last pytest summary wins, with or without its ``====`` banner (``-q``
+    drops the banner). A unittest ``Ran N tests`` line overrides the pytest
+    figures, as before.
+    """
+    failed = passed = errors = total = 0
+
+    pytest_summaries = [
+        (match.start(), match.group("summary"))
+        for pattern in (_PYTEST_BANNER_SUMMARY, _PYTEST_BARE_SUMMARY)
+        for match in pattern.finditer(raw_output)
+    ]
+    if pytest_summaries:
+        summary = max(pytest_summaries)[1]
+        failed_match = _PYTEST_FAILED.search(summary)
+        passed_match = _PYTEST_PASSED.search(summary)
+        error_match = _PYTEST_ERRORS.search(summary)
+        failed = int(failed_match.group("failed")) if failed_match else 0
+        passed = int(passed_match.group("passed")) if passed_match else 0
+        errors = int(error_match.group("errors")) if error_match else 0
+        total = failed + passed + errors
+
+    total_match = _UNITTEST_TOTAL.search(raw_output)
+    if total_match:
+        total = int(total_match.group("total"))
+        failed_match = _UNITTEST_FAILURES.search(raw_output)
+        error_match = _UNITTEST_ERRORS.search(raw_output)
+        failed = int(failed_match.group("failed")) if failed_match else 0
+        errors = int(error_match.group("errors")) if error_match else 0
+        passed = max(total - failed - errors, 0)
+
+    return total, passed, failed, errors
 
 
 @dataclass(frozen=True)
@@ -102,11 +165,13 @@ class BugsInPyDockerExecutor:
     Runs BugsInPy commands inside a long-lived sibling Docker container.
     """
 
-    def __init__(self, config: BugsInPyConfig) -> None:
+    def __init__(self, config: BugsInPyConfig, container: str | None = None) -> None:
         self._config = config
         self._docker = environ.get("DOCKER", "docker")
         self._image = environ.get("BUGSINPY_IMAGE", DEFAULT_BUGSINPY_IMAGE)
-        self._container = environ.get("BUGSINPY_CONTAINER", DEFAULT_BUGSINPY_CONTAINER)
+        self._container = container or environ.get(
+            "BUGSINPY_CONTAINER", DEFAULT_BUGSINPY_CONTAINER
+        )
 
     @property
     def image(self) -> str:
@@ -224,6 +289,9 @@ class BugsInPyDockerExecutor:
         if not self._container_running():
             self._run_docker(["start", self.container], check=True)
 
+        if self.runs_on_host:
+            self._refresh_view_of_host_changes(cwd)
+
         container_cwd = (
             self._to_container_path(cwd)
             if cwd is not None
@@ -237,6 +305,133 @@ class BugsInPyDockerExecutor:
             capture_output=capture_output,
             timeout=timeout,
         )
+
+    @property
+    def runs_on_host(self) -> bool:
+        """Whether this process runs on the host rather than inside a container.
+
+        Only host-side writes reach the executor through Docker Desktop's caching
+        file-sharing layer; writes from a sibling container are always coherent.
+        """
+        return not Path("/.dockerenv").exists()
+
+    def _refresh_view_of_host_changes(self, cwd: Path | None) -> None:
+        """Make the executor see the host's current files before a command runs.
+
+        See ``executor_view``: drops entries of files the host deleted and walks
+        the command's checkout so rewritten files show their current size.
+        """
+        script = build_view_refresh_script(
+            self._container_paths_of_host_deletions(),
+            self._container_tree_to_refresh(cwd),
+        )
+        if script is None:
+            return
+        self._run_docker(
+            ["exec", self.container, "sh", "-c", script],
+            check=False,
+            capture_output=True,
+        )
+
+    def _container_paths_of_host_deletions(self) -> list[str]:
+        """Container paths of recorded host deletions that are still deleted.
+
+        Only paths strictly inside the BugsInPy workspace qualify, and only while
+        the host still lacks them: a path recreated since must not be removed.
+        """
+        workspace_dir = self._config.workspace_dir.resolve()
+        container_paths: list[str] = []
+        for deleted_path in take_host_deletions():
+            resolved_path = deleted_path.resolve()
+            if (
+                resolved_path == workspace_dir
+                or workspace_dir not in resolved_path.parents
+            ):
+                continue
+            if resolved_path.exists() or resolved_path.is_symlink():
+                continue
+            container_paths.append(self._to_container_path(resolved_path))
+        return container_paths
+
+    def _container_tree_to_refresh(self, cwd: Path | None) -> str | None:
+        """The command's working tree, when it lies inside the BugsInPy workspace."""
+        if cwd is None:
+            return None
+        resolved_cwd = cwd.resolve()
+        workspace_dir = self._config.workspace_dir.resolve()
+        if workspace_dir not in resolved_cwd.parents:
+            return None
+        return self._to_container_path(resolved_cwd)
+
+    def remove_workspace_tree(self, path: Path) -> None:
+        """Delete a directory tree under the BugsInPy workspace from inside the executor.
+
+        A tree the executor will recreate (a checkout destination) must not be
+        deleted on the host: the executor can keep stale entries for the deleted
+        directories and then fail to create files in them. Deleting it here keeps
+        both views coherent.
+        """
+        resolved_path = path.resolve()
+        workspace_dir = self._config.workspace_dir.resolve()
+        if workspace_dir not in resolved_path.parents:
+            raise ConfigurationError(
+                f"Refusing to delete {path}: it is not inside the BugsInPy workspace "
+                f"{workspace_dir}."
+            )
+        self._exec_in_container(
+            ["rm", "-rf", "--", str(resolved_path)], check=True, capture_output=True
+        )
+
+    def create_sealed_test_container(self, name: str, host_directory: Path) -> None:
+        """Start a throwaway executor that sees only ``host_directory``, offline.
+
+        The container has no network, no BugsInPy projects (so no developer
+        fixes), no other checkouts and read-only interpreters and scripts. The
+        directory is mounted at the same container path the shared executor uses,
+        so the checkout's virtualenv (which records absolute paths) still works.
+        Commands reach it through an executor built with ``container=name``.
+        """
+        host_project_root = self._host_project_root()
+        host_bugsinpy_framework = (
+            host_project_root / ".tools" / "bugsinpy" / "framework"
+        )
+        host_directory_on_host = (
+            host_project_root
+            / host_directory.resolve().relative_to(self._project_root.resolve())
+        )
+        self._ensure_docker_available()
+        self._run_docker(["rm", "-f", name], check=False, capture_output=True)
+        self._run_docker(
+            [
+                "run",
+                "--detach",
+                "--name",
+                name,
+                "--network",
+                "none",
+                "-w",
+                str(BUGSINPY_CONTAINER_WORKSPACE),
+                "-e",
+                "BUGSINPY_HOME=/home/bugsinpy",
+                "-e",
+                "PYENV_ROOT=/root/.pyenv",
+                "-v",
+                f"{host_bugsinpy_framework}:/home/bugsinpy/framework:ro",
+                "-v",
+                f"{host_directory_on_host}:{self._to_container_path(host_directory)}",
+                "-v",
+                f"{BUGSINPY_PYENV_VERSIONS_VOLUME}:/root/.pyenv/versions:ro",
+                self.image,
+                "sleep",
+                "infinity",
+            ],
+            check=True,
+            capture_output=True,
+        )
+
+    def remove_sealed_test_container(self, name: str) -> None:
+        """Remove a container started by :meth:`create_sealed_test_container`."""
+        self._run_docker(["rm", "-f", name], check=False, capture_output=True)
 
     def _ensure_docker_available(self) -> None:
         if shutil.which(self._docker) is None:
@@ -428,6 +623,10 @@ class BugsInPyDockerExecutor:
         except ConfigurationError:
             return arg
 
+    def to_container_path(self, path: Path) -> str:
+        """Public alias of the host → executor path translation."""
+        return self._to_container_path(path)
+
     def _to_container_path(self, path: Path) -> str:
         resolved = path.resolve()
 
@@ -501,9 +700,25 @@ class BugsInPyToolchain:
     Toolchain wrapper to interact with the BugsInPy installation and setup
     """
 
-    def __init__(self, config: BugsInPyConfig) -> None:
+    def __init__(self, config: BugsInPyConfig, container: str | None = None) -> None:
         self._config = config
-        self._executor = BugsInPyDockerExecutor(config)
+        self._executor = BugsInPyDockerExecutor(config, container=container)
+
+    def for_container(self, container: str) -> "BugsInPyToolchain":
+        """The same toolchain, running its commands in another executor container."""
+        return BugsInPyToolchain(self._config, container=container)
+
+    def create_sealed_test_container(self, name: str, host_directory: Path) -> None:
+        """See :meth:`BugsInPyDockerExecutor.create_sealed_test_container`."""
+        self._executor.create_sealed_test_container(name, host_directory)
+
+    def remove_sealed_test_container(self, name: str) -> None:
+        """See :meth:`BugsInPyDockerExecutor.remove_sealed_test_container`."""
+        self._executor.remove_sealed_test_container(name)
+
+    def remove_workspace_tree(self, path: Path) -> None:
+        """See :meth:`BugsInPyDockerExecutor.remove_workspace_tree`."""
+        self._executor.remove_workspace_tree(path)
 
     @property
     def repo_dir(self) -> Path:
@@ -639,6 +854,14 @@ class BugsInPyToolchain:
             capture_output=capture_output,
             timeout=timeout,
         )
+
+    def executor_path(self, path: Path) -> str:
+        """Return the path at which the executor container sees a host-side path.
+
+        Only paths under the BugsInPy workspace, the BugsInPy clone or the project
+        root are visible to the executor; anything else raises ConfigurationError.
+        """
+        return self._executor.to_container_path(path)
 
     def run_command(
         self,
@@ -905,22 +1128,6 @@ class BugsInPyAdapter(BenchmarkAdapter):
             with self._overridden_run_test_script(checkout, command):
                 return self.run_tests(checkout, timeout=timeout)
 
-        PYTEST_RESULT_KEYWORDS = (
-            r"passed|failed|error|skipped|xfailed|xpassed|deselected|warning"
-        )
-        PYTEST_SUMMARY_PATTERN = re.compile(
-            r"^=+\s+(?P<summary>.*?\d+\s+(?:"
-            + PYTEST_RESULT_KEYWORDS
-            + r")s?\b.*?)\s+=+\s*$",
-            re.MULTILINE,
-        )
-        PYTEST_FAILED_PATTERN = re.compile(r"(?P<failed>\d+)\s+failed")
-        PYTEST_PASSED_PATTERN = re.compile(r"(?P<passed>\d+)\s+passed")
-        PYTEST_ERROR_PATTERN = re.compile(r"(?P<errors>\d+)\s+error[s]?")
-        UNITTEST_TOTAL_PATTERN = re.compile(r"Ran\s+(?P<total>\d+)\s+test[s]?\s+in")
-        UNITTEST_FAILURE_PATTERN = re.compile(r"failures=(?P<failed>\d+)")
-        UNITTEST_ERROR_PATTERN = re.compile(r"errors=(?P<errors>\d+)")
-
         completed = self._toolchain.run_bugsinpy(
             "bugsinpy-test",
             cwd=checkout.worktree,
@@ -930,29 +1137,7 @@ class BugsInPyAdapter(BenchmarkAdapter):
         )
 
         raw_output = _completed_output(completed)
-
-        failed = passed = errors = 0
-        total = 0
-
-        match = PYTEST_SUMMARY_PATTERN.search(raw_output)
-        if match:
-            summary = match.group("summary")
-            failed_match = PYTEST_FAILED_PATTERN.search(summary)
-            passed_match = PYTEST_PASSED_PATTERN.search(summary)
-            error_match = PYTEST_ERROR_PATTERN.search(summary)
-            failed = int(failed_match.group("failed")) if failed_match else 0
-            passed = int(passed_match.group("passed")) if passed_match else 0
-            errors = int(error_match.group("errors")) if error_match else 0
-            total = failed + passed + errors
-
-        total_match = UNITTEST_TOTAL_PATTERN.search(raw_output)
-        if total_match:
-            total = int(total_match.group("total"))
-            failed_match = UNITTEST_FAILURE_PATTERN.search(raw_output)
-            error_match = UNITTEST_ERROR_PATTERN.search(raw_output)
-            failed = int(failed_match.group("failed")) if failed_match else 0
-            errors = int(error_match.group("errors")) if error_match else 0
-            passed = max(total - failed - errors, 0)
+        total, passed, failed, errors = parse_test_run_counts(raw_output)
 
         return TestRunResult(
             bug=checkout.bug,

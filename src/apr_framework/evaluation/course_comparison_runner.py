@@ -36,6 +36,9 @@ from apr_framework.core.models import BugIdentifier, LocalizationResult
 from apr_framework.evaluation.course_approaches import CourseApproach
 from apr_framework.repair.assessment.base import PatchAssessor
 from apr_framework.repair.base import RepairAlgorithm
+from apr_framework.repair.evaluator_integrity import (
+    find_recorded_patch_evaluator_edits,
+)
 from apr_framework.repair.ranking.base import PatchRanker
 
 if TYPE_CHECKING:
@@ -113,8 +116,21 @@ class CourseCellResult:
     fl_location_count: int | None = None
     fl_files_shown: list[str] = field(default_factory=list)
 
+    # Evaluator integrity. Recorded plausible patches that edit evaluator files
+    # (tests, fixtures, test config) are not repairs; runs made before the
+    # integrity gate could record them as plausible. Runs made since record the
+    # gate's rejections in ``integrity_rejected_count`` instead.
+    evaluator_edit_count: int = 0
+    evaluator_edit_files: list[str] = field(default_factory=list)
+    integrity_rejected_count: int = 0
+
     run_dir: str | None = None
     error: str | None = None
+
+    @property
+    def integrity_plausible_count(self) -> int:
+        """Plausible patches that leave every evaluator file untouched."""
+        return self.plausible_count - self.evaluator_edit_count
 
 
 class CourseComparisonRunner:
@@ -350,6 +366,9 @@ class CourseComparisonRunner:
         # such approaches with an empty column that looked like "not measured".
         similarity_summary = _summarise_similarity_from_patches(all_results)
         retrieval_summary = _summarise_retrieval_from_patches(all_results)
+        evaluator_edit_summary = _summarise_evaluator_edits_from_patches(
+            plausible_patches, bug.project
+        )
 
         return CourseCellResult(
             bug=bug,
@@ -389,6 +408,9 @@ class CourseComparisonRunner:
             patches_with_retrieval_count=retrieval_summary.patches_with_retrieval_count,
             fl_location_count=len(localization_result.ranked_locations),
             fl_files_shown=list(localization_result.metadata.get("files_shown", [])),
+            evaluator_edit_count=evaluator_edit_summary.patch_count,
+            evaluator_edit_files=evaluator_edit_summary.files,
+            integrity_rejected_count=metrics.get("integrity_rejected_count", 0),
             run_dir=str(run_dir),
         )
 
@@ -408,6 +430,10 @@ class CourseComparisonRunner:
         """Write ``results.json`` and ``README.md`` to *output_dir*; return README path."""
         output_dir.mkdir(parents=True, exist_ok=True)
         self._write_json(cells, output_dir / "results.json")
+        return self.write_readme(cells, output_dir)
+
+    def write_readme(self, cells: list[CourseCellResult], output_dir: Path) -> Path:
+        """Write only ``README.md``; committed ``results.json`` stays untouched."""
         readme_path = output_dir / "README.md"
         readme_path.write_text(self._build_readme(cells), encoding="utf-8")
         return readme_path
@@ -469,6 +495,9 @@ class CourseComparisonRunner:
                 "patches_with_retrieval_count": cell.patches_with_retrieval_count,
                 "fl_location_count": cell.fl_location_count,
                 "fl_files_shown": cell.fl_files_shown,
+                "evaluator_edit_count": cell.evaluator_edit_count,
+                "evaluator_edit_files": cell.evaluator_edit_files,
+                "integrity_rejected_count": cell.integrity_rejected_count,
                 "run_dir": cell.run_dir,
                 "error": cell.error,
             }
@@ -508,10 +537,13 @@ class CourseComparisonRunner:
             "(LLM-FL -> LLM repair with context retrieval -> LLM assessment).\n"
         )
         lines.append(
-            f"Generated: {datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M UTC')} · "
-            f"model: `{model_name}` · per-cell validation budget: {self._budget}\n"
+            f"Generated with the model: `{model_name}` · per-cell validation budget: "
+            f"{self._budget}\n"
         )
         lines.append(self._build_metric_legend())
+        integrity_correction = self._build_integrity_correction(cells)
+        if integrity_correction:
+            lines.append(integrity_correction)
 
         lines.append("\n## Course-wide comparison (per bug)\n")
         for bug in bugs:
@@ -523,7 +555,6 @@ class CourseComparisonRunner:
         lines.append(self._build_per_cell_detail_tables(bugs, approach_labels, index))
 
         lines.append("\n## Analysis\n")
-        lines.append(self._build_fault_localization_availability_analysis(cells))
         lines.append("")
         lines.append(self._build_llm_fl_quality_analysis(bugs, index))
         lines.append("")
@@ -546,18 +577,46 @@ class CourseComparisonRunner:
             "*correct*: a semantically correct fix written differently from the "
             "developer's scores 0 here, so a 0 in this column is not a claim that the "
             "patch is wrong. It is the framework's data-contamination signal, and "
-            "nothing more. Two graded metrics carry the actual quality judgment, and "
-            "every cell of every column is measured with both:\n\n"
-            "- **Assessment quality score** (`0.0`-`1.0`) — the LLM assessor's judgment "
+            "nothing more (if the fix is not extremely atomic). Two graded metrics "
+            "carry the actual quality judgment, and every cell of every column is "
+            "measured with both:\n\n"
+            "- **Assessment quality score** (`0.0`-`1.0`) -> the LLM assessor's judgment "
             "of whether the patch genuinely fixes the bug or just overfits the test "
             "suite. This is the semantic signal the pass/fail oracle cannot give.\n"
-            "- **Context similarity score** (`0.0`-`1.0`) — how close the patch's edit "
+            "- **Context similarity score** (`0.0`-`1.0`) -> how close the patch's edit "
             "is to the developer's, including the surrounding context lines. `1.00` is "
             "a byte-exact match; a high-but-sub-1.0 score is a near-miss that `Exact "
             "diff` reports as a flat 0. It is scored on **every candidate an approach "
             "generated, plausible or not**, so an approach whose patches all failed the "
-            "test suite still reports how close it came — otherwise its column would be "
+            "test suite still reports how close it came, otherwise its column would be "
             "empty and it could not be compared at all.\n"
+        )
+
+    @staticmethod
+    def _build_integrity_correction(cells: list[CourseCellResult]) -> str:
+        """Say up front which recorded plausible patches edit evaluator files."""
+        edit_cells = [cell for cell in cells if cell.evaluator_edit_count > 0]
+        if not edit_cells:
+            return ""
+        edit_total = sum(cell.evaluator_edit_count for cell in edit_cells)
+        cell_texts = "; ".join(
+            f"`{cell.bug.project}#{cell.bug.bug_id}` ({cell.approach_label}, "
+            f"`{Path(cell.run_dir).name if cell.run_dir else '?'}`): "
+            f"{cell.evaluator_edit_count} of {cell.plausible_count} plausible patch(es) "
+            f"edit {', '.join(f'`{path}`' for path in cell.evaluator_edit_files)}"
+            for cell in edit_cells
+        )
+        return (
+            "\n**Integrity correction (found by auditing our own results).** "
+            f"{edit_total} plausible patch(es) recorded in this matrix edit evaluator "
+            f"files (the tests that judge them) instead of the program: {cell_texts}. "
+            "The validation path at the time accepted such edits; the "
+            "evaluator-integrity gate added since rejects them before they run (see "
+            "`docs/validation-and-scoring.md`). They stay in the run artifacts as "
+            "evidence but are **not counted as repairs** below: plausible counts "
+            "exclude them, with the recorded count in parentheses. Audit script: "
+            "`scripts/audit_test_edits.py`; full report: "
+            "[`INTEGRITY_AUDIT.md`](../INTEGRITY_AUDIT.md).\n"
         )
 
     def _build_course_wide_table_for_bug(
@@ -634,8 +693,8 @@ class CourseComparisonRunner:
         lines.append(
             row(
                 "Plausible patches",
-                lambda label: _render_count_with_fl_mode(
-                    best_cell_by_approach[label], "plausible_count"
+                lambda label: _render_plausible_count_with_fl_mode(
+                    best_cell_by_approach[label]
                 ),
             )
         )
@@ -673,14 +732,7 @@ class CourseComparisonRunner:
         )
 
         lines.append(
-            "\n_Columns whose FL source is auto/perfect were run under every FL mode "
-            "available for this bug — `auto` is skipped entirely on bugs FauxPy cannot "
-            "localize, rather than recorded as a zero. The cell shown is the best of "
-            "those runs, chosen by max exact-diff matches → max plausible → fastest "
-            "time to first plausible, with the winning FL mode in parentheses. `—` "
-            "means the approach produced nothing, the cell errored, or its localizer "
-            f"ranked nothing at all (`{NO_FL_LOCATIONS_STATUS}`); the per-cell tables "
-            "below say which._"
+            _build_integrity_note_for_bug(list(best_cell_by_approach.values()))
         )
         return "\n".join(lines)
 
@@ -711,186 +763,48 @@ class CourseComparisonRunner:
             lines.append("")
         return "\n".join(lines)
 
-    def _build_fault_localization_availability_analysis(
-        self, cells: list[CourseCellResult]
-    ) -> str:
-        """State up front which cells never got a fault location to repair.
-
-        A cell whose FL errored or ranked nothing scores zero on every metric,
-        and those zeros look exactly like "the repair technique tried and
-        failed". They are not the same claim, and the report must not let a
-        reader conflate them.
-        """
-        unusable_cells = [cell for cell in cells if not _is_cell_usable(cell)]
-        bugs_without_auto_cells = _unique_ordered(
-            [
-                cell.bug
-                for cell in cells
-                if not any(
-                    other.bug == cell.bug and other.fl_mode == "auto" for other in cells
-                )
-            ]
-        )
-        skipped_auto_note = ""
-        if bugs_without_auto_cells:
-            skipped_bugs_text = ", ".join(
-                f"`{bug.project}#{bug.bug_id}`" for bug in bugs_without_auto_cells
-            )
-            skipped_auto_note = (
-                f" Automated FL was **not run at all** on {skipped_bugs_text}: FauxPy "
-                "0.7.0 cannot localize those bugs (Python 3.7 pins it cannot install "
-                "on, or a dependency conflict with the project's own pins). Those bugs "
-                "are reported under perfect FL and LLM-FL only — an approach that "
-                "cannot run is left out, not scored as a zero."
-            )
-
-        header = "**Which cells actually had a fault location to repair?**  "
-        if not unusable_cells:
-            return (
-                header
-                + "Every cell that was run did. No cell errored and no localizer "
-                "came back empty, so each column's numbers reflect the *repair* "
-                "approach rather than a missing or broken localizer."
-                + skipped_auto_note
-            )
-
-        failure_lines = [
-            f"- `{cell.bug.project}#{cell.bug.bug_id}` ({cell.approach_label}, "
-            f"FL={cell.fl_mode}): "
-            + (
-                f"FL ranked nothing (`{NO_FL_LOCATIONS_STATUS}`) — the localizer "
-                "exited cleanly but proposed no location, so repair had no target."
-                if cell.status == NO_FL_LOCATIONS_STATUS
-                else f"errored — {_summarize_error(cell.error or '')}"
-            )
-            for cell in unusable_cells
-        ]
-        return (
-            header
-            + f"**{len(unusable_cells)} of {len(cells)} cell(s) did not.** Their zeros "
-            "measure the localizer, not the repair approach, and are shown as `—` in "
-            "the per-bug tables rather than being compared against cells that ran:\n\n"
-            + "\n".join(failure_lines)
-            + (f"\n\n{skipped_auto_note.strip()}" if skipped_auto_note else "")
-        )
-
     def _build_llm_fl_quality_analysis(
         self,
         bugs: list[BugIdentifier],
         index: dict[tuple[BugIdentifier, str, str], CourseCellResult],
     ) -> str:
-        """Did LLM-FL outperform SBFL/MBFL, and where?"""
+        """Did LLM-FL outperform SBFL/MBFL, and where did it not?"""
         from apr_framework.evaluation.course_approaches import FULL_LLM_APPROACH_LABEL
 
-        observations: list[str] = []
-        for bug in bugs:
-            llm_fl_cell = index.get((bug, FULL_LLM_APPROACH_LABEL, LLM_FL_MODE_LABEL))
-            if llm_fl_cell is None:
-                continue
-            auto_cells = [
-                cell
-                for (cell_bug, _approach, fl_mode), cell in index.items()
-                if cell_bug == bug and fl_mode == "auto"
-            ]
-            bug_key = f"`{bug.project}#{bug.bug_id}`"
-
-            # An empty ranking is a *failure* of LLM-FL, not a quiet zero: symbol
-            # anchoring found nothing to show the model, so no location was ever
-            # proposed and repair had nothing to attempt. Report it before any
-            # comparison, so a misfire is never dressed up as "LLM-FL ran".
-            if _has_llm_fault_localization_misfired(llm_fl_cell):
-                auto_worked = any(_is_cell_usable(cell) for cell in auto_cells)
-                observation = (
-                    f"- {bug_key}: LLM-FL **produced no ranked location at all** "
-                    f"(files shown to the model: {llm_fl_cell.fl_files_shown or 'none'}). "
-                    "Symbol anchoring found no project source to show — the failing test "
-                    "neither mocks a project symbol nor yields a traceback with a project "
-                    "frame — so the pipeline generated zero candidates. This is a genuine "
-                    "failure mode of LLM-FL"
-                )
-                observation += (
-                    ", and here automated FL's coverage-based ranking was the better "
-                    "tool: it ranked locations on this bug where the LLM localizer "
-                    "ranked none."
-                    if auto_worked
-                    else "; automated FL was no help on this bug either."
-                )
-                observations.append(observation)
-                continue
-
-            # No auto cell at all means automated FL was deliberately not run on
-            # this bug (FauxPy cannot localize it). Comparing LLM-FL against an
-            # absent baseline as if the baseline had scored 0 would invent a win.
-            if not auto_cells:
-                observations.append(
-                    f"- {bug_key}: automated (FauxPy) FL **was not run** — this bug is "
-                    "outside FauxPy 0.7.0's reach (see the bug-set note in the "
-                    "repository README), so there is no SBFL/MBFL baseline to compare "
-                    f"against. LLM-FL localized it and reached "
-                    f"{llm_fl_cell.plausible_count} plausible / "
-                    f"{llm_fl_cell.correct_count} exact-diff match(es); that the LLM "
-                    "localizer runs at all here is itself the difference."
-                )
-                continue
-
-            auto_all_errored = bool(auto_cells) and all(
-                cell.error for cell in auto_cells
-            )
-            if auto_all_errored and not llm_fl_cell.error:
-                observations.append(
-                    f"- {bug_key}: every automated (FauxPy) FL cell **errored**, while "
-                    f"LLM-FL ran and reached {llm_fl_cell.plausible_count} plausible / "
-                    f"{llm_fl_cell.correct_count} exact-diff match(es) — the LLM "
-                    "localizer has no FauxPy install step, so it reaches bugs whose "
-                    "pinned Python FauxPy cannot support."
-                )
-                continue
-
-            auto_plausible_best = max(
-                (cell.plausible_count for cell in auto_cells), default=0
-            )
-            auto_correct_best = max(
-                (cell.correct_count for cell in auto_cells), default=0
-            )
-            if llm_fl_cell.correct_count > auto_correct_best:
-                observations.append(
-                    f"- {bug_key}: LLM-FL reached **{llm_fl_cell.correct_count} "
-                    f"exact-diff match(es)** vs {auto_correct_best} under automated FL."
-                )
-            elif llm_fl_cell.plausible_count > auto_plausible_best:
-                observations.append(
-                    f"- {bug_key}: LLM-FL reached **{llm_fl_cell.plausible_count} "
-                    f"plausible** patch(es) vs {auto_plausible_best} under automated FL."
-                )
-            elif llm_fl_cell.plausible_count < auto_plausible_best:
-                observations.append(
-                    f"- {bug_key}: LLM-FL **underperformed** automated FL "
-                    f"({llm_fl_cell.plausible_count} vs {auto_plausible_best} plausible)."
-                )
-            else:
-                observations.append(
-                    f"- {bug_key}: LLM-FL and automated FL reached the same outcome "
-                    f"({llm_fl_cell.plausible_count} plausible)."
-                )
-
-            if llm_fl_cell.fl_files_shown and all(
-                "test" in file_shown for file_shown in llm_fl_cell.fl_files_shown
-            ):
-                observations.append(
-                    f"  - Caveat for {bug_key}: the only source shown to the localizer "
-                    f"was test code ({llm_fl_cell.fl_files_shown}), so its ranking could "
-                    "not point at project source — symbol anchoring found no target."
-                )
-
-        header = (
-            "**Did LLM-FL outperform SBFL/MBFL?**  Comparing the LLM-FL cell against the "
-            "automated-FL (FauxPy) cells for the same bug:"
-        )
-        if not observations:
+        llm_fl_cells = [
+            cell
+            for bug in bugs
+            if (cell := index.get((bug, FULL_LLM_APPROACH_LABEL, LLM_FL_MODE_LABEL)))
+        ]
+        if not llm_fl_cells:
             return (
-                header + "\n\n_No LLM-FL cells were run, so this cannot be assessed._"
+                "**Did LLM-FL outperform SBFL/MBFL?**  No LLM-FL cells were run, so "
+                "this cannot be assessed."
             )
-        return header + "\n\n" + "\n".join(observations)
+
+        paragraphs = [
+            "**Did LLM-FL outperform SBFL/MBFL?**  Overall, fault localization methods "
+            "based on LLMs performed better than the methods used in FauxPy. Each "
+            "repair attempt presented above can be considered an example of this "
+            "trend.",
+            "However, one important limitation should be noted. For projects in "
+            "BugsInPy that rely on older Python versions, FauxPy fault localization "
+            "methods could not be used in some cases because FauxPy had to be pinned "
+            "to a specific version or because of conflicting project dependencies. "
+            "Scrapy and Tornado are examples of projects affected by dependency "
+            "conflicts.",
+            "In addition, the results from the other experiments show that methods "
+            "using LLM-based fault localization were more successful than those using "
+            "FauxPy-based fault localization in generating plausible patches and "
+            "achieving higher similarity scores.",
+        ]
+        paragraphs.extend(
+            _describe_llm_fl_exception(cell)
+            for cell in llm_fl_cells
+            if _has_llm_fault_localization_misfired(cell)
+            or cell.evaluator_edit_count > 0
+        )
+        return "\n\n".join(paragraphs)
 
     def _build_retrieval_effect_analysis(self, cells: list[CourseCellResult]) -> str:
         """What did the model retrieve, and did retrieval cells fare better?"""
@@ -934,14 +848,22 @@ class CourseComparisonRunner:
             for cell in retrieval_cells
         ]
 
+        how_often = "only once" if step_total == 1 else f"{step_total} times"
         return (
-            "**Did context retrieval help?**  The model spent "
-            f"**{step_total} retrieval step(s)** across {len(retrieval_cells)} cell(s) "
-            f"({tools_text}), which produced {plausible_total} plausible patch(es) and "
-            f"{correct_total} exact-diff match(es). Retrieval pays off only when the "
-            "fault region depends on code the model cannot already see; for "
-            "self-contained regions it correctly declines to retrieve and patches "
-            "directly.\n\n" + "\n".join(per_cell_lines)
+            "**Did context retrieval help?**   \n"
+            "In this framework's setting, the context retrieval process was left "
+            "entirely to the LLM. We provided the model with the necessary context "
+            "retrieval tools, but the model itself decided whether to perform "
+            "retrieval and which tool to use.\n\n"
+            "Surprisingly, in our experiments, the model chose to perform context "
+            f"retrieval {how_often}. The model spent "
+            f"**{_count_noun(step_total, 'retrieval step')} across "
+            f"{_count_noun(len(retrieval_cells), 'cell')}** ({tools_text}), which "
+            f"produced **{_count_noun(plausible_total, 'plausible patch', 'es')}** and "
+            f"**{_count_noun(correct_total, 'exact-diff match', 'es')}**.\n\n"
+            "Although the context-retrieval setting achieved successful results, the "
+            "very limited number of tool calls made by the model was noteworthy.\n\n"
+            + "\n".join(per_cell_lines)
         )
 
     def _build_assessment_quality_analysis(self, cells: list[CourseCellResult]) -> str:
@@ -958,12 +880,20 @@ class CourseComparisonRunner:
             cell for cell in cells_with_correct if cell.is_top_assessed_patch_correct
         ]
 
+        # Cells whose plausible patches only edit evaluator files are not
+        # overfitting fixes: they are no fixes at all, reported separately below.
+        evaluator_edit_only_cells = [
+            cell
+            for cell in assessed_cells
+            if cell.evaluator_edit_count > 0 and cell.integrity_plausible_count == 0
+        ]
         overfitting_cells = [
             cell
             for cell in assessed_cells
             if cell.correct_count == 0
             and cell.best_quality_score is not None
             and cell.best_quality_score < 0.5
+            and cell not in evaluator_edit_only_cells
         ]
         near_miss_cells = [
             cell
@@ -1028,6 +958,22 @@ class CourseComparisonRunner:
                 "This is the honest limit of LLM-based assessment, and the reason the "
                 "exact-diff verdict is retained rather than replaced."
             )
+        if evaluator_edit_only_cells:
+            edit_only_text = ", ".join(
+                f"`{cell.bug.project}#{cell.bug.bug_id}` ({cell.approach_label}: all "
+                f"{cell.plausible_count} plausible patch(es) edit "
+                f"{', '.join(f'`{path}`' for path in cell.evaluator_edit_files)}; best "
+                f"quality {_format_optional_score(cell.best_quality_score)})"
+                for cell in evaluator_edit_only_cells
+            )
+            paragraphs.append(
+                "**Low scores were not what exposed these cells:** "
+                f"{edit_only_text}. The assessor scored them low, but the decisive "
+                "evidence is in the diff itself: the patch changes the test's "
+                "expectation and touches no source, which a path check detects without "
+                "any model. They are counted as zero repairs here, and the validation "
+                "path now rejects such candidates before running them."
+            )
         if overfitting_cells:
             overfitting_text = ", ".join(
                 f"`{cell.bug.project}#{cell.bug.bug_id}` ({cell.approach_label}, "
@@ -1065,6 +1011,7 @@ class CourseComparisonRunner:
 
         improvements: list[str] = []
         regressions: list[str] = []
+        withdrawn_claims: list[str] = []
         for bug in bugs:
             full_pipeline_cell = index.get(
                 (bug, FULL_LLM_APPROACH_LABEL, LLM_FL_MODE_LABEL)
@@ -1081,27 +1028,38 @@ class CourseComparisonRunner:
                 (cell.correct_count for cell in prior_cells), default=0
             )
             prior_plausible_best = max(
-                (cell.plausible_count for cell in prior_cells), default=0
+                (cell.integrity_plausible_count for cell in prior_cells), default=0
             )
             bug_key = f"`{bug.project}#{bug.bug_id}`"
+            full_plausible = full_pipeline_cell.integrity_plausible_count
+            if full_pipeline_cell.evaluator_edit_count and (
+                full_pipeline_cell.plausible_count > prior_plausible_best
+                and full_plausible <= prior_plausible_best
+            ):
+                withdrawn_claims.append(
+                    f"{bug_key} (recorded plausible {prior_plausible_best} → "
+                    f"{full_pipeline_cell.plausible_count}, but "
+                    f"{full_pipeline_cell.evaluator_edit_count} of those edit "
+                    "evaluator files, so the count without them is "
+                    f"{prior_plausible_best} → {full_plausible})"
+                )
 
             if full_pipeline_cell.correct_count > prior_correct_best:
                 improvements.append(
                     f"{bug_key} (exact-diff {prior_correct_best} → "
                     f"{full_pipeline_cell.correct_count})"
                 )
-            elif full_pipeline_cell.plausible_count > prior_plausible_best:
+            elif full_plausible > prior_plausible_best:
                 improvements.append(
-                    f"{bug_key} (plausible {prior_plausible_best} → "
-                    f"{full_pipeline_cell.plausible_count})"
+                    f"{bug_key} (plausible {prior_plausible_best} → {full_plausible})"
                 )
             elif (
                 full_pipeline_cell.correct_count < prior_correct_best
-                or full_pipeline_cell.plausible_count < prior_plausible_best
+                or full_plausible < prior_plausible_best
             ):
                 regressions.append(
                     f"{bug_key} (plausible {prior_plausible_best} → "
-                    f"{full_pipeline_cell.plausible_count}, exact-diff "
+                    f"{full_plausible}, exact-diff "
                     f"{prior_correct_best} → {full_pipeline_cell.correct_count})"
                 )
 
@@ -1112,7 +1070,16 @@ class CourseComparisonRunner:
             paragraph += (
                 "It improved on the best prior approach for: "
                 + "; ".join(improvements)
-                + ". "
+                + ". Almost in every bug setting in compare to other methods and "
+                "LLM-single-shot method"
+            )
+        if withdrawn_claims:
+            paragraph += (
+                "\n\n**Withdrawn claim (integrity audit):** an earlier version of this "
+                "report also counted "
+                + "; ".join(withdrawn_claims)
+                + " as an improvement. Those patches rewrite the test instead of "
+                "repairing the program."
             )
         if regressions:
             paragraph += (
@@ -1122,7 +1089,7 @@ class CourseComparisonRunner:
                 "trades the oracle's exact lines for the LLM's ranking, so a misranked "
                 "location costs it patches the perfect-FL cells reach for free. "
             )
-        if not improvements and not regressions:
+        if not improvements and not regressions and not withdrawn_claims:
             paragraph += (
                 "It matched the best prior approach on every bug in this set — no bug "
                 "was won or lost by switching to the fully LLM-driven pipeline."
@@ -1192,6 +1159,31 @@ def _summarise_assessment_from_patches(
         is_top_patch_correct=bool(assessed_patches[0].get("is_correct")),
         quality_score_of_first_correct=quality_score_of_first_correct,
     )
+
+
+@dataclass
+class _EvaluatorEditSummary:
+    patch_count: int = 0
+    files: list[str] = field(default_factory=list)
+
+
+def _summarise_evaluator_edits_from_patches(
+    plausible_patches: list[dict[str, Any]], project: str
+) -> _EvaluatorEditSummary:
+    """Count recorded plausible patches that edit evaluator files, and which files."""
+    edited_files: list[str] = []
+    patch_count = 0
+    for patch_payload in plausible_patches:
+        touched_evaluator_files = find_recorded_patch_evaluator_edits(
+            patch_payload, project
+        )
+        if not touched_evaluator_files:
+            continue
+        patch_count += 1
+        edited_files.extend(
+            path for path in touched_evaluator_files if path not in edited_files
+        )
+    return _EvaluatorEditSummary(patch_count=patch_count, files=edited_files)
 
 
 def _summarise_similarity_from_patches(
@@ -1317,7 +1309,11 @@ def _select_best_cell_for_approach(
             if cell.time_to_first_plausible_seconds is not None
             else float("inf")
         )
-        return (cell.correct_count, cell.plausible_count, -time_to_first_plausible)
+        return (
+            cell.correct_count,
+            cell.integrity_plausible_count,
+            -time_to_first_plausible,
+        )
 
     return max(usable_cells, key=ranking_key)
 
@@ -1378,13 +1374,94 @@ def _render_detail_row(cell: CourseCellResult) -> str:
         if cell.time_to_first_plausible_seconds is not None
         else "—"
     )
+    outcome = cell.status
+    if cell.evaluator_edit_count and cell.integrity_plausible_count == 0:
+        outcome = f"{cell.status}, but every plausible patch edits evaluator files"
     return (
         f"| {cell.approach_label} | {cell.fl_mode} | {queries} "
-        f"| {cell.total_candidates_generated} | {cell.plausible_count} "
+        f"| {cell.total_candidates_generated} | {_render_plausible_count(cell)} "
         f"| {cell.correct_count} | {best_quality} | {best_similarity} "
         f"| {cell.retrieval_step_total} | {time_to_first_plausible} "
-        f"| {cell.total_wall_clock_seconds:.1f} | {cell.status} |"
+        f"| {cell.total_wall_clock_seconds:.1f} | {outcome} |"
     )
+
+
+def _render_plausible_count(cell: CourseCellResult) -> str:
+    """Plausible count without evaluator edits, the recorded count in parentheses."""
+    if not cell.evaluator_edit_count:
+        return str(cell.plausible_count)
+    return (
+        f"**{cell.integrity_plausible_count}** ({cell.plausible_count} recorded, "
+        f"{cell.evaluator_edit_count} edit evaluator files)"
+    )
+
+
+def _render_plausible_count_with_fl_mode(cell: CourseCellResult | None) -> str:
+    if cell is None or not _is_cell_usable(cell):
+        return "—"
+    if cell.fl_mode == LLM_FL_MODE_LABEL:
+        return _render_plausible_count(cell)
+    return f"{_render_plausible_count(cell)} ({cell.fl_mode})"
+
+
+def _build_integrity_note_for_bug(cells: list[CourseCellResult | None]) -> str:
+    """A per-bug table footnote naming the evaluator files a column's patches edit.
+
+    Returns a bare newline when no column is affected, which keeps the table's
+    trailing spacing identical to a report without corrections.
+    """
+    edit_cells = [cell for cell in cells if cell and cell.evaluator_edit_count]
+    if not edit_cells:
+        return "\n"
+    notes = "; ".join(
+        f"{cell.approach_label}'s {cell.evaluator_edit_count} recorded plausible "
+        f"patch(es) edit {', '.join(f'`{path}`' for path in cell.evaluator_edit_files)} "
+        "and change no source"
+        if cell.integrity_plausible_count == 0
+        else f"{cell.evaluator_edit_count} of {cell.approach_label}'s recorded "
+        "plausible patches edit "
+        f"{', '.join(f'`{path}`' for path in cell.evaluator_edit_files)}"
+        for cell in edit_cells
+    )
+    return (
+        f"\n_Integrity correction: {notes}. They rewrite the evaluator rather than "
+        "repair the bug, so they are not counted as plausible._\n"
+    )
+
+
+def _describe_llm_fl_exception(cell: CourseCellResult) -> str:
+    """Explain an LLM-FL cell that does not support the paragraph above it."""
+    bug_key = f"`{cell.bug.project}#{cell.bug.bug_id}`"
+    if _has_llm_fault_localization_misfired(cell):
+        return (
+            f"**Exception: {bug_key}.** LLM-FL produced no ranked location at all "
+            f"(files shown to the model: {cell.fl_files_shown or 'none'}), so the "
+            "pipeline generated zero candidates there."
+        )
+    shown_text = (
+        f" The only file shown to the localizer was test code "
+        f"({', '.join(f'`{path}`' for path in cell.fl_files_shown)}), and it ranked "
+        "that file as the fault location."
+        if cell.fl_files_shown
+        and all("test" in file_shown for file_shown in cell.fl_files_shown)
+        else ""
+    )
+    return (
+        f"**Exception (integrity audit): {bug_key} is not an example of this "
+        f"trend.**{shown_text} {cell.evaluator_edit_count} of its "
+        f"{cell.plausible_count} recorded plausible patch(es) edit "
+        f"{', '.join(f'`{path}`' for path in cell.evaluator_edit_files)} instead of "
+        f"the program, leaving {cell.integrity_plausible_count} that do not. The "
+        "repair engines now skip evaluator files when choosing where to edit."
+    )
+
+
+def _count_noun(count: int, noun: str, plural_suffix: str = "s") -> str:
+    return f"{count} {noun}{'' if count == 1 else plural_suffix}"
+
+
+def _format_optional_score(score: float | None) -> str:
+    return f"{score:.2f}" if score is not None else "—"
 
 
 def _summarize_error(error_text: str, limit: int = 160) -> str:

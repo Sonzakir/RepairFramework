@@ -170,6 +170,46 @@ python -m apr_framework bugsinpy evaluate-dummy [--seed 123] [--runs-dir runs]
   localize (e.g. `black`) and `--fl-modes perfect` for bugs it can't (e.g.
   `tornado:14`, `scrapy:2`).
 
+## Break This Fix cases: `challenge`
+
+→ [Break This Fix](challenges.md)
+
+```bash
+# List every case bundle under challenges/cases/
+python -m apr_framework challenge list
+
+# Replay a case three ways (buggy, candidate, developer-fixed) with the evaluator files
+# locked; exit 0 only if the observed outcomes match case.json. No API key needed.
+python -m apr_framework challenge run <case-id> \
+  [--patch my_fix.diff] [--repeats 3] [--timeout 300] \
+  [--reuse-checkout] [--json-out result.json] [--record]
+
+# One fresh, isolated coding-agent attempt (runs on the HOST, where `claude` is logged in)
+python -m apr_framework challenge agent-run --project <project> --bug <bug_id> \
+  [--agent claude-code] [--model MODEL] [--max-turns 40] [--timeout-minutes 20] \
+  [--max-budget-usd 3.00] [--test-timeout 300] [--runs-dir runs] [--keep-workspace]
+```
+
+| Flag | Command | Meaning |
+|---|---|---|
+| `--patch PATH` | `run` | replay this diff as the candidate (e.g. your own repair); the case's candidate rows are then reported but not compared with `case.json` |
+| `--repeats N` | `run` | clean repeats of every variant (default 3); every repeat must agree |
+| `--reuse-checkout` | `run` | keep an already compiled challenge checkout instead of a fresh checkout + compile (recorded in the result) |
+| `--json-out PATH` | `run` | where to write the JSON result (default `.workspace/challenge_results/<case-id>/<timestamp>.json`) |
+| `--record` | `run` | append a summary to the case's `replay_log`; never changes its status |
+| `--model` | `agent-run` | the agent's model (default: the CLI's own default; recorded per run) |
+| `--max-turns`, `--timeout-minutes`, `--max-budget-usd` | `agent-run` | per-attempt caps: agentic turns, wall clock, Claude Code's estimated spend |
+| `--test-timeout` | `agent-run` | seconds per test command the agent's shims or the evaluation run |
+| `--keep-workspace` | `agent-run` | keep the agent's temporary workspace after the run |
+
+Scripts that go with it (run from the repo root):
+
+```bash
+python scripts/audit_test_edits.py [experiment_results/INTEGRITY_AUDIT.md]   # no Docker: committed patches that edit evaluator files
+python scripts/revalidate_saved_patches.py <run_dir> [...]                    # executor: replay saved LLM patches through today's gate
+python scripts/preflight_bugs.py fastapi:2 luigi:1 [...] [--out preflight.json]  # executor: checkout, compile, failing trigger, test count
+```
+
 ## Environment variables
 
 | Variable | Purpose |

@@ -39,7 +39,8 @@ Repair Framework is built differently:
 - **End-to-end.** One command goes from a failing test to suspicious lines, candidate
   patches, and a validated, ranked list of fixes.
 - **Strict validation.** A patch counts only if it fixes the failing test *and* breaks
-  nothing that passed before. Surviving patches are then graded against the
+  nothing that passed before, *without touching the tests, fixtures or test
+  configuration that judge it*. Surviving patches are then graded against the
   developer's fix and reviewed by an LLM, so plausible-but-wrong patches can be caught.
 - **Pluggable.** Every stage is an interface. Swap localizers, repair engines,
   rankers, benchmarks, or the model: any OpenAI-compatible endpoint works.
@@ -63,7 +64,7 @@ flowchart LR
 |---|---|
 | **1. Localize** | SBFL (Ochiai, Tarantula, D*, plus the **Jaccard** and custom **WSBI** metrics) · MBFL (Metallaxis, MUSE, with budgeted random mutant selection) · weighted **Hybrid** · **LLM** localization · the perfect-FL **oracle** as an upper-bound baseline |
 | **2. Generate** | **Template** engine: 6 AST mutation operators · **LLM** engine: single-shot, context-enriched, few-shot, iterative test-failure feedback, tool-assisted code retrieval |
-| **3. Validate** | trigger test + regression-suite subset check, in a sandboxed executor container with budgets, timeouts and guaranteed file restoration |
+| **3. Validate** | evaluator-integrity gate (test, fixture and config edits are rejected; evaluator files are locked and verified) · trigger test + regression-suite subset check, in a sandboxed executor container with budgets, timeouts and guaranteed file restoration |
 | **4. Score & rank** | exact-diff match (a data-contamination signal) · graded **context similarity** to the developer fix · **LLM quality assessment** with rationale · **weighted composite ranker** |
 
 ## Results
@@ -75,9 +76,21 @@ the same BugsInPy bugs:
 | Bug | Best earlier approach | Full LLM pipeline |
 |---|---|---|
 | black#1 | 0 plausible patches | **6 plausible** (assessor quality up to 0.93) |
-| black#3 | 0 plausible patches | **4 plausible** (but assessor quality only 0.12: likely overfit) |
+| black#3 | 0 plausible patches | **0 repairs**. The 4 patches recorded as plausible only edit the test file; see the correction below |
 | tornado#14 | 3 exact developer fixes, *given the oracle location* | **9 exact developer fixes**, localizing on its own |
-| scrapy#2 | 2 plausible, *given the oracle location* | **9 plausible**, similarity 0.92 to the developer fix |
+| scrapy#2 | 2 plausible, *given the oracle location* | **9 plausible**; the best 3 at similarity 0.92 to the developer fix, the other 6 about 0.22 |
+
+> **Correction: we caught our own pipeline rewriting a test.** This table used to
+> report **4 plausible patches** for black#3. All four are one identical edit to the
+> bug's own test (`tests/test_black.py`: expected `exit_code=2` → `1`) and change no
+> source code. LLM localization had been shown only the test file and ranked it
+> first; the validator then accepted the edit because it never checked *what* a
+> patch changed. An audit of every committed result
+> ([`scripts/audit_test_edits.py`](scripts/audit_test_edits.py),
+> [report](experiment_results/INTEGRITY_AUDIT.md)) found 11 such "plausible" patches
+> out of 344, all this one black#3 diff. The validator now rejects any candidate
+> that edits tests, fixtures or test configuration, and locks those files while it
+> runs ([details](docs/validation-and-scoring.md#evaluator-integrity)).
 
 More findings from the published experiments:
 
@@ -88,13 +101,31 @@ More findings from the published experiments:
   uniform: on the other two bugs tested, SBFL ranked better.
 - **Retrieval makes the model more efficient.** With code-search tools, the model
   found 4 plausible patches from 10 candidates, versus 3 from 15 without them.
-- **Graded metrics catch what pass/fail can't.** Similarity flags near-misses that an
-  exact-diff check scores as zero, and the assessor flags test-passing patches that
-  probably don't fix the bug.
+- **Graded metrics catch what pass/fail can't, up to a point.** Similarity flags
+  near-misses that an exact-diff check scores as zero. The assessor scored the
+  black#3 test edits low (0.08–0.12), but it is noisy (see the limitations below), and
+  a path check caught the same patches without any model.
 
 > Bug sets are small and LLM runs are single samples at temperature 1.0, so treat
 > these as early signals, not benchmarks. All tables, caveats and raw artifacts:
 > **[docs/results.md](docs/results.md)** · [`experiment_results/`](experiment_results/)
+
+## Break This Fix
+
+**[`challenges/`](challenges/README.md)** collects real Python bugs where an AI agent's
+fix passes the recorded tests and is still wrong. Each case comes with the evidence (a
+justified witness test, or the original test the agent edited) and a one-command replay
+that runs it buggy / candidate / developer-fixed in the bug's own Python environment.
+It is a selected set of cases, not a failure rate. The first case is our own: the
+pipeline's black#3 test edit above.
+
+```bash
+python -m apr_framework challenge list
+python -m apr_framework challenge run black-3-pipeline-test-edit      # no API key needed
+```
+
+Fresh, isolated Claude Code attempts (`challenge agent-run`), the case contract and how
+to contribute a witness or an alternative fix: **[docs/challenges.md](docs/challenges.md)**
 
 ## Quickstart
 
@@ -222,6 +253,7 @@ class.
 | [Validation, scoring & ranking](docs/validation-and-scoring.md) | plausibility, exact diff vs. similarity, metrics, ranker |
 | [Evaluation harnesses](docs/evaluation.md) | experiment matrices and artifacts |
 | [Results](docs/results.md) | every published number, with caveats |
+| [Break This Fix](docs/challenges.md) | test-passing-but-wrong cases: contract, replay, agent attempts, contributing |
 | [CLI reference](docs/cli-reference.md) | all commands and flags |
 
 ## Known limitations and next steps
@@ -236,6 +268,15 @@ class.
   passing test broke, not *which* one.
 - **WSBI's zero-passing-test edge case.** With no passing tests, WSBI can't tell
   covered lines apart.
+- **The LLM assessor is not consistent with itself.** On black#1 (`run_342`) it
+  scored one byte-identical diff (an `executor = None` fallback) **0.88** once and
+  **0.18–0.22** four times. Treat its score as a noisy hint for triage, never as a
+  correctness verdict.
+- **The integrity gate checks what a patch edits, not what it does at run time.** It
+  rejects edits to tests, fixtures, test configuration and BugsInPy scripts, locks
+  those files during validation, and rejects source that detects the test runner. A
+  patch that misbehaves in subtler ways can still pass the recorded tests; that is
+  what [Break This Fix](challenges/README.md) collects.
 
 ## Development
 
