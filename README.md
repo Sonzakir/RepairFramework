@@ -141,6 +141,23 @@ python -m apr_framework repro new --project tqdm --bug 5                  # need
 python -m apr_framework repro check runs/run_NNN --patch my_fix.diff --harden
 ```
 
+## Behaviour Diff
+
+Fixes that all pass the tests can still do different things. **[Behaviour
+Diff](docs/behaviour-diff.md)** runs the project's own tests, plus variants with one
+literal changed, against the buggy code, the developer fix and every candidate,
+while tracing the functions the fixes change. It groups the fixes into behaviour
+classes and shows the exact call where two of them differ. No model, no API key.
+
+On scrapy#2, eight distinct LLM fixes from `runs/` pass all 23 original tests. They
+still fall into four behaviour classes, none matching the developer fix. One of them
+raises `KeyError` for `LocalCache(limit=0)`, where the developer fix treats 0 as "no
+limit".
+
+```bash
+python -m apr_framework behaviour-diff --project scrapy --bug 2 --from-run runs/run_173 --from-run runs/run_326
+```
+
 ## Quickstart
 
 You need **Docker** and **Git**. LLM features also need an OpenAI-compatible API key.
@@ -269,6 +286,7 @@ class.
 | [Results](docs/results.md) | every published number, with caveats |
 | [Break This Fix](docs/challenges.md) | test-passing-but-wrong cases: contract, replay, agent attempts, contributing |
 | [Strict Repro](docs/repro.md) | bug report → strict failing test: verification, wrong-fix probes, hardening, local mode |
+| [Behaviour Diff](docs/behaviour-diff.md) | where test-passing fixes behave differently: traced test runs, one-literal variants, behaviour classes |
 | [CLI reference](docs/cli-reference.md) | all commands and flags |
 
 ## Known limitations and next steps

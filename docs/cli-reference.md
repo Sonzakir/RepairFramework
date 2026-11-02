@@ -263,6 +263,39 @@ python -m apr_framework bugsinpy evaluate-repro --bugs tqdm:1,httpie:4 --max-usd
 Exit codes: `repro new` exits 0 when the test is labelled "reproduces" (and, with a
 fix, is fail-to-pass); `repro check` exits 0 when the patch turns the test green.
 
+## Behaviour Diff: `behaviour-diff`
+
+→ [Behaviour Diff](behaviour-diff.md)
+
+```bash
+# BugsInPy: the developer fix is the reference (no API key needed)
+python -m apr_framework behaviour-diff --project <project> --bug <bug_id> \
+  [--patch fix.diff ...] [--from-run runs/run_NNN ...] [--no-reference] \
+  [--max-variants 40] [--variants-per-test 8] [--timeout 900] [--reuse-checkout] [--runs-dir runs]
+
+# Local pytest/unittest project (runs the tests and the candidates' code on this machine)
+python -m apr_framework behaviour-diff --repo PATH --python PATH/.venv/bin/python --allow-local-exec \
+  --tests "python -m pytest tests/test_x.py" --patch agent.diff [--reference dev_fix.diff] \
+  [--trigger "python -m pytest tests/test_x.py::test_bug"]
+```
+
+| Flag | Meaning |
+|---|---|
+| `--project`, `--bug` | BugsInPy target: fresh checkout + compile in `.workspace/bugsinpy/evidence_<project>_<bug>` |
+| `--reuse-checkout` | reuse that compiled checkout |
+| `--repo`, `--python`, `--tests` | local target: the project, its interpreter, and the suite as a pytest or unittest command (files or modules) |
+| `--trigger CMD` | local: the failing test's command, so divergences from the buggy code are split into "on the failing test" and "elsewhere" (repeatable) |
+| `--allow-local-exec` | local: accept running the tests and candidate code without isolation (refused without it) |
+| `--patch PATH` | a candidate fix (repeatable) |
+| `--from-run DIR` | candidates from an earlier run: a `repair` run's plausible patches or a `challenge agent-run` diff (repeatable) |
+| `--reference PATH` | local: the reference fix; BugsInPy always uses the developer fix |
+| `--no-reference` | compare against the buggy code only |
+| `--max-variants`, `--variants-per-test` | one-literal test variants in total (40; 0 = original tests only) and per reaching test (8) |
+| `--timeout` | seconds for one run of the suite (900) |
+
+Exit code 0 when the comparison ran; any divergence is reported, not turned into
+an exit code.
+
 ## Environment variables
 
 | Variable | Purpose |

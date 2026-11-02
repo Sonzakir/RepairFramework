@@ -273,6 +273,12 @@ def _run() -> int:
     if args.command == "repro":
         return handle_repro(args, project_root)
 
+    # -- Evidence about fixes --
+    if args.command == "behaviour-diff":
+        from apr_framework.cli.evidence_commands import handle_behaviour_diff
+
+        return handle_behaviour_diff(args, project_root)
+
     # -- Repair --
 
     if args.command == "repair":

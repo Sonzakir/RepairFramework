@@ -165,4 +165,5 @@ million tokens; gpt-5.4: 2.50 in, 15.00 out) and refuses a call that would excee
 - Local mode has no container isolation. Every generated test is printed before it
   runs.
 - Not included: a PR or issue bot, feeding the test into `localize`/`repair`,
-  repro-based patch ranking, behaviour diffs, test minimization.
+  repro-based patch ranking, test minimization. Behaviour differences between
+  fixes are covered by [Behaviour Diff](behaviour-diff.md).

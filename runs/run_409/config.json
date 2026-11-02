@@ -1,0 +1,241 @@
+{
+  "runner": "behaviour-diff",
+  "command": "python -m apr_framework behaviour-diff --project scrapy --bug 2 --reuse-checkout --from-run runs/run_173 --from-run runs/run_240 --from-run runs/run_244 --from-run runs/run_255 --from-run runs/run_326 --from-run runs/run_380",
+  "started_at": "2026-11-02T22:39:05.788864+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "scrapy#2",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_scrapy_2/scrapy",
+    "suite": "python -m unittest tests.test_utils_datatypes",
+    "trigger": [
+      "python -m unittest -q tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+    ]
+  },
+  "reference": [
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "8aaf760773a47e42f77d90a6824f791d9206e3c5ae6d4d74d6cbf661cc70ba7b"
+    }
+  ],
+  "candidates": [
+    {
+      "label": "run_173:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-1-0)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-1-1",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-1-1)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-1-2",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-1-2)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-1-3",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-1-3)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-1-4",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-1-4)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-2-0",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-2-0)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-2-1)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_173:llm-2-2",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-2-2)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521"
+    },
+    {
+      "label": "run_173:llm-2-3",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-2-3)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_173:llm-2-4",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-2-4)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_240:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_240/repair_results.json (llm-1-0)",
+      "sha256": "5480cbc517913e61f8f37b30ca6b7ef685ecb47368991533f27c91fb14eb61b8"
+    },
+    {
+      "label": "run_244:llm-iter-1-1",
+      "kind": "candidate",
+      "source": "runs/run_244/repair_results.json (llm-iter-1-1)",
+      "sha256": "0c4395511fadb2750d5fc1ff29d93dc50cad6f91878e1cec733ae849ee4d1d2c"
+    },
+    {
+      "label": "run_244:llm-iter-2-1",
+      "kind": "candidate",
+      "source": "runs/run_244/repair_results.json (llm-iter-2-1)",
+      "sha256": "8f2100b478653f819cefb0eac1d720a169a40cddce35542e9d4ebd4f31527b26"
+    },
+    {
+      "label": "run_255:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_255/repair_results.json (llm-1-0)",
+      "sha256": "8f2100b478653f819cefb0eac1d720a169a40cddce35542e9d4ebd4f31527b26"
+    },
+    {
+      "label": "run_255:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_255/repair_results.json (llm-2-1)",
+      "sha256": "8f2100b478653f819cefb0eac1d720a169a40cddce35542e9d4ebd4f31527b26"
+    },
+    {
+      "label": "run_255:llm-2-2",
+      "kind": "candidate",
+      "source": "runs/run_255/repair_results.json (llm-2-2)",
+      "sha256": "ce0a9b1014fd636c64cf85473a7152b7dcf4e619f0f0163e8090ccbf7d5da9b7"
+    },
+    {
+      "label": "run_326:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-1-0)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_326:llm-1-1",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-1-1)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_326:llm-1-2",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-1-2)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_326:llm-2-0",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-2-0)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_326:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-2-1)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_326:llm-2-2",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-2-2)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_326:llm-3-0",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-3-0)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_326:llm-3-1",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-3-1)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_326:llm-3-2",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-3-2)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_380:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-1-0)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_380:llm-1-1",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-1-1)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_380:llm-1-2",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-1-2)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061"
+    },
+    {
+      "label": "run_380:llm-2-0",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-2-0)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_380:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-2-1)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_380:llm-2-2",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-2-2)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57"
+    },
+    {
+      "label": "run_380:llm-3-0",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-3-0)",
+      "sha256": "0b63c287f5eaa049d199d2b79852eb7617528d7ff279a5f4526d9f2d423559c2"
+    },
+    {
+      "label": "run_380:llm-3-1",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-3-1)",
+      "sha256": "0b63c287f5eaa049d199d2b79852eb7617528d7ff279a5f4526d9f2d423559c2"
+    },
+    {
+      "label": "run_380:llm-3-2",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-3-2)",
+      "sha256": "0b63c287f5eaa049d199d2b79852eb7617528d7ff279a5f4526d9f2d423559c2"
+    }
+  ],
+  "options": {
+    "max_variants": 40,
+    "variants_per_test": 8,
+    "timeout_seconds": 900,
+    "limits": {
+      "max_calls_per_test": 200,
+      "max_calls_per_function": 40,
+      "max_repr": 200
+    }
+  },
+  "driver_sha256": "5fdd3e814b74fa5a0ae9ebc0e12c79432d14722e6b4b9694bc4f9fc234f7eede"
+}

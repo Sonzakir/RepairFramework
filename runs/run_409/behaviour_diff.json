@@ -1,0 +1,1505 @@
+{
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "scrapy#2",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_scrapy_2/scrapy",
+    "suite": "python -m unittest tests.test_utils_datatypes",
+    "trigger": [
+      "python -m unittest -q tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+    ]
+  },
+  "started_at": "2026-11-02T22:39:05.790171+00:00",
+  "finished_at": "2026-11-02T22:41:53.264485+00:00",
+  "focus": [
+    {
+      "id": "scrapy/utils/datatypes.py::LocalCache.__setitem__",
+      "changed_by": [
+        "developer-fix",
+        "run_173:llm-1-0",
+        "run_173:llm-2-1",
+        "run_240:llm-1-0",
+        "run_244:llm-iter-1-1",
+        "run_244:llm-iter-2-1",
+        "run_255:llm-2-2"
+      ]
+    },
+    {
+      "id": "scrapy/utils/datatypes.py::LocalCache.__init__",
+      "changed_by": [
+        "run_326:llm-2-0",
+        "run_380:llm-3-0"
+      ]
+    }
+  ],
+  "common_focus": [
+    "scrapy/utils/datatypes.py::LocalCache.__init__",
+    "scrapy/utils/datatypes.py::LocalCache.__setitem__"
+  ],
+  "module_level_changes": [],
+  "versions": [
+    {
+      "label": "buggy",
+      "kind": "buggy",
+      "source": "the checkout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 22,
+        "error": 1
+      },
+      "variant_outcome_counts": {
+        "error": 7,
+        "passed": 3,
+        "failed": 6
+      },
+      "duplicates": [],
+      "behaviour_class": "A"
+    },
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "8aaf760773a47e42f77d90a6824f791d9206e3c5ae6d4d74d6cbf661cc70ba7b",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "failed": 7,
+        "passed": 8,
+        "error": 1
+      },
+      "duplicates": [],
+      "behaviour_class": "B"
+    },
+    {
+      "label": "run_173:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-1-0)",
+      "sha256": "2a6abd7dcbc72beb1f8b0e1b4e0352f3b1fc5cb9d66ad7c1343da4128945d521",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [
+        "run_173:llm-1-1",
+        "run_173:llm-1-2",
+        "run_173:llm-1-3",
+        "run_173:llm-1-4",
+        "run_173:llm-2-0",
+        "run_173:llm-2-2"
+      ],
+      "behaviour_class": "C"
+    },
+    {
+      "label": "run_173:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_173/repair_results.json (llm-2-1)",
+      "sha256": "ac8a4f03338914d9c005342e81842c7803dc24d638e9a2a440d919508adcc061",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [
+        "run_173:llm-2-3",
+        "run_173:llm-2-4",
+        "run_326:llm-1-0",
+        "run_326:llm-1-1",
+        "run_326:llm-1-2",
+        "run_380:llm-1-0",
+        "run_380:llm-1-1",
+        "run_380:llm-1-2"
+      ],
+      "behaviour_class": "C"
+    },
+    {
+      "label": "run_240:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_240/repair_results.json (llm-1-0)",
+      "sha256": "5480cbc517913e61f8f37b30ca6b7ef685ecb47368991533f27c91fb14eb61b8",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [],
+      "behaviour_class": "D"
+    },
+    {
+      "label": "run_244:llm-iter-1-1",
+      "kind": "candidate",
+      "source": "runs/run_244/repair_results.json (llm-iter-1-1)",
+      "sha256": "0c4395511fadb2750d5fc1ff29d93dc50cad6f91878e1cec733ae849ee4d1d2c",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [],
+      "behaviour_class": "D"
+    },
+    {
+      "label": "run_244:llm-iter-2-1",
+      "kind": "candidate",
+      "source": "runs/run_244/repair_results.json (llm-iter-2-1)",
+      "sha256": "8f2100b478653f819cefb0eac1d720a169a40cddce35542e9d4ebd4f31527b26",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [
+        "run_255:llm-1-0",
+        "run_255:llm-2-1"
+      ],
+      "behaviour_class": "D"
+    },
+    {
+      "label": "run_255:llm-2-2",
+      "kind": "candidate",
+      "source": "runs/run_255/repair_results.json (llm-2-2)",
+      "sha256": "ce0a9b1014fd636c64cf85473a7152b7dcf4e619f0f0163e8090ccbf7d5da9b7",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "failed": 7,
+        "passed": 8,
+        "error": 1
+      },
+      "duplicates": [],
+      "behaviour_class": "E"
+    },
+    {
+      "label": "run_326:llm-2-0",
+      "kind": "candidate",
+      "source": "runs/run_326/repair_results.json (llm-2-0)",
+      "sha256": "b56e97ec0bdd928fad00b353efda30486c92a9d1d16bf1596f1bab4000422a57",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [
+        "run_326:llm-2-1",
+        "run_326:llm-2-2",
+        "run_326:llm-3-0",
+        "run_326:llm-3-1",
+        "run_326:llm-3-2",
+        "run_380:llm-2-0",
+        "run_380:llm-2-1",
+        "run_380:llm-2-2"
+      ],
+      "behaviour_class": "F"
+    },
+    {
+      "label": "run_380:llm-3-0",
+      "kind": "candidate",
+      "source": "runs/run_380/repair_results.json (llm-3-0)",
+      "sha256": "0b63c287f5eaa049d199d2b79852eb7617528d7ff279a5f4526d9f2d423559c2",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 23
+      },
+      "variant_outcome_counts": {
+        "error": 2,
+        "passed": 8,
+        "failed": 6
+      },
+      "duplicates": [
+        "run_380:llm-3-1",
+        "run_380:llm-3-2"
+      ],
+      "behaviour_class": "F"
+    }
+  ],
+  "reaching_tests": [
+    "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+    "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+  ],
+  "variants": [
+    {
+      "variant_id": "v01",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 249,
+      "original": "2",
+      "replacement": "0",
+      "new_name": "test_cache_with_limit__bdiff_v01",
+      "description": "tests/test_utils_datatypes.py:249 2 \u2192 0"
+    },
+    {
+      "variant_id": "v02",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "10",
+      "replacement": "0",
+      "new_name": "test_cache_without_limit__bdiff_v02",
+      "description": "tests/test_utils_datatypes.py:261 10 \u2192 0"
+    },
+    {
+      "variant_id": "v03",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 250,
+      "original": "'a'",
+      "replacement": "'b'",
+      "new_name": "test_cache_with_limit__bdiff_v03",
+      "description": "tests/test_utils_datatypes.py:250 'a' \u2192 'b'"
+    },
+    {
+      "variant_id": "v04",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "4",
+      "replacement": "0",
+      "new_name": "test_cache_without_limit__bdiff_v04",
+      "description": "tests/test_utils_datatypes.py:261 4 \u2192 0"
+    },
+    {
+      "variant_id": "v05",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 250,
+      "original": "1",
+      "replacement": "0",
+      "new_name": "test_cache_with_limit__bdiff_v05",
+      "description": "tests/test_utils_datatypes.py:250 1 \u2192 0"
+    },
+    {
+      "variant_id": "v06",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "10",
+      "replacement": "1",
+      "new_name": "test_cache_without_limit__bdiff_v06",
+      "description": "tests/test_utils_datatypes.py:261 10 \u2192 1"
+    },
+    {
+      "variant_id": "v07",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 251,
+      "original": "'b'",
+      "replacement": "'a'",
+      "new_name": "test_cache_with_limit__bdiff_v07",
+      "description": "tests/test_utils_datatypes.py:251 'b' \u2192 'a'"
+    },
+    {
+      "variant_id": "v08",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "4",
+      "replacement": "1",
+      "new_name": "test_cache_without_limit__bdiff_v08",
+      "description": "tests/test_utils_datatypes.py:261 4 \u2192 1"
+    },
+    {
+      "variant_id": "v09",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 251,
+      "original": "2",
+      "replacement": "0",
+      "new_name": "test_cache_with_limit__bdiff_v09",
+      "description": "tests/test_utils_datatypes.py:251 2 \u2192 0"
+    },
+    {
+      "variant_id": "v10",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "10",
+      "replacement": "-1",
+      "new_name": "test_cache_without_limit__bdiff_v10",
+      "description": "tests/test_utils_datatypes.py:261 10 \u2192 -1"
+    },
+    {
+      "variant_id": "v11",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 252,
+      "original": "'c'",
+      "replacement": "'a'",
+      "new_name": "test_cache_with_limit__bdiff_v11",
+      "description": "tests/test_utils_datatypes.py:252 'c' \u2192 'a'"
+    },
+    {
+      "variant_id": "v12",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "4",
+      "replacement": "-1",
+      "new_name": "test_cache_without_limit__bdiff_v12",
+      "description": "tests/test_utils_datatypes.py:261 4 \u2192 -1"
+    },
+    {
+      "variant_id": "v13",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 252,
+      "original": "3",
+      "replacement": "0",
+      "new_name": "test_cache_with_limit__bdiff_v13",
+      "description": "tests/test_utils_datatypes.py:252 3 \u2192 0"
+    },
+    {
+      "variant_id": "v14",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "10",
+      "replacement": "11",
+      "new_name": "test_cache_without_limit__bdiff_v14",
+      "description": "tests/test_utils_datatypes.py:261 10 \u2192 11"
+    },
+    {
+      "variant_id": "v15",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_with_limit",
+      "line": 249,
+      "original": "2",
+      "replacement": "1",
+      "new_name": "test_cache_with_limit__bdiff_v15",
+      "description": "tests/test_utils_datatypes.py:249 2 \u2192 1"
+    },
+    {
+      "variant_id": "v16",
+      "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+      "file": "tests/test_utils_datatypes.py",
+      "qualname": "LocalCacheTest.test_cache_without_limit",
+      "line": 261,
+      "original": "4",
+      "replacement": "5",
+      "new_name": "test_cache_without_limit__bdiff_v16",
+      "description": "tests/test_utils_datatypes.py:261 4 \u2192 5"
+    }
+  ],
+  "variants_not_inserted": [],
+  "tests_compared": 39,
+  "variant_tests_compared": 16,
+  "unstable_tests": [],
+  "classes": [
+    {
+      "name": "A",
+      "members": [
+        "buggy"
+      ]
+    },
+    {
+      "name": "B",
+      "members": [
+        "developer-fix"
+      ]
+    },
+    {
+      "name": "C",
+      "members": [
+        "run_173:llm-1-0",
+        "run_173:llm-2-1"
+      ]
+    },
+    {
+      "name": "D",
+      "members": [
+        "run_240:llm-1-0",
+        "run_244:llm-iter-1-1",
+        "run_244:llm-iter-2-1"
+      ]
+    },
+    {
+      "name": "E",
+      "members": [
+        "run_255:llm-2-2"
+      ]
+    },
+    {
+      "name": "F",
+      "members": [
+        "run_326:llm-2-0",
+        "run_380:llm-3-0"
+      ]
+    }
+  ],
+  "reference_comparisons": [
+    {
+      "left": "developer-fix",
+      "right": "run_173:llm-1-0",
+      "divergent_tests": 1,
+      "on_trigger_tests": 0,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_173:llm-2-1",
+      "divergent_tests": 1,
+      "on_trigger_tests": 0,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_240:llm-1-0",
+      "divergent_tests": 2,
+      "on_trigger_tests": 0,
+      "on_other_tests": 2,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_244:llm-iter-1-1",
+      "divergent_tests": 2,
+      "on_trigger_tests": 0,
+      "on_other_tests": 2,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_244:llm-iter-2-1",
+      "divergent_tests": 2,
+      "on_trigger_tests": 0,
+      "on_other_tests": 2,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_255:llm-2-2",
+      "divergent_tests": 1,
+      "on_trigger_tests": 0,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_326:llm-2-0",
+      "divergent_tests": 10,
+      "on_trigger_tests": 9,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v02",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v02"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v10",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v10"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v12",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v12"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_380:llm-3-0",
+      "divergent_tests": 10,
+      "on_trigger_tests": 9,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 3 != 2",
+          "right": "error: KeyError: 'dictionary is empty'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v02",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v02"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v10",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v10"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v12",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v12"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    }
+  ],
+  "buggy_comparisons": [
+    {
+      "left": "buggy",
+      "right": "developer-fix",
+      "divergent_tests": 7,
+      "on_trigger_tests": 6,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "error: KeyError: 'dictionary is empty'",
+          "right": "failed: AssertionError: 3 != 2",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_173:llm-1-0",
+      "divergent_tests": 6,
+      "on_trigger_tests": 6,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_173:llm-2-1",
+      "divergent_tests": 6,
+      "on_trigger_tests": 6,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_240:llm-1-0",
+      "divergent_tests": 7,
+      "on_trigger_tests": 6,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_244:llm-iter-1-1",
+      "divergent_tests": 7,
+      "on_trigger_tests": 6,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_244:llm-iter-2-1",
+      "divergent_tests": 7,
+      "on_trigger_tests": 6,
+      "on_other_tests": 1,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_255:llm-2-2",
+      "divergent_tests": 8,
+      "on_trigger_tests": 6,
+      "on_other_tests": 2,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v01",
+          "kind": "outcome",
+          "left": "error: KeyError: 'dictionary is empty'",
+          "right": "failed: AssertionError: 3 != 2",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v01"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit__bdiff_v11",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('b', 2), ('a', 3)])",
+          "right": "failed: AssertionError: 'a' unexpectedly found in LocalCache([('a', 3), ('b', 2)])",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v11"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_326:llm-2-0",
+      "divergent_tests": 9,
+      "on_trigger_tests": 9,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v02",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v02"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v10",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v10"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v12",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v12"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_380:llm-3-0",
+      "divergent_tests": 9,
+      "on_trigger_tests": 9,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v02",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v02"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v04",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v04"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v06",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v06"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v08",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v08"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v10",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v10"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v12",
+          "kind": "call",
+          "left": "returned None; after: self=LocalCache() {'limit': None}",
+          "right": "returned None; after: self=LocalCache() {'limit': inf}",
+          "call": "LocalCache.__init__(self=LocalCache(), limit=None)",
+          "right_call": "",
+          "variant_id": "v12"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v14",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v14"
+        },
+        {
+          "test_id": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit__bdiff_v16",
+          "kind": "outcome",
+          "left": "error: TypeError: '>=' not supported between instances of 'int' and 'NoneType'",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v16"
+        }
+      ]
+    }
+  ]
+}

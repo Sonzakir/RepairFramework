@@ -8,6 +8,8 @@ Define here:
 
 import argparse
 
+from apr_framework.cli.evidence_commands import add_evidence_parsers
+
 
 def build_parser() -> argparse.ArgumentParser:
     """
@@ -785,6 +787,7 @@ def build_parser() -> argparse.ArgumentParser:
 
     ### Strict Repro: issue -> strict failing test
     _add_repro_parsers(subparsers)
+    add_evidence_parsers(subparsers)
 
     ### Break This Fix: case bundles under challenges/cases/
     challenge_parser = subparsers.add_parser(

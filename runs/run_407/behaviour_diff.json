@@ -1,0 +1,165 @@
+{
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "fastapi#4",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_fastapi_4/fastapi",
+    "suite": "pytest tests/test_param_in_path_and_dependency.py",
+    "trigger": [
+      "pytest tests/test_param_in_path_and_dependency.py::test_reused_param"
+    ]
+  },
+  "started_at": "2026-11-02T22:37:56.969342+00:00",
+  "finished_at": "2026-11-02T22:38:07.739389+00:00",
+  "focus": [
+    {
+      "id": "fastapi/openapi/utils.py::get_openapi_path",
+      "changed_by": [
+        "developer-fix",
+        "run_405:agent"
+      ]
+    }
+  ],
+  "common_focus": [
+    "fastapi/openapi/utils.py::get_openapi_path"
+  ],
+  "module_level_changes": [],
+  "versions": [
+    {
+      "label": "buggy",
+      "kind": "buggy",
+      "source": "the checkout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "failed": 1,
+        "passed": 1
+      },
+      "variant_outcome_counts": {
+        "failed": 1
+      },
+      "duplicates": [],
+      "behaviour_class": "A"
+    },
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "3bb46f255cd6c4508a3f8a271b8b58b13d4fa649947da4dd558f9282133b2e50",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 2
+      },
+      "variant_outcome_counts": {
+        "failed": 1
+      },
+      "duplicates": [],
+      "behaviour_class": "B"
+    },
+    {
+      "label": "run_405:agent",
+      "kind": "candidate",
+      "source": "runs/run_405/patches/agent.diff",
+      "sha256": "34ef93bd6daff013c9aa940287af22f48eeab9d9f8ebc6597dc5208b32df268a",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 2
+      },
+      "variant_outcome_counts": {
+        "failed": 1
+      },
+      "duplicates": [],
+      "behaviour_class": "B"
+    }
+  ],
+  "reaching_tests": [
+    "tests/test_param_in_path_and_dependency.py::test_reused_param"
+  ],
+  "variants": [
+    {
+      "variant_id": "v01",
+      "test_id": "tests/test_param_in_path_and_dependency.py::test_reused_param",
+      "file": "tests/test_param_in_path_and_dependency.py",
+      "qualname": "test_reused_param",
+      "line": 86,
+      "original": "\"/openapi.json\"",
+      "replacement": "''",
+      "new_name": "test_reused_param__bdiff_v01",
+      "description": "tests/test_param_in_path_and_dependency.py:86 \"/openapi.json\" \u2192 ''"
+    }
+  ],
+  "variants_not_inserted": [],
+  "tests_compared": 3,
+  "variant_tests_compared": 1,
+  "unstable_tests": [],
+  "classes": [
+    {
+      "name": "A",
+      "members": [
+        "buggy"
+      ]
+    },
+    {
+      "name": "B",
+      "members": [
+        "developer-fix",
+        "run_405:agent"
+      ]
+    }
+  ],
+  "reference_comparisons": [
+    {
+      "left": "developer-fix",
+      "right": "run_405:agent",
+      "divergent_tests": 0,
+      "on_trigger_tests": 0,
+      "on_other_tests": 0,
+      "divergences": []
+    }
+  ],
+  "buggy_comparisons": [
+    {
+      "left": "buggy",
+      "right": "developer-fix",
+      "divergent_tests": 1,
+      "on_trigger_tests": 1,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests/test_param_in_path_and_dependency.py::test_reused_param",
+          "kind": "outcome",
+          "left": "failed: AssertionError: assert {'components'...ead Users'}}}} == {'components'...ead Users'}}}}",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_405:agent",
+      "divergent_tests": 1,
+      "on_trigger_tests": 1,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests/test_param_in_path_and_dependency.py::test_reused_param",
+          "kind": "outcome",
+          "left": "failed: AssertionError: assert {'components'...ead Users'}}}} == {'components'...ead Users'}}}}",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        }
+      ]
+    }
+  ]
+}
