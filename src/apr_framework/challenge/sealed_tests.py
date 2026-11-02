@@ -23,9 +23,9 @@ transcript scan can flag any test output that still shows it.
 """
 
 import re
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import dataclass
-from typing import Iterator
 
 from apr_framework.benchmarks.bugsinpy import BugsInPyAdapter
 from apr_framework.core.models import CheckoutResult

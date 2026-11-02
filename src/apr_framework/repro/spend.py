@@ -13,9 +13,9 @@ enforced without a price.
 """
 
 import json
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
-from typing import Iterator
 
 from apr_framework.core.exceptions import APRFrameworkError, ConfigurationError
 from apr_framework.repair.llm.client import LLMClient, TokenUsage

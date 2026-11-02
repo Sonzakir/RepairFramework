@@ -217,6 +217,7 @@ class LocalPytestRunner:
                 capture_output=True,
                 text=True,
                 timeout=timeout,
+                check=False,
             )
             raw_output = (completed.stdout or "") + (completed.stderr or "")
             return_code = completed.returncode

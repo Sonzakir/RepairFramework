@@ -39,15 +39,18 @@ _SECRET_ENVIRONMENT_PATTERN = re.compile(
 )
 # Tool inputs that mean the agent looked for the answer or outside its workspace.
 _LEAK_PATTERNS = (
-    ("reference fix", re.compile(r"bug_patch|bugsinpy|\.tools/|patchfile", re.I)),
+    (
+        "reference fix",
+        re.compile(r"bug_patch|bugsinpy|\.tools/|patchfile", re.IGNORECASE),
+    ),
     (
         "repository artifacts",
         re.compile(r"experiment_results|challenges/|/runs/|\bruns/run_"),
     ),
     ("version-control history", re.compile(r"\bgit\b|\.git/|\bhg\b|\bsvn\b")),
     ("container or executor", re.compile(r"\bdocker\b|/home/workspace|/home/bugsinpy")),
-    ("network", re.compile(r"\b(curl|wget|pip|https?://)", re.I)),
-    ("Claude Code state", re.compile(r"\.claude/|claude\.json", re.I)),
+    ("network", re.compile(r"\b(curl|wget|pip|https?://)", re.IGNORECASE)),
+    ("Claude Code state", re.compile(r"\.claude/|claude\.json", re.IGNORECASE)),
     ("home directory", re.compile(r"(^|[\s\"'=])~(/|\s|$)|\$HOME|\$\{HOME\}")),
 )
 # Test output that only a reachable git history (or a patch file) could produce.

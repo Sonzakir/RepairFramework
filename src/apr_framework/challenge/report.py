@@ -37,8 +37,10 @@ def format_case_list(bundles: list[CaseBundle]) -> str:
 def format_replay_result(result: ReplayResult) -> str:
     """A compact table: one row per variant, repeats folded when they agree."""
     lines = [
-        f"Case {result.case_id} (Type {result.case_type}, status {result.case_status})"
-        f" on {result.bug}, {result.repeats} repeat(s)",
+        (
+            f"Case {result.case_id} (Type {result.case_type}, status {result.case_status})"
+            f" on {result.bug}, {result.repeats} repeat(s)"
+        ),
         f"Candidate: {result.candidate_source}",
         "",
     ]

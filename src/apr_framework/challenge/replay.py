@@ -26,11 +26,11 @@ import re
 import shutil
 import subprocess
 import uuid
+from collections.abc import Iterator
 from contextlib import contextmanager
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Iterator
 
 from apr_framework.benchmarks.bugsinpy import BugsInPyAdapter
 from apr_framework.benchmarks.executor_view import remove_host_tree

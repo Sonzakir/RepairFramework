@@ -102,8 +102,10 @@ def test_run_349_black_3_test_edit_is_rejected(worktree: Path) -> None:
         _created_file_diff("../../.tools/bugsinpy/x.txt"),
         _created_file_diff(".git/hooks/pre-commit"),
         "--- a/tests/test_black.py\n+++ /dev/null\n@@ -1 +0,0 @@\n-x\n",
-        "--- a/tests/test_black.py\n+++ b/tests/test_black.py\n@@ -1 +1,2 @@\n"
-        "+@unittest.skip('flaky')\n def test_invalid_config_return_code():\n",
+        (
+            "--- a/tests/test_black.py\n+++ b/tests/test_black.py\n@@ -1 +1,2 @@\n"
+            "+@unittest.skip('flaky')\n def test_invalid_config_return_code():\n"
+        ),
     ],
 )
 def test_evaluator_edits_are_rejected(worktree: Path, diff_text: str) -> None:
@@ -138,8 +140,10 @@ def test_runner_detection_in_source_is_rejected(
         _created_file_diff("black/new_helper.py", "def helper(): return 2"),
         _modified_file_diff("pyproject.toml", "line-length = 88", "line-length = 89"),
         # A reformatting diff re-adds an existing mention: net zero, not flagged.
-        "--- a/black.py\n+++ b/black.py\n@@ -1 +1 @@\n-# see pytest docs\n"
-        "+# see  pytest docs\n",
+        (
+            "--- a/black.py\n+++ b/black.py\n@@ -1 +1 @@\n-# see pytest docs\n"
+            "+# see  pytest docs\n"
+        ),
     ],
 )
 def test_source_edits_pass_screening(worktree: Path, diff_text: str) -> None:

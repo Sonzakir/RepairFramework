@@ -22,13 +22,13 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from apr_framework.benchmarks.registry import create_bugsinpy_adapter  # noqa: E402
-from apr_framework.challenge.agent_run import (  # noqa: E402
-    serialise_evaluation,
+from apr_framework.benchmarks.registry import create_bugsinpy_adapter
+from apr_framework.challenge.agent_run import (
     evaluate_candidate_in_clean_checkout,
+    serialise_evaluation,
 )
-from apr_framework.core.models import BugIdentifier  # noqa: E402
-from apr_framework.evaluation.run_writer import RunWriter  # noqa: E402
+from apr_framework.core.models import BugIdentifier
+from apr_framework.evaluation.run_writer import RunWriter
 
 TEST_TIMEOUT_SECONDS = 300
 

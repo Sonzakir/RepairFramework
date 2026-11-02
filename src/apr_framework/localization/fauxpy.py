@@ -169,7 +169,7 @@ def _translate_unittest_target(target: str) -> str:
 
 def _unittest_targets(parts: list[str]) -> list[str]:
     """
-    Helper method to convert arguments from unit tests into test targets 
+    Helper method to convert arguments from unit tests into test targets
     """
     targets: list[str] = []
     skip_next = False
@@ -321,11 +321,10 @@ class FauxPyConfig:
             raise ConfigurationError("wsbi_alpha must be a positive number.")
         if not isinstance(self.src, str) or not self.src.strip():
             raise ConfigurationError("FauxPy src must be a non-empty string.")
-        if self.top_n is not None:
-            if not isinstance(self.top_n, int) or self.top_n <= 0:
-                raise ConfigurationError(
-                    "FauxPy top_n must be a positive integer or None."
-                )
+        if self.top_n is not None and (
+            not isinstance(self.top_n, int) or self.top_n <= 0
+        ):
+            raise ConfigurationError("FauxPy top_n must be a positive integer or None.")
 
         _validate_string_list("test_targets", self.test_targets)
         _validate_string_list("failing_tests", self.failing_tests)
@@ -379,7 +378,9 @@ class FauxPyToolchain:
                 f"{checkout.bug.project} {checkout.bug.bug_id}` first."
             )
 
-        self._ensure_patched_fauxpy_installed(python, checkout.worktree, config.wsbi_alpha)
+        self._ensure_patched_fauxpy_installed(
+            python, checkout.worktree, config.wsbi_alpha
+        )
 
         fauxpy_command = self._build_fauxpy_command(python, config)
         before_report_dirs = _list_fauxpy_report_dirs(checkout.worktree)
@@ -444,7 +445,9 @@ class FauxPyToolchain:
             metadata=metadata,
         )
 
-    def _ensure_patched_fauxpy_installed(self, python: Path, cwd: Path, wsbi_alpha: float) -> None:
+    def _ensure_patched_fauxpy_installed(
+        self, python: Path, cwd: Path, wsbi_alpha: float
+    ) -> None:
         self._ensure_fauxpy_installed(python, cwd)
         self._apply_fauxpy_sbfl_metric_patch(python, cwd, wsbi_alpha)
         self._apply_fauxpy_mbfl_selection_patch(python, cwd)
@@ -473,7 +476,9 @@ class FauxPyToolchain:
                 f"failed. {_completed_output(install)}".strip()
             )
 
-    def _apply_fauxpy_sbfl_metric_patch(self, python: Path, cwd: Path, wsbi_alpha: float) -> None:
+    def _apply_fauxpy_sbfl_metric_patch(
+        self, python: Path, cwd: Path, wsbi_alpha: float
+    ) -> None:
         # Prepend the alpha value so the patch script can embed it in metric_wsbi.py.
         script = f"_WSBI_ALPHA = {wsbi_alpha!r}\n" + _FAUXPY_SBFL_METRICS_PATCH_SCRIPT
         patch = self._runner.run_command(
@@ -586,7 +591,8 @@ class FauxPyLocalizer(FaultLocalizer):
         """
         return self._toolchain.localize(self._config, checkout)
 
-# TODO: 
+
+# TODO:
 @overload
 def parse_fauxpy_output(
     raw_output: str,

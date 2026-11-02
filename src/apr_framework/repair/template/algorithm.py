@@ -122,7 +122,7 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
                     location=location,
                     bug=bug,
                 )
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - one location must not stop generation
                 logger.error(
                     "Patch generation failed for %s:%d: %s",
                     source_path,
@@ -166,7 +166,7 @@ class TemplateRepairAlgorithm(RepairAlgorithm):
             )
         except EvaluatorIntegrityError:
             raise
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - reported per candidate
             logger.error(
                 "Validation raised an unexpected error for %s: %s",
                 patch.patch_id,

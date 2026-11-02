@@ -46,9 +46,9 @@ import logging
 import os
 import re
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
-from typing import Iterable
 
 from apr_framework.benchmarks.executor_view import remove_host_file
 from apr_framework.core.exceptions import APRFrameworkError

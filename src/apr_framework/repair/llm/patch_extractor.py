@@ -36,6 +36,7 @@ class ExtractedPatch:
     diff_text: str
     patched_source: str
 
+
 # Try an explicit ```python fence first; fall back to any generic ``` fence.
 # [ \t]* tolerates trailing spaces/tabs on the opening fence line.
 _PYTHON_FENCE_RE = re.compile(r"```python[ \t]*\n(.*?)```", re.DOTALL)

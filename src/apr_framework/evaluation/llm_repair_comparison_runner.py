@@ -22,10 +22,11 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections.abc import Callable
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Any, Callable
+from typing import Any
 
 from apr_framework.benchmarks.base import BenchmarkAdapter
 from apr_framework.core.models import BugIdentifier, LocalizationResult

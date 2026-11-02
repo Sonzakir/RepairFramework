@@ -21,17 +21,17 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from apr_framework.benchmarks.registry import create_bugsinpy_adapter  # noqa: E402
-from apr_framework.core.exceptions import BenchmarkError  # noqa: E402
-from apr_framework.core.models import (  # noqa: E402
+from apr_framework.benchmarks.registry import create_bugsinpy_adapter
+from apr_framework.core.exceptions import BenchmarkError
+from apr_framework.core.models import (
     BugIdentifier,
     CheckoutResult,
     LocalizationResult,
     PatchCandidate,
     RepairAttemptResult,
 )
-from apr_framework.repair.llm import LLMRepairAlgorithm, LLMRepairConfig  # noqa: E402
-from apr_framework.repair.llm.client import LLMClient  # noqa: E402
+from apr_framework.repair.llm import LLMRepairAlgorithm, LLMRepairConfig
+from apr_framework.repair.llm.client import LLMClient
 
 
 class _NoLLMClient(LLMClient):

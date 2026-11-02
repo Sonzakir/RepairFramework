@@ -10,7 +10,6 @@ from apr_framework.core.models import (
 )
 from apr_framework.repair.base import RepairAlgorithm
 
-
 GROUND_TRUTH_OUTCOME = "ground_truth_patch"
 NOOP_OUTCOME = "original_unchanged"
 SUPPORTED_DUMMY_BUGS = (

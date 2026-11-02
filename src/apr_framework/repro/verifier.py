@@ -20,8 +20,8 @@ also pass once the fix is applied (fail-to-pass).
 
 import json
 import re
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable
 
 from apr_framework.core.models import TestRunResult
 from apr_framework.repair.evaluator_integrity import EvaluatorGuard

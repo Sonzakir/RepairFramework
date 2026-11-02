@@ -31,13 +31,13 @@ from apr_framework.core.models import (
 from apr_framework.evaluation.base import EvaluationRunner
 from apr_framework.evaluation.run_writer import RunWriter
 from apr_framework.localization.base import FaultLocalizer
+from apr_framework.repair.assessment.base import PatchAssessor
 from apr_framework.repair.base import RepairAlgorithm
 from apr_framework.repair.correctness import (
     context_similarity_score,
     describe_similarity_score,
     is_correct_patch,
 )
-from apr_framework.repair.assessment.base import PatchAssessor
 from apr_framework.repair.ranking.base import PatchRanker
 from apr_framework.repair.run_loop import LoopOutcome
 

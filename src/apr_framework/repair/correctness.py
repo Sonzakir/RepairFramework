@@ -108,11 +108,7 @@ def parse_unified_diff(diff_text: str) -> dict[str, ChangedLines]:
             name = Path(path.split(" ", 1)[0]).name
             current = by_file.setdefault(name, ChangedLines())
             continue
-        if (
-            raw.startswith("--- ")
-            or raw.startswith("diff ")
-            or raw.startswith("index ")
-        ):
+        if raw.startswith(("--- ", "diff ", "index ")):
             continue
         if raw.startswith("@@"):
             continue
@@ -233,12 +229,7 @@ def extract_hunks(diff_text: str) -> list[str]:
             continue
         if current_body_lines is None:
             continue
-        if (
-            raw_line.startswith("--- ")
-            or raw_line.startswith("+++ ")
-            or raw_line.startswith("diff ")
-            or raw_line.startswith("index ")
-        ):
+        if raw_line.startswith(("--- ", "+++ ", "diff ", "index ")):
             continue
         current_body_lines.append(raw_line)
 
@@ -328,8 +319,7 @@ def context_similarity_score(
             pairing_ratio = difflib.SequenceMatcher(
                 None, normalized_candidate_hunk, normalized_reference_hunk
             ).ratio()
-            if pairing_ratio > best_ratio:
-                best_ratio = pairing_ratio
+            best_ratio = max(best_ratio, pairing_ratio)
 
     return best_ratio
 

@@ -254,7 +254,7 @@ a call in `try/except OSError` and falls back to a mono-process executor:
 try:
     executor = ProcessPoolExecutor(max_workers=worker_count)
 except OSError:
-    executor = None          # system has no multiprocessing (e.g. AWS Lambda)
+    executor = None  # system has no multiprocessing (e.g. AWS Lambda)
 ```
 
 The failing test (`test_works_in_mono_process_only_environment`) forces that

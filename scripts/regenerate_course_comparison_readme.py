@@ -22,8 +22,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from apr_framework.core.models import BugIdentifier  # noqa: E402
-from apr_framework.evaluation.course_comparison_runner import (  # noqa: E402
+from apr_framework.core.models import BugIdentifier
+from apr_framework.evaluation.course_comparison_runner import (
     CourseCellResult,
     CourseComparisonRunner,
     _summarise_assessment_from_patches,
