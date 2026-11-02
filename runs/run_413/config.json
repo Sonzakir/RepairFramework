@@ -1,0 +1,19 @@
+{
+  "runner": "tamper-check",
+  "command": "python -m apr_framework tamper-check --project scrapy --bug 2 --reuse-checkout --diff .workspace/scrapy2_fix_with_new_tests.diff --run-tests",
+  "started_at": "2026-11-02T22:59:53.171351+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "scrapy#2",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_scrapy_2/scrapy",
+    "suite": "python -m unittest tests.test_utils_datatypes",
+    "trigger": [
+      "python -m unittest -q tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+    ]
+  },
+  "diff": ".workspace/scrapy2_fix_with_new_tests.diff",
+  "diff_sha256": "8e2167639cc03dc56d1c5f79dfc7daedd39d164204f100500dc81cf3a66863dd",
+  "run_tests": true
+}

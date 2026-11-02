@@ -278,6 +278,10 @@ def _run() -> int:
         from apr_framework.cli.evidence_commands import handle_behaviour_diff
 
         return handle_behaviour_diff(args, project_root)
+    if args.command == "tamper-check":
+        from apr_framework.cli.evidence_commands import handle_tamper_check
+
+        return handle_tamper_check(args, project_root)
 
     # -- Repair --
 

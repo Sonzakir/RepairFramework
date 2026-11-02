@@ -1,0 +1,29 @@
+{
+  "verdict": "clean",
+  "counts": {
+    "weakening": 0,
+    "suspicious": 0,
+    "strengthening": 0,
+    "neutral": 0
+  },
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "fastapi#4",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_fastapi_4/fastapi",
+    "suite": "pytest tests/test_param_in_path_and_dependency.py",
+    "trigger": [
+      "pytest tests/test_param_in_path_and_dependency.py::test_reused_param"
+    ]
+  },
+  "changed_files": [
+    "fastapi/openapi/utils.py"
+  ],
+  "source_files_changed": [
+    "fastapi/openapi/utils.py"
+  ],
+  "findings": [],
+  "dynamic": [],
+  "dynamic_note": "No test was added or edited, so there was nothing to run."
+}

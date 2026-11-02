@@ -1,0 +1,1061 @@
+{
+  "started_at": "2026-11-02T22:45:35.613975+00:00",
+  "bugs": "black:13-23,thefuck:1-12,luigi:1-10,tornado:1-8,scrapy:1-10",
+  "results": [
+    {
+      "bug": "black#13",
+      "buggy_commit": "b719d85ccc330170e40b2617307a7e3b2a0bab14",
+      "fixed_commit": "883689366ce0f0e0ddd66d81360c61abfd19b01a",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "blib2to3/pgen2/tokenize.py",
+        "tests/data/python37.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#14",
+      "buggy_commit": "3bdd42389128bbbe8b64a8e050563f09bff99979",
+      "fixed_commit": "dd8bde6d2fbfe8a7a11093e761a0cb5837efa96a",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertion_added": 2
+      },
+      "changed_files": [
+        "black.py",
+        "tests/data/python2_unicode_literals.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#15",
+      "buggy_commit": "8a8c58252cc023ae250d6febd24f50a8166450d4",
+      "fixed_commit": "df2ae3bbe6c45298aabb6c04e85cb353205626f1",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 3,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 3
+      },
+      "changed_files": [
+        "README.md",
+        "black.py",
+        "tests/data/fmtonoff2.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#16",
+      "buggy_commit": "fb34c9e19589d05f92084a28940837151251ebd6",
+      "fixed_commit": "42a3fe53319a8c02858c2a96989ed1339f84515a",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "black.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#17",
+      "buggy_commit": "bbc09a4f013f2a584f143f3f5e3f76f6082367d4",
+      "fixed_commit": "7fc6ce990669464f5172b63fafa3724f5f308be3",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "black.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#18",
+      "buggy_commit": "dbe26161fa68632d608a440666a0960a32630902",
+      "fixed_commit": "00a302560b92951c22f0f4c8d618cf63de39bd57",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 3
+      },
+      "kinds": {
+        "test_added": 1,
+        "test_modified": 3
+      },
+      "changed_files": [
+        "README.md",
+        "black.py",
+        "docs/reference/reference_functions.rst",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#19",
+      "buggy_commit": "337a4199f90ca48a19cf26511e0cec330b13bd4e",
+      "fixed_commit": "29e97d1d4a7717f1bd0ca35cacf2f2ce6d815b0c",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "black.py",
+        "tests/comments6.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#20",
+      "buggy_commit": "2e52a2b3ecc0fe025439c3db05a4457ab14f167b",
+      "fixed_commit": "06e95b1e9bcd43c4574840f8174ba4b2c5d281bd",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 0,
+        "neutral": 1
+      },
+      "kinds": {
+        "test_modified": 1
+      },
+      "changed_files": [
+        "README.md",
+        "black.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#21",
+      "buggy_commit": "c071af761e1550c6e4ebab8e5af747d2d8fdd48e",
+      "fixed_commit": "8e7848c63efe36f09e4651bece8c0efc34a1c3e1",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 0,
+        "neutral": 1
+      },
+      "kinds": {
+        "test_modified": 1
+      },
+      "changed_files": [
+        "black.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#22",
+      "buggy_commit": "728c56c986bc5aea4d9897d3fce3159f89991b8e",
+      "fixed_commit": "c55d08d0b96c8de8bd867ca315e380d9e9d2d7ec",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "black.py",
+        "tests/comments3.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "black#23",
+      "buggy_commit": "8de552eb4f0fbf1ad84812cde71489cc00d3ed1f",
+      "fixed_commit": "6316e293ac30a2837ec20eba289fd28a2a18cf89",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "README.md",
+        "black.py",
+        "blib2to3/pygram.py",
+        "blib2to3/pygram.pyi",
+        "tests/function.py",
+        "tests/python2.py",
+        "tests/test_black.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#1",
+      "buggy_commit": "2ced7a7f33ae0bec3ffc7a43ce95330bdf6cfcb9",
+      "fixed_commit": "444908ce1c17767ef4aaf9e0b4950497914f7f63",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 1,
+        "strengthening": 0,
+        "neutral": 0
+      },
+      "kinds": {
+        "expectation_changed": 1
+      },
+      "changed_files": [
+        "tests/rules/test_pip_unknown_command.py",
+        "thefuck/rules/pip_unknown_command.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#2",
+      "buggy_commit": "40ab4eb62db57627bff10cf029d29c94704086a2",
+      "fixed_commit": "78ef9eec88f43d5727986be2237f6e0e250cbbbc",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "tests/test_utils.py",
+        "thefuck/utils.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#3",
+      "buggy_commit": "ac343fb1bd7dadbb9e1a9fd7e3071f5778e338a4",
+      "fixed_commit": "ce5feaebf7fd5c1190b5e14fbc1e962cc8db5f39",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertion_added": 1
+      },
+      "changed_files": [
+        "tests/shells/test_fish.py",
+        "thefuck/shells/fish.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#4",
+      "buggy_commit": "68949a592248913b52bfd50036893553153fcddb",
+      "fixed_commit": "8db3cf604865e559090412ce80b0640e290ad83a",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 1,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "expectation_changed": 1,
+        "assertion_added": 1
+      },
+      "changed_files": [
+        "tests/shells/test_fish.py",
+        "thefuck/shells/fish.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#5",
+      "buggy_commit": "7c858fadb3458be829d3d43666ccb46c3ed5b8a0",
+      "fixed_commit": "c205683a8df8a57e2db1e9816a5a7ce3255b08fc",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "tests/rules/test_git_push.py",
+        "thefuck/rules/git_push.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#6",
+      "buggy_commit": "797ca1c5647c565f62e21a8e29515c8b0fbe275f",
+      "fixed_commit": "7c858fadb3458be829d3d43666ccb46c3ed5b8a0",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 0,
+        "neutral": 3
+      },
+      "kinds": {
+        "test_modified": 3
+      },
+      "changed_files": [
+        "tests/rules/test_git_branch_exists.py",
+        "thefuck/rules/git_branch_exists.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#7",
+      "buggy_commit": "64d6835e15a22cf8803d398cbb593f748c550e8a",
+      "fixed_commit": "75d2c43997ca703150cbdb4c46ed7b2e2e71fd11",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 2,
+        "strengthening": 0,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertions_rewritten": 2
+      },
+      "changed_files": [
+        "tests/rules/test_php_s.py",
+        "thefuck/rules/php_s.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#8",
+      "buggy_commit": "449cb9a00693c8b4d97d5fda8d732cf0978e117e",
+      "fixed_commit": "be48f027847161f907def8987706041c65a1fd58",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 4,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 4
+      },
+      "changed_files": [
+        "tests/rules/test_dnf_no_such_command.py",
+        "thefuck/rules/dnf_no_such_command.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#9",
+      "buggy_commit": "ce6b82c92d78ae283cb3db001766b76f6647bc47",
+      "fixed_commit": "feb36ede5c518fdc3b6eddf945b2d8b1e2294d15",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertion_added": 1
+      },
+      "changed_files": [
+        "tests/rules/test_git_push.py",
+        "thefuck/rules/git_push.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#10",
+      "buggy_commit": "8bd6c5da67e55c64257345efa4e3cc454c42475c",
+      "fixed_commit": "0c84eefa55fc1b4bc4940b41d74568884344e35c",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 0,
+        "neutral": 1
+      },
+      "kinds": {
+        "test_modified": 1
+      },
+      "changed_files": [
+        "tests/rules/test_man.py",
+        "thefuck/rules/man.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#11",
+      "buggy_commit": "92f3c8fb52b32b79005b4864c31a5c2d8c45f4b1",
+      "fixed_commit": "db7dffdb44ae5c7be8de088765463fbda96197d1",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertion_added": 2
+      },
+      "changed_files": [
+        "tests/rules/test_git_push.py",
+        "thefuck/rules/git_push.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "thefuck#12",
+      "buggy_commit": "4c2fc490f280ca3921785d8f58a37274ced35ce6",
+      "fixed_commit": "ca787a1cba3cc9b26b43919c5e60acb40ebcd919",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 0,
+        "neutral": 2
+      },
+      "kinds": {
+        "test_modified": 2
+      },
+      "changed_files": [
+        "tests/rules/test_no_command.py",
+        "thefuck/rules/no_command.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#1",
+      "buggy_commit": "1164eb6b85b8a70f596dbb99452bec513e72c12e",
+      "fixed_commit": "aec5dc2ed8db53fc282a0bd24aabe59031b6d1ba",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 1,
+        "strengthening": 0,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertions_rewritten": 1
+      },
+      "changed_files": [
+        "luigi/server.py",
+        "test/server_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#2",
+      "buggy_commit": "baa54c9f4f809692d62d4c3e4497161717c76550",
+      "fixed_commit": "24e85945ae39e5975491527e00c3f0f64b42ea6e",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "luigi/contrib/beam_dataflow.py",
+        "test/contrib/beam_dataflow_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#3",
+      "buggy_commit": "a0f1db01ddab5b4b2bda3fbe58bad09a6d94a7b4",
+      "fixed_commit": "3a0bfbff69addfb3be1107adab3d4914bcae3e4b",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "luigi/parameter.py",
+        "test/parameter_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#4",
+      "buggy_commit": "ffa51b50103a3adaf3c4d0569fdb037a7ba01e8e",
+      "fixed_commit": "8501e5dbb8d3040453a89bb0d3562526086d51e5",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 3,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 3
+      },
+      "changed_files": [
+        "luigi/contrib/redshift.py",
+        "test/contrib/redshift_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#5",
+      "buggy_commit": "45b5711d1900184ccd66c65216d28c0d69d10d4a",
+      "fixed_commit": "1fbec18ceb7c5de352e6d1df12960c61f09e67c2",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 6,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 6
+      },
+      "changed_files": [
+        "luigi/util.py",
+        "test/util_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#6",
+      "buggy_commit": "d9667b7c8ce75f17efa383e8f64e27e5852e6f89",
+      "fixed_commit": "ce881b2a95743887c6147ff4ba23ce5f622b3f5e",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 4,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 4
+      },
+      "changed_files": [
+        "luigi/parameter.py",
+        "test/parameter_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#7",
+      "buggy_commit": "dd1f2ce0061e7787166522a3c75339ba4755dd2c",
+      "fixed_commit": "daf9ce99a3a7ed4227d1564570c5fce8848357e5",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "luigi/scheduler.py",
+        "test/scheduler_api_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#8",
+      "buggy_commit": "61ee32e9968978c32be12a6af0affa3a5750e87e",
+      "fixed_commit": "8874b93165953c4f6bbe7b747804654d13290018",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 3,
+        "strengthening": 0,
+        "neutral": 0
+      },
+      "kinds": {
+        "expectation_changed": 3
+      },
+      "changed_files": [
+        "luigi/contrib/redshift.py",
+        "test/contrib/redshift_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#9",
+      "buggy_commit": "f7e0b7710fd8b12f27625b1efb62a8fde6e206c4",
+      "fixed_commit": "b7115974c3deadf77113686248b39567cb67e38f",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "luigi/execution_summary.py",
+        "test/execution_summary_test.py",
+        "test/retcodes_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "luigi#10",
+      "buggy_commit": "f538d1b3d473d542a19d508e5f7e0809b1dfe5ef",
+      "fixed_commit": "3c55acd2cd5cf9c6c760bec5bb3159e0bc48a614",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "luigi/scheduler.py",
+        "test/scheduler_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#1",
+      "buggy_commit": "6a5a0bfa370b6c0d3dbbf9589a560a98202d2baa",
+      "fixed_commit": "4677c54cc18bbfbdf0f4dadf11610fab6203fd63",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "tornado/test/websocket_test.py",
+        "tornado/websocket.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#2",
+      "buggy_commit": "2ca8821d006f6693f920a4b183a3a7c985a5c8ad",
+      "fixed_commit": "4f486a4aec746e9d66441600ee3b0743228b061c",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "tornado/http1connection.py",
+        "tornado/test/httpclient_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#3",
+      "buggy_commit": "940fd87fe9145d1154c8457221f86d56ea063c65",
+      "fixed_commit": "aa622e724f80e0f7fcee369f75d69d1db13d72f2",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        ".travis.yml",
+        "tornado/httpclient.py",
+        "tornado/test/httpclient_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#4",
+      "buggy_commit": "a8420fc681c5423d072978f00eab4d0645057d16",
+      "fixed_commit": "db529031a1e1a6e951826aba0b7d0b18f05cd4c7",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "tornado/test/web_test.py",
+        "tornado/web.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#5",
+      "buggy_commit": "2d4053daa56c609d642b214399e046671d4a593e",
+      "fixed_commit": "886643965b5cb782503d8d7b374b7a794ec2077b",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "tornado/ioloop.py",
+        "tornado/test/ioloop_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#6",
+      "buggy_commit": "fb74e4816ccfa7fc6a7abd8c8aab1f415cfc1b13",
+      "fixed_commit": "2905ee4fb3c283d40b10f609359e189c83a0dc06",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "tornado/ioloop.py",
+        "tornado/platform/asyncio.py",
+        "tornado/test/asyncio_test.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "tornado#7",
+      "buggy_commit": "fa3409179588536f2f743d16e537f6f9827fa92f",
+      "fixed_commit": "a3b44cd701e0e82693363701bc0346b0125d2362",
+      "verdict": "tampered",
+      "counts": {
+        "weakening": 1,
+        "suspicious": 2,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertion_removed": 1,
+        "assertions_rewritten": 1,
+        "assertion_changed": 1,
+        "assertion_added": 1
+      },
+      "changed_files": [
+        "tornado/ioloop.py",
+        "tornado/test/ioloop_test.py"
+      ],
+      "weakening": [
+        {
+          "kind": "assertion_removed",
+          "severity": "weakening",
+          "file": "tornado/test/ioloop_test.py",
+          "message": "Assertion removed.",
+          "test": "TestIOLoopFutures.test_run_in_executor_gen",
+          "line": 610,
+          "before": "self.assertTrue(other_event.is_set())",
+          "after": ""
+        }
+      ]
+    },
+    {
+      "bug": "tornado#8",
+      "buggy_commit": "34c43f4775971ab9b2b8ed43356f218add6387b2",
+      "fixed_commit": "5d4a9ab26372efd255bbb29fde55c41395ed17b1",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "tornado/test/websocket_test.py",
+        "tornado/websocket.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#1",
+      "buggy_commit": "c57512fa669e6f6b1b766a7639206a380f0d10ce",
+      "fixed_commit": "9d9dea0d69709ef0f7aef67ddba1bd7bda25d273",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 0,
+        "neutral": 0
+      },
+      "kinds": {},
+      "changed_files": [
+        "scrapy/spidermiddlewares/offsite.py",
+        "tests/test_spidermiddleware_offsite.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#2",
+      "buggy_commit": "f02c3d1dcf3e4880388d19e961e7911be5dc54ff",
+      "fixed_commit": "439a3e59b8e858441f8d97dbc32f398db392330d",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "scrapy/utils/datatypes.py",
+        "tests/test_utils_datatypes.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#3",
+      "buggy_commit": "be2e910dd06ba4904e7b10eb5a7e3251e8dab099",
+      "fixed_commit": "66cbceeb0a9104fc0fa238898e38d0d9ce9cbcf6",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "scrapy/downloadermiddlewares/redirect.py",
+        "tests/test_downloadermiddleware_redirect.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#4",
+      "buggy_commit": "c8f3d07e86dd41074971b5423fb932c2eda6db1e",
+      "fixed_commit": "16dad81715d3970149c0cf7a318e73a0d84be1ff",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "scrapy/contracts/__init__.py",
+        "tests/test_contracts.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#5",
+      "buggy_commit": "426da0ed07637e7efbcfb0fe49546e187d5d7f67",
+      "fixed_commit": "acd2b8d43b5ebec7ffd364b6f335427041a0b98d",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "scrapy/http/response/__init__.py",
+        "tests/test_http_response.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#6",
+      "buggy_commit": "8aa2e4f9976d31bbe3a0014b4f1f96ace1b87043",
+      "fixed_commit": "25f609e2a3c27ca7d7d98dbfddb2c049735935bb",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "assertion_added": 2
+      },
+      "changed_files": [
+        "scrapy/pipelines/images.py",
+        "tests/test_pipeline_images.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#7",
+      "buggy_commit": "e1ceaf3b5fa29326f032c4ed3f50943384b9e63d",
+      "fixed_commit": "074caf434e255bc96f106e57e3e288028f372485",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 1,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_values_changed": 1,
+        "test_added": 1
+      },
+      "changed_files": [
+        "scrapy/http/request/form.py",
+        "tests/test_http_request.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#8",
+      "buggy_commit": "f2f9350c47db73bdfb60773601b59b0633e1595a",
+      "fixed_commit": "4e765acaed7a914630ee5320fa6f6523890a2b9d",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 2,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 2
+      },
+      "changed_files": [
+        "scrapy/item.py",
+        "tests/test_item.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#9",
+      "buggy_commit": "a9c69458ff1667cc4d20ba25bb6a0dd9a5a08ce6",
+      "fixed_commit": "ff3aec661355a82a6f77355a95e1f391fa586c2b",
+      "verdict": "clean",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 0,
+        "strengthening": 1,
+        "neutral": 0
+      },
+      "kinds": {
+        "test_added": 1
+      },
+      "changed_files": [
+        "docs/topics/email.rst",
+        "scrapy/mail.py",
+        "tests/test_mail.py"
+      ],
+      "weakening": []
+    },
+    {
+      "bug": "scrapy#10",
+      "buggy_commit": "6cc83c041eac36e7688dbd9c4c55487a43b622e0",
+      "fixed_commit": "db408528928b2d15043593032913fe40d6eb6783",
+      "verdict": "suspicious",
+      "counts": {
+        "weakening": 0,
+        "suspicious": 1,
+        "strengthening": 0,
+        "neutral": 2
+      },
+      "kinds": {
+        "test_values_changed": 1,
+        "test_renamed": 1,
+        "test_modified": 1
+      },
+      "changed_files": [
+        "scrapy/downloadermiddlewares/redirect.py",
+        "tests/test_downloadermiddleware_redirect.py"
+      ],
+      "weakening": []
+    }
+  ]
+}

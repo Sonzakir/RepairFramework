@@ -158,6 +158,23 @@ limit".
 python -m apr_framework behaviour-diff --project scrapy --bug 2 --from-run runs/run_173 --from-run runs/run_326
 ```
 
+## Tamper Check
+
+**[Tamper Check](docs/tamper-check.md)** reads a change and says what it did to the
+tests that judge it. It tells strengthening edits (new tests, stricter assertions)
+from weakening ones (deleted or skipped tests, loosened assertions, rewritten
+expectations, deselected tests, a narrowed CI test command). With `--run-tests` it
+checks that new tests fail without the fix and that an edited test was not what
+made CI green. It exits 1 on a weakening change, so it can gate CI.
+
+On our own black#3 test edit it reports a rewritten expectation, and the
+original test still fails. The measurements on BugsInPy developer fixes are in
+[docs/tamper-check.md](docs/tamper-check.md#measured-on-developer-fixes).
+
+```bash
+python -m apr_framework tamper-check --repo . --git-base origin/main          # static, no Docker
+```
+
 ## Quickstart
 
 You need **Docker** and **Git**. LLM features also need an OpenAI-compatible API key.
@@ -287,6 +304,7 @@ class.
 | [Break This Fix](docs/challenges.md) | test-passing-but-wrong cases: contract, replay, agent attempts, contributing |
 | [Strict Repro](docs/repro.md) | bug report → strict failing test: verification, wrong-fix probes, hardening, local mode |
 | [Behaviour Diff](docs/behaviour-diff.md) | where test-passing fixes behave differently: traced test runs, one-literal variants, behaviour classes |
+| [Tamper Check](docs/tamper-check.md) | what a change does to its tests, with fail-before / pass-after runs |
 | [CLI reference](docs/cli-reference.md) | all commands and flags |
 
 ## Known limitations and next steps

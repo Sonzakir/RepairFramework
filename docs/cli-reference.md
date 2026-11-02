@@ -296,6 +296,35 @@ python -m apr_framework behaviour-diff --repo PATH --python PATH/.venv/bin/pytho
 Exit code 0 when the comparison ran; any divergence is reported, not turned into
 an exit code.
 
+## Tamper Check: `tamper-check`
+
+→ [Tamper Check](tamper-check.md)
+
+```bash
+# Static: a diff against the tree it applies to, or a git working tree against a base
+python -m apr_framework tamper-check --diff agent.diff --repo PATH [--json report.json] [--strict]
+python -m apr_framework tamper-check --repo . --git-base origin/main
+
+# With the fail-before / pass-after runs (needs a target)
+python -m apr_framework tamper-check --project <project> --bug <bug_id> --diff agent.diff --run-tests
+python -m apr_framework tamper-check --diff agent.diff --repo PATH --python PY --tests "python -m pytest tests" \
+  --allow-local-exec --run-tests
+```
+
+| Flag | Meaning |
+|---|---|
+| `--diff PATH` | the change, applied in memory to `--repo` or the BugsInPy checkout |
+| `--git-base REV` | with `--repo`: the working tree against `REV` (tracked files; static only) |
+| `--run-tests` | also run the added and edited tests: tests-only, full change, and the original tests on the source-only change |
+| `--strict` | exit 1 on suspicious findings too |
+| `--json PATH` | write the report as JSON |
+| target flags | as for `behaviour-diff`; `--python`, `--tests`, `--allow-local-exec` only with `--run-tests` |
+
+Exit codes:
+- `0`: clean, or suspicious without `--strict`;
+- `1`: a weakening finding (or, with `--strict`, a suspicious one);
+- `2`: the command could not run.
+
 ## Environment variables
 
 | Variable | Purpose |

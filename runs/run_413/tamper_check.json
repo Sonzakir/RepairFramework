@@ -1,0 +1,90 @@
+{
+  "verdict": "suspicious",
+  "counts": {
+    "weakening": 0,
+    "suspicious": 1,
+    "strengthening": 3,
+    "neutral": 0
+  },
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "scrapy#2",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_scrapy_2/scrapy",
+    "suite": "python -m unittest tests.test_utils_datatypes",
+    "trigger": [
+      "python -m unittest -q tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+    ]
+  },
+  "changed_files": [
+    "scrapy/utils/datatypes.py",
+    "tests/test_utils_datatypes.py"
+  ],
+  "source_files_changed": [
+    "scrapy/utils/datatypes.py"
+  ],
+  "findings": [
+    {
+      "kind": "non_discriminating",
+      "severity": "suspicious",
+      "file": "tests/test_utils_datatypes.py",
+      "message": "The test passes with the change, but also without the change's source edits: it does not check what the change does.",
+      "test": "LocalCacheTest.test_cache_limit_one_keeps_latest",
+      "line": null,
+      "before": "",
+      "after": ""
+    },
+    {
+      "kind": "test_added",
+      "severity": "strengthening",
+      "file": "tests/test_utils_datatypes.py",
+      "message": "New test with 1 assertion(s).",
+      "test": "LocalCacheTest.test_cache_without_limit_keeps_every_key",
+      "line": 260,
+      "before": "",
+      "after": "def test_cache_without_limit_keeps_every_key(self):\n    cache = LocalCache()\n    for key in range(5):\n..."
+    },
+    {
+      "kind": "test_added",
+      "severity": "strengthening",
+      "file": "tests/test_utils_datatypes.py",
+      "message": "New test with 1 assertion(s).",
+      "test": "LocalCacheTest.test_cache_limit_one_keeps_latest",
+      "line": 266,
+      "before": "",
+      "after": "def test_cache_limit_one_keeps_latest(self):\n    cache = LocalCache(limit=1)\n    cache['a'] = 1\n..."
+    },
+    {
+      "kind": "discriminating",
+      "severity": "strengthening",
+      "file": "tests/test_utils_datatypes.py",
+      "message": "Fails without the change's source edits, passes with them.",
+      "test": "LocalCacheTest.test_cache_without_limit_keeps_every_key",
+      "line": null,
+      "before": "",
+      "after": ""
+    }
+  ],
+  "dynamic": [
+    {
+      "file": "tests/test_utils_datatypes.py",
+      "test": "LocalCacheTest.test_cache_limit_one_keeps_latest",
+      "selector": "tests.test_utils_datatypes.LocalCacheTest.test_cache_limit_one_keeps_latest",
+      "with_change": "passed",
+      "tests_only": "passed",
+      "original_test_on_change": null,
+      "verdict": "non_discriminating"
+    },
+    {
+      "file": "tests/test_utils_datatypes.py",
+      "test": "LocalCacheTest.test_cache_without_limit_keeps_every_key",
+      "selector": "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit_keeps_every_key",
+      "with_change": "passed",
+      "tests_only": "error",
+      "original_test_on_change": null,
+      "verdict": "discriminating"
+    }
+  ],
+  "dynamic_note": ""
+}

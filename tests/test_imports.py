@@ -85,6 +85,15 @@ MODULES = [
     "apr_framework.reporting",
     "apr_framework.reporting.base",
     "apr_framework.reporting.archive",
+    "apr_framework.tamper",
+    "apr_framework.tamper.changes",
+    "apr_framework.tamper.classify",
+    "apr_framework.tamper.config_checks",
+    "apr_framework.tamper.models",
+    "apr_framework.tamper.pipeline",
+    "apr_framework.tamper.report",
+    "apr_framework.tamper.source_checks",
+    "apr_framework.tamper.test_ast",
 ]
 
 

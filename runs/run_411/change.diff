@@ -1,0 +1,11 @@
+--- a/black.py
++++ b/black.py
+@@ -394,7 +394,7 @@
+ @click.option(
+     "--config",
+     type=click.Path(
+-        exists=False, file_okay=True, dir_okay=False, readable=True, allow_dash=False
++        exists=True, file_okay=True, dir_okay=False, readable=True, allow_dash=False
+     ),
+     is_eager=True,
+     callback=read_pyproject_toml,

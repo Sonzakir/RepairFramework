@@ -39,6 +39,7 @@ from apr_framework.evidence.versions import (
 def add_evidence_parsers(subparsers) -> None:
     """Register the evidence commands on the top-level subparsers."""
     _add_behaviour_diff_parser(subparsers)
+    _add_tamper_check_parser(subparsers)
 
 
 def add_target_arguments(parser: argparse.ArgumentParser) -> None:
@@ -303,3 +304,139 @@ def _reference(target: EvidenceTarget, args: argparse.Namespace) -> FixVersion |
         diff_text=diff_text,
         source=str(args.reference),
     )
+
+
+# -- tamper-check -------------------------------------------------------------------
+def _add_tamper_check_parser(subparsers) -> None:
+    parser = subparsers.add_parser(
+        "tamper-check",
+        help=(
+            "Tamper Check: classify what a change does to its tests (deleted, skipped, "
+            "loosened, rewritten expectations vs. added tests) and, with --run-tests, "
+            "check that new and edited tests fail before the change and pass after it."
+        ),
+    )
+    add_target_arguments(parser)
+    change = parser.add_argument_group("the change")
+    change.add_argument(
+        "--diff",
+        default=None,
+        help="The change as a unified diff, applied to --repo or the BugsInPy checkout",
+    )
+    change.add_argument(
+        "--git-base",
+        dest="git_base",
+        default=None,
+        help="With --repo: compare the git working tree against this revision (static only)",
+    )
+    parser.add_argument(
+        "--run-tests",
+        dest="run_tests",
+        action="store_true",
+        help="Also run the added and edited tests before/after the change (needs a target)",
+    )
+    parser.add_argument(
+        "--strict",
+        action="store_true",
+        help="Exit 1 on suspicious findings too, not only on weakening ones",
+    )
+    parser.add_argument(
+        "--json", dest="json_out", default=None, help="Write the report as JSON"
+    )
+
+
+def handle_tamper_check(args: argparse.Namespace, project_root: Path) -> int:
+    import json
+
+    from apr_framework.tamper.changes import changes_from_diff, changes_from_git
+    from apr_framework.tamper.models import CLEAN, TAMPERED
+    from apr_framework.tamper.pipeline import (
+        build_report,
+        read_test_sources,
+        run_dynamic_checks,
+        static_findings,
+    )
+    from apr_framework.tamper.report import format_report
+
+    if (args.diff is None) == (args.git_base is None):
+        raise ConfigurationError("Give the change as --diff PATH or --git-base REV.")
+    if args.git_base is not None and (args.repo is None or args.run_tests):
+        raise ConfigurationError(
+            "--git-base needs --repo and works without --run-tests."
+        )
+    if args.diff is not None and args.repo is None and args.project is None:
+        raise ConfigurationError(
+            "--diff needs a tree to apply to: --repo or --project/--bug."
+        )
+
+    target: EvidenceTarget | None = None
+    if args.project is not None or args.bug is not None or args.run_tests:
+        target = build_target(args, project_root)
+    base = target.worktree if target is not None else Path(args.repo).resolve()
+    declared = target.declared_test_files if target is not None else frozenset()
+    if args.git_base is not None:
+        changes = changes_from_git(base, args.git_base)
+        diff_text = ""
+        title = f"{base.name}: working tree vs {args.git_base}"
+    else:
+        diff_text = Path(args.diff).read_text(encoding="utf-8")
+        changes = changes_from_diff(diff_text, base)
+        title = f"{args.diff} on {target.label if target else base.name}"
+
+    findings, classes = static_findings(
+        changes, declared, read_test_sources(base, changes)
+    )
+    dynamic: list[dict] = []
+    note = ""
+    writer = None
+    if target is not None:
+        writer = RunWriter.create(project_root / args.runs_dir)
+        writer.write_json(
+            "config.json",
+            {
+                "runner": "tamper-check",
+                "command": command_line(),
+                "started_at": datetime.now(timezone.utc).isoformat(),
+                "target": target.describe(),
+                "diff": args.diff,
+                "diff_sha256": hashlib.sha256(diff_text.encode("utf-8")).hexdigest(),
+                "run_tests": args.run_tests,
+            },
+        )
+        if diff_text:
+            (writer.run_dir / "change.diff").write_text(diff_text, encoding="utf-8")
+    if args.run_tests and target is not None:
+        with restore_on_termination(), target.scratch_directory("tamper") as scratch:
+            dynamic = run_dynamic_checks(
+                target,
+                diff_text,
+                findings,
+                classes,
+                scratch,
+                log=writer.log if writer else (lambda message: None),
+            )
+        if not dynamic:
+            note = "No test was added or edited, so there was nothing to run."
+    elif not args.run_tests:
+        note = "Static check only; --run-tests also runs the added and edited tests."
+    report = build_report(
+        target.describe() if target else {"kind": "tree", "path": str(base)},
+        changes,
+        findings,
+        classes,
+        dynamic,
+        note,
+    )
+    payload = report.to_json()
+    if writer is not None:
+        writer.write_json("tamper_check.json", payload)
+    if args.json_out:
+        Path(args.json_out).write_text(
+            json.dumps(payload, indent=2) + "\n", encoding="utf-8"
+        )
+    print(format_report(report, title=title))
+    if writer is not None:
+        print(f"\nRun directory: {writer.run_dir}")
+    if report.verdict == TAMPERED or (args.strict and report.verdict != CLEAN):
+        return 1
+    return 0
