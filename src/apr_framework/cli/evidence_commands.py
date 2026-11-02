@@ -18,7 +18,7 @@ from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
 
-from apr_framework.core.exceptions import ConfigurationError
+from apr_framework.core.exceptions import APRFrameworkError, ConfigurationError
 from apr_framework.core.models import BugIdentifier
 from apr_framework.evaluation.run_writer import RunWriter
 from apr_framework.evidence.target import (
@@ -346,6 +346,19 @@ def _add_tamper_check_parser(subparsers) -> None:
 
 
 def handle_tamper_check(args: argparse.Namespace, project_root: Path) -> int:
+    """Exit 0 (clean), 1 (weakening; with --strict also suspicious), 2 (could not run).
+
+    A CI gate must tell "this change tampers with the tests" from "the check did
+    not run", so framework errors exit 2 here rather than the CLI's usual 1.
+    """
+    try:
+        return _tamper_check(args, project_root)
+    except APRFrameworkError as error:
+        print(f"Error: {error}")
+        return 2
+
+
+def _tamper_check(args: argparse.Namespace, project_root: Path) -> int:
     import json
 
     from apr_framework.tamper.changes import changes_from_diff, changes_from_git

@@ -364,6 +364,13 @@ def test_cli_exit_codes(tmp_path: Path) -> None:
     assert tampered_run.returncode == 1 and "Verdict: TAMPERED" in tampered_run.stdout
     clean_run = run(added)
     assert clean_run.returncode == 0 and "Verdict: CLEAN" in clean_run.stdout
+    broken = tmp_path / "broken.diff"
+    broken.write_text(
+        _diff("tests/test_calc.py", BASE_TEST.replace("3)", "9)"), BASE_TEST),
+        encoding="utf-8",
+    )
+    broken_run = run(broken)
+    assert broken_run.returncode == 2 and "does not apply" in broken_run.stdout
 
 
 # -- dynamic ------------------------------------------------------------------------
