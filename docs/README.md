@@ -10,6 +10,7 @@
 | [Evaluation harnesses](evaluation.md) | The four experiment matrices, run artifacts, report regeneration scripts |
 | [Results](results.md) | Every published number: localization, template repair, LLM variants, retrieval, four-approach comparison |
 | [Break This Fix](challenges.md) | Case bundles of test-passing-but-wrong patches: the contract, replay, fresh agent attempts, contributing |
+| [Strict Repro](repro.md) | Bug report → failing pytest test that fails for the reported reason and rejects plausible-wrong fixes; BugsInPy and local mode |
 | [Architecture](architecture.md) | Interfaces, source layout, design decisions, extension points |
 | [CLI reference](cli-reference.md) | Every command and flag at a glance |
 

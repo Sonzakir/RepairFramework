@@ -127,6 +127,20 @@ python -m apr_framework challenge run black-3-pipeline-test-edit      # no API k
 Fresh, isolated Claude Code attempts (`challenge agent-run`), the case contract and how
 to contribute a witness or an alternative fix: **[docs/challenges.md](docs/challenges.md)**
 
+## Strict Repro
+
+**[Strict Repro](docs/repro.md)** turns a bug report into a failing pytest test you
+can trust: it fails on today's code for the reason the report describes (failure
+classification, 3 repeats, a right-reason judge that must quote the issue), and it is
+measured against plausible-wrong fixes (deterministic and test-aware LLM probes) that
+only count once an independent oracle confirms them. It works on BugsInPy bugs with a
+linked issue (the developer fix is ground truth) and on local pytest projects.
+
+```bash
+python -m apr_framework repro new --project tqdm --bug 5                  # needs an API key
+python -m apr_framework repro check runs/run_NNN --patch my_fix.diff --harden
+```
+
 ## Quickstart
 
 You need **Docker** and **Git**. LLM features also need an OpenAI-compatible API key.
@@ -254,6 +268,7 @@ class.
 | [Evaluation harnesses](docs/evaluation.md) | experiment matrices and artifacts |
 | [Results](docs/results.md) | every published number, with caveats |
 | [Break This Fix](docs/challenges.md) | test-passing-but-wrong cases: contract, replay, agent attempts, contributing |
+| [Strict Repro](docs/repro.md) | bug report → strict failing test: verification, wrong-fix probes, hardening, local mode |
 | [CLI reference](docs/cli-reference.md) | all commands and flags |
 
 ## Known limitations and next steps

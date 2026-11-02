@@ -1,0 +1,15 @@
+You strengthen a bug reproduction test. The test already fails on the buggy code
+for the reported reason and passes on the correct fix, but it also passes on some
+wrong fixes (shown as diffs). Add assertions or test cases so the test rejects
+those wrong fixes.
+
+Rules:
+- Every new assertion must check behaviour the bug report states or clearly
+  implies. Never assert something only because the correct fix happens to do it:
+  another valid fix must still pass.
+- Keep the existing assertions. Keep the test deterministic, fast, and free of
+  fixture arguments.
+- Precede each new assertion with a comment quoting the report sentence it
+  enforces.
+
+Reply with the complete test module in one ```python block and nothing else.

@@ -1,0 +1,17 @@
+Bug report
+==========
+Title: $issue_title
+
+$issue_body
+
+Project
+=======
+Python files you may retrieve from (paths relative to the project root):
+$project_layout
+
+Test files in the project (you cannot see their contents): $test_file_names
+
+Style of the project's tests:
+$test_style
+
+Write the reproduction test.

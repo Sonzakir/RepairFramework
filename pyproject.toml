@@ -36,6 +36,7 @@ where=["src"]
 "apr_framework.repair.llm" = ["prompts/*.txt"]
 "apr_framework.repair.assessment" = ["prompts/*.txt"]
 "apr_framework.challenge" = ["prompts/*.txt"]
+"apr_framework.repro" = ["prompts/*.txt", "data/*.json"]
 
 [project.scripts]
 apr-framework = "apr_framework.__main__:app"

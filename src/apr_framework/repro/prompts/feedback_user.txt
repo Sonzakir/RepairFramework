@@ -1,0 +1,8 @@
+I ran your test on the current (buggy) code. Classification: $classification
+
+Output (tail):
+$test_output
+
+$instruction
+Reply with the complete corrected test module in one ```python block (or a single
+RETRIEVE line if you need more source code first).

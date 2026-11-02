@@ -1,0 +1,11 @@
+Bug report
+==========
+Title: $issue_title
+
+$issue_body
+
+Failing test output on the buggy code
+=====================================
+Failure classification: $classification
+
+$test_output

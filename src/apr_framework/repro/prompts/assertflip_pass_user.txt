@@ -1,0 +1,19 @@
+Bug report
+==========
+Title: $issue_title
+
+$issue_body
+
+Project
+=======
+Python files you may retrieve from (paths relative to the project root):
+$project_layout
+
+Test files in the project (you cannot see their contents): $test_file_names
+
+Style of the project's tests:
+$test_style
+
+Step 1 of 2. Write a test that PASSES on the current code by asserting the buggy
+behaviour the report describes (assert what the code does today, the thing the
+reporter says is wrong). In step 2 you will invert those assertions.

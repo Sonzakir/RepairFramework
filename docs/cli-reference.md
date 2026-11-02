@@ -210,6 +210,59 @@ python scripts/revalidate_saved_patches.py <run_dir> [...]                    # 
 python scripts/preflight_bugs.py fastapi:2 luigi:1 [...] [--out preflight.json]  # executor: checkout, compile, failing trigger, test count
 ```
 
+## Strict Repro: `repro`
+
+→ [Strict Repro](repro.md)
+
+```bash
+# BugsInPy bug: issue -> verified test, probes, one hardening round (needs Docker + an API key)
+python -m apr_framework repro new --project <project> --bug <bug_id> \
+  [--model gpt-5.4] [--temperature 1.0] [--judge-temperature 0.0] [--max-rounds 3] \
+  [--strategy direct|assertflip] [--retrieval-budget 4] [--repeats 3] [--timeout 300] \
+  [--max-probes 8] [--max-llm-probes 12] [--no-probes] [--no-harden] [--max-usd 2.00] \
+  [--runs-dir runs] [--reuse-checkout] [--export-witness DIR]
+
+# Local pytest project (runs LLM-written code on this machine)
+python -m apr_framework repro new --repo PATH --python PATH/.venv/bin/python --allow-local-exec \
+  (--issue-file issue.md | --issue https://github.com/OWNER/REPO/issues/N) \
+  [--regression-cmd "python -m pytest -q tests"] [--id ID] [...]
+
+# Judge a fix with an existing repro test
+python -m apr_framework repro check <runs/run_NNN | REPO/.apr/repro/ID> --patch fix.diff \
+  [--harden] [--allow-local-exec] [--regression-cmd CMD] [...]
+
+# Evaluation over an explicit list (both flags required)
+python -m apr_framework bugsinpy evaluate-repro --bugs tqdm:1,httpie:4 --max-usd 5 \
+  [--output-dir experiment_results/strict_repro_<date>] [...]
+```
+
+| Flag | Command | Meaning |
+|---|---|---|
+| `--project`, `--bug` | `new` | BugsInPy mode: the bug's linked issue; the developer fix is ground truth |
+| `--repo`, `--python` | `new` | local mode: your project and its interpreter |
+| `--issue-file`, `--issue` | `new` | local mode: the bug report (a file, first line = title; or a GitHub issue URL) |
+| `--allow-local-exec` | `new`, `check` | local mode only: accept running LLM-written code on this machine (refused without it) |
+| `--regression-cmd CMD` | `new`, `check` | local mode: a command that passes on a correct fix; probes that fail it count as confirmed wrong |
+| `--id` | `new` | local mode: directory name under `.apr/repro/` (default `issue_<N>` or the file stem) |
+| `--patch PATH` | `check` | the fix to judge; evaluator-file sections are dropped and reported |
+| `--model`, `--llm-base-url`, `--llm-api-key-env` | all | model and OpenAI-compatible endpoint (default GPT@RUB, `GPT_AT_RUB_API_KEY`) |
+| `--temperature`, `--judge-temperature` | all | generation/probes/hardening (1.0) and the right-reason judge (0.0) |
+| `--max-usd` | all | LLM spend cap; default 2.00 per run, **required** for `evaluate-repro` |
+| `--usd-per-mtok-in/out` | all | list price for a model the price table does not know |
+| `--max-rounds` | all | test-writing rounds with execution feedback (default 3) |
+| `--strategy` | all | `direct` or `assertflip` (passing test of the buggy behaviour, then inverted) |
+| `--retrieval-budget` | all | source retrievals per round (default 4) |
+| `--repeats`, `--timeout` | all | buggy-code repeats that must agree (3); seconds per test command (300) |
+| `--max-probes`, `--max-llm-probes` | all | deterministic probes (8) and test-aware LLM probes (12, the maximum) |
+| `--probes/--no-probes`, `--harden/--no-harden` | all | probes on by default; hardening on for `new`/`evaluate-repro`, off for `check` |
+| `--reuse-checkout` | BugsInPy | reuse a compiled `strictrepro_` checkout |
+| `--export-witness DIR` | `new`, `check` | write a Break This Fix bundle draft (status `candidate`); no case is created |
+| `--bugs` | `evaluate-repro` | required, explicit `project:bug` list; there is no default |
+| `--output-dir` | `evaluate-repro` | where `results.json` and `README.md` go; an existing `results.json` is never overwritten |
+
+Exit codes: `repro new` exits 0 when the test is labelled "reproduces" (and, with a
+fix, is fail-to-pass); `repro check` exits 0 when the patch turns the test green.
+
 ## Environment variables
 
 | Variable | Purpose |
@@ -217,4 +270,5 @@ python scripts/preflight_bugs.py fastapi:2 luigi:1 [...] [--out preflight.json] 
 | `OPENAI_API_KEY` (or any name passed to `--llm-api-key-env`) | LLM API key; can also live in `.env` |
 | `APR_HOST_PROJECT_ROOT` | host path of the repository, so the executor container can mount it |
 | `APR_LLM_DEBUG_PROMPT` | dump every LLM prompt: `stderr`, or a directory path (see [LLM repair](llm-repair.md#inspecting-the-exact-prompt)) |
+| `GITHUB_TOKEN` | optional; Strict Repro uses it for GitHub issue requests when set (higher rate limit) |
 | `BUGSINPY_CONTAINER` / `BUGSINPY_IMAGE` | override the executor container / image names (defaults `apr-bugsinpy-executor` / `apr-bugsinpy:local`) |

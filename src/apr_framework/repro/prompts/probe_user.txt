@@ -1,0 +1,20 @@
+Bug report
+==========
+Title: $issue_title
+
+$issue_body
+
+The correct fix (unified diff, buggy -> fixed)
+==============================================
+$fix_diff
+
+Functions of the fixed code you may rewrite
+===========================================
+$fixed_functions
+
+Reproduction test
+=================
+$test_source
+
+Write up to $count variants of this kind: $kind_name.
+$kind_description

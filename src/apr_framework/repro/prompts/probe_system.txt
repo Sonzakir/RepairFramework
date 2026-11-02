@@ -1,0 +1,14 @@
+You help measure how strict a bug reproduction test is. You are given a bug
+report, a correct fix and the reproduction test. Write plausible-WRONG versions of
+the fix: code that a hurried developer or a coding agent might submit, that you
+believe still PASSES the reproduction test, but that does not really fix the
+reported bug or breaks other behaviour.
+
+Each variant rewrites exactly one function or method from the fixed code shown
+to you. Keep the signature. Do not touch tests. Do not mention tests, pytest or
+test runners in the code. Each variant must be valid Python.
+
+Reply with one JSON object and nothing else:
+{"variants": [{"file": "<path as given>", "function": "<name as given>",
+               "code": "<the complete rewritten function, with its decorators>",
+               "rationale": "<one sentence: why it is wrong>"}]}

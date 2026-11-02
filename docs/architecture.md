@@ -82,6 +82,7 @@ src/apr_framework/
     llm_repair_comparison_runner.py  # evaluate-llm-repair matrix
     course_approaches.py             # the four compared approaches, as data
     course_comparison_runner.py      # evaluate-course-comparison matrix
+    repro_runner.py                  # evaluate-repro: Strict Repro over an explicit bug list
   reporting/
     base.py          # ReportGenerator interface
     archive.py       # report.md summary + zipped run artifacts
@@ -96,6 +97,22 @@ src/apr_framework/
     claude_code.py       # locked-down headless Claude Code run + transcript leak scan
     agent_run.py         # `challenge agent-run`: attempt -> capture -> clean evaluation -> runs/run_NNN
     prompts/             # claude_code_repair.txt
+  repro/             # Strict Repro (docs/repro.md)
+    issues.py            # issue pointers, GitHub fetch + cache, leak screen
+    runner.py            # TestCommandRunner seam: BugsInPyCommandRunner, LocalPytestRunner
+    source_view.py       # answer-free copy of the project for the retrieval tools
+    generator.py         # issue -> test: retrieval, execution-feedback rounds, AssertFlip
+    verifier.py          # failure classification, repeats, right-reason judge, F->P
+    validation.py        # file states through apply_patch_and_validate, repro test while applied
+    probes.py            # operator/drop/revert + test-aware LLM probes, confirmation rule
+    strictness.py        # strictness arithmetic, hardening round
+    contamination.py     # similarity of the generated test to the developer's trigger test
+    spend.py             # metered LLM client, USD cap, list prices
+    pipeline.py          # `repro new` / `repro check` wiring for BugsInPy and local targets
+    report.py            # terminal table, runs/run_NNN artifacts, witness export
+    models.py            # ReproIssue, TestVersion, Verification, Probe, ProbeResult, ...
+    prompts/             # generation, feedback, AssertFlip, judge, probe, hardening templates
+    data/                # bugsinpy_issues.json (project:bug -> issue URL; no issue text)
 ```
 
 ```text
@@ -184,6 +201,13 @@ command's checkout, which refreshes the cached view. Checkout trees the executor
 recreates are deleted from inside the executor. Container mode never needed this;
 writes between containers are coherent.
 
+**Strict Repro reuses the validation path through a runner seam.** `repro/` runs tests
+either in the BugsInPy executor or with a local interpreter. Its `TestCommandRunner`
+exposes `run_tests(checkout, timeout, command)`, the only adapter method
+`apply_patch_and_validate` calls, so fixes and wrong-fix probes go through the same
+integrity gate, restore and verification in both modes without touching the modules
+that hard-code `BugsInPyAdapter`. See [Strict Repro](repro.md).
+
 **One validation loop.** The generate-and-validate budget loop lives in
 `repair/run_loop.py`, not inside any algorithm. It uses only the `RepairAlgorithm`
 methods (`generate_patches` / `validate_patch`), so `RepairEvaluationRunner` and
@@ -198,6 +222,7 @@ every backend share a single implementation.
 | `LLMClient` | `repair/llm/client.py` | — | add a subclass to support a new provider; `LLMRepairAlgorithm` is unchanged |
 | `PatchRanker` / `create_ranker()` | `repair/ranking/` | `none` | `WeightedCompositeRanker` (`--ranker weighted`) |
 | `BenchmarkAdapter` / registry | `benchmarks/` | BugsInPy | add an adapter + register it |
+| `TestCommandRunner` | `repro/runner.py` | `BugsInPyCommandRunner`, `LocalPytestRunner` | add a runner (e.g. a container for local mode); its `run_tests` has the adapter's shape, so `apply_patch_and_validate` drives it unchanged |
 
 `OpenAICompatibleClient` depends only on the narrow `LLMConnectionConfig` protocol
 (`model_name`, `temperature`, `base_url`, `api_key_env_var`). Because of that, the
@@ -242,3 +267,7 @@ each other.
 | List / replay Break This Fix cases | `challenge list`, `challenge run <case-id> [--patch PATH] [--repeats 3]` |
 | Fresh isolated agent attempt | `challenge agent-run --project P --bug N --agent claude-code` (host) |
 | Pilot preflight | `python scripts/preflight_bugs.py project:bug ...` |
+| Strict Repro (BugsInPy) | `repro new --project P --bug N` -> verified, probed, hardened test in `runs/run_NNN` |
+| Strict Repro (local pytest project) | `repro new --repo PATH --python PY --allow-local-exec --issue-file issue.md` |
+| Judge a fix with a repro test | `repro check <repro-dir> --patch fix.diff [--harden]` |
+| Strict Repro evaluation | `bugsinpy evaluate-repro --bugs ... --max-usd 5` -> `experiment_results/strict_repro_<date>/` |

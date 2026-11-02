@@ -1,0 +1,8 @@
+Your step-1 test passes on the current code, so it captures the buggy behaviour.
+
+Step 2 of 2. Invert it: change the assertions so they demand the behaviour the bug
+report says is correct. Keep the same inputs and calls. The new test must fail on
+the current code and pass once the bug is fixed. Assert only what the report
+states or clearly implies.
+
+Reply with the complete test module in one ```python block.

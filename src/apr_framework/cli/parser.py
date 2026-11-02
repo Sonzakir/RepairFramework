@@ -780,6 +780,12 @@ def build_parser() -> argparse.ArgumentParser:
         help="Directory for per-cell run artifacts (default: runs).",
     )
 
+    ## bugsinpy-evaluate-repro (Strict Repro over an explicit bug list)
+    _add_evaluate_repro_parser(bugsinpy_subparsers)
+
+    ### Strict Repro: issue -> strict failing test
+    _add_repro_parsers(subparsers)
+
     ### Break This Fix: case bundles under challenges/cases/
     challenge_parser = subparsers.add_parser(
         "challenge",
@@ -1249,3 +1255,269 @@ def build_parser() -> argparse.ArgumentParser:
     )
 
     return parser
+
+
+def _add_repro_parsers(subparsers) -> None:
+    """``repro new`` and ``repro check`` (docs/repro.md)."""
+    repro_parser = subparsers.add_parser(
+        "repro",
+        help=(
+            "Strict Repro: turn a bug report into a failing pytest test that fails "
+            "for the reported reason and rejects plausible-wrong fixes."
+        ),
+    )
+    repro_subparsers = repro_parser.add_subparsers(dest="repro_command", required=True)
+
+    repro_new_parser = repro_subparsers.add_parser(
+        "new",
+        help=(
+            "Generate and verify a repro test: --project/--bug (BugsInPy, developer "
+            "fix as ground truth) or --repo/--python (local pytest project)."
+        ),
+    )
+    repro_new_parser.add_argument("--project", default=None, help="BugsInPy project")
+    repro_new_parser.add_argument(
+        "--bug", type=int, default=None, help="BugsInPy bug id"
+    )
+    repro_new_parser.add_argument(
+        "--repo", default=None, help="Local pytest project to reproduce the issue in"
+    )
+    repro_new_parser.add_argument(
+        "--python",
+        default=None,
+        help="The local project's interpreter (e.g. PATH/.venv/bin/python)",
+    )
+    issue_group = repro_new_parser.add_mutually_exclusive_group()
+    issue_group.add_argument(
+        "--issue-file",
+        dest="issue_file",
+        default=None,
+        help="Local mode: the bug report as a text/Markdown file (first line = title)",
+    )
+    issue_group.add_argument(
+        "--issue",
+        default=None,
+        help="Local mode: a GitHub issue URL (fetched at run time, never stored)",
+    )
+    repro_new_parser.add_argument(
+        "--id",
+        dest="test_id",
+        default=None,
+        help="Local mode: id for .apr/repro/<id>/ (default: issue_<N> or the file stem)",
+    )
+    _add_local_execution_arguments(repro_new_parser)
+    _add_repro_common_arguments(repro_new_parser, default_harden=True)
+
+    repro_check_parser = repro_subparsers.add_parser(
+        "check",
+        help=(
+            "Judge a fix with an existing repro test: integrity gate, fails before / "
+            "passes after, wrong-fix probes, optional hardening."
+        ),
+    )
+    repro_check_parser.add_argument(
+        "repro_dir",
+        help="runs/run_NNN of a BugsInPy `repro new`, or <repo>/.apr/repro/<id>",
+    )
+    repro_check_parser.add_argument(
+        "--patch",
+        dest="patch_path",
+        required=True,
+        help="Unified diff of the fix to judge",
+    )
+    _add_local_execution_arguments(repro_check_parser)
+    _add_repro_common_arguments(repro_check_parser, default_harden=False)
+
+
+def _add_evaluate_repro_parser(bugsinpy_subparsers) -> None:
+    eval_repro_parser = bugsinpy_subparsers.add_parser(
+        "evaluate-repro",
+        help=(
+            "Run Strict Repro (`repro new`) over an explicit, pre-declared bug list "
+            "under one USD cap. Refuses to run without --bugs and --max-usd."
+        ),
+    )
+    eval_repro_parser.add_argument(
+        "--bugs",
+        required=True,
+        help="Comma-separated project:bug pairs (required; there is no default list)",
+    )
+    eval_repro_parser.add_argument(
+        "--output-dir",
+        dest="output_dir",
+        default=None,
+        help=(
+            "Directory for results.json and README.md (default: "
+            "experiment_results/strict_repro_<date>); an existing results.json is "
+            "never overwritten"
+        ),
+    )
+    _add_repro_common_arguments(
+        eval_repro_parser, default_harden=True, max_usd_required=True
+    )
+
+
+def _add_local_execution_arguments(parser: argparse.ArgumentParser) -> None:
+    parser.add_argument(
+        "--allow-local-exec",
+        dest="allow_local_exec",
+        action="store_true",
+        help=(
+            "Local mode only: allow running LLM-written test code on this machine "
+            "(no container isolation). Required for --repo."
+        ),
+    )
+    parser.add_argument(
+        "--regression-cmd",
+        dest="regression_cmd",
+        default=None,
+        help=(
+            "Local mode: a test command that passes on a correct fix (e.g. "
+            "'python -m pytest -q tests'). Probes that fail it count as confirmed "
+            "wrong; without it every probe stays unconfirmed."
+        ),
+    )
+
+
+def _add_repro_common_arguments(
+    parser: argparse.ArgumentParser,
+    *,
+    default_harden: bool,
+    max_usd_required: bool = False,
+) -> None:
+    """Model, budget, generation, verification and probe options."""
+    parser.add_argument(
+        "--model", default="gpt-5.4", help="LLM model (default: gpt-5.4)"
+    )
+    parser.add_argument(
+        "--temperature",
+        type=float,
+        default=1.0,
+        help="Temperature for generation, probes and hardening (default: 1.0)",
+    )
+    parser.add_argument(
+        "--judge-temperature",
+        dest="judge_temperature",
+        type=float,
+        default=0.0,
+        help="Temperature for the right-reason judge (default: 0.0)",
+    )
+    parser.add_argument(
+        "--llm-base-url",
+        dest="llm_base_url",
+        default=None,
+        help="OpenAI-compatible endpoint (default: GPT@RUB)",
+    )
+    parser.add_argument(
+        "--llm-api-key-env",
+        dest="llm_api_key_env",
+        default="GPT_AT_RUB_API_KEY",
+        help="Environment variable holding the API key (default: GPT_AT_RUB_API_KEY)",
+    )
+    parser.add_argument(
+        "--usd-per-mtok-in",
+        dest="usd_per_mtok_in",
+        type=float,
+        default=None,
+        help="Input price per million tokens (needed for models without a known list price)",
+    )
+    parser.add_argument(
+        "--usd-per-mtok-out",
+        dest="usd_per_mtok_out",
+        type=float,
+        default=None,
+        help="Output price per million tokens (needed for models without a known list price)",
+    )
+    parser.add_argument(
+        "--max-usd",
+        dest="max_usd",
+        type=float,
+        required=max_usd_required,
+        default=None if max_usd_required else 2.0,
+        help=(
+            "LLM spend cap in USD (required)"
+            if max_usd_required
+            else "LLM spend cap in USD for this run (default: 2.00)"
+        ),
+    )
+    parser.add_argument(
+        "--max-rounds",
+        dest="max_rounds",
+        type=int,
+        default=3,
+        help="Test-writing rounds with execution feedback (default: 3)",
+    )
+    parser.add_argument(
+        "--strategy",
+        choices=["direct", "assertflip"],
+        default="direct",
+        help="direct, or AssertFlip: a passing test of the buggy behaviour, inverted",
+    )
+    parser.add_argument(
+        "--retrieval-budget",
+        dest="retrieval_budget",
+        type=int,
+        default=4,
+        help="Source retrievals the generator may make per round (default: 4)",
+    )
+    parser.add_argument(
+        "--repeats",
+        type=int,
+        default=3,
+        help="Runs on the buggy code that must agree (default: 3)",
+    )
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        default=300,
+        help="Seconds allowed per test command (default: 300)",
+    )
+    parser.add_argument(
+        "--max-probes",
+        dest="max_probes",
+        type=int,
+        default=8,
+        help="Deterministic (operator/drop/revert) probes (default: 8)",
+    )
+    parser.add_argument(
+        "--max-llm-probes",
+        dest="max_llm_probes",
+        type=int,
+        default=12,
+        help="Test-aware LLM probes, spread over 4 kinds (default: 12, max 12)",
+    )
+    parser.add_argument(
+        "--probes",
+        dest="run_probes",
+        action=argparse.BooleanOptionalAction,
+        default=True,
+        help="Run wrong-fix probes when a fix is known (default: on)",
+    )
+    parser.add_argument(
+        "--harden",
+        dest="harden",
+        action=argparse.BooleanOptionalAction,
+        default=default_harden,
+        help=f"One hardening round after the probes (default: {'on' if default_harden else 'off'})",
+    )
+    parser.add_argument(
+        "--runs-dir",
+        dest="runs_dir",
+        default="runs",
+        help="Directory for run_NNN output (default: runs)",
+    )
+    parser.add_argument(
+        "--reuse-checkout",
+        dest="reuse_checkout",
+        action="store_true",
+        help="BugsInPy: reuse a compiled strictrepro_ checkout instead of a fresh one",
+    )
+    parser.add_argument(
+        "--export-witness",
+        dest="export_witness",
+        default=None,
+        help=(
+            "Write a Break This Fix bundle draft (status candidate) into this "
+            "directory; no case is created under challenges/"
+        ),
+    )

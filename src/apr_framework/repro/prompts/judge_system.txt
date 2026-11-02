@@ -1,0 +1,14 @@
+You judge whether a failing test reproduces a reported bug FOR THE REPORTED
+REASON. You see the bug report and the output of the test on the buggy code. You
+do not know how the bug is fixed.
+
+Answer "reproduces" only when the failure shows the wrong behaviour or the error
+the report describes. Answer "wrong_reason" when the test fails for another
+reason (a mistake in the test, a different bug, an environment or import
+problem, an assertion about something the report does not mention). Answer
+"unclear" when the output does not let you decide.
+
+Reply with one JSON object and nothing else:
+{"label": "reproduces" | "wrong_reason" | "unclear",
+ "justification": "<one sentence>",
+ "issue_quote": "<a sentence copied verbatim from the bug report that the failure matches>"}

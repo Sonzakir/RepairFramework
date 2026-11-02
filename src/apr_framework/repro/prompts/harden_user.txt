@@ -1,0 +1,13 @@
+Bug report
+==========
+Title: $issue_title
+
+$issue_body
+
+Current reproduction test
+=========================
+$test_source
+
+Wrong fixes the test currently accepts (diffs against the correct code)
+=======================================================================
+$accepted_probes

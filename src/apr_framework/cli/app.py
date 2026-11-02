@@ -262,9 +262,16 @@ def _run() -> int:
         if args.bugsinpy_command == "evaluate-course-comparison":
             return _run_evaluate_course_comparison(args, project_root, adapter)
 
+        if args.bugsinpy_command == "evaluate-repro":
+            return _run_evaluate_repro(args, project_root, adapter)
+
     # -- Break This Fix cases --
     if args.command == "challenge":
         return handle_challenge(args, project_root)
+
+    # -- Strict Repro --
+    if args.command == "repro":
+        return handle_repro(args, project_root)
 
     # -- Repair --
 
@@ -421,6 +428,181 @@ def _run_challenge_agent_attempt(args: argparse.Namespace, project_root: Path) -
     for finding in result.leak_findings:
         print(f"  leak: {finding}")
     return 0
+
+
+def handle_repro(args: argparse.Namespace, project_root: Path) -> int:
+    """Dispatch the ``repro`` subcommands."""
+    if args.repro_command == "new":
+        return _run_repro_new(args, project_root)
+    if args.repro_command == "check":
+        return _run_repro_check(args, project_root)
+    raise ConfigurationError(f"Unknown repro command: {args.repro_command!r}")
+
+
+def _run_repro_new(args: argparse.Namespace, project_root: Path) -> int:
+    """Generate and verify a repro test on a BugsInPy bug or a local project."""
+    from apr_framework.repro.pipeline import (
+        run_repro_new_locally,
+        run_repro_new_on_bugsinpy,
+    )
+    from apr_framework.repro.report import format_repro_report
+
+    settings, options = _build_repro_settings_and_options(args)
+    if _is_bugsinpy_repro_target(args):
+        adapter = create_bugsinpy_adapter(project_root)
+        adapter.toolchain.ensure_installed()
+        bug = BugIdentifier(
+            benchmark="bugsinpy",
+            project=adapter.resolve_project(args.project),
+            bug_id=args.bug,
+        )
+        result = run_repro_new_on_bugsinpy(
+            bug, adapter, project_root, settings, options
+        )
+    else:
+        result = run_repro_new_locally(
+            Path(args.repo),
+            Path(args.python),
+            args.issue_file or args.issue,
+            project_root,
+            settings,
+            options,
+            allow_local_exec=args.allow_local_exec,
+            regression_command=args.regression_cmd,
+            test_id=args.test_id,
+        )
+    print(format_repro_report(result))
+    verification = result.verification
+    is_good_test = (
+        verification is not None
+        and verification.labelled_reproduces
+        and verification.is_fail_to_pass is not False
+    )
+    return 0 if is_good_test else 1
+
+
+def _run_repro_check(args: argparse.Namespace, project_root: Path) -> int:
+    """Judge a patch with an existing repro test; exit 0 if the patch passes it."""
+    from apr_framework.repro.pipeline import run_repro_check
+    from apr_framework.repro.report import format_repro_report
+
+    settings, options = _build_repro_settings_and_options(args)
+
+    def create_ready_adapter() -> BugsInPyAdapter:
+        adapter = create_bugsinpy_adapter(project_root)
+        adapter.toolchain.ensure_installed()
+        return adapter
+
+    result = run_repro_check(
+        Path(args.repro_dir),
+        Path(args.patch_path),
+        project_root,
+        settings,
+        options,
+        adapter_factory=create_ready_adapter,
+        allow_local_exec=args.allow_local_exec,
+        regression_command=args.regression_cmd,
+    )
+    print(format_repro_report(result))
+    return 0 if result.verification and result.verification.is_fail_to_pass else 1
+
+
+def _run_evaluate_repro(
+    args: argparse.Namespace, project_root: Path, adapter: BugsInPyAdapter
+) -> int:
+    """Strict Repro over an explicit bug list under one USD cap."""
+    from apr_framework.evaluation.repro_runner import (
+        ReproEvaluationRunner,
+        parse_explicit_bug_list,
+        validate_spend_cap,
+    )
+
+    bugs = parse_explicit_bug_list(args.bugs)
+    validate_spend_cap(args.max_usd)
+    settings, options = _build_repro_settings_and_options(args)
+    adapter.toolchain.ensure_installed()
+    resolved_bugs = [
+        BugIdentifier("bugsinpy", adapter.resolve_project(bug.project), bug.bug_id)
+        for bug in bugs
+    ]
+    output_dir = project_root / (
+        args.output_dir
+        or f"experiment_results/strict_repro_{datetime.now(timezone.utc):%Y-%m-%d}"
+    )
+    cells = ReproEvaluationRunner().run(
+        resolved_bugs, adapter, project_root, settings, options, output_dir
+    )
+    print(f"Results: {output_dir / 'results.json'} ({len(cells)} bugs)")
+    print(f"Report:  {output_dir / 'README.md'}")
+    return 0
+
+
+def _is_bugsinpy_repro_target(args: argparse.Namespace) -> bool:
+    """``--project/--bug`` or ``--repo/--python``, never a mix or neither."""
+    has_bugsinpy = args.project is not None or args.bug is not None
+    has_local = args.repo is not None or args.python is not None
+    if has_bugsinpy == has_local:
+        raise ConfigurationError(
+            "repro new needs either --project and --bug (BugsInPy) or --repo and "
+            "--python (local pytest project)."
+        )
+    if has_bugsinpy and (args.project is None or args.bug is None):
+        raise ConfigurationError("BugsInPy mode needs both --project and --bug.")
+    if has_local and (args.repo is None or args.python is None):
+        raise ConfigurationError("Local mode needs both --repo and --python.")
+    if has_local and not (args.issue_file or args.issue):
+        raise ConfigurationError("Local mode needs --issue-file or --issue.")
+    if has_bugsinpy and (args.issue_file or args.issue):
+        raise ConfigurationError(
+            "BugsInPy mode takes the bug's linked issue; --issue/--issue-file are "
+            "for local mode."
+        )
+    return has_bugsinpy
+
+
+def _build_repro_settings_and_options(args: argparse.Namespace):
+    """``ReproLLMSettings`` and ``ReproOptions`` from the shared repro arguments."""
+    from apr_framework.repro.generator import GenerationOptions
+    from apr_framework.repro.pipeline import ReproLLMSettings, ReproOptions
+    from apr_framework.repro.probes import ProbeOptions
+    from apr_framework.repro.verifier import VerificationOptions
+
+    if args.max_rounds < 1 or args.repeats < 1:
+        raise ConfigurationError("--max-rounds and --repeats must be at least 1.")
+    if not 0 <= args.max_llm_probes <= 12:
+        raise ConfigurationError("--max-llm-probes must be between 0 and 12.")
+    settings = ReproLLMSettings(
+        model_name=args.model,
+        generation_temperature=args.temperature,
+        judge_temperature=args.judge_temperature,
+        base_url=args.llm_base_url,
+        api_key_env_var=args.llm_api_key_env,
+        usd_per_mtok_in=args.usd_per_mtok_in,
+        usd_per_mtok_out=args.usd_per_mtok_out,
+    )
+    options = ReproOptions(
+        generation=GenerationOptions(
+            max_rounds=args.max_rounds,
+            strategy=args.strategy,
+            retrieval_budget=args.retrieval_budget,
+            timeout_seconds=args.timeout,
+        ),
+        verification=VerificationOptions(
+            repeats=args.repeats, timeout_seconds=args.timeout
+        ),
+        probes=ProbeOptions(
+            max_probes=args.max_probes,
+            max_llm_probes=args.max_llm_probes,
+            timeout_seconds=args.timeout,
+        ),
+        run_probes=args.run_probes,
+        harden=args.harden,
+        max_usd=args.max_usd,
+        runs_dir=Path(args.runs_dir),
+        reuse_checkout=args.reuse_checkout,
+        export_witness=Path(args.export_witness) if args.export_witness else None,
+    )
+    return settings, options
 
 
 def _summarise_replay_for_case_log(result) -> dict[str, Any]:

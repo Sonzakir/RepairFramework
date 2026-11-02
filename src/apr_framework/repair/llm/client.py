@@ -6,6 +6,7 @@ import sys
 import time
 from abc import ABC, abstractmethod
 from collections import deque
+from dataclasses import dataclass
 from pathlib import Path
 from typing import Protocol, runtime_checkable
 
@@ -54,6 +55,14 @@ GPT_AT_RUB_RATE_LIMIT_REQUESTS_PER_MINUTE = 60
 GPT_AT_RUB_RATE_LIMIT_WINDOW_SECONDS = 60.0
 
 
+@dataclass(frozen=True)
+class TokenUsage:
+    """Token counts the endpoint reported for one completion."""
+
+    prompt_tokens: int
+    completion_tokens: int
+
+
 class LLMClient(ABC):
     """Provider-agnostic interface for LLM completion calls."""
 
@@ -61,6 +70,11 @@ class LLMClient(ABC):
     def completion_count(self) -> int:
         """Number of completions issued so far. Default 0 for clients that do not count."""
         return 0
+
+    @property
+    def last_usage(self) -> TokenUsage | None:
+        """Token usage of the most recent completion, or None when not reported."""
+        return None
 
     @abstractmethod
     def complete(self, messages: list[dict[str, str]]) -> str:
@@ -94,11 +108,19 @@ class OpenAICompatibleClient(LLMClient):
         # figure the evaluation reports. One client is built per repair run, so the
         # count is naturally scoped to that run.
         self._completion_count = 0
+        # Token usage the endpoint reported for the latest completion (spend
+        # accounting); None when the endpoint reports none.
+        self._last_usage: TokenUsage | None = None
 
     @property
     def completion_count(self) -> int:
         """Number of successful ``complete`` calls issued by this client."""
         return self._completion_count
+
+    @property
+    def last_usage(self) -> TokenUsage | None:
+        """Token usage of the most recent successful ``complete`` call."""
+        return self._last_usage
 
     def _wait_for_rate_limit_slot(self) -> None:
         """Block until issuing another request would stay within the per-minute cap."""
@@ -217,8 +239,20 @@ class OpenAICompatibleClient(LLMClient):
 
         response_text = response.choices[0].message.content
         self._completion_count += 1
+        self._last_usage = _read_token_usage(response)
         logger.debug("LLM response received (%d chars)", len(response_text or ""))
         return response_text or ""
+
+
+def _read_token_usage(response) -> TokenUsage | None:
+    """Return the usage block of a chat-completions response, if it has one."""
+    usage = getattr(response, "usage", None)
+    if usage is None or getattr(usage, "prompt_tokens", None) is None:
+        return None
+    return TokenUsage(
+        prompt_tokens=int(usage.prompt_tokens),
+        completion_tokens=int(getattr(usage, "completion_tokens", 0) or 0),
+    )
 
 
 def _render_messages_for_debug(messages: list[dict[str, str]]) -> str:
