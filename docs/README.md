@@ -13,6 +13,7 @@
 | [Strict Repro](repro.md) | Bug report → failing pytest test that fails for the reported reason and rejects plausible-wrong fixes; BugsInPy and local mode |
 | [Behaviour Diff](behaviour-diff.md) | Where fixes that all pass the tests behave differently: traced runs of the project's tests and one-literal variants, behaviour classes, leads |
 | [Tamper Check](tamper-check.md) | What a change does to its tests: deleted, skipped, loosened or rewritten expectations vs. added tests; fail-before / pass-after runs |
+| [Fix Grip](grip.md) | Which hunks and lines of a fix the tests pin down: hunk reverts, line variants, execution |
 | [Architecture](architecture.md) | Interfaces, source layout, design decisions, extension points |
 | [CLI reference](cli-reference.md) | Every command and flag at a glance |
 

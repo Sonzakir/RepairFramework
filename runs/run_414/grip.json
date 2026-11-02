@@ -1,0 +1,203 @@
+{
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "scrapy#2",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_scrapy_2/scrapy",
+    "suite": "python -m unittest tests.test_utils_datatypes",
+    "trigger": [
+      "python -m unittest -q tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+    ]
+  },
+  "fix": "developer-fix",
+  "stripped_paths": [],
+  "started_at": "2026-11-02T23:21:28.301541+00:00",
+  "finished_at": "2026-11-02T23:24:00.384412+00:00",
+  "suite": "python -m unittest tests.test_utils_datatypes",
+  "fix_counts": {
+    "passed": 23
+  },
+  "buggy_counts": {
+    "passed": 22,
+    "error": 1
+  },
+  "fixed_by_the_fix": [
+    "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+  ],
+  "stable_passing_tests": 23,
+  "unstable_tests": [],
+  "executed_lines": [
+    "scrapy/utils/datatypes.py:318",
+    "scrapy/utils/datatypes.py:319",
+    "scrapy/utils/datatypes.py:320"
+  ],
+  "trigger": "python -m unittest tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+  "trigger_with_fix": {
+    "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit": "passed"
+  },
+  "trigger_fails_in_suite": [],
+  "hunks": [
+    {
+      "hunk_id": "h1",
+      "path": "scrapy/utils/datatypes.py",
+      "fixed_lines": [
+        318,
+        319,
+        320
+      ],
+      "original_lines": [
+        318,
+        319
+      ],
+      "behavioural": true,
+      "before": "        while len(self) >= self.limit:\n            self.popitem(last=False)",
+      "after": "        if self.limit:\n            while len(self) >= self.limit:\n                self.popitem(last=False)",
+      "location": "scrapy/utils/datatypes.py:318-320",
+      "verdict": "pinned",
+      "executed": true,
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "variant_id": "h1",
+      "family": "revert",
+      "kind": "revert",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "        if self.limit:",
+      "after": "        while len(self) >= self.limit:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p01",
+      "family": "operator",
+      "kind": "negate",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "if self.limit:",
+      "after": "if not self.limit:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p02",
+      "family": "drop",
+      "kind": "drop",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "if self.limit:",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p03",
+      "family": "operator",
+      "kind": "comp",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 319,
+      "before": "while len(self) >= self.limit:",
+      "after": "while len(self) > self.limit:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p04",
+      "family": "operator",
+      "kind": "negate",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 319,
+      "before": "while len(self) >= self.limit:",
+      "after": "while not len(self) >= self.limit:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p05",
+      "family": "drop",
+      "kind": "drop",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 319,
+      "before": "while len(self) >= self.limit:",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p06",
+      "family": "operator",
+      "kind": "obo",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 320,
+      "before": "self.popitem(last=False)",
+      "after": "self.popitem(last=1)",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p07",
+      "family": "operator",
+      "kind": "obo",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 320,
+      "before": "self.popitem(last=False)",
+      "after": "self.popitem(last=-1)",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p08",
+      "family": "drop",
+      "kind": "drop",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 320,
+      "before": "self.popitem(last=False)",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "timeout",
+      "detected_by": [],
+      "detail": "the suite did not finish within 60s"
+    }
+  ]
+}

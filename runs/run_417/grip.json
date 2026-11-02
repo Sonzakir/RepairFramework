@@ -1,0 +1,250 @@
+{
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#1",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_1/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+    ]
+  },
+  "fix": "llm-1-0",
+  "stripped_paths": [],
+  "started_at": "2026-11-02T23:49:32.089355+00:00",
+  "finished_at": "2026-11-02T23:58:04.028419+00:00",
+  "suite": "python -m unittest tests.test_black",
+  "fix_counts": {
+    "passed": 128,
+    "failed": 1
+  },
+  "buggy_counts": {
+    "passed": 128,
+    "failed": 1
+  },
+  "fixed_by_the_fix": [
+    "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+  ],
+  "stable_passing_tests": 128,
+  "unstable_tests": [],
+  "executed_lines": [
+    "black.py:621",
+    "black.py:622",
+    "black.py:623",
+    "black.py:624",
+    "black.py:639",
+    "black.py:640"
+  ],
+  "trigger": "python -m unittest tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+  "trigger_with_fix": {
+    "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment": "passed"
+  },
+  "trigger_fails_in_suite": [
+    "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+  ],
+  "hunks": [
+    {
+      "hunk_id": "h1",
+      "path": "black.py",
+      "fixed_lines": [
+        621,
+        622,
+        623,
+        624
+      ],
+      "original_lines": [
+        621
+      ],
+      "behavioural": true,
+      "before": "    executor = ProcessPoolExecutor(max_workers=worker_count)",
+      "after": "    try:\n        executor = ProcessPoolExecutor(max_workers=worker_count)\n    except OSError:\n        executor = None",
+      "location": "black.py:621-624",
+      "verdict": "pinned",
+      "executed": true,
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ]
+    },
+    {
+      "hunk_id": "h2",
+      "path": "black.py",
+      "fixed_lines": [
+        639,
+        640
+      ],
+      "original_lines": [
+        636
+      ],
+      "behavioural": true,
+      "before": "        executor.shutdown()",
+      "after": "        if executor is not None:\n            executor.shutdown()",
+      "location": "black.py:639-640",
+      "verdict": "pinned",
+      "executed": true,
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "variant_id": "h1",
+      "family": "revert",
+      "kind": "revert",
+      "path": "black.py",
+      "line": 621,
+      "before": "    try:",
+      "after": "    executor = ProcessPoolExecutor(max_workers=worker_count)",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "h2",
+      "family": "revert",
+      "kind": "revert",
+      "path": "black.py",
+      "line": 639,
+      "before": "        if executor is not None:",
+      "after": "        executor.shutdown()",
+      "hunk_id": "h2",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p01",
+      "family": "drop",
+      "kind": "drop",
+      "path": "black.py",
+      "line": 621,
+      "before": "try:",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_cache_multiple_files",
+        "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+        "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+        "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p02",
+      "family": "drop",
+      "kind": "drop",
+      "path": "black.py",
+      "line": 622,
+      "before": "executor = ProcessPoolExecutor(max_workers=worker_count)",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_cache_multiple_files",
+        "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+        "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+        "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p03",
+      "family": "drop",
+      "kind": "drop",
+      "path": "black.py",
+      "line": 623,
+      "before": "except OSError:",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_cache_multiple_files",
+        "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+        "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+        "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p04",
+      "family": "drop",
+      "kind": "drop",
+      "path": "black.py",
+      "line": 624,
+      "before": "executor = None",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p05",
+      "family": "operator",
+      "kind": "comp",
+      "path": "black.py",
+      "line": 639,
+      "before": "if executor is not None:",
+      "after": "if executor is None:",
+      "hunk_id": "h2",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p06",
+      "family": "operator",
+      "kind": "negate",
+      "path": "black.py",
+      "line": 639,
+      "before": "if executor is not None:",
+      "after": "if not executor is not None:",
+      "hunk_id": "h2",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p07",
+      "family": "drop",
+      "kind": "drop",
+      "path": "black.py",
+      "line": 639,
+      "before": "if executor is not None:",
+      "after": "pass",
+      "hunk_id": "h2",
+      "status": "not_detected",
+      "detected_by": [],
+      "detail": ""
+    },
+    {
+      "variant_id": "p08",
+      "family": "drop",
+      "kind": "drop",
+      "path": "black.py",
+      "line": 640,
+      "before": "executor.shutdown()",
+      "after": "pass",
+      "hunk_id": "h2",
+      "status": "not_detected",
+      "detected_by": [],
+      "detail": ""
+    }
+  ]
+}

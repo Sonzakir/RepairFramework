@@ -132,6 +132,10 @@ src/apr_framework/
     changes.py           # change sets from a diff or from `git diff <base>`
     pipeline.py          # file classification, static findings, fail-before/pass-after runs
     report.py            # terminal report
+  grip/              # Fix Grip (docs/grip.md)
+    variants.py          # hunks, hunk reverts, line probes (reusing repro/probes.py)
+    pipeline.py          # baseline runs with line watching, variant runs, verdicts
+    report.py            # terminal report, not_noticed/*.diff
 ```
 
 ```text
@@ -227,8 +231,8 @@ exposes `run_tests(checkout, timeout, command)`, the only adapter method
 integrity gate, restore and verification in both modes without touching the modules
 that hard-code `BugsInPyAdapter`. See [Strict Repro](repro.md).
 
-**Evidence commands observe; they do not judge plausibility.** `behaviour-diff`
-and `tamper-check --run-tests` apply each version with `MultiFilePatch` and
+**Evidence commands observe; they do not judge plausibility.** `behaviour-diff`,
+`grip` and `tamper-check --run-tests` apply each version with `MultiFilePatch` and
 run a driver script in the target's own interpreter (`evidence/target.py`: the
 BugsInPy executor or a local Python). The driver traces the changed functions
 while the project's tests run.
@@ -309,3 +313,4 @@ each other.
 | Strict Repro evaluation | `bugsinpy evaluate-repro --bugs ... --max-usd 5` -> `experiment_results/strict_repro_<date>/` |
 | Behaviour Diff | `behaviour-diff --project P --bug N --from-run runs/run_NNN [--patch fix.diff]` -> classes, divergences, `leads.md` |
 | Tamper Check | `tamper-check --diff agent.diff --repo PATH` / `--git-base REV` / `--run-tests` -> findings, exit 1 on weakening |
+| Fix Grip | `grip --project P --bug N --developer-fix` / `--patch fix.diff` -> pinned / not pinned / not executed hunks |

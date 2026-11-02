@@ -1,0 +1,11 @@
+--- fix/scrapy/utils/datatypes.py
++++ c03/scrapy/utils/datatypes.py
+@@ -315,7 +315,7 @@
+         self.limit = limit
+ 
+     def __setitem__(self, key, value):
+-        while self.limit is not None and len(self) >= self.limit and key not in self:
++        while self.limit is not None and len(self) >= self.limit:
+             self.popitem(last=False)
+         super(LocalCache, self).__setitem__(key, value)
+ 

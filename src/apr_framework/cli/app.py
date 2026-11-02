@@ -282,6 +282,10 @@ def _run() -> int:
         from apr_framework.cli.evidence_commands import handle_tamper_check
 
         return handle_tamper_check(args, project_root)
+    if args.command == "grip":
+        from apr_framework.cli.evidence_commands import handle_grip
+
+        return handle_grip(args, project_root)
 
     # -- Repair --
 

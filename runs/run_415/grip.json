@@ -1,0 +1,218 @@
+{
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "scrapy#2",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_scrapy_2/scrapy",
+    "suite": "python -m unittest tests.test_utils_datatypes",
+    "trigger": [
+      "python -m unittest -q tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit"
+    ]
+  },
+  "fix": "llm-iter-1-1",
+  "stripped_paths": [],
+  "started_at": "2026-11-02T23:24:03.325387+00:00",
+  "finished_at": "2026-11-02T23:26:24.179687+00:00",
+  "suite": "python -m unittest tests.test_utils_datatypes",
+  "fix_counts": {
+    "passed": 23
+  },
+  "buggy_counts": {
+    "passed": 22,
+    "error": 1
+  },
+  "fixed_by_the_fix": [
+    "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+  ],
+  "stable_passing_tests": 23,
+  "unstable_tests": [],
+  "executed_lines": [
+    "scrapy/utils/datatypes.py:318"
+  ],
+  "trigger": "python -m unittest tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+  "trigger_with_fix": {
+    "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit": "passed"
+  },
+  "trigger_fails_in_suite": [],
+  "hunks": [
+    {
+      "hunk_id": "h1",
+      "path": "scrapy/utils/datatypes.py",
+      "fixed_lines": [
+        318
+      ],
+      "original_lines": [
+        318
+      ],
+      "behavioural": true,
+      "before": "        while len(self) >= self.limit:",
+      "after": "        while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "location": "scrapy/utils/datatypes.py:318",
+      "verdict": "pinned",
+      "executed": true,
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ]
+    }
+  ],
+  "variants": [
+    {
+      "variant_id": "h1",
+      "family": "revert",
+      "kind": "revert",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "        while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "        while len(self) >= self.limit:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "c01",
+      "family": "clause",
+      "kind": "drop_clause",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while len(self) >= self.limit and key not in self:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "c02",
+      "family": "clause",
+      "kind": "drop_clause",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while self.limit is not None and key not in self:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "c03",
+      "family": "clause",
+      "kind": "drop_clause",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while self.limit is not None and len(self) >= self.limit:",
+      "hunk_id": "h1",
+      "status": "not_detected",
+      "detected_by": [],
+      "detail": ""
+    },
+    {
+      "variant_id": "p01",
+      "family": "operator",
+      "kind": "comp",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while self.limit is None and len(self) >= self.limit and (key not in self):",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p02",
+      "family": "operator",
+      "kind": "comp",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while self.limit is not None and len(self) > self.limit and (key not in self):",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p03",
+      "family": "operator",
+      "kind": "comp",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while self.limit is not None and len(self) >= self.limit and (key in self):",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p04",
+      "family": "operator",
+      "kind": "bool",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while self.limit is not None or len(self) >= self.limit or key not in self:",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p05",
+      "family": "operator",
+      "kind": "negate",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "while not (self.limit is not None and len(self) >= self.limit and (key not in self)):",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit",
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_without_limit (alone)"
+      ],
+      "detail": ""
+    },
+    {
+      "variant_id": "p06",
+      "family": "drop",
+      "kind": "drop",
+      "path": "scrapy/utils/datatypes.py",
+      "line": 318,
+      "before": "while self.limit is not None and len(self) >= self.limit and key not in self:",
+      "after": "pass",
+      "hunk_id": "h1",
+      "status": "detected",
+      "detected_by": [
+        "tests.test_utils_datatypes.LocalCacheTest.test_cache_with_limit"
+      ],
+      "detail": ""
+    }
+  ]
+}

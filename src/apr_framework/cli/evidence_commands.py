@@ -40,6 +40,7 @@ def add_evidence_parsers(subparsers) -> None:
     """Register the evidence commands on the top-level subparsers."""
     _add_behaviour_diff_parser(subparsers)
     _add_tamper_check_parser(subparsers)
+    _add_grip_parser(subparsers)
 
 
 def add_target_arguments(parser: argparse.ArgumentParser) -> None:
@@ -452,4 +453,74 @@ def _tamper_check(args: argparse.Namespace, project_root: Path) -> int:
         print(f"\nRun directory: {writer.run_dir}")
     if report.verdict == TAMPERED or (args.strict and report.verdict != CLEAN):
         return 1
+    return 0
+
+
+# -- grip ---------------------------------------------------------------------------
+def _add_grip_parser(subparsers) -> None:
+    parser = subparsers.add_parser(
+        "grip",
+        help=(
+            "Fix Grip: revert each hunk of a fix and mutate its changed lines, run the "
+            "project's tests on every variant, and show which parts of the fix the "
+            "tests pin down."
+        ),
+    )
+    add_target_arguments(parser)
+    fix = parser.add_mutually_exclusive_group(required=True)
+    fix.add_argument(
+        "--patch", default=None, help="The fix to measure, as a unified diff"
+    )
+    fix.add_argument(
+        "--developer-fix",
+        dest="developer_fix",
+        action="store_true",
+        help="BugsInPy: measure the developer fix",
+    )
+    parser.add_argument(
+        "--max-probes",
+        dest="max_probes",
+        type=int,
+        default=24,
+        help="Line variants to run (default: 24; hunk reverts always run)",
+    )
+    parser.add_argument(
+        "--seed", default="grip", help="Seed for choosing line variants"
+    )
+
+
+def handle_grip(args: argparse.Namespace, project_root: Path) -> int:
+    from apr_framework.grip.pipeline import GripOptions, run_grip
+    from apr_framework.grip.report import format_grip, write_artifacts
+
+    if args.max_probes < 0:
+        raise ConfigurationError("--max-probes must be >= 0.")
+    target = build_target(args, project_root)
+    if args.developer_fix:
+        diff_text = target.reference_diff()
+        if not diff_text:
+            raise ConfigurationError("--developer-fix needs a BugsInPy target.")
+        fix = reference_version(diff_text, "BugsInPy developer fix (bug_patch.txt)")
+    else:
+        fix = load_patch_file(Path(args.patch))
+    options = GripOptions(
+        max_probes=args.max_probes, seed=args.seed, timeout_seconds=args.timeout
+    )
+    writer = RunWriter.create(project_root / args.runs_dir)
+    writer.write_json(
+        "config.json",
+        {
+            "runner": "grip",
+            "command": command_line(),
+            "started_at": datetime.now(timezone.utc).isoformat(),
+            "target": target.describe(),
+            "fix": describe_versions([fix]),
+            "options": options.__dict__,
+        },
+    )
+    with restore_on_termination():
+        result = run_grip(target, fix, options, log=writer.log)
+    write_artifacts(writer, result)
+    print(format_grip(result))
+    print(f"\nRun directory: {writer.run_dir}")
     return 0

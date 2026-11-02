@@ -325,6 +325,27 @@ Exit codes:
 - `1`: a weakening finding (or, with `--strict`, a suspicious one);
 - `2`: the command could not run.
 
+## Fix Grip: `grip`
+
+→ [Fix Grip](grip.md)
+
+```bash
+python -m apr_framework grip --project <project> --bug <bug_id> (--patch fix.diff | --developer-fix) \
+  [--max-probes 24] [--seed grip] [--timeout 900] [--reuse-checkout] [--runs-dir runs]
+python -m apr_framework grip --repo PATH --python PY --tests "python -m pytest tests" --allow-local-exec \
+  --patch fix.diff
+```
+
+| Flag | Meaning |
+|---|---|
+| `--patch PATH` | the fix to measure (test edits in it are ignored and listed) |
+| `--developer-fix` | BugsInPy: measure the developer fix |
+| `--max-probes N` | line variants to run (24); every behavioural hunk's revert and every clause drop always run |
+| `--seed` | seed for choosing line variants (`grip`) |
+| `--timeout` | seconds for one run of the suite (900); a variant gets five times the fix's suite time, at least 60 s |
+
+Exit code 0 when the measurement ran.
+
 ## Environment variables
 
 | Variable | Purpose |
