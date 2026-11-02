@@ -19,6 +19,7 @@ import os
 import re
 import shlex
 import shutil
+import signal
 import subprocess
 import tempfile
 import uuid
@@ -363,30 +364,41 @@ class LocalTarget(EvidenceTarget):
         return str(path)
 
     def run(self, command: str, timeout_seconds: float) -> CommandResult:
+        """Run ``command`` in its own process group; on timeout, kill the whole group.
+
+        ``subprocess.run(shell=True, timeout=...)`` kills only the shell, and the
+        test process it started would keep running (a hanging variant loops on).
+        """
         environment = dict(os.environ)
         environment["PATH"] = (
             str(self._python.parent) + os.pathsep + environment.get("PATH", "")
         )
+        process = subprocess.Popen(
+            command,
+            shell=True,
+            cwd=self._repo,
+            env=environment,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+            start_new_session=True,
+        )
         try:
-            completed = subprocess.run(
-                command,
-                shell=True,
-                cwd=self._repo,
-                env=environment,
-                capture_output=True,
-                text=True,
-                timeout=timeout_seconds,
-                check=False,
-            )
-        except subprocess.TimeoutExpired as expired:
-            output = _decode(expired.stdout) + _decode(expired.stderr)
+            stdout, stderr = process.communicate(timeout=timeout_seconds)
+        except subprocess.TimeoutExpired:
+            _kill_process_group(process)
+            stdout, stderr = process.communicate()
             return CommandResult(
                 return_code=TIMEOUT_RETURN_CODE,
-                output=output + f"\n[timed out after {timeout_seconds}s]",
+                output=(stdout or "")
+                + (stderr or "")
+                + f"\n[timed out after {timeout_seconds}s]",
             )
+        except BaseException:
+            _kill_process_group(process)
+            raise
         return CommandResult(
-            return_code=completed.returncode,
-            output=(completed.stdout or "") + (completed.stderr or ""),
+            return_code=process.returncode, output=(stdout or "") + (stderr or "")
         )
 
     def describe(self) -> dict[str, object]:
@@ -444,9 +456,8 @@ def _derive_suite(worktree: Path) -> SuiteCommand:
     return SuiteCommand(runner="pytest", arguments=tuple(test_files))
 
 
-def _decode(output: bytes | str | None) -> str:
-    if output is None:
-        return ""
-    if isinstance(output, bytes):
-        return output.decode("utf-8", errors="replace")
-    return output
+def _kill_process_group(process: subprocess.Popen) -> None:
+    try:
+        os.killpg(process.pid, signal.SIGKILL)
+    except (ProcessLookupError, PermissionError):
+        process.kill()

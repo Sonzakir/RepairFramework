@@ -204,6 +204,7 @@ class ObservationRunner:
             "max_calls_per_test": self._limits.max_calls_per_test,
             "max_calls_per_function": self._limits.max_calls_per_function,
             "max_repr": self._limits.max_repr,
+            "deadline_seconds": timeout_seconds,
             "output": self._target.runner_path(output_path),
         }
         spec_path.write_text(json.dumps(spec, indent=2), encoding="utf-8")

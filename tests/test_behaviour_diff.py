@@ -7,9 +7,12 @@ suites.
 
 import ast
 import json
+import os
+import signal
 import subprocess
 import sys
 import textwrap
+import time
 from pathlib import Path
 
 import pytest
@@ -651,3 +654,64 @@ def test_driver_records_generators_and_coroutines_once(tmp_path: Path) -> None:
     ):
         assert [call["args"] for call in tests[name]["calls"]] == [arguments]
         assert tests[name]["calls"][0]["result"] == "<generator or coroutine>"
+
+
+def test_driver_ends_itself_at_the_deadline(tmp_path: Path) -> None:
+    """A process started through `docker exec` outlives its client; the driver must stop."""
+    project = tmp_path / "proj"
+    (project / "tests").mkdir(parents=True)
+    (project / "tests" / "test_slow.py").write_text(
+        "import time\n\n\ndef test_slow():\n    while True:\n        time.sleep(0.01)\n",
+        encoding="utf-8",
+    )
+    spec = {
+        "runner": "pytest",
+        "arguments": ["tests/test_slow.py"],
+        "focus": [],
+        "deadline_seconds": 1,
+        "output": str(tmp_path / "out.json"),
+    }
+    (tmp_path / "spec.json").write_text(json.dumps(spec), encoding="utf-8")
+    started = time.monotonic()
+    completed = subprocess.run(
+        [sys.executable, str(Path(driver.__file__)), str(tmp_path / "spec.json")],
+        cwd=project,
+        capture_output=True,
+        check=False,
+        timeout=60,
+    )
+    assert time.monotonic() - started < 20
+    assert completed.returncode != 0
+    assert not (tmp_path / "out.json").exists()
+
+
+def test_local_target_timeout_kills_the_whole_process_group(tmp_path: Path) -> None:
+    """On timeout the shell's children must die too, not only the shell."""
+    pid_file = tmp_path / "child.pid"
+    script = tmp_path / "spawn.py"
+    script.write_text(
+        "import os, subprocess, sys, time\n"
+        "child = subprocess.Popen([sys.executable, '-c', 'import time; time.sleep(300)'])\n"
+        f"open({str(pid_file)!r}, 'w').write(str(child.pid))\n"
+        "time.sleep(300)\n",
+        encoding="utf-8",
+    )
+    target = LocalTarget(
+        tmp_path,
+        Path(sys.executable),
+        SuiteCommand.parse("python -m pytest"),
+        allow_local_exec=True,
+    )
+    result = target.run(f"{sys.executable} {script}", timeout_seconds=3)
+    assert result.timed_out
+    child_pid = int(pid_file.read_text(encoding="utf-8"))
+    deadline = time.monotonic() + 10
+    while time.monotonic() < deadline:
+        try:
+            os.kill(child_pid, 0)
+        except ProcessLookupError:
+            break
+        time.sleep(0.1)
+    else:
+        os.kill(child_pid, signal.SIGKILL)
+        raise AssertionError("the grandchild process survived the timeout")

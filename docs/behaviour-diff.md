@@ -133,6 +133,10 @@ before the run, and the evaluator guard must find every test, fixture and
 configuration file unchanged; otherwise the run stops with an error. Behaviour
 Diff never edits files outside the checkout and its own scratch directory.
 
+The driver also ends itself at the run's timeout (`signal.alarm`). A command
+started with `docker exec` keeps running after its client gives up, so without
+this a hanging version would be left running inside the executor.
+
 ## Reading the report
 
 | Field | Meaning |
@@ -175,6 +179,10 @@ both sides' behaviour.
 - **Only calls in the test process are traced.** Child processes
   (`multiprocessing`) are not traced. Neither are module-level or class-body
   changes.
+- **Tests that read their own test file see the variants.** black's `test_self`
+  checks that `tests/test_black.py` is formatted, so it fails for every version
+  while the variants are inserted. This is the same for all versions, so it is
+  not a divergence. It does change what tests that read the file observe.
 - **Records are capped** (per test, per function, per value) to keep runs fast;
   the caps are in `config.json`.
 - **Methods re-defined as variants** run with the original's class and

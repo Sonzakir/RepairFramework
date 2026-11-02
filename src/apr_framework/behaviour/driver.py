@@ -33,6 +33,7 @@ import inspect
 import json
 import os
 import re
+import signal
 import sys
 import tempfile
 import threading
@@ -512,6 +513,12 @@ def main(argv):
         os.execve(sys.executable, [sys.executable, *argv], environment)
     with open(argv[1], encoding="utf-8") as spec_file:
         spec = json.load(spec_file)
+    deadline = spec.get("deadline_seconds")
+    if deadline and hasattr(signal, "alarm"):
+        # The caller stops waiting at its timeout, but a process started through
+        # `docker exec` survives its client: end this one at the same deadline,
+        # even inside a tight loop (SIGALRM's default action terminates).
+        signal.alarm(int(deadline) + 1)
     working_directory = os.getcwd()
     # Like `python -m`: the project first on sys.path, never this script's folder.
     script_directory = os.path.dirname(os.path.abspath(__file__))
