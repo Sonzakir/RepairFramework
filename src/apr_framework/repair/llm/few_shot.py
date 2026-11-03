@@ -73,13 +73,11 @@ def build_few_shot_examples(
 # ---------------------------------------------------------------------------
 
 
-def _other_bug_ids_ascending(
-    adapter: BugsInPyAdapter, bug: BugIdentifier
-) -> list[int]:
+def _other_bug_ids_ascending(adapter: BugsInPyAdapter, bug: BugIdentifier) -> list[int]:
     """Return the project's bug ids (ascending) excluding the current bug."""
     try:
         project_bug_infos = adapter.list_bugs(bug.project)
-    except Exception as listing_error:
+    except Exception as listing_error:  # noqa: BLE001 - few-shot examples are optional
         logger.warning(
             "Cannot list bugs for few-shot selection on %s: %s",
             bug.project,
@@ -121,7 +119,9 @@ def _build_one_example(
         return None
 
     before_text, after_text = reconstructed
-    return _format_example(example_index, bug.project, example_bug_id, before_text, after_text)
+    return _format_example(
+        example_index, bug.project, example_bug_id, before_text, after_text
+    )
 
 
 def _changed_line_count(patch_diff_text: str) -> int:
@@ -162,7 +162,7 @@ def _reconstruct_before_after(patch_diff_text: str) -> tuple[str, str] | None:
         elif diff_line.startswith("-"):
             before_lines.append(diff_line[1:])
         else:
-            context_line = diff_line[1:] if diff_line.startswith(" ") else diff_line
+            context_line = diff_line.removeprefix(" ")
             before_lines.append(context_line)
             after_lines.append(context_line)
 
@@ -175,7 +175,9 @@ def _reconstruct_before_after(patch_diff_text: str) -> tuple[str, str] | None:
 def _join_trimmed(snippet_lines: list[str]) -> str:
     """Join snippet lines, capping length so a single example cannot bloat the prompt."""
     if len(snippet_lines) > _MAX_EXAMPLE_SNIPPET_LINES:
-        snippet_lines = snippet_lines[:_MAX_EXAMPLE_SNIPPET_LINES] + ["# ... (truncated)"]
+        snippet_lines = snippet_lines[:_MAX_EXAMPLE_SNIPPET_LINES] + [
+            "# ... (truncated)"
+        ]
     return "\n".join(snippet_lines)
 
 

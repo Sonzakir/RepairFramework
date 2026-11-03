@@ -6,7 +6,6 @@ import pytest
 
 from apr_framework.benchmarks import executor_view
 from apr_framework.benchmarks.bugsinpy import BugsInPyConfig, BugsInPyDockerExecutor
-from apr_framework.core.exceptions import ConfigurationError
 from apr_framework.benchmarks.executor_view import (
     build_view_refresh_script,
     record_host_deletion,
@@ -14,6 +13,7 @@ from apr_framework.benchmarks.executor_view import (
     remove_host_tree,
     take_host_deletions,
 )
+from apr_framework.core.exceptions import ConfigurationError
 
 
 @pytest.fixture(autouse=True)

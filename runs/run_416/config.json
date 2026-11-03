@@ -1,0 +1,30 @@
+{
+  "runner": "grip",
+  "command": "python -m apr_framework grip --project black --bug 1 --reuse-checkout --developer-fix --max-probes 8",
+  "started_at": "2026-11-02T23:26:27.032730+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#1",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_1/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+    ]
+  },
+  "fix": [
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "11b5a81cf778bcc6868f4b3f5b12d2aa15fe5685efc5c77b135097437436b868"
+    }
+  ],
+  "options": {
+    "max_probes": 8,
+    "seed": "grip",
+    "timeout_seconds": 900,
+    "min_variant_timeout": 60
+  }
+}

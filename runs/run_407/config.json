@@ -1,0 +1,43 @@
+{
+  "runner": "behaviour-diff",
+  "command": "python -m apr_framework behaviour-diff --project fastapi --bug 4 --reuse-checkout --from-run runs/run_405",
+  "started_at": "2026-11-02T22:37:56.968346+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "fastapi#4",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_fastapi_4/fastapi",
+    "suite": "pytest tests/test_param_in_path_and_dependency.py",
+    "trigger": [
+      "pytest tests/test_param_in_path_and_dependency.py::test_reused_param"
+    ]
+  },
+  "reference": [
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "3bb46f255cd6c4508a3f8a271b8b58b13d4fa649947da4dd558f9282133b2e50"
+    }
+  ],
+  "candidates": [
+    {
+      "label": "run_405:agent",
+      "kind": "candidate",
+      "source": "runs/run_405/patches/agent.diff",
+      "sha256": "34ef93bd6daff013c9aa940287af22f48eeab9d9f8ebc6597dc5208b32df268a"
+    }
+  ],
+  "options": {
+    "max_variants": 40,
+    "variants_per_test": 8,
+    "timeout_seconds": 900,
+    "limits": {
+      "max_calls_per_test": 200,
+      "max_calls_per_function": 40,
+      "max_repr": 200
+    }
+  },
+  "driver_sha256": "5fdd3e814b74fa5a0ae9ebc0e12c79432d14722e6b4b9694bc4f9fc234f7eede"
+}

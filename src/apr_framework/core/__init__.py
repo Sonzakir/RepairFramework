@@ -23,11 +23,11 @@ from .models import (
 __all__ = [
     "APRFrameworkError",
     "BenchmarkError",
-    "ConfigurationError",
-    "EvaluationError",
     "BugIdentifier",
     "BugInfo",
     "CheckoutResult",
+    "ConfigurationError",
+    "EvaluationError",
     "EvaluationResult",
     "LocalizationResult",
     "PatchCandidate",

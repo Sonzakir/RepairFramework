@@ -30,8 +30,8 @@ integrity gate, or does not import is ``invalid``. Oracle timeouts are
 import ast
 import difflib
 import random
+from collections.abc import Callable
 from dataclasses import dataclass, replace
-from typing import Callable
 
 from apr_framework.repair.evaluator_integrity import EvaluatorGuard
 from apr_framework.repair.patch_applier import ValidationOutcome, is_passing_trigger_run

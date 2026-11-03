@@ -17,9 +17,9 @@ test file the developer fix touched.
 """
 
 import shutil
+from collections.abc import Callable
 from dataclasses import dataclass
 from pathlib import Path, PurePosixPath
-from typing import Callable
 
 from apr_framework.core.models import CheckoutResult
 from apr_framework.repair.evaluator_integrity import (

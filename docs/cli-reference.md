@@ -263,6 +263,89 @@ python -m apr_framework bugsinpy evaluate-repro --bugs tqdm:1,httpie:4 --max-usd
 Exit codes: `repro new` exits 0 when the test is labelled "reproduces" (and, with a
 fix, is fail-to-pass); `repro check` exits 0 when the patch turns the test green.
 
+## Behaviour Diff: `behaviour-diff`
+
+→ [Behaviour Diff](behaviour-diff.md)
+
+```bash
+# BugsInPy: the developer fix is the reference (no API key needed)
+python -m apr_framework behaviour-diff --project <project> --bug <bug_id> \
+  [--patch fix.diff ...] [--from-run runs/run_NNN ...] [--no-reference] \
+  [--max-variants 40] [--variants-per-test 8] [--timeout 900] [--reuse-checkout] [--runs-dir runs]
+
+# Local pytest/unittest project (runs the tests and the candidates' code on this machine)
+python -m apr_framework behaviour-diff --repo PATH --python PATH/.venv/bin/python --allow-local-exec \
+  --tests "python -m pytest tests/test_x.py" --patch agent.diff [--reference dev_fix.diff] \
+  [--trigger "python -m pytest tests/test_x.py::test_bug"]
+```
+
+| Flag | Meaning |
+|---|---|
+| `--project`, `--bug` | BugsInPy target: fresh checkout + compile in `.workspace/bugsinpy/evidence_<project>_<bug>` |
+| `--reuse-checkout` | reuse that compiled checkout |
+| `--repo`, `--python`, `--tests` | local target: the project, its interpreter, and the suite as a pytest or unittest command (files or modules) |
+| `--trigger CMD` | local: the failing test's command, so divergences from the buggy code are split into "on the failing test" and "elsewhere" (repeatable) |
+| `--allow-local-exec` | local: accept running the tests and candidate code without isolation (refused without it) |
+| `--patch PATH` | a candidate fix (repeatable) |
+| `--from-run DIR` | candidates from an earlier run: a `repair` run's plausible patches or a `challenge agent-run` diff (repeatable) |
+| `--reference PATH` | local: the reference fix; BugsInPy always uses the developer fix |
+| `--no-reference` | compare against the buggy code only |
+| `--max-variants`, `--variants-per-test` | one-literal test variants in total (40; 0 = original tests only) and per reaching test (8) |
+| `--timeout` | seconds for one run of the suite (900) |
+
+Exit code 0 when the comparison ran; any divergence is reported, not turned into
+an exit code.
+
+## Tamper Check: `tamper-check`
+
+→ [Tamper Check](tamper-check.md)
+
+```bash
+# Static: a diff against the tree it applies to, or a git working tree against a base
+python -m apr_framework tamper-check --diff agent.diff --repo PATH [--json report.json] [--strict]
+python -m apr_framework tamper-check --repo . --git-base origin/main
+
+# With the fail-before / pass-after runs (needs a target)
+python -m apr_framework tamper-check --project <project> --bug <bug_id> --diff agent.diff --run-tests
+python -m apr_framework tamper-check --diff agent.diff --repo PATH --python PY --tests "python -m pytest tests" \
+  --allow-local-exec --run-tests
+```
+
+| Flag | Meaning |
+|---|---|
+| `--diff PATH` | the change, applied in memory to `--repo` or the BugsInPy checkout |
+| `--git-base REV` | with `--repo`: the working tree against `REV` (tracked files; static only) |
+| `--run-tests` | also run the added and edited tests: tests-only, full change, and the original tests on the source-only change |
+| `--strict` | exit 1 on suspicious findings too |
+| `--json PATH` | write the report as JSON |
+| target flags | as for `behaviour-diff`; `--python`, `--tests`, `--allow-local-exec` only with `--run-tests` |
+
+Exit codes:
+- `0`: clean, or suspicious without `--strict`;
+- `1`: a weakening finding (or, with `--strict`, a suspicious one);
+- `2`: the command could not run.
+
+## Fix Grip: `grip`
+
+→ [Fix Grip](grip.md)
+
+```bash
+python -m apr_framework grip --project <project> --bug <bug_id> (--patch fix.diff | --developer-fix) \
+  [--max-probes 24] [--seed grip] [--timeout 900] [--reuse-checkout] [--runs-dir runs]
+python -m apr_framework grip --repo PATH --python PY --tests "python -m pytest tests" --allow-local-exec \
+  --patch fix.diff
+```
+
+| Flag | Meaning |
+|---|---|
+| `--patch PATH` | the fix to measure (test edits in it are ignored and listed) |
+| `--developer-fix` | BugsInPy: measure the developer fix |
+| `--max-probes N` | line variants to run (24); every behavioural hunk's revert and every clause drop always run |
+| `--seed` | seed for choosing line variants (`grip`) |
+| `--timeout` | seconds for one run of the suite (900); a variant gets five times the fix's suite time, at least 60 s |
+
+Exit code 0 when the measurement ran.
+
 ## Environment variables
 
 | Variable | Purpose |

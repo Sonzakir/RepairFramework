@@ -632,7 +632,7 @@ def _outcome(
     return_code=1,
     new_failures=(),
     untrusted=False,
-    integrity=IntegrityVerdict(),
+    integrity=None,
     output="1 failed in 0.1s",
 ) -> ValidationOutcome:
     trigger = run_result(output, return_code)
@@ -643,7 +643,7 @@ def _outcome(
         trigger_passed=trigger_passed,
         regression_new_failures=list(new_failures),
         regression_untrusted=untrusted,
-        integrity=integrity,
+        integrity=integrity if integrity is not None else IntegrityVerdict(),
         applied=applied,
     )
 
@@ -930,6 +930,7 @@ def test_witness_wrapper_runs_fixture_free_tests_under_unittest(tmp_path: Path) 
         ],
         capture_output=True,
         text=True,
+        check=False,
     )
     assert completed.returncode == 0, completed.stderr
     assert "Ran 1 test" in completed.stderr
@@ -939,7 +940,7 @@ def test_witness_wrapper_refuses_fixture_tests() -> None:
     namespace: dict = {}
     source = wrap_as_unittest_witness("def test_fx(tmp_path):\n    pass\n")
     with pytest.raises(TypeError, match="not exportable"):
-        exec(compile(source, "w.py", "exec"), namespace)
+        exec(compile(source, "w.py", "exec"), namespace)  # noqa: S102 - on purpose
     assert unittest  # the wrapper relies only on the standard library
 
 

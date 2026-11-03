@@ -8,18 +8,11 @@ stored in metadata is what actually gets applied to the file.
 
 import ast
 import difflib
-import sys
 from pathlib import Path
 
 from apr_framework.core.exceptions import ConfigurationError
 from apr_framework.core.models import BugIdentifier, PatchCandidate, RankedLocation
 from apr_framework.repair.template.operators import get_operator_class
-
-if sys.version_info < (3, 9):
-    raise ConfigurationError(
-        "Template-based repair requires Python 3.9+ for ast.unparse() support. "
-        f"Current version: {sys.version_info.major}.{sys.version_info.minor}"
-    )
 
 
 def generate_patches(
@@ -70,14 +63,14 @@ def generate_patches(
 
         try:
             variants = operator.generate_variants(original_tree)
-        except Exception:  # noqa: BLE001 — operator safety: never crash the loop
+        except Exception:  # noqa: BLE001, S112 - operator safety: never crash the loop
             continue
 
         for variant_idx, mutated_tree in enumerate(variants):
             try:
                 ast.fix_missing_locations(mutated_tree)
                 patched_text = ast.unparse(mutated_tree)
-            except Exception:  # noqa: BLE001
+            except Exception:  # noqa: BLE001, S112
                 continue
 
             # ast.unparse() never emits a trailing newline. Normalise the patched

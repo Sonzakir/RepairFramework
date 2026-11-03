@@ -113,6 +113,29 @@ src/apr_framework/
     models.py            # ReproIssue, TestVersion, Verification, Probe, ProbeResult, ...
     prompts/             # generation, feedback, AssertFlip, judge, probe, hardening templates
     data/                # bugsinpy_issues.json (project:bug -> issue URL; no issue text)
+  evidence/          # shared by the evidence commands (behaviour-diff, ...)
+    target.py            # EvidenceTarget: BugsInPyTarget (executor) or LocalTarget; SuiteCommand
+    versions.py          # FixVersion: buggy / reference / candidates, loading, dedupe, exact apply
+  behaviour/         # Behaviour Diff (docs/behaviour-diff.md)
+    driver.py            # standalone script run in the target's interpreter: traces focus calls
+    focus.py             # which functions each version changes, spans per version
+    amplify.py           # one-literal variants of the tests that reach the focus
+    observe.py           # apply a version, run the driver, read its record, restore
+    compare.py           # noise calibration, divergences, behaviour classes
+    pipeline.py          # discovery -> variants -> observe every version -> restore -> compare
+    report.py            # terminal summary, leads.md, run artifacts
+  tamper/            # Tamper Check (docs/tamper-check.md)
+    test_ast.py          # test functions, assertion atoms, skips, swallowing try blocks
+    classify.py          # per-test comparison: deleted, skipped, loosened, rewritten, added
+    config_checks.py     # conftest.py, pytest options, Makefile/tox/nox/CI test commands
+    source_checks.py     # runner detection, test literals in source decisions
+    changes.py           # change sets from a diff or from `git diff <base>`
+    pipeline.py          # file classification, static findings, fail-before/pass-after runs
+    report.py            # terminal report
+  grip/              # Fix Grip (docs/grip.md)
+    variants.py          # hunks, hunk reverts, line probes (reusing repro/probes.py)
+    pipeline.py          # baseline runs with line watching, variant runs, verdicts
+    report.py            # terminal report, not_noticed/*.diff
 ```
 
 ```text
@@ -208,6 +231,23 @@ exposes `run_tests(checkout, timeout, command)`, the only adapter method
 integrity gate, restore and verification in both modes without touching the modules
 that hard-code `BugsInPyAdapter`. See [Strict Repro](repro.md).
 
+**Evidence commands observe; they do not judge plausibility.** `behaviour-diff`,
+`grip` and `tamper-check --run-tests` apply each version with `MultiFilePatch` and
+run a driver script in the target's own interpreter (`evidence/target.py`: the
+BugsInPy executor or a local Python). The driver traces the changed functions
+while the project's tests run.
+
+These commands do not go through `apply_patch_and_validate`, because they never
+decide whether a patch is plausible. They keep its guarantees themselves:
+
+- an exact restore and a bytecode purge after every version;
+- a checkout fingerprint check after every version;
+- an evaluator-guard verification at the end;
+- SIGTERM and SIGHUP end them through the same restore path.
+
+Behaviour Diff's temporary test variants are covered by these checks too. See
+[Behaviour Diff](behaviour-diff.md).
+
 **One validation loop.** The generate-and-validate budget loop lives in
 `repair/run_loop.py`, not inside any algorithm. It uses only the `RepairAlgorithm`
 methods (`generate_patches` / `validate_patch`), so `RepairEvaluationRunner` and
@@ -271,3 +311,6 @@ each other.
 | Strict Repro (local pytest project) | `repro new --repo PATH --python PY --allow-local-exec --issue-file issue.md` |
 | Judge a fix with a repro test | `repro check <repro-dir> --patch fix.diff [--harden]` |
 | Strict Repro evaluation | `bugsinpy evaluate-repro --bugs ... --max-usd 5` -> `experiment_results/strict_repro_<date>/` |
+| Behaviour Diff | `behaviour-diff --project P --bug N --from-run runs/run_NNN [--patch fix.diff]` -> classes, divergences, `leads.md` |
+| Tamper Check | `tamper-check --diff agent.diff --repo PATH` / `--git-base REV` / `--run-tests` -> findings, exit 1 on weakening |
+| Fix Grip | `grip --project P --bug N --developer-fix` / `--patch fix.diff` -> pinned / not pinned / not executed hunks |

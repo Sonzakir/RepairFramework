@@ -1,0 +1,29 @@
+{
+  "verdict": "clean",
+  "counts": {
+    "weakening": 0,
+    "suspicious": 0,
+    "strengthening": 0,
+    "neutral": 0
+  },
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#3",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_3/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code"
+    ]
+  },
+  "changed_files": [
+    "black.py"
+  ],
+  "source_files_changed": [
+    "black.py"
+  ],
+  "findings": [],
+  "dynamic": [],
+  "dynamic_note": "No test was added or edited, so there was nothing to run."
+}

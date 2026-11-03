@@ -3,7 +3,9 @@ from pathlib import Path
 
 spec = find_spec("fauxpy")
 if spec is None or spec.origin is None:
-    raise SystemExit("Cannot patch FauxPy because the fauxpy package is not importable.")
+    raise SystemExit(
+        "Cannot patch FauxPy because the fauxpy package is not importable."
+    )
 
 package_root = Path(spec.origin).parent
 
@@ -20,22 +22,26 @@ def replace_once(text, old, new, label):
     if new in text:
         return text
     if old not in text:
-        raise SystemExit(f"Cannot apply FauxPy MBFL selection patch: expected {label} was not found.")
+        raise SystemExit(
+            f"Cannot apply FauxPy MBFL selection patch: expected {label} was not found."
+        )
     return text.replace(old, new, 1)
 
 
-pytest_manager_path = package_root / "command_line" / "pytest_mode" / "pytest_option_manager.py"
+pytest_manager_path = (
+    package_root / "command_line" / "pytest_mode" / "pytest_option_manager.py"
+)
 pytest_text = read(pytest_manager_path)
 pytest_text = replace_once(
     pytest_text,
-    '''        group.addoption(
+    """        group.addoption(
             "--fauxpy-verbose",
             action="store_true",
             default=False,
             help="Show detailed output from FauxPy plugin.",
         )
-''',
-    '''        group.addoption(
+""",
+    """        group.addoption(
             "--fauxpy-verbose",
             action="store_true",
             default=False,
@@ -56,84 +62,86 @@ pytest_text = replace_once(
             default="0",
             help="Random seed used by framework-level MBFL mutation selection.",
         )
-''',
+""",
     "pytest MBFL selection options",
 )
 pytest_text = replace_once(
     pytest_text,
-    '''        fauxpy_verbose_opt = pytest_config.getoption("--fauxpy-verbose")
+    """        fauxpy_verbose_opt = pytest_config.getoption("--fauxpy-verbose")
         file_or_dir = pytest_config.getoption("file_or_dir")
-''',
-    '''        fauxpy_verbose_opt = pytest_config.getoption("--fauxpy-verbose")
+""",
+    """        fauxpy_verbose_opt = pytest_config.getoption("--fauxpy-verbose")
         mutation_selection_opt = pytest_config.getoption("--mutation-selection")
         mutation_budget_opt = pytest_config.getoption("--mutation-budget")
         mutation_seed_opt = pytest_config.getoption("--mutation-seed")
         file_or_dir = pytest_config.getoption("file_or_dir")
-''',
+""",
     "pytest MBFL selection option reads",
 )
 pytest_text = replace_once(
     pytest_text,
-    '''            fauxpy_verbose_opt,
+    """            fauxpy_verbose_opt,
             file_or_dir,
         )
-''',
-    '''            fauxpy_verbose_opt,
+""",
+    """            fauxpy_verbose_opt,
             file_or_dir,
             mutation_selection_opt,
             mutation_budget_opt,
             mutation_seed_opt,
         )
-''',
+""",
     "pytest MBFL selection constructor args",
 )
 write(pytest_manager_path, pytest_text)
 
-fl_option_manager_path = package_root / "command_line" / "pytest_mode" / "fl_option_manager.py"
+fl_option_manager_path = (
+    package_root / "command_line" / "pytest_mode" / "fl_option_manager.py"
+)
 fl_text = read(fl_option_manager_path)
 fl_text = replace_once(
     fl_text,
-    '''        fauxpy_verbose_opt: bool,
+    """        fauxpy_verbose_opt: bool,
         file_or_dir,
     ):
-''',
-    '''        fauxpy_verbose_opt: bool,
+""",
+    """        fauxpy_verbose_opt: bool,
         file_or_dir,
         mutation_selection_opt: str,
         mutation_budget_opt: str,
         mutation_seed_opt: str,
     ):
-''',
+""",
     "FlOptionManager MBFL selection signature",
 )
 fl_text = replace_once(
     fl_text,
-    '''        self._file_or_dir_opt = file_or_dir
+    """        self._file_or_dir_opt = file_or_dir
         self._path_manager = FlPathManager(
-''',
-    '''        self._file_or_dir_opt = file_or_dir
+""",
+    """        self._file_or_dir_opt = file_or_dir
         self._mutation_selection = mutation_selection_opt
         self._mutation_budget = mutation_budget_opt
         self._mutation_seed = mutation_seed_opt
         self._path_manager = FlPathManager(
-''',
+""",
     "FlOptionManager MBFL selection fields",
 )
 fl_text = replace_once(
     fl_text,
-    '''                self._file_or_dir_opt,
+    """                self._file_or_dir_opt,
                 report_directory_path,
                 Path(self._project_working_directory.get_absolute()),
             )
-''',
-    '''                self._file_or_dir_opt,
+""",
+    """                self._file_or_dir_opt,
                 report_directory_path,
                 Path(self._project_working_directory.get_absolute()),
                 self._mutation_selection,
                 self._mutation_budget,
                 self._mutation_seed,
             )
-''',
+""",
     "MbflSession MBFL selection args",
 )
 write(fl_option_manager_path, fl_text)
@@ -142,60 +150,62 @@ mbfl_session_path = package_root / "fault_localization" / "mbfl" / "session_lib.
 mbfl_session_text = read(mbfl_session_path)
 mbfl_session_text = replace_once(
     mbfl_session_text,
-    '''        file_or_dir,
+    """        file_or_dir,
         report_directory_path: Path,
         project_working_directory: Path,
     ):
-''',
-    '''        file_or_dir,
+""",
+    """        file_or_dir,
         report_directory_path: Path,
         project_working_directory: Path,
         mutation_selection: str = None,
         mutation_budget: str = None,
         mutation_seed: str = "0",
     ):
-''',
+""",
     "MbflSession MBFL selection signature",
 )
 mbfl_session_text = replace_once(
     mbfl_session_text,
-    '''        self._mutation_manager = MutationManager(self._db_manager, self._mutation_strategy)
-''',
-    '''        self._mutation_manager = MutationManager(
+    """        self._mutation_manager = MutationManager(self._db_manager, self._mutation_strategy)
+""",
+    """        self._mutation_manager = MutationManager(
             self._db_manager,
             self._mutation_strategy,
             mutation_selection,
             mutation_budget,
             mutation_seed,
         )
-''',
+""",
     "MutationManager MBFL selection args",
 )
 write(mbfl_session_path, mbfl_session_text)
 
-mutation_manager_path = package_root / "fault_localization" / "mbfl" / "mutation_manager.py"
+mutation_manager_path = (
+    package_root / "fault_localization" / "mbfl" / "mutation_manager.py"
+)
 mutation_text = read(mutation_manager_path)
 mutation_text = replace_once(
     mutation_text,
-    '''import logging
+    """import logging
 from pathlib import Path
-''',
-    '''import logging
+""",
+    """import logging
 import random
 import time
 from pathlib import Path
-''',
+""",
     "MutationManager imports",
 )
 mutation_text = replace_once(
     mutation_text,
-    '''    def __init__(
+    """    def __init__(
             self,
             db_manager: MbflDbManager,
             mutation_strategy: MutationStrategy
     ):
-''',
-    '''    def __init__(
+""",
+    """    def __init__(
             self,
             db_manager: MbflDbManager,
             mutation_strategy: MutationStrategy,
@@ -203,47 +213,49 @@ mutation_text = replace_once(
             mutation_budget: str = None,
             mutation_seed: str = "0",
     ):
-''',
+""",
     "MutationManager signature",
 )
 mutation_text = replace_once(
     mutation_text,
-    '''        self._db_manager = db_manager
+    """        self._db_manager = db_manager
         self._mutation_strategy = mutation_strategy
-''',
-    '''        self._db_manager = db_manager
+""",
+    """        self._db_manager = db_manager
         self._mutation_strategy = mutation_strategy
         self._mutation_selection = mutation_selection
         self._mutation_budget = int(mutation_budget) if mutation_budget not in [None, ""] else None
         self._mutation_seed = int(mutation_seed or 0)
-''',
+""",
     "MutationManager fields",
 )
-cosmic_ray_path = package_root / "fault_localization" / "mbfl" / "mutation_lib" / "cosmic_ray.py"
+cosmic_ray_path = (
+    package_root / "fault_localization" / "mbfl" / "mutation_lib" / "cosmic_ray.py"
+)
 cosmic_ray_text = read(cosmic_ray_path)
 cosmic_ray_text = replace_once(
     cosmic_ray_text,
-    '''    def _get_all_mutant_list(
+    """    def _get_all_mutant_list(
         self, module_path: str, operator_names: List[str]
     ) -> List[Mutant]:
-''',
-    '''    def _get_all_mutant_list(
+""",
+    """    def _get_all_mutant_list(
         self,
         module_path: str,
         operator_names: List[str],
         line_numbers: Optional[List[int]] = None,
     ) -> List[Mutant]:
-''',
+""",
     "Cosmic Ray line-limited mutant list signature",
 )
 cosmic_ray_text = replace_once(
     cosmic_ray_text,
-    '''            for occurrence, (start_pos, end_pos) in enumerate(positions):
+    """            for occurrence, (start_pos, end_pos) in enumerate(positions):
                 original_code, mutated_code = self.produce_mutation(
                     module_path, operator, occurrence
                 )
-''',
-    '''            for occurrence, (start_pos, end_pos) in enumerate(positions):
+""",
+    """            for occurrence, (start_pos, end_pos) in enumerate(positions):
                 if (
                     line_numbers is not None
                     and start_pos[0] not in line_numbers
@@ -254,15 +266,15 @@ cosmic_ray_text = replace_once(
                 original_code, mutated_code = self.produce_mutation(
                     module_path, operator, occurrence
                 )
-''',
+""",
     "Cosmic Ray line-limited mutation production",
 )
 cosmic_ray_text = replace_once(
     cosmic_ray_text,
-    '''        mutant_list = self._get_all_mutant_list(module_path, operator_names)
-''',
-    '''        mutant_list = self._get_all_mutant_list(module_path, operator_names, line_numbers)
-''',
+    """        mutant_list = self._get_all_mutant_list(module_path, operator_names)
+""",
+    """        mutant_list = self._get_all_mutant_list(module_path, operator_names, line_numbers)
+""",
     "Cosmic Ray line-limited call",
 )
 write(cosmic_ray_path, cosmic_ray_text)
@@ -385,64 +397,68 @@ write(mutation_manager_path, mutation_text)
 # Fix: FauxPy MBFL uses bare "python" for subprocess calls, but in pyenv-managed
 # environments the "python" shim resolves to no version unless pyenv global is set.
 # Replace with sys.executable so the subprocess inherits the venv's Python binary.
-collect_mbfl_api_path = package_root / "fault_localization" / "collect_mbfl" / "api_lib.py"
+collect_mbfl_api_path = (
+    package_root / "fault_localization" / "collect_mbfl" / "api_lib.py"
+)
 api_text = read(collect_mbfl_api_path)
 api_text = replace_once(
     api_text,
-    '''from fauxpy.fault_localization.collect_mbfl.api_file import CollectMbflApiFileManager
+    """from fauxpy.fault_localization.collect_mbfl.api_file import CollectMbflApiFileManager
 from fauxpy.fault_localization.util.run_lib import CommandRunner
-from fauxpy.session_lib.fauxpy_path import FauxpyPath''',
-    '''import sys
+from fauxpy.session_lib.fauxpy_path import FauxpyPath""",
+    """import sys
 
 from fauxpy.fault_localization.collect_mbfl.api_file import CollectMbflApiFileManager
 from fauxpy.fault_localization.util.run_lib import CommandRunner
-from fauxpy.session_lib.fauxpy_path import FauxpyPath''',
+from fauxpy.session_lib.fauxpy_path import FauxpyPath""",
     "CollectMbflApi sys import",
 )
 api_text = replace_once(
     api_text,
-    '''        command = (
-            ["python", "-m", "pytest"]''',
-    '''        command = (
-            [sys.executable, "-m", "pytest"]''',
+    """        command = (
+            ["python", "-m", "pytest"]""",
+    """        command = (
+            [sys.executable, "-m", "pytest"]""",
     "CollectMbflApi sys.executable fix",
 )
 write(collect_mbfl_api_path, api_text)
 
-mbfl_run_manager_path = package_root / "fault_localization" / "mbfl" / "mbfl_run_manager.py"
+mbfl_run_manager_path = (
+    package_root / "fault_localization" / "mbfl" / "mbfl_run_manager.py"
+)
 run_text = read(mbfl_run_manager_path)
 run_text = replace_once(
     run_text,
-    '''import shutil
+    """import shutil
 from enum import Enum
-''',
-    '''import shutil
+""",
+    """import shutil
 import time
 from enum import Enum
-''',
+""",
     "MbflRunManager imports",
 )
 run_text = replace_once(
     run_text,
-    '''        number_of_all_mutants = len(mutants)
+    """        number_of_all_mutants = len(mutants)
 
         fl_print.normal(f"Running {number_of_all_mutants} Mutants")
-''',
-    '''        number_of_all_mutants = len(mutants)
+""",
+    """        number_of_all_mutants = len(mutants)
         validation_start = time.perf_counter()
 
         fl_print.normal(f"Running {number_of_all_mutants} Mutants")
-''',
+""",
     "MbflRunManager validation timer start",
 )
 run_text = replace_once(
     run_text,
-    '''        self._remove_temp_project(temp_project_path)
-''',
-    '''        validation_time = time.perf_counter() - validation_start
+    """        self._remove_temp_project(temp_project_path)
+""",
+    """        validation_time = time.perf_counter() - validation_start
         fl_print.normal(f"Mutant validation time: {validation_time:.4f}")
         self._remove_temp_project(temp_project_path)
-''',
+""",
     "MbflRunManager validation timer end",
 )
 write(mbfl_run_manager_path, run_text)

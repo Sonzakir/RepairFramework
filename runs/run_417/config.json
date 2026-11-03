@@ -1,0 +1,30 @@
+{
+  "runner": "grip",
+  "command": "python -m apr_framework grip --project black --bug 1 --reuse-checkout --patch runs/run_342/patches/llm-1-0.diff --max-probes 8",
+  "started_at": "2026-11-02T23:49:32.088591+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#1",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_1/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+    ]
+  },
+  "fix": [
+    {
+      "label": "llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_342/patches/llm-1-0.diff",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    }
+  ],
+  "options": {
+    "max_probes": 8,
+    "seed": "grip",
+    "timeout_seconds": 900,
+    "min_variant_timeout": 60
+  }
+}

@@ -6,16 +6,9 @@ Each operator targets only nodes whose line number matches `target_line`.
 
 import ast
 import copy
-import sys
 from abc import ABC, abstractmethod
 
 from apr_framework.core.exceptions import ConfigurationError
-
-if sys.version_info < (3, 9):
-    raise ConfigurationError(
-        "Template-based repair requires Python 3.9+ for ast.unparse() support. "
-        f"Current version: {sys.version_info.major}.{sys.version_info.minor}"
-    )
 
 
 class _LineTargetedTransformer(ABC):

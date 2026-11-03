@@ -18,9 +18,9 @@ import logging
 import re
 import threading
 import time
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable
 
 from apr_framework.benchmarks.bugsinpy import BugsInPyAdapter
 from apr_framework.challenge.agent_workspace import (
@@ -73,7 +73,7 @@ class ShimServer:
         self._thread = threading.Thread(target=self._serve, daemon=True)
         self.requests: list[ShimRequestRecord] = []
 
-    def __enter__(self) -> "ShimServer":
+    def __enter__(self) -> "ShimServer":  # noqa: PYI034 - typing.Self needs 3.11
         self._thread.start()
         return self
 
@@ -117,7 +117,7 @@ class ShimServer:
                 self._agent_workspace, self._evaluation_checkout.worktree
             )
             test_run = self._run_requested_tests(kind)
-        except Exception as error:  # noqa: BLE001 — the agent must always get an answer
+        except Exception as error:
             logger.exception("Shim request %s failed", request_id)
             return [], None, f"The test run could not start: {error}\n", 2
         output_text = sanitise_test_output(

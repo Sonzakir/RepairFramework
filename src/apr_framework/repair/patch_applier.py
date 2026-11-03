@@ -12,9 +12,9 @@ Design decision:
 """
 
 import logging
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Callable
 
 from apr_framework.benchmarks.bugsinpy import BugsInPyAdapter
 from apr_framework.core.models import (
@@ -30,12 +30,12 @@ from apr_framework.repair.evaluator_integrity import (
     IntegrityVerdict,
     purge_bytecode_caches,
 )
-from apr_framework.repair.unified_diff import touched_relative_paths
 from apr_framework.repair.regression import (
     RegressionContext,
     is_trusted_suite_run,
     parse_failing_test_ids,
 )
+from apr_framework.repair.unified_diff import touched_relative_paths
 
 logger = logging.getLogger(__name__)
 
@@ -270,7 +270,7 @@ def _apply_and_run_checks(
     """Apply the candidate and run both plausibility halves (no restoration here)."""
     try:
         apply_fn()
-    except Exception as apply_error:
+    except Exception as apply_error:  # noqa: BLE001 - reported as a failed validation
         logger.error("apply_fn raised an exception: %s", apply_error)
         return ValidationOutcome(
             is_plausible=False,
@@ -294,7 +294,7 @@ def _run_plausibility_checks(
     """Run the trigger test, then (if it passes) the regression comparison."""
     try:
         trigger_test_run_result = adapter.run_tests(checkout, timeout=timeout_seconds)
-    except Exception as test_error:
+    except Exception as test_error:  # noqa: BLE001 - reported as a failed validation
         logger.error("Trigger test run raised an exception: %s", test_error)
         return ValidationOutcome(
             is_plausible=False, trigger_test_run_result=_make_error_result(checkout.bug)
@@ -332,7 +332,7 @@ def _compare_regression_suite_with_baseline(
             timeout=timeout_seconds,
             command=regression_context.command,
         )
-    except Exception as regression_error:
+    except Exception as regression_error:  # noqa: BLE001 - reported as a failed validation
         logger.error("Regression test run raised an exception: %s", regression_error)
         return ValidationOutcome(
             is_plausible=False,

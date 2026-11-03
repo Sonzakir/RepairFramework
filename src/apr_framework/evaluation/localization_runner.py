@@ -94,7 +94,7 @@ class LocalizationComparisonRunner:
                             top_k_hits=hits,
                         )
                     )
-                except Exception as exc:
+                except Exception as exc:  # noqa: BLE001 - one technique's failure becomes an error cell
                     results.append(
                         LocalizationTechniqueResult(
                             bug=bug,
@@ -289,7 +289,7 @@ def _build_discussion(
             f"are indistinguishable by this metric on the evaluated bug set."
         )
     else:
-        best_tech  = max(top1_counts, key=lambda t: top1_counts[t])
+        best_tech = max(top1_counts, key=lambda t: top1_counts[t])
         worst_tech = min(top1_counts, key=lambda t: top1_counts[t])
         paras.append(
             f"**Extension vs baseline.**  "

@@ -9,11 +9,11 @@ import json
 import re
 import shutil
 import subprocess
+from collections.abc import Generator
 from contextlib import contextmanager
 from dataclasses import dataclass
 from os import environ
 from pathlib import Path, PurePosixPath
-from typing import Generator
 
 from apr_framework.benchmarks.base import BenchmarkAdapter
 from apr_framework.benchmarks.executor_view import (

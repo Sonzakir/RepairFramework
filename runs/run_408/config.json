@@ -1,0 +1,121 @@
+{
+  "runner": "behaviour-diff",
+  "command": "python -m apr_framework behaviour-diff --project black --bug 1 --reuse-checkout --from-run runs/run_342 --from-run runs/run_402",
+  "started_at": "2026-11-02T22:38:08.680392+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#1",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_1/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+    ]
+  },
+  "reference": [
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "11b5a81cf778bcc6868f4b3f5b12d2aa15fe5685efc5c77b135097437436b868"
+    }
+  ],
+  "candidates": [
+    {
+      "label": "run_342:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-1-0)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_342:llm-1-1",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-1-1)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_342:llm-1-2",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-1-2)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_342:llm-3-0",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-3-0)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_342:llm-3-1",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-3-1)",
+      "sha256": "4afc0413a0febf6ecdcf75c9214b144fda71a80c66c1109cc44a103ba357c40a"
+    },
+    {
+      "label": "run_342:llm-3-2",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-3-2)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_402:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-1-0)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_402:llm-1-1",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-1-1)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_402:llm-1-2",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-1-2)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_402:llm-2-0",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-2-0)",
+      "sha256": "76b103ebe7172cf70387adef41905847fcaa1e050f48c27396b89cc6d9109686"
+    },
+    {
+      "label": "run_402:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-2-1)",
+      "sha256": "3557aac9b5fb9e5cec8118f3eed55c08c6462b9580dbca7ec22ecc73b277aaaf"
+    },
+    {
+      "label": "run_402:llm-2-2",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-2-2)",
+      "sha256": "3557aac9b5fb9e5cec8118f3eed55c08c6462b9580dbca7ec22ecc73b277aaaf"
+    },
+    {
+      "label": "run_402:llm-3-0",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-3-0)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    },
+    {
+      "label": "run_402:llm-3-1",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-3-1)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900"
+    }
+  ],
+  "options": {
+    "max_variants": 40,
+    "variants_per_test": 8,
+    "timeout_seconds": 900,
+    "limits": {
+      "max_calls_per_test": 200,
+      "max_calls_per_function": 40,
+      "max_repr": 200
+    }
+  },
+  "driver_sha256": "5fdd3e814b74fa5a0ae9ebc0e12c79432d14722e6b4b9694bc4f9fc234f7eede"
+}

@@ -1,0 +1,19 @@
+{
+  "runner": "tamper-check",
+  "command": "python -m apr_framework tamper-check --project fastapi --bug 4 --reuse-checkout --diff runs/run_405/patches/agent.diff --run-tests",
+  "started_at": "2026-11-02T22:59:48.480243+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "fastapi#4",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_fastapi_4/fastapi",
+    "suite": "pytest tests/test_param_in_path_and_dependency.py",
+    "trigger": [
+      "pytest tests/test_param_in_path_and_dependency.py::test_reused_param"
+    ]
+  },
+  "diff": "runs/run_405/patches/agent.diff",
+  "diff_sha256": "34ef93bd6daff013c9aa940287af22f48eeab9d9f8ebc6597dc5208b32df268a",
+  "run_tests": true
+}

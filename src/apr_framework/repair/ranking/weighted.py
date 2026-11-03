@@ -134,9 +134,9 @@ def _count_changed_lines(diff_text: str) -> int:
     """Count non-header +/- lines in a unified diff."""
     changed_line_count = 0
     for line in diff_text.splitlines():
-        if line.startswith("+++") or line.startswith("---"):
+        if line.startswith(("+++", "---")):
             continue
-        if line.startswith("+") or line.startswith("-"):
+        if line.startswith(("+", "-")):
             changed_line_count += 1
     return changed_line_count
 

@@ -1,0 +1,11 @@
+--- fix/black.py
++++ p08/black.py
+@@ -637,7 +637,7 @@
+     finally:
+         shutdown(loop)
+         if executor is not None:
+-            executor.shutdown()
++            pass
+ 
+ 
+ async def schedule_formatting(

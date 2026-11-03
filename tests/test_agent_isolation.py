@@ -263,6 +263,7 @@ def test_shim_round_trip_through_the_harness(
             capture_output=True,
             text=True,
             timeout=60,
+            check=False,
         )
 
     assert completed.returncode == 0

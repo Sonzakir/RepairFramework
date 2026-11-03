@@ -19,8 +19,6 @@ from __future__ import annotations
 import csv
 import re
 import sys
-from dataclasses import dataclass, field
-from datetime import datetime, timezone
 from pathlib import Path
 
 # Make the src/ package importable when run from the project root.
@@ -39,7 +37,6 @@ from apr_framework.evaluation.localization_runner import (
     LocalizationTechniqueResult,
 )
 
-
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
@@ -51,14 +48,15 @@ TOP_KS = (1, 5, 10)
 
 # The bugs we evaluate in this experiment
 EVAL_BUGS = [
-    BugIdentifier(benchmark="bugsinpy", project="black",     bug_id=1),
+    BugIdentifier(benchmark="bugsinpy", project="black", bug_id=1),
     BugIdentifier(benchmark="bugsinpy", project="PySnooper", bug_id=1),
-    BugIdentifier(benchmark="bugsinpy", project="black",     bug_id=7),
+    BugIdentifier(benchmark="bugsinpy", project="black", bug_id=7),
 ]
 
 # ---------------------------------------------------------------------------
 # FauxPy CSV reader
 # ---------------------------------------------------------------------------
+
 
 def _find_fauxpy_report(bug_dir: Path, family: str, granularity: str) -> Path | None:
     """Find the most recent FauxPy report directory for the given family/granularity."""
@@ -96,9 +94,7 @@ def _parse_fauxpy_sbfl_csv(
 
     # Prefix used by FauxPy inside Docker: /home/workspace/<project>_<id>/<project>/
     # We want everything after the second <project>/ component.
-    strip_prefix = re.compile(
-        rf"^.+/{re.escape(project)}_\d+/{re.escape(project)}/"
-    )
+    strip_prefix = re.compile(rf"^.+/{re.escape(project)}_\d+/{re.escape(project)}/")
 
     locations: list[RankedLocation] = []
     with csv_path.open(encoding="utf-8") as fh:
@@ -122,7 +118,7 @@ def _parse_fauxpy_sbfl_csv(
             abs_path = sep_parts[0]
             m = strip_prefix.match(abs_path)
             if m:
-                rel_path = abs_path[m.end():]
+                rel_path = abs_path[m.end() :]
             else:
                 rel_path = Path(abs_path).name
 
@@ -160,6 +156,7 @@ def _parse_fauxpy_sbfl_csv(
 # Result builders
 # ---------------------------------------------------------------------------
 
+
 def _sbfl_results(
     bug: BugIdentifier,
     report_dir: Path | None,
@@ -168,11 +165,11 @@ def _sbfl_results(
 ) -> list[LocalizationTechniqueResult]:
     """Build one result per SBFL metric for the given bug."""
     techniques = [
-        ("SBFL-Ochiai (baseline)",    "ochiai"),
+        ("SBFL-Ochiai (baseline)", "ochiai"),
         ("SBFL-Tarantula (baseline)", "tarantula"),
-        ("SBFL-DStar (baseline)",     "dstar"),
-        ("SBFL-Jaccard (extension)",  "jaccard"),
-        ("SBFL-SBI (extension)",      "sbi"),
+        ("SBFL-DStar (baseline)", "dstar"),
+        ("SBFL-Jaccard (extension)", "jaccard"),
+        ("SBFL-SBI (extension)", "sbi"),
     ]
     results = []
     for name, metric in techniques:
@@ -227,6 +224,7 @@ def _mbfl_error(
 # Main
 # ---------------------------------------------------------------------------
 
+
 def main() -> None:
     print(f"Repository root : {REPO_ROOT}")
     print(f"Workspace       : {WORKSPACE}")
@@ -240,7 +238,9 @@ def main() -> None:
         print(f"=== {bug_label} ===")
 
         # Ground truth from the BugsInPy patch
-        patch_path = BUGSINPY_PROJECTS / bug.project / "bugs" / str(bug.bug_id) / "bug_patch.txt"
+        patch_path = (
+            BUGSINPY_PROJECTS / bug.project / "bugs" / str(bug.bug_id) / "bug_patch.txt"
+        )
         ground_truth = parse_bug_patch(patch_path)
         if ground_truth:
             print(f"  Ground truth: {len(ground_truth)} deleted line(s)")
@@ -257,7 +257,7 @@ def main() -> None:
         if sbfl_report:
             print(f"  SBFL {sbfl_gran} report : {sbfl_report.name}")
         else:
-            print(f"  SBFL report: not found (Docker required)")
+            print("  SBFL report: not found (Docker required)")
 
         sbfl_results = _sbfl_results(bug, sbfl_report, ground_truth, sbfl_gran)
         for r in sbfl_results:
@@ -266,7 +266,9 @@ def main() -> None:
             top5 = "✓" if r.top_k_hits.get(5) else "✗"
             top10 = "✓" if r.top_k_hits.get(10) else "✗"
             note = f"  [{r.error}]" if r.error else ""
-            print(f"    {r.technique:<35} rank={rank_str:<5} T1={top1} T5={top5} T10={top10}{note}")
+            print(
+                f"    {r.technique:<35} rank={rank_str:<5} T1={top1} T5={top5} T10={top10}{note}"
+            )
         all_results.extend(sbfl_results)
 
         # --- MBFL / Hybrid (Docker required) --------------------------------

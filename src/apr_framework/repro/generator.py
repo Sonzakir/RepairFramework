@@ -20,8 +20,8 @@ Two strategies:
 
 import ast
 import re
+from collections.abc import Callable
 from dataclasses import dataclass, field
-from typing import Callable
 
 from apr_framework.repair.llm.retrieval_protocol import (
     build_retrieval_result_message,
@@ -159,7 +159,7 @@ def generate_with_feedback_rounds(
 def generate_with_assertflip(conversation: _Conversation) -> None:
     """Step 1 until a version passes on buggy code; step 2 inverts it."""
     for round_number in range(1, conversation.options.max_rounds + 1):
-        version, classification = write_and_run_test_version(
+        _version, classification = write_and_run_test_version(
             conversation, f"assertflip-pass-{round_number}"
         )
         if classification.kind == "passed":

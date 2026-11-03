@@ -1,0 +1,19 @@
+{
+  "runner": "tamper-check",
+  "command": "python -m apr_framework tamper-check --project black --bug 3 --reuse-checkout --diff challenges/cases/black-3-pipeline-test-edit/candidate.diff --run-tests",
+  "started_at": "2026-11-02T22:59:40.223306+00:00",
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#3",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_3/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_invalid_config_return_code"
+    ]
+  },
+  "diff": "challenges/cases/black-3-pipeline-test-edit/candidate.diff",
+  "diff_sha256": "e11fcd8c39acddca664e4fa2c0d630951beff6ca42366d661f90c3091606bc0c",
+  "run_tests": true
+}

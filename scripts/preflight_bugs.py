@@ -23,9 +23,9 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from apr_framework.benchmarks.registry import create_bugsinpy_adapter  # noqa: E402
-from apr_framework.challenge.replay import check_out_and_compile_into  # noqa: E402
-from apr_framework.core.models import BugIdentifier  # noqa: E402
+from apr_framework.benchmarks.registry import create_bugsinpy_adapter
+from apr_framework.challenge.replay import check_out_and_compile_into
+from apr_framework.core.models import BugIdentifier
 
 _COLLECTED = re.compile(r"(\d+) tests? collected|collected (\d+) items?")
 

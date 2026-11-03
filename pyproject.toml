@@ -41,6 +41,12 @@ where=["src"]
 [project.scripts]
 apr-framework = "apr_framework.__main__:app"
 
+[tool.ruff]
+# runs/ and experiment_results/ hold committed evidence: patched copies of the
+# benchmark projects' own source files. They must stay byte-exact, so they are
+# neither linted nor reformatted.
+extend-exclude = ["runs", "experiment_results"]
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"

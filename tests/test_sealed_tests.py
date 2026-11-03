@@ -78,14 +78,16 @@ def test_stripping_removes_history_and_fix_metadata_inside_the_executor(
 
 def test_sealed_container_is_always_removed(checkout: CheckoutResult) -> None:
     toolchain = _FakeToolchain()
-    with pytest.raises(RuntimeError):
-        with sealed_test_adapter(_FakeAdapter(toolchain), checkout, "run_7") as (
+    with (
+        pytest.raises(RuntimeError),
+        sealed_test_adapter(_FakeAdapter(toolchain), checkout, "run_7") as (
             sealed_adapter,
             setup,
-        ):
-            assert sealed_adapter.toolchain.container == "apr-agent-tests-run_7"
-            assert setup.network == "none"
-            raise RuntimeError("agent crashed")
+        ),
+    ):
+        assert sealed_adapter.toolchain.container == "apr-agent-tests-run_7"
+        assert setup.network == "none"
+        raise RuntimeError("agent crashed")
 
     assert toolchain.calls == [
         ("create", "apr-agent-tests-run_7", checkout.worktree.parent),

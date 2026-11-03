@@ -55,8 +55,8 @@ if TYPE_CHECKING:
         LocalizationTechniqueResult,
     )
     from apr_framework.evaluation.repair_comparison_runner import RepairCellResult
-    from apr_framework.repair.base import RepairAlgorithm
     from apr_framework.repair.assessment.base import PatchAssessor
+    from apr_framework.repair.base import RepairAlgorithm
     from apr_framework.repair.ranking.base import PatchRanker
 
 
@@ -272,6 +272,20 @@ def _run() -> int:
     # -- Strict Repro --
     if args.command == "repro":
         return handle_repro(args, project_root)
+
+    # -- Evidence about fixes --
+    if args.command == "behaviour-diff":
+        from apr_framework.cli.evidence_commands import handle_behaviour_diff
+
+        return handle_behaviour_diff(args, project_root)
+    if args.command == "tamper-check":
+        from apr_framework.cli.evidence_commands import handle_tamper_check
+
+        return handle_tamper_check(args, project_root)
+    if args.command == "grip":
+        from apr_framework.cli.evidence_commands import handle_grip
+
+        return handle_grip(args, project_root)
 
     # -- Repair --
 
@@ -897,7 +911,7 @@ def _load_cached_localization_for_bug(
                     f"Loaded cached localization from {rf} ({len(ranked)} locations)"
                 )
                 return localization_result
-        except Exception as exc:
+        except Exception as exc:  # noqa: BLE001 - a stale cache file must not stop the run
             writer.log(f"Could not load cached result from {rf}: {exc}")
 
     return None
@@ -2190,7 +2204,7 @@ def _run_evaluate_llm_repair(
 
 def _build_algorithm_for_course_approach(
     args: argparse.Namespace,
-    approach: "CourseApproach",
+    approach: CourseApproach,
     localization_result: LocalizationResult,
     adapter: BugsInPyAdapter,
 ) -> RepairAlgorithm:
@@ -2369,7 +2383,7 @@ def _run_evaluate_course_comparison(
     perfect_localizer = PerfectFaultLocalizer(adapter)
 
     def localization_provider(
-        canonical_bug: BugIdentifier, approach: "CourseApproach", fl_mode: str
+        canonical_bug: BugIdentifier, approach: CourseApproach, fl_mode: str
     ) -> LocalizationResult:
         checkout = checkouts[canonical_bug]
         if approach.uses_llm_fault_localization:
@@ -2381,13 +2395,13 @@ def _run_evaluate_course_comparison(
         return _build_auto_localizer(canonical_bug).localize(canonical_bug, checkout)
 
     def repair_algorithm_factory(
-        approach: "CourseApproach", localization_result: LocalizationResult
+        approach: CourseApproach, localization_result: LocalizationResult
     ) -> RepairAlgorithm:
         return _build_algorithm_for_course_approach(
             args, approach, localization_result, adapter
         )
 
-    def assessor_factory() -> "PatchAssessor | None":
+    def assessor_factory() -> PatchAssessor | None:
         # Assessment is always on here: it is what makes the course-wide table's
         # quality column comparable across approaches.
         return _build_assessor(

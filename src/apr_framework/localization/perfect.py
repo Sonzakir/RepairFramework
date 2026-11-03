@@ -82,11 +82,7 @@ def derive_oracle_locations(reference_diff: str | None) -> list[RankedLocation]:
             path = raw[4:].strip().split("\t", 1)[0].split(" ", 1)[0]
             current_file = path[2:] if path.startswith(("a/", "b/")) else path
             continue
-        if (
-            raw.startswith("--- ")
-            or raw.startswith("diff ")
-            or raw.startswith("index ")
-        ):
+        if raw.startswith(("--- ", "diff ", "index ")):
             continue
 
         header = _HUNK_HEADER.match(raw)

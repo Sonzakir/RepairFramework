@@ -132,7 +132,7 @@ def load_fl_system_prompt(prompt_name: str) -> str:
 
 
 class LLMFaultLocalizer(FaultLocalizer):
-    """Fault localizer that ranks suspicious lines with an LLM 
+    """Fault localizer that ranks suspicious lines with an LLM
 
     Constructed with the LLM config, a completed ``LLMClient`` transport, and the
     benchmark adapter (needed only to run the trigger test once for its traceback,
@@ -397,7 +397,7 @@ def _find_failing_test_target(worktree: Path) -> tuple[Path, str] | None:
         return None
     try:
         pytest_targets = load_pytest_targets(run_test_script_path)
-    except Exception:
+    except Exception:  # noqa: BLE001 - an unreadable script means no targets
         return None
     if not pytest_targets:
         return None
@@ -705,7 +705,7 @@ def parse_llm_fl_response(
     known_relative_paths: list[str],
     top_n: int | None,
 ) -> list[RankedLocation]:
-    """Parse the model's JSON answer into ranked locations 
+    """Parse the model's JSON answer into ranked locations
 
     Extracts a JSON array of ``{"file", "line", "reason"}`` objects, normalizes each
     file path against the paths actually shown to the model, and builds

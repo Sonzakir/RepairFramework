@@ -66,7 +66,9 @@ def build_test_failure_feedback_message(
     Returns:
         A ready-to-send user-turn string.
     """
-    turn_header = f"## Previous Attempt Failed (turn {iteration_index} of {max_iterations})"
+    turn_header = (
+        f"## Previous Attempt Failed (turn {iteration_index} of {max_iterations})"
+    )
 
     if failure_kind == "regression":
         summary_line = (

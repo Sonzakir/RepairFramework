@@ -1,8 +1,7 @@
 """Text protocol for optional code retrieval turns during LLM repair."""
 
-from dataclasses import dataclass
 import re
-
+from dataclasses import dataclass
 
 _RETRIEVE_COMMAND_PATTERN = re.compile(
     r"RETRIEVE:\s*"

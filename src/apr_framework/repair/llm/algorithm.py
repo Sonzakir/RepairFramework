@@ -19,6 +19,10 @@ from apr_framework.core.models import (
     RetrievalTrace,
 )
 from apr_framework.repair.base import RepairAlgorithm
+from apr_framework.repair.evaluator_integrity import (
+    EvaluatorGuard,
+    EvaluatorIntegrityError,
+)
 from apr_framework.repair.llm.client import LLMClient
 from apr_framework.repair.llm.config import LLMRepairConfig
 from apr_framework.repair.llm.context_enricher import (
@@ -40,10 +44,6 @@ from apr_framework.repair.llm.prompt_builder import (
     load_system_prompt,
 )
 from apr_framework.repair.llm.retrieval_loop import run_retrieval_loop
-from apr_framework.repair.evaluator_integrity import (
-    EvaluatorGuard,
-    EvaluatorIntegrityError,
-)
 from apr_framework.repair.patch_applier import (
     apply_patch_and_validate,
     build_attempt_result,
@@ -243,6 +243,7 @@ class LLMRepairAlgorithm(RepairAlgorithm):
                 capture_output=True,
                 text=True,
                 cwd=checkout.worktree,
+                check=False,
             )
             if proc.returncode != 0:
                 raise RuntimeError(
@@ -707,7 +708,7 @@ class LLMRepairAlgorithm(RepairAlgorithm):
             function_source_text, function_start_line, function_end_line = (
                 extract_function_source(source_file_path, location.line)
             )
-        except Exception as extraction_error:
+        except Exception as extraction_error:  # noqa: BLE001 - skip a location that cannot be extracted
             logger.error(
                 "Function extraction failed for %s:%d: %s",
                 source_file_path,

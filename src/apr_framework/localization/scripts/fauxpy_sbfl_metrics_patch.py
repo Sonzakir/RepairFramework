@@ -3,7 +3,9 @@ from pathlib import Path
 
 spec = find_spec("fauxpy")
 if spec is None or spec.origin is None:
-    raise SystemExit("Cannot patch FauxPy because the fauxpy package is not importable.")
+    raise SystemExit(
+        "Cannot patch FauxPy because the fauxpy package is not importable."
+    )
 
 package_root = Path(spec.origin).parent
 sbfl_root = package_root / "fault_localization" / "sbfl"
@@ -21,7 +23,9 @@ def replace_once(text, old, new, label, marker=None):
     if (marker is not None and marker in text) or new in text:
         return text
     if old not in text:
-        raise SystemExit(f"Cannot apply FauxPy SBFL metric patch: expected {label} was not found.")
+        raise SystemExit(
+            f"Cannot apply FauxPy SBFL metric patch: expected {label} was not found."
+        )
     return text.replace(old, new, 1)
 
 
@@ -29,7 +33,7 @@ def replace_once(text, old, new, label, marker=None):
 metric_path = sbfl_root / "metric_jaccard.py"
 write(
     metric_path,
-    '''class MetricJaccard:
+    """class MetricJaccard:
     def __init__(self, epsilon: float):
         self._metric_name = "Jaccard"
         self._epsilon = epsilon
@@ -40,11 +44,12 @@ write(
     def compute(self, ef, ep, nf, np):
         score = float(ef) / (ef + ep + nf + self._epsilon)
         return score
-''',
+""",
 )
 
 # --- Weighted SBI metric (WSBI — custom metric) ---
 # _WSBI_ALPHA is injected by the caller (fauxpy.py) as a prepended assignment.
+# ruff: noqa: F821
 # It is baked into the written file so the value is fixed at patch time.
 metric_path = sbfl_root / "metric_wsbi.py"
 write(
@@ -106,8 +111,7 @@ ranking_text = replace_once(
 ranking_text = replace_once(
     ranking_text,
     "            MetricJaccard(self.EPSILON),\n",
-    "            MetricJaccard(self.EPSILON),\n"
-    "            MetricWSBI(self.EPSILON),\n",
+    "            MetricJaccard(self.EPSILON),\n            MetricWSBI(self.EPSILON),\n",
     "ranking WSBI metric list",
     "            MetricWSBI(self.EPSILON),\n",
 )
@@ -121,8 +125,7 @@ db_text = read(db_path)
 db_text = replace_once(
     db_text,
     '            f"Dstar REAL NOT NULL);"\n',
-    '            f"Dstar REAL NOT NULL, "\n'
-    '            f"Jaccard REAL NOT NULL);"\n',
+    '            f"Dstar REAL NOT NULL, "\n            f"Jaccard REAL NOT NULL);"\n',
     "score table schema",
     '            f"Jaccard REAL NOT NULL',
 )
@@ -130,48 +133,46 @@ db_text = replace_once(
 db_text = replace_once(
     db_text,
     '            f"Jaccard REAL NOT NULL);"\n',
-    '            f"Jaccard REAL NOT NULL, "\n'
-    '            f"WSBI REAL NOT NULL);"\n',
+    '            f"Jaccard REAL NOT NULL, "\n            f"WSBI REAL NOT NULL);"\n',
     "WSBI score table schema",
     '            f"WSBI REAL NOT NULL',
 )
 # Indexes: add Jaccard index
 db_text = replace_once(
     db_text,
-    '        score_dstar_table_index_command = (\n'
+    "        score_dstar_table_index_command = (\n"
     '            f"CREATE INDEX index_Dstar ON {self._Score_table} (Dstar);"\n'
-    '        )\n',
-    '        score_dstar_table_index_command = (\n'
+    "        )\n",
+    "        score_dstar_table_index_command = (\n"
     '            f"CREATE INDEX index_Dstar ON {self._Score_table} (Dstar);"\n'
-    '        )\n'
-    '\n'
-    '        score_jaccard_table_index_command = (\n'
+    "        )\n"
+    "\n"
+    "        score_jaccard_table_index_command = (\n"
     '            f"CREATE INDEX index_Jaccard ON {self._Score_table} (Jaccard);"\n'
-    '        )\n',
+    "        )\n",
     "score indexes",
     "score_jaccard_table_index_command",
 )
 # Indexes: add WSBI index
 db_text = replace_once(
     db_text,
-    '        score_jaccard_table_index_command = (\n'
+    "        score_jaccard_table_index_command = (\n"
     '            f"CREATE INDEX index_Jaccard ON {self._Score_table} (Jaccard);"\n'
-    '        )\n',
-    '        score_jaccard_table_index_command = (\n'
+    "        )\n",
+    "        score_jaccard_table_index_command = (\n"
     '            f"CREATE INDEX index_Jaccard ON {self._Score_table} (Jaccard);"\n'
-    '        )\n'
-    '\n'
-    '        score_wsbi_table_index_command = (\n'
+    "        )\n"
+    "\n"
+    "        score_wsbi_table_index_command = (\n"
     '            f"CREATE INDEX index_WSBI ON {self._Score_table} (WSBI);"\n'
-    '        )\n',
+    "        )\n",
     "WSBI score index",
     "score_wsbi_table_index_command",
 )
 # Schema commands list: add Jaccard
 db_text = replace_once(
     db_text,
-    "            score_dstar_table_index_command,\n"
-    "            view_create_command,\n",
+    "            score_dstar_table_index_command,\n            view_create_command,\n",
     "            score_dstar_table_index_command,\n"
     "            score_jaccard_table_index_command,\n"
     "            view_create_command,\n",
@@ -207,8 +208,7 @@ db_text = replace_once(
 # Insert values: add Jaccard
 db_text = replace_once(
     db_text,
-    '                scores["Dstar"],\n'
-    "            ),\n",
+    '                scores["Dstar"],\n            ),\n',
     '                scores["Dstar"],\n'
     '                scores["Jaccard"],\n'
     "            ),\n",
@@ -218,8 +218,7 @@ db_text = replace_once(
 # Insert values: add WSBI
 db_text = replace_once(
     db_text,
-    '                scores["Jaccard"],\n'
-    "            ),\n",
+    '                scores["Jaccard"],\n            ),\n',
     '                scores["Jaccard"],\n'
     '                scores["WSBI"],\n'
     "            ),\n",
@@ -229,138 +228,138 @@ db_text = replace_once(
 # Top-N queries: add Jaccard
 db_text = replace_once(
     db_text,
-    '        cur.execute(\n'
+    "        cur.execute(\n"
     '            f"SELECT Entity, Dstar FROM {self._Score_table} ORDER BY Dstar DESC LIMIT ?",\n'
-    '            (top_n,),\n'
-    '        )\n'
-    '        score_dstar = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "            (top_n,),\n"
+    "        )\n"
+    "        score_dstar = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
-    '        }\n',
-    '        cur.execute(\n'
+    "        }\n",
+    "        cur.execute(\n"
     '            f"SELECT Entity, Dstar FROM {self._Score_table} ORDER BY Dstar DESC LIMIT ?",\n'
-    '            (top_n,),\n'
-    '        )\n'
-    '        score_dstar = cur.fetchall()\n'
-    '\n'
-    '        cur.execute(\n'
+    "            (top_n,),\n"
+    "        )\n"
+    "        score_dstar = cur.fetchall()\n"
+    "\n"
+    "        cur.execute(\n"
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC LIMIT ?",\n'
-    '            (top_n,),\n'
-    '        )\n'
-    '        score_jaccard = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "            (top_n,),\n"
+    "        )\n"
+    "        score_jaccard = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
     '            "Jaccard": score_jaccard,\n'
-    '        }\n',
+    "        }\n",
     "top-n Jaccard query",
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC LIMIT ?",\n',
 )
 # Top-N queries: add WSBI
 db_text = replace_once(
     db_text,
-    '        cur.execute(\n'
+    "        cur.execute(\n"
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC LIMIT ?",\n'
-    '            (top_n,),\n'
-    '        )\n'
-    '        score_jaccard = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "            (top_n,),\n"
+    "        )\n"
+    "        score_jaccard = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
     '            "Jaccard": score_jaccard,\n'
-    '        }\n',
-    '        cur.execute(\n'
+    "        }\n",
+    "        cur.execute(\n"
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC LIMIT ?",\n'
-    '            (top_n,),\n'
-    '        )\n'
-    '        score_jaccard = cur.fetchall()\n'
-    '\n'
-    '        cur.execute(\n'
+    "            (top_n,),\n"
+    "        )\n"
+    "        score_jaccard = cur.fetchall()\n"
+    "\n"
+    "        cur.execute(\n"
     '            f"SELECT Entity, WSBI FROM {self._Score_table} ORDER BY WSBI DESC LIMIT ?",\n'
-    '            (top_n,),\n'
-    '        )\n'
-    '        score_wsbi = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "            (top_n,),\n"
+    "        )\n"
+    "        score_wsbi = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
     '            "Jaccard": score_jaccard,\n'
     '            "WSBI": score_wsbi,\n'
-    '        }\n',
+    "        }\n",
     "top-n WSBI query",
     '            f"SELECT Entity, WSBI FROM {self._Score_table} ORDER BY WSBI DESC LIMIT ?",\n',
 )
 # All-ranks queries: add Jaccard
 db_text = replace_once(
     db_text,
-    '        cur.execute(\n'
+    "        cur.execute(\n"
     '            f"SELECT Entity, Dstar FROM {self._Score_table} ORDER BY Dstar DESC"\n'
-    '        )\n'
-    '        score_dstar = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "        )\n"
+    "        score_dstar = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
-    '        }\n',
-    '        cur.execute(\n'
+    "        }\n",
+    "        cur.execute(\n"
     '            f"SELECT Entity, Dstar FROM {self._Score_table} ORDER BY Dstar DESC"\n'
-    '        )\n'
-    '        score_dstar = cur.fetchall()\n'
-    '\n'
-    '        cur.execute(\n'
+    "        )\n"
+    "        score_dstar = cur.fetchall()\n"
+    "\n"
+    "        cur.execute(\n"
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC"\n'
-    '        )\n'
-    '        score_jaccard = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "        )\n"
+    "        score_jaccard = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
     '            "Jaccard": score_jaccard,\n'
-    '        }\n',
+    "        }\n",
     "all-ranks Jaccard query",
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC"\n',
 )
 # All-ranks queries: add WSBI
 db_text = replace_once(
     db_text,
-    '        cur.execute(\n'
+    "        cur.execute(\n"
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC"\n'
-    '        )\n'
-    '        score_jaccard = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "        )\n"
+    "        score_jaccard = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
     '            "Jaccard": score_jaccard,\n'
-    '        }\n',
-    '        cur.execute(\n'
+    "        }\n",
+    "        cur.execute(\n"
     '            f"SELECT Entity, Jaccard FROM {self._Score_table} ORDER BY Jaccard DESC"\n'
-    '        )\n'
-    '        score_jaccard = cur.fetchall()\n'
-    '\n'
-    '        cur.execute(\n'
+    "        )\n"
+    "        score_jaccard = cur.fetchall()\n"
+    "\n"
+    "        cur.execute(\n"
     '            f"SELECT Entity, WSBI FROM {self._Score_table} ORDER BY WSBI DESC"\n'
-    '        )\n'
-    '        score_wsbi = cur.fetchall()\n'
-    '\n'
-    '        ranked_entities = {\n'
+    "        )\n"
+    "        score_wsbi = cur.fetchall()\n"
+    "\n"
+    "        ranked_entities = {\n"
     '            "Tarantula": score_tarantula,\n'
     '            "Ochiai": score_ochiai,\n'
     '            "Dstar": score_dstar,\n'
     '            "Jaccard": score_jaccard,\n'
     '            "WSBI": score_wsbi,\n'
-    '        }\n',
+    "        }\n",
     "all-ranks WSBI query",
     '            f"SELECT Entity, WSBI FROM {self._Score_table} ORDER BY WSBI DESC"\n',
 )

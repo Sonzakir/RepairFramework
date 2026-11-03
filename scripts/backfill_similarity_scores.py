@@ -26,8 +26,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from apr_framework.core.models import BugIdentifier, PatchCandidate  # noqa: E402
-from apr_framework.repair.correctness import (  # noqa: E402
+from apr_framework.core.models import BugIdentifier, PatchCandidate
+from apr_framework.repair.correctness import (
     context_similarity_score,
     describe_similarity_score,
 )
@@ -86,7 +86,7 @@ def apply_unified_diff(original_source: str, diff_text: str) -> str | None:
             body_line = diff_lines[line_index]
             if body_line.startswith("+"):
                 patched_lines.append(body_line[1:] + "\n")
-            elif body_line.startswith("-") or body_line.startswith(" "):
+            elif body_line.startswith(("-", " ")):
                 if next_original_index >= len(original_lines):
                     return None
                 original_line = original_lines[next_original_index]

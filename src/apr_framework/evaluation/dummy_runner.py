@@ -16,7 +16,6 @@ from apr_framework.evaluation.run_writer import RunWriter
 from apr_framework.localization.base import FaultLocalizer
 from apr_framework.repair.base import RepairAlgorithm
 
-
 DEFAULT_DUMMY_BUGS = [
     BugIdentifier("bugsinpy", "black", 1),
     BugIdentifier("bugsinpy", "black", 3),
@@ -104,7 +103,7 @@ class DummyEvaluationRunner(EvaluationRunner):
             try:
                 result_entry = self._run_one_bug(writer, bug, benchmark, repair)
                 status = str(result_entry["status"])
-            except Exception as exc:
+            except Exception as exc:  # noqa: BLE001 - one bug's failure becomes an error cell
                 status = "error"
                 result_entry = {
                     "bug": self._bug_to_dict(bug),

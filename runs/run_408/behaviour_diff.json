@@ -1,0 +1,949 @@
+{
+  "target": {
+    "kind": "bugsinpy",
+    "bug": "black#1",
+    "python_version": "3.8.3",
+    "checkout": "reused",
+    "worktree": "/workspace/.workspace/bugsinpy/evidence_black_1/black",
+    "suite": "python -m unittest tests.test_black",
+    "trigger": [
+      "python -m unittest -q tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+    ]
+  },
+  "started_at": "2026-11-02T22:38:08.681317+00:00",
+  "finished_at": "2026-11-02T22:59:31.902221+00:00",
+  "focus": [
+    {
+      "id": "black.py::reformat_many",
+      "changed_by": [
+        "developer-fix",
+        "run_342:llm-1-0",
+        "run_342:llm-3-1",
+        "run_402:llm-2-0",
+        "run_402:llm-2-1"
+      ]
+    },
+    {
+      "id": "black.py::schedule_formatting",
+      "changed_by": [
+        "developer-fix"
+      ]
+    }
+  ],
+  "common_focus": [
+    "black.py::reformat_many",
+    "black.py::schedule_formatting"
+  ],
+  "module_level_changes": [],
+  "versions": [
+    {
+      "label": "buggy",
+      "kind": "buggy",
+      "source": "the checkout",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 127,
+        "failed": 2
+      },
+      "variant_outcome_counts": {
+        "error": 14,
+        "passed": 9,
+        "failed": 17
+      },
+      "duplicates": [],
+      "behaviour_class": "A"
+    },
+    {
+      "label": "developer-fix",
+      "kind": "reference",
+      "source": "BugsInPy developer fix (bug_patch.txt)",
+      "sha256": "11b5a81cf778bcc6868f4b3f5b12d2aa15fe5685efc5c77b135097437436b868",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 128,
+        "failed": 1
+      },
+      "variant_outcome_counts": {
+        "error": 14,
+        "passed": 9,
+        "failed": 17
+      },
+      "duplicates": [],
+      "behaviour_class": "B"
+    },
+    {
+      "label": "run_342:llm-1-0",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-1-0)",
+      "sha256": "826f5a429f3b812960174eb8984f1925c88e3c24fd1e0ac41942f93c2fa50900",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 128,
+        "failed": 1
+      },
+      "variant_outcome_counts": {
+        "error": 14,
+        "passed": 9,
+        "failed": 17
+      },
+      "duplicates": [
+        "run_342:llm-1-1",
+        "run_342:llm-1-2",
+        "run_342:llm-3-0",
+        "run_342:llm-3-2",
+        "run_402:llm-1-0",
+        "run_402:llm-1-1",
+        "run_402:llm-1-2",
+        "run_402:llm-3-0",
+        "run_402:llm-3-1"
+      ],
+      "behaviour_class": "B"
+    },
+    {
+      "label": "run_342:llm-3-1",
+      "kind": "candidate",
+      "source": "runs/run_342/repair_results.json (llm-3-1)",
+      "sha256": "4afc0413a0febf6ecdcf75c9214b144fda71a80c66c1109cc44a103ba357c40a",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 128,
+        "failed": 1
+      },
+      "variant_outcome_counts": {
+        "error": 14,
+        "passed": 9,
+        "failed": 17
+      },
+      "duplicates": [],
+      "behaviour_class": "C"
+    },
+    {
+      "label": "run_402:llm-2-0",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-2-0)",
+      "sha256": "76b103ebe7172cf70387adef41905847fcaa1e050f48c27396b89cc6d9109686",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 128,
+        "failed": 1
+      },
+      "variant_outcome_counts": {
+        "error": 14,
+        "passed": 9,
+        "failed": 17
+      },
+      "duplicates": [],
+      "behaviour_class": "C"
+    },
+    {
+      "label": "run_402:llm-2-1",
+      "kind": "candidate",
+      "source": "runs/run_402/repair_results.json (llm-2-1)",
+      "sha256": "3557aac9b5fb9e5cec8118f3eed55c08c6462b9580dbca7ec22ecc73b277aaaf",
+      "stripped_paths": [],
+      "status": "observed",
+      "detail": "",
+      "outcome_counts": {
+        "passed": 128,
+        "failed": 1
+      },
+      "variant_outcome_counts": {
+        "error": 14,
+        "passed": 9,
+        "failed": 17
+      },
+      "duplicates": [
+        "run_402:llm-2-2"
+      ],
+      "behaviour_class": "C"
+    }
+  ],
+  "reaching_tests": [
+    "tests.test_black.BlackTestCase.test_cache_multiple_files",
+    "tests.test_black.BlackTestCase.test_check_diff_use_together",
+    "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+    "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+    "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+    "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment"
+  ],
+  "variants": [
+    {
+      "variant_id": "v01",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1258,
+      "original": "\"black.ProcessPoolExecutor\"",
+      "replacement": "'one.py'",
+      "new_name": "test_cache_multiple_files__bdiff_v01",
+      "description": "tests/test_black.py:1258 \"black.ProcessPoolExecutor\" \u2192 'one.py'"
+    },
+    {
+      "variant_id": "v02",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1382,
+      "original": "\"data\"",
+      "replacement": "'--check'",
+      "new_name": "test_check_diff_use_together__bdiff_v02",
+      "description": "tests/test_black.py:1382 \"data\" \u2192 '--check'"
+    },
+    {
+      "variant_id": "v03",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1359,
+      "original": "\"black.ProcessPoolExecutor\"",
+      "replacement": "'clean.py'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v03",
+      "description": "tests/test_black.py:1359 \"black.ProcessPoolExecutor\" \u2192 'clean.py'"
+    },
+    {
+      "variant_id": "v04",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1497,
+      "original": "\"force_py36\"",
+      "replacement": "'file1.py'",
+      "new_name": "test_multi_file_force_py36__bdiff_v04",
+      "description": "tests/test_black.py:1497 \"force_py36\" \u2192 'file1.py'"
+    },
+    {
+      "variant_id": "v05",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_pyi",
+      "line": 1444,
+      "original": "True",
+      "replacement": "False",
+      "new_name": "test_multi_file_force_pyi__bdiff_v05",
+      "description": "tests/test_black.py:1444 True \u2192 False"
+    },
+    {
+      "variant_id": "v06",
+      "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_works_in_mono_process_only_environment",
+      "line": 1281,
+      "original": "\"one.py\"",
+      "replacement": "\"print('hello')\"",
+      "new_name": "test_works_in_mono_process_only_environment__bdiff_v06",
+      "description": "tests/test_black.py:1281 \"one.py\" \u2192 \"print('hello')\""
+    },
+    {
+      "variant_id": "v07",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1260,
+      "original": "\"one.py\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_cache_multiple_files__bdiff_v07",
+      "description": "tests/test_black.py:1260 \"one.py\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v08",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1382,
+      "original": "\"string_quotes.py\"",
+      "replacement": "'--check'",
+      "new_name": "test_check_diff_use_together__bdiff_v08",
+      "description": "tests/test_black.py:1382 \"string_quotes.py\" \u2192 '--check'"
+    },
+    {
+      "variant_id": "v09",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1361,
+      "original": "\"failing.py\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v09",
+      "description": "tests/test_black.py:1361 \"failing.py\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v10",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1500,
+      "original": "\"file1.py\"",
+      "replacement": "'file2.py'",
+      "new_name": "test_multi_file_force_py36__bdiff_v10",
+      "description": "tests/test_black.py:1500 \"file1.py\" \u2192 'file2.py'"
+    },
+    {
+      "variant_id": "v11",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_pyi",
+      "line": 1445,
+      "original": "\"force_pyi\"",
+      "replacement": "'--pyi'",
+      "new_name": "test_multi_file_force_pyi__bdiff_v11",
+      "description": "tests/test_black.py:1445 \"force_pyi\" \u2192 '--pyi'"
+    },
+    {
+      "variant_id": "v12",
+      "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_works_in_mono_process_only_environment",
+      "line": 1282,
+      "original": "\"w\"",
+      "replacement": "'one.py'",
+      "new_name": "test_works_in_mono_process_only_environment__bdiff_v12",
+      "description": "tests/test_black.py:1282 \"w\" \u2192 'one.py'"
+    },
+    {
+      "variant_id": "v13",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1261,
+      "original": "\"w\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_cache_multiple_files__bdiff_v13",
+      "description": "tests/test_black.py:1261 \"w\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v14",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1383,
+      "original": "\"--diff\"",
+      "replacement": "'--check'",
+      "new_name": "test_check_diff_use_together__bdiff_v14",
+      "description": "tests/test_black.py:1383 \"--diff\" \u2192 '--check'"
+    },
+    {
+      "variant_id": "v15",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1362,
+      "original": "\"w\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v15",
+      "description": "tests/test_black.py:1362 \"w\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v16",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1501,
+      "original": "\"file2.py\"",
+      "replacement": "'file1.py'",
+      "new_name": "test_multi_file_force_py36__bdiff_v16",
+      "description": "tests/test_black.py:1501 \"file2.py\" \u2192 'file1.py'"
+    },
+    {
+      "variant_id": "v17",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_pyi",
+      "line": 1448,
+      "original": "\"file1.py\"",
+      "replacement": "'--pyi'",
+      "new_name": "test_multi_file_force_pyi__bdiff_v17",
+      "description": "tests/test_black.py:1448 \"file1.py\" \u2192 '--pyi'"
+    },
+    {
+      "variant_id": "v18",
+      "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_works_in_mono_process_only_environment",
+      "line": 1283,
+      "original": "\"print('hello')\"",
+      "replacement": "'one.py'",
+      "new_name": "test_works_in_mono_process_only_environment__bdiff_v18",
+      "description": "tests/test_black.py:1283 \"print('hello')\" \u2192 'one.py'"
+    },
+    {
+      "variant_id": "v19",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1262,
+      "original": "\"print('hello')\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_cache_multiple_files__bdiff_v19",
+      "description": "tests/test_black.py:1262 \"print('hello')\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v20",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1383,
+      "original": "\"--check\"",
+      "replacement": "'--diff'",
+      "new_name": "test_check_diff_use_together__bdiff_v20",
+      "description": "tests/test_black.py:1383 \"--check\" \u2192 '--diff'"
+    },
+    {
+      "variant_id": "v21",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1363,
+      "original": "\"not actually python\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v21",
+      "description": "tests/test_black.py:1363 \"not actually python\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v22",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1504,
+      "original": "\"w\"",
+      "replacement": "'file1.py'",
+      "new_name": "test_multi_file_force_py36__bdiff_v22",
+      "description": "tests/test_black.py:1504 \"w\" \u2192 'file1.py'"
+    },
+    {
+      "variant_id": "v23",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_pyi",
+      "line": 1449,
+      "original": "\"file2.py\"",
+      "replacement": "'--pyi'",
+      "new_name": "test_multi_file_force_pyi__bdiff_v23",
+      "description": "tests/test_black.py:1449 \"file2.py\" \u2192 '--pyi'"
+    },
+    {
+      "variant_id": "v24",
+      "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_works_in_mono_process_only_environment",
+      "line": 1284,
+      "original": "\"two.py\"",
+      "replacement": "'one.py'",
+      "new_name": "test_works_in_mono_process_only_environment__bdiff_v24",
+      "description": "tests/test_black.py:1284 \"two.py\" \u2192 'one.py'"
+    },
+    {
+      "variant_id": "v25",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1263,
+      "original": "\"two.py\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_cache_multiple_files__bdiff_v25",
+      "description": "tests/test_black.py:1263 \"two.py\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v26",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1383,
+      "original": "1",
+      "replacement": "0",
+      "new_name": "test_check_diff_use_together__bdiff_v26",
+      "description": "tests/test_black.py:1383 1 \u2192 0"
+    },
+    {
+      "variant_id": "v27",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1364,
+      "original": "\"clean.py\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v27",
+      "description": "tests/test_black.py:1364 \"clean.py\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v28",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1508,
+      "original": "\"r\"",
+      "replacement": "'file1.py'",
+      "new_name": "test_multi_file_force_py36__bdiff_v28",
+      "description": "tests/test_black.py:1508 \"r\" \u2192 'file1.py'"
+    },
+    {
+      "variant_id": "v29",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_pyi",
+      "line": 1452,
+      "original": "\"w\"",
+      "replacement": "'--pyi'",
+      "new_name": "test_multi_file_force_pyi__bdiff_v29",
+      "description": "tests/test_black.py:1452 \"w\" \u2192 '--pyi'"
+    },
+    {
+      "variant_id": "v30",
+      "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_works_in_mono_process_only_environment",
+      "line": 1285,
+      "original": "\"w\"",
+      "replacement": "'one.py'",
+      "new_name": "test_works_in_mono_process_only_environment__bdiff_v30",
+      "description": "tests/test_black.py:1285 \"w\" \u2192 'one.py'"
+    },
+    {
+      "variant_id": "v31",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1264,
+      "original": "\"w\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_cache_multiple_files__bdiff_v31",
+      "description": "tests/test_black.py:1264 \"w\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v32",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1385,
+      "original": "\"data\"",
+      "replacement": "'--check'",
+      "new_name": "test_check_diff_use_together__bdiff_v32",
+      "description": "tests/test_black.py:1385 \"data\" \u2192 '--check'"
+    },
+    {
+      "variant_id": "v33",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1365,
+      "original": "\"w\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v33",
+      "description": "tests/test_black.py:1365 \"w\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v34",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1497,
+      "original": "\"force_py36\"",
+      "replacement": "'file2.py'",
+      "new_name": "test_multi_file_force_py36__bdiff_v34",
+      "description": "tests/test_black.py:1497 \"force_py36\" \u2192 'file2.py'"
+    },
+    {
+      "variant_id": "v35",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_pyi",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_pyi",
+      "line": 1454,
+      "original": "\"--pyi\"",
+      "replacement": "'file1.py'",
+      "new_name": "test_multi_file_force_pyi__bdiff_v35",
+      "description": "tests/test_black.py:1454 \"--pyi\" \u2192 'file1.py'"
+    },
+    {
+      "variant_id": "v36",
+      "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_works_in_mono_process_only_environment",
+      "line": 1286,
+      "original": "\"print('hello')\"",
+      "replacement": "'one.py'",
+      "new_name": "test_works_in_mono_process_only_environment__bdiff_v36",
+      "description": "tests/test_black.py:1286 \"print('hello')\" \u2192 'one.py'"
+    },
+    {
+      "variant_id": "v37",
+      "test_id": "tests.test_black.BlackTestCase.test_cache_multiple_files",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_cache_multiple_files",
+      "line": 1265,
+      "original": "\"print('hello')\"",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_cache_multiple_files__bdiff_v37",
+      "description": "tests/test_black.py:1265 \"print('hello')\" \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v38",
+      "test_id": "tests.test_black.BlackTestCase.test_check_diff_use_together",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_check_diff_use_together",
+      "line": 1385,
+      "original": "\"composition.py\"",
+      "replacement": "'--check'",
+      "new_name": "test_check_diff_use_together__bdiff_v38",
+      "description": "tests/test_black.py:1385 \"composition.py\" \u2192 '--check'"
+    },
+    {
+      "variant_id": "v39",
+      "test_id": "tests.test_black.BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_failed_formatting_does_not_get_cached",
+      "line": 1366,
+      "original": "'print(\"hello\")\\n'",
+      "replacement": "'black.ProcessPoolExecutor'",
+      "new_name": "test_failed_formatting_does_not_get_cached__bdiff_v39",
+      "description": "tests/test_black.py:1366 'print(\"hello\")\\n' \u2192 'black.ProcessPoolExecutor'"
+    },
+    {
+      "variant_id": "v40",
+      "test_id": "tests.test_black.BlackTestCase.test_multi_file_force_py36",
+      "file": "tests/test_black.py",
+      "qualname": "BlackTestCase.test_multi_file_force_py36",
+      "line": 1500,
+      "original": "\"file1.py\"",
+      "replacement": "'force_py36'",
+      "new_name": "test_multi_file_force_py36__bdiff_v40",
+      "description": "tests/test_black.py:1500 \"file1.py\" \u2192 'force_py36'"
+    }
+  ],
+  "variants_not_inserted": [],
+  "tests_compared": 169,
+  "variant_tests_compared": 40,
+  "unstable_tests": [],
+  "classes": [
+    {
+      "name": "A",
+      "members": [
+        "buggy"
+      ]
+    },
+    {
+      "name": "B",
+      "members": [
+        "developer-fix",
+        "run_342:llm-1-0"
+      ]
+    },
+    {
+      "name": "C",
+      "members": [
+        "run_342:llm-3-1",
+        "run_402:llm-2-0",
+        "run_402:llm-2-1"
+      ]
+    }
+  ],
+  "reference_comparisons": [
+    {
+      "left": "developer-fix",
+      "right": "run_342:llm-1-0",
+      "divergent_tests": 0,
+      "on_trigger_tests": 0,
+      "on_other_tests": 0,
+      "divergences": []
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_342:llm-3-1",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "call_count",
+          "left": "2 focus call(s)",
+          "right": "1 focus call(s)",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py' != \"print('hello')\"",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py\\n' != 'print(\"hello\")\\n'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_402:llm-2-0",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "call_count",
+          "left": "2 focus call(s)",
+          "right": "1 focus call(s)",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py' != \"print('hello')\"",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py\\n' != 'print(\"hello\")\\n'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    },
+    {
+      "left": "developer-fix",
+      "right": "run_402:llm-2-1",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "call_count",
+          "left": "2 focus call(s)",
+          "right": "1 focus call(s)",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py' != \"print('hello')\"",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py\\n' != 'print(\"hello\")\\n'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    }
+  ],
+  "buggy_comparisons": [
+    {
+      "left": "buggy",
+      "right": "developer-fix",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "call",
+          "left": "raised OSError()",
+          "right": "returned None",
+          "call": "reformat_many(sources=set{PosixPath('<tmp>'), PosixPath('<tmp>')}, fast=False, write_back=<WriteBack.YES: 1> {'__objclass__': <EnumMeta black.WriteBack>, '_name_': 'YES', '_value_': 1}, mode=Mode(target_versions=set(), line_length=88, string_normalization=True, is_pyi=False) {'is_pyi': False, 'line_length': 88, 'string_normalization': True, 'target_versions': set{}}, report=Report(check=False, diff=False, quiet=False, verbose=False, change_count=0, same_count=0, failure_count=0) {'change_count': 0, 'check': False, 'diff': False, 'failure_count': 0, 'quiet': False, 'same_...<228 chars, crc d84396ca>)",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "call",
+          "left": "raised OSError()",
+          "right": "returned None",
+          "call": "reformat_many(sources=set{PosixPath('<tmp>'), PosixPath('<tmp>')}, fast=False, write_back=<WriteBack.YES: 1> {'__objclass__': <EnumMeta black.WriteBack>, '_name_': 'YES', '_value_': 1}, mode=Mode(target_versions=set(), line_length=88, string_normalization=True, is_pyi=False) {'is_pyi': False, 'line_length': 88, 'string_normalization': True, 'target_versions': set{}}, report=Report(check=False, diff=False, quiet=False, verbose=False, change_count=0, same_count=0, failure_count=0) {'change_count': 0, 'check': False, 'diff': False, 'failure_count': 0, 'quiet': False, 'same_...<228 chars, crc d84396ca>)",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_342:llm-1-0",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "call",
+          "left": "raised OSError()",
+          "right": "returned None",
+          "call": "reformat_many(sources=set{PosixPath('<tmp>'), PosixPath('<tmp>')}, fast=False, write_back=<WriteBack.YES: 1> {'__objclass__': <EnumMeta black.WriteBack>, '_name_': 'YES', '_value_': 1}, mode=Mode(target_versions=set(), line_length=88, string_normalization=True, is_pyi=False) {'is_pyi': False, 'line_length': 88, 'string_normalization': True, 'target_versions': set{}}, report=Report(check=False, diff=False, quiet=False, verbose=False, change_count=0, same_count=0, failure_count=0) {'change_count': 0, 'check': False, 'diff': False, 'failure_count': 0, 'quiet': False, 'same_...<228 chars, crc d84396ca>)",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "call",
+          "left": "raised OSError()",
+          "right": "returned None",
+          "call": "reformat_many(sources=set{PosixPath('<tmp>'), PosixPath('<tmp>')}, fast=False, write_back=<WriteBack.YES: 1> {'__objclass__': <EnumMeta black.WriteBack>, '_name_': 'YES', '_value_': 1}, mode=Mode(target_versions=set(), line_length=88, string_normalization=True, is_pyi=False) {'is_pyi': False, 'line_length': 88, 'string_normalization': True, 'target_versions': set{}}, report=Report(check=False, diff=False, quiet=False, verbose=False, change_count=0, same_count=0, failure_count=0) {'change_count': 0, 'check': False, 'diff': False, 'failure_count': 0, 'quiet': False, 'same_...<228 chars, crc d84396ca>)",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_342:llm-3-1",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py' != \"print('hello')\"",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py\\n' != 'print(\"hello\")\\n'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_402:llm-2-0",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py' != \"print('hello')\"",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py\\n' != 'print(\"hello\")\\n'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    },
+    {
+      "left": "buggy",
+      "right": "run_402:llm-2-1",
+      "divergent_tests": 3,
+      "on_trigger_tests": 3,
+      "on_other_tests": 0,
+      "divergences": [
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "passed",
+          "call": "",
+          "right_call": "",
+          "variant_id": null
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v18",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py' != \"print('hello')\"",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v18"
+        },
+        {
+          "test_id": "tests.test_black.BlackTestCase.test_works_in_mono_process_only_environment__bdiff_v36",
+          "kind": "outcome",
+          "left": "failed: AssertionError: 1 != 0 :",
+          "right": "failed: AssertionError: 'one.py\\n' != 'print(\"hello\")\\n'",
+          "call": "",
+          "right_call": "",
+          "variant_id": "v36"
+        }
+      ]
+    }
+  ]
+}

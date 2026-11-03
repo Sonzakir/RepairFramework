@@ -141,6 +141,51 @@ python -m apr_framework repro new --project tqdm --bug 5                  # need
 python -m apr_framework repro check runs/run_NNN --patch my_fix.diff --harden
 ```
 
+## Behaviour Diff
+
+Fixes that all pass the tests can still do different things. **[Behaviour
+Diff](docs/behaviour-diff.md)** runs the project's own tests, plus variants with one
+literal changed, against the buggy code, the developer fix and every candidate,
+while tracing the functions the fixes change. It groups the fixes into behaviour
+classes and shows the exact call where two of them differ. No model, no API key.
+
+On scrapy#2, eight distinct LLM fixes from `runs/` pass all 23 original tests. They
+still fall into four behaviour classes, none matching the developer fix. One of them
+raises `KeyError` for `LocalCache(limit=0)`, where the developer fix treats 0 as "no
+limit".
+
+```bash
+python -m apr_framework behaviour-diff --project scrapy --bug 2 --from-run runs/run_173 --from-run runs/run_326
+```
+
+## Tamper Check
+
+**[Tamper Check](docs/tamper-check.md)** reads a change and says what it did to the
+tests that judge it. It tells strengthening edits (new tests, stricter assertions)
+from weakening ones (deleted or skipped tests, loosened assertions, rewritten
+expectations, deselected tests, a narrowed CI test command). With `--run-tests` it
+checks that new tests fail without the fix and that an edited test was not what
+made CI green. It exits 1 on a weakening change, so it can gate CI.
+
+On our own black#3 test edit it reports a rewritten expectation, and the
+original test still fails. The measurements on BugsInPy developer fixes are in
+[docs/tamper-check.md](docs/tamper-check.md#measured-on-developer-fixes).
+
+```bash
+python -m apr_framework tamper-check --repo . --git-base origin/main          # static, no Docker
+```
+
+## Fix Grip
+
+**[Fix Grip](docs/grip.md)** reverts each hunk of a fix and mutates its changed
+lines, then runs the project's tests on every variant. It reports which parts of
+the fix the tests pin down, which run but are never checked, and which no test
+reaches.
+
+```bash
+python -m apr_framework grip --project black --bug 1 --developer-fix
+```
+
 ## Quickstart
 
 You need **Docker** and **Git**. LLM features also need an OpenAI-compatible API key.
@@ -228,6 +273,12 @@ Every run writes `runs/run_NNN/` with `config.json`, `repair_results.json`,
 - **LLM assessor:** `quality_score` + rationale per plausible patch, and an assessment-ranked list
 - **Weighted ranker:** suspiciousness + simplicity + operator priority, with configurable weights
 
+**Evidence about fixes** (no model, no API key) · [Behaviour Diff](docs/behaviour-diff.md) · [Tamper Check](docs/tamper-check.md) · [Fix Grip](docs/grip.md)
+- **Behaviour Diff:** traces the functions a fix changes while the project's tests and one-literal variants of them run; behaviour classes of test-passing fixes and the concrete input where two differ
+- **Tamper Check:** classifies test edits in a diff or git range (deleted, skipped, loosened, rewritten vs. added, stricter); fail-before / pass-after runs; exit code for CI
+- **Fix Grip:** hunk reverts, clause drops and line variants of a fix against the project's tests: which parts are pinned, not pinned or never executed
+- Every evidence run restores the checkout byte for byte, checks it after each version, and works on a BugsInPy bug or a local pytest/unittest project
+
 **Evaluation at scale** · [docs](docs/evaluation.md)
 - One-command experiment matrices: localization (8 techniques), template repair, LLM repair variants, and a four-approach comparison
 - Generated Markdown reports and per-cell run artifacts; LLM matrices flush `results.json` after every cell, so long API runs survive interruptions
@@ -269,6 +320,9 @@ class.
 | [Results](docs/results.md) | every published number, with caveats |
 | [Break This Fix](docs/challenges.md) | test-passing-but-wrong cases: contract, replay, agent attempts, contributing |
 | [Strict Repro](docs/repro.md) | bug report → strict failing test: verification, wrong-fix probes, hardening, local mode |
+| [Behaviour Diff](docs/behaviour-diff.md) | where test-passing fixes behave differently: traced test runs, one-literal variants, behaviour classes |
+| [Tamper Check](docs/tamper-check.md) | what a change does to its tests, with fail-before / pass-after runs |
+| [Fix Grip](docs/grip.md) | which parts of a fix the tests pin down |
 | [CLI reference](docs/cli-reference.md) | all commands and flags |
 
 ## Known limitations and next steps

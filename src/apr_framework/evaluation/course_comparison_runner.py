@@ -26,10 +26,11 @@ from __future__ import annotations
 
 import json
 import shutil
+from collections.abc import Callable
 from dataclasses import dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any
 
 from apr_framework.benchmarks.base import BenchmarkAdapter
 from apr_framework.core.models import BugIdentifier, LocalizationResult
@@ -783,20 +784,26 @@ class CourseComparisonRunner:
             )
 
         paragraphs = [
-            "**Did LLM-FL outperform SBFL/MBFL?**  Overall, fault localization methods "
-            "based on LLMs performed better than the methods used in FauxPy. Each "
-            "repair attempt presented above can be considered an example of this "
-            "trend.",
-            "However, one important limitation should be noted. For projects in "
-            "BugsInPy that rely on older Python versions, FauxPy fault localization "
-            "methods could not be used in some cases because FauxPy had to be pinned "
-            "to a specific version or because of conflicting project dependencies. "
-            "Scrapy and Tornado are examples of projects affected by dependency "
-            "conflicts.",
-            "In addition, the results from the other experiments show that methods "
-            "using LLM-based fault localization were more successful than those using "
-            "FauxPy-based fault localization in generating plausible patches and "
-            "achieving higher similarity scores.",
+            (
+                "**Did LLM-FL outperform SBFL/MBFL?**  Overall, fault localization methods "
+                "based on LLMs performed better than the methods used in FauxPy. Each "
+                "repair attempt presented above can be considered an example of this "
+                "trend."
+            ),
+            (
+                "However, one important limitation should be noted. For projects in "
+                "BugsInPy that rely on older Python versions, FauxPy fault localization "
+                "methods could not be used in some cases because FauxPy had to be pinned "
+                "to a specific version or because of conflicting project dependencies. "
+                "Scrapy and Tornado are examples of projects affected by dependency "
+                "conflicts."
+            ),
+            (
+                "In addition, the results from the other experiments show that methods "
+                "using LLM-based fault localization were more successful than those using "
+                "FauxPy-based fault localization in generating plausible patches and "
+                "achieving higher similarity scores."
+            ),
         ]
         paragraphs.extend(
             _describe_llm_fl_exception(cell)
@@ -919,9 +926,11 @@ class CourseComparisonRunner:
         ]
 
         paragraphs = [
-            "**Was patch assessment useful?**  The assessor scored "
-            f"{sum(cell.assessed_patch_count for cell in assessed_cells)} plausible "
-            f"patch(es) across {len(assessed_cells)} cell(s)."
+            (
+                "**Was patch assessment useful?**  The assessor scored "
+                f"{sum(cell.assessed_patch_count for cell in assessed_cells)} plausible "
+                f"patch(es) across {len(assessed_cells)} cell(s)."
+            )
         ]
         if cells_with_correct:
             ranking_sentence = (

@@ -18,10 +18,10 @@ import json
 import shutil
 import time
 import uuid
+from collections.abc import Callable
 from dataclasses import asdict, dataclass, field
 from datetime import datetime, timezone
 from pathlib import Path
-from typing import Callable
 
 from apr_framework.benchmarks.bugsinpy import BugsInPyAdapter
 from apr_framework.challenge.replay import (

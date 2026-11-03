@@ -46,9 +46,9 @@ import logging
 import os
 import re
 import sys
+from collections.abc import Iterable
 from dataclasses import dataclass, field
 from pathlib import Path, PurePosixPath
-from typing import Iterable
 
 from apr_framework.benchmarks.executor_view import remove_host_file
 from apr_framework.core.exceptions import APRFrameworkError
@@ -278,7 +278,7 @@ class EvaluatorGuard:
         # every reformatted line, so pre-existing mentions cancel out.
         flagged_paths: list[str] = []
         for file_diff in parse_unified_diff(diff_text):
-            if _count_runner_mentions(file_diff.added_lines) > _count_runner_mentions(
+            if count_runner_mentions(file_diff.added_lines) > count_runner_mentions(
                 file_diff.removed_lines
             ):
                 flagged_paths.append(
@@ -606,7 +606,7 @@ def _is_shadowing_module(file_name: str) -> bool:
     return module_name in _RUNNER_MODULE_NAMES or module_name in _STDLIB_MODULE_NAMES
 
 
-def _count_runner_mentions(lines: list[str]) -> int:
+def count_runner_mentions(lines: list[str]) -> int:
     return sum(len(_TEST_ENVIRONMENT_DETECTION.findall(line)) for line in lines)
 
 
