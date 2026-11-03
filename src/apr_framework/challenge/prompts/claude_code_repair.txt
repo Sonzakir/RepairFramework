@@ -1,0 +1,54 @@
+You are fixing a bug in a Python project. Work on your own until you are done: no one will answer questions during this session.
+
+## The bug
+
+Failing test: {failing_tests}
+
+Output of `./run_failing_test` on the current code (last lines). You do not need to run it again before you change anything.
+
+```
+{failing_output}
+```
+
+The tests define the intended behaviour. The failing test shows one input on which the code goes wrong. Fix the defect behind it, so that the code is right for every input that reaches the same defect, not only for the values this test uses.
+
+## Your environment
+
+- The current directory holds the project. Explore it with Read, Grep and Glob, and change it with Edit and Write. Nothing outside this directory is reachable, including installed packages and the Python standard library.
+- The project's Python environment sits behind two scripts in this directory:
+  - `./run_failing_test` runs the failing test above.
+  - `./run_tests` runs the test file around it ({regression_scope}).
+- These two scripts are the only shell commands you can run. Run each exactly as written, on its own: no arguments, pipes, redirections, `cd` or chained commands. Every other command (`ls`, `cat`, `python`, `pip`, ...) is blocked. An attempt that runs a blocked command or tries to reach anything outside this directory is discarded.
+- Judge a test run by its output, not by the script's exit status.
+- A test run takes from a few seconds to several minutes, and your turns and time are limited. Run the tests when you have a change to check, not after every small edit.
+- The project may run on an older Python version; the test output often shows which. Use only syntax and library features that version supports and the project already relies on. No packages can be installed.
+
+## How to work
+
+1. Run `./run_tests` once before you change anything, and note which tests already fail. Those failures are not yours to fix, but your change must not add new ones.
+2. Read the failing test in full, with the helpers and fixtures it uses, and work out exactly what behaviour it expects.
+3. Trace the code path from the test to where the behaviour goes wrong. Find the root cause: the first place where the code does something it should not, which is often earlier than where the error appears.
+4. Fix the root cause with the smallest change that is correct in general. If closely related code makes the same mistake and your fix should cover it too (the other branch of the same condition, a sibling function with the same logic), fix it the same way. Leave unrelated code alone.
+5. Run `./run_failing_test`. Once it passes, run `./run_tests` and check that no test that passed before now fails. If something fails, read the output, revise, and run again.
+6. Before you finish, re-read your change. Check edge cases (empty input, `None`, the boundaries of any condition you changed), and use Grep to find the other callers of what you changed and make sure they still work.
+
+## Rules
+
+Your patch is everything you create, change or delete in this directory. It is evaluated afterwards in a fresh copy of the project, against the original tests.
+
+- Change only the project's source code. Do not create, change or delete test files, anything under a `tests/` or `test/` directory, `conftest.py`, test-runner configuration (`setup.cfg`, `tox.ini`, `pytest.ini`, pytest settings in `pyproject.toml`) or the two scripts. Do not skip, weaken or work around any test.
+- The code must behave the same whether or not a test is running. Never special-case the test's inputs, hard-code its expected results or check for the test runner.
+- Prefer editing existing files to creating new ones. If you must add a module, do not give it the name of a standard-library or test-runner module. Leave no scratch files, backups or debugging output behind.
+- Follow the style of the surrounding code. No unrelated refactoring, reformatting or renaming.
+- If you conclude that the test's expectation is wrong, still leave the test alone, and explain your reasoning in your summary.
+
+## When you are done
+
+Reply with a short summary in exactly this form:
+
+Root cause: what was wrong, naming the file and the function.
+Fix: what you changed, and why it is correct beyond this one test.
+Tests: what `./run_failing_test` and `./run_tests` reported on your final change, and which failures were already there before it.
+Doubts: anything you are unsure of, or "None".
+
+If you could not make the failing test pass, leave your best attempt in place and say so under Tests.
